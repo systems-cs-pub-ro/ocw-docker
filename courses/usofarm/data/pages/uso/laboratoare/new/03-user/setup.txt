@@ -1,0 +1,43 @@
+===== Înainte de laborator =====
+
+^ Comandă  ^ Descriere scurtă       ^
+| **''sudo''**     | execută o comandă cu drepturi de utilizator privilegiat |
+| **''su''**       | schimbă utilizatorul cu care suntem autentificați       |
+| **''id''**       | afișează id-ul și grupurile din care face parte un utilizator |
+| **''finger''**   | afișează un sumar despre un anumit utilizator |
+| **''whoami''**   | afișează utilizatorul curent (cu care suntem autentificați) |
+| **''who''**      | lista de utilizatori autentificați la un moment dat |
+| **''passwd''**   | schimbă parola unui utilizator | 
+| **''adduser''**  | adaugă un utilizator |
+| **''deluser''**  | șterge un utilizator |
+| **''usermod''**  | modifică informații despre un utilizator (exemplu: grupul din care face parte) |
+| **''addgroup''** | adaugă un grup de utilizatori |
+| **''delgroup''** | șterge un grup de utilizatori |
+
+==== Obiective ====
+
+  * Înțelegerea nevoii de cont de utilizator și de grup, ca mod de separare a resurselor
+  * Înțelegerea nevoii de cont privilegiat (root) și riscurile aferente contului
+  * Înțelegerea modului de funcționare a ownership-ului și permisiunilor în Linux
+  * Abilități de gestiune a utilizatorilor și grupurilor într-un sistem
+  * Înțelegerea legăturii între utilizatori și procese
+  * Familiarizarea cu moduri de creștere a privilegiilor și accesul la contul de root (sudo)
+
+==== Folosire Git pentru laborator ====
+
+Pe parcursul laboratoarelor, pentru descărcarea fișierelor necesare laboratorului, vom folosi Git. Git este un sistem de controlul versiunii și e folosit pentru versionarea codului în proiectele software mari. Celor interesați să aprofundeze conceptele din spatele comenzii ''git'', precum și utilizări avansate, le recomandăm cursul practic online de pe [[http://gitimmersion.com/|gitimmersion]].
+
+Informațiile despre laboratorul de USO se găsesc în [[https://github.com/systems-cs-pub-ro/uso|acest repository Git]].
+
+<note important>
+Pentru a pregăti infrastructura de laborator rulați comenzile de mai jos într-un terminal. Deschideți un terminal folosind combinația de taste ''Ctrl+Alt+t''. În listarea de mai jos ''student@uso:~$'' este promptul unde introduceți comenzile, pe acela nu-l tastați.
+
+<code>
+student@uso:~$ cd ~
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso-lab.git
+</code>
+
+</note>
+
+
+Cam atât cu pregătirea laboratorului. Acum haideți să ne apucăm de treabă! :-)

@@ -1,0 +1,11 @@
+====== Interfața în linia de comandă (cuprins) ======
+
+  * [[:uso:laboratoare:new:05-cli:setup]]
+  * [[:uso:laboratoare:new:05-cli:concepts]]
+  * [[:uso:laboratoare:new:05-cli:demo]]
+  * [[:uso:laboratoare:new:05-cli:recap]]
+  * [[:uso:laboratoare:new:05-cli:basics]]
+  * [[:uso:laboratoare:new:05-cli:need-to-know]]
+  * [[:uso:laboratoare:new:05-cli:nice-to-know]]
+  * [[:uso:laboratoare:new:05-cli:get-a-life]]
+  * [[:uso:laboratoare:new:05-cli:summary]]

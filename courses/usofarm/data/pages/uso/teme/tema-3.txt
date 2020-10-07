@@ -1,0 +1,301 @@
+====== Tema 3 ======
+
+**Ce trebuie să știu?** Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei.
+Nu contactaţi responsabilii de temă pe mail privat decât dacă aceştia vă cer explicit (e.g. pentru debugging local, vizualizarea unor comenzi din rezolvare)
+Pentru orice fel de întrebare **vă rugăm folositi forumul**!
+
+**Thread nou? Nu.** Pentru o ușoară parcurgere a mesajelor, folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele. În consecință, thread-urile (subiectele de discuții) nou create vor fi șterse.
+
+**Căutare.** Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+**Printscreen/poză? Nu.** În cazul în care doriți să publicați un printscreen pe forum, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către printscreen. Pozele inserate în răspunsuri, vor fi șterse. 
+**NU SE ACCEPTA POZE FACUTE CU TELEFONUL** (se poate recurge la depunctări, sunt imposibil de urmărit). 
+
+**Actualizări.** Urmăriți în special forumul, există un topic de anunţuri. Urmăriţi şi modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+
+**Regulament.** Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://cs.curs.pub.ro/|cs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+**Întrebări frecvente.** În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+
+**Ajutor reciproc.** Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți. Studenţii cu o atitudine pozitivă, activă şi care îşi ajută colegii pot fi răsplătiţi cu puncte karma sa un PIN USO. 
+
+<note important>
+Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://acs.curs.pub.ro/|acs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **10 Decembrie, ora 23:55**\\
+Timp de lucru: **14 zile**\\
+Punctaj: **0.8 puncte** din nota finală\\
+</note>
+
+<note>
+**Actualizări enunț:**
+  * s-a lansat versiunea iniţială
+</note>
+<note>
+**Actualizări checker: <color red>versiunea 1.0.0</color>**
+  * s-a lansat versiunea iniţială
+</note>
+
+===== Suportul necesar pentru realizarea temei =====
+
+
+  * Pe parcusul acestei teme vom folosi virtualizarea bazată pe containere. Există mai multe proiecte care automatizează lucrul cu containere Linux, iar unul dintre cele mai populare este [[https://docs.docker.com|Docker]]. Docker este un proiect open source început în 2013 și, în momentul de față este foarte folosit și în industrie ([[https://cloud.google.com/container-engine/|Google]], [[https://aws.amazon.com/ecs/|Amazon]], [[https://www.docker.com/microsoft|Microsoft]]). Vom folosi containere pentru această temă pentru //a da senzația// că avem mai multe mașini virtuale conectate la mașina virtuală de USO, cu multiple interfețe de rețea pe care le vom configura în diverse moduri cu scopul de a comunica între ele sau în Internet. În realitate, [[https://blog.docker.com/2016/03/containers-are-not-vms/|un container nu este o mașină virtuală]].
+
+
+===== Testarea temei. Finalizarea temei. Mașină virtuală. =====
+
+<note warning>
+In cadrul acestei teme vom folosi containere de **Docker**. Acesta suporta doar arhitecturi pe **64 de biti**. Pentru a rezolva aceasta tema, va fi nevoie sa folositi masina virtuala pe **64 de biti**, aceeasi pe care ati folosit-o la celelalte teme.
+
+  * Masina virtuala versiune pe 64-bit, Ubuntu 18.04 LTS, kernel 4.19-rc8: https://repository.grid.pub.ro/cs/uso/2018-2019/teme/USO-419rc8-64bit-Ubuntu1804.ova
+
+</note>
+
+<note important>In cazul task-urilor ''4'', ''7'' si ''9'', checkerul va da restart la containerele de Docker. Pentru a va asigura ca nu se sterg configuratiile efemere pe care le-ati efectuat pe containerele de Docker, recomandam cat mai des sa folositi ''sudo uso check <numar>'' unde ''<numar>'' este numarul taskului pe care il doriti verificat. Exemplu ''sudo uso check 3''. Recomandam abia la final de tot rularea a ''sudo uso check'' fara vreun argument.
+
+Pentru validarea tuturor celor 10 task-uri durata totala a checker-ului in cazul in care totul e corect e de aproximativ **2 minute** pe un host (maşină fizică) cu 8 GB RAM si CPU i5 cu 2.5GHz. Problema este comanda ''docker'' care ruleaza greoi.
+În cazul în care sunt erori există nişte timeout-uri şi mai mult de **5 minute** nu ar trebui să dureze. Dacă
+se întâmplă asta scrieţi-ne pe forum. 
+</note>
+
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a 
+temei ori a unui task. Dacă e necesar acest lucru vă rog să contactaţi în privat responsabilii de temă, la specificarea explicită a acestora pe forum!
+
+**Aveţi voie, însă, să sugerați diferite abordări pe care mergeţi sau să dați idei generale (dar nu comenzi sau fişiere shell script) celorlalți chiar direct pe forum. Încurajăm clarificarea lucrurilor între studenţi atât timp cât nu sunt rezolvate cerinţele în mod direct.** 
+
+Urmăriți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]]. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă. Temele anterioare sau cele viitoare nu vor fi afectate. Abaterile se păstrează pe parcursul semestrului. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+<note warning>
+Este interzis studenților să modifice parametrii de rulare ai mașinii virtuale. Orice tentativă malițioasă de modificare a fișierelor și executabilelor care fac mașina virtuală sa ruleze in parametrii optimi (fișierele si folderele ce nu țin de enunțul temei curente), ne conferă dreptul de a oferi 0 puncte pe temele respectivului student.
+</note>
+
+
+==== Task 00 (0p) - Pregătire ====
+
+=== Verificarea conexiunii la Internet pe mașina virtuală ===
+
+Verificați că aveți IP pe interfața ''enp0s3'':
+
+<code bash>
+student@usohomework:~$ ip a s dev enp0s3
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:35:06:1b brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 84051sec preferred_lft 84051sec
+    inet6 fe80::a00:27ff:fe35:61b/64 scope link
+       valid_lft forever preferred_lft forever
+</code>
+
+Verificați conectivitatea către un IP din Internet:
+
+<code bash>
+student@usohomework:~$ ping -c 5 1.1.1.1
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=57 time=15.3 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=57 time=15.3 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=57 time=15.4 ms
+64 bytes from 1.1.1.1: icmp_seq=4 ttl=57 time=15.5 ms
+64 bytes from 1.1.1.1: icmp_seq=5 ttl=57 time=15.2 ms
+
+--- 1.1.1.1 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 15.261/15.401/15.573/0.106 ms
+</code>
+
+Verificați conectivitatea către un site:
+
+<code bash>
+student@usohomework:~$ ping -c 5 www.google.com
+PING www.google.com (172.217.20.4) 56(84) bytes of data.
+64 bytes from ham02s13-in-f4.1e100.net (172.217.20.4): icmp_seq=1 ttl=54 time=18.2 ms
+64 bytes from ham02s13-in-f4.1e100.net (172.217.20.4): icmp_seq=2 ttl=54 time=18.3 ms
+64 bytes from ham02s13-in-f4.1e100.net (172.217.20.4): icmp_seq=3 ttl=54 time=18.3 ms
+64 bytes from ham02s13-in-f4.1e100.net (172.217.20.4): icmp_seq=4 ttl=54 time=18.3 ms
+64 bytes from ham02s13-in-f4.1e100.net (172.217.20.4): icmp_seq=5 ttl=54 time=18.2 ms
+
+--- www.google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4004ms
+rtt min/avg/max/mdev = 18.245/18.315/18.379/0.178 ms
+</code>
+
+Dacă oricare din pașii de mai sus nu funcționează aveți următoarele alternative:
+
+  - Încercăm o configurație dinamica temporara, ar trebui să rezolve. Dacă asta rezolvă, transformați-o în configurație permanentă cu tot ''dns-nameservers'' în ''/etc/network/interfaces''. Documentație pentru acest fișier aveți și în laborator și pe Internet:
+
+<code bash>
+student@usohomework:~$ sudo ip a f dev enp0s3 && sudo dhclient enp0s3 
+</code>
+
+  - Dacă doar conexiunea către google.com pică dar către 1.1.1.1 merge: Faceți configurația de DNS în fișierul ''/etc/systemd/resolved.conf'' -> din cauza unui [[https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1449001|bug de systemd]] trebuie configurate  DNS și FallbackDNS
+
+
+=== Pregătire checker ===
+
+
+Porniţi lucrul la tema 3
+
+<code bash>
+student@usohomework:~$ sudo uso start 3
+</code>
+
+<note tip>Dacă vom anunţa pe forum că apar modificări la checker trebuie rulată comanda. Mai jos e cum trebuie să arate outputul la succes
+
+<code bash>
+student@usohomework:~$ sudo uso update
+User logged in as: mbarbulescu
+Updatam tema. Te rog asteapta...
+Tema updatata.
+</code>
+</note>
+
+=== Conexiune SSH ===
+
+
+Conectaţi-vă la maşina virtuală folosind SSH. **ESTE RECOMANDAT SĂ LUCRAŢI FOLOSIND SSH LA ACEASTA TEMĂ**, veţi avea nevoie de lucru în mai multe terminale!
+
+<code bash>
+mihai@wormhole:~$ ssh -l student -p 2222 localhost
+
+Warning: Permanently added '[localhost]:2222' (ECDSA) to the list of known hosts.
+student@localhost's password: 
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.19.0-041900rc8-generic x86_64)
+(...)
+Last login: Sun Nov 25 21:01:19 2018 from 10.0.2.2
+
+student@usohomework:~$ 
+</code>
+
+Pentru cei la care host-ul pe maşina fizică este Windows puteţi folosi utilitarul [[https://www.putty.org/|Putty]]. Aveţi aici un [[https://www.ssh.com/ssh/putty/windows/|tutorial de Putty]]. Pur şi simplu alegeţi ca IP 127.0.0.1, protocol SSH, port 2222. Open and have fun. Deschideţi atâtea instanţe de Putty câte terminale aveţi nevoie (recomandăm minim 5 - 4 containere, 1 pentru maşina de USO)
+
+
+<note tip>Revedeţi şi [[https://ocw.cs.pub.ro/courses/uso/teme/tema-0#task_03_0p|Task-ul 3 de la Tema 0]]
+</note>
+==== Task 01 (11p) ====
+
+<note important>
+**Toate** celelalte taskuri următoare sunt dependende de rezolvarea corectă și completă a Taskului 1. În cazul în care opriți sau dați reboot mașinii virtuale de USO containerele vor fi și ele oprite. Va trebui să refaceți toate configurările, în acest caz. Pentru comoditate, folosiți **Save the machine state** în loc de **Power off** atunci când închideți mașina virtuală.
+
+**ÎNTREBAŢI PE FORUM DACĂ CEVA NU IESE, E CEL MAI IMPORTANT TASK!**
+</note>
+
+  * Instalați Docker. Folositi ''wget'' sau ''curl'' si descarcati scriptul de instalare de aici: [[https://get.docker.com/|https://get.docker.com/]]. Rulati scriptul pentru a instala ''Docker''.
+  * Instalati containerele folosind ''Makefile''-ul de aici: [[https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema3/Makefile|https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema3/Makefile]]. Folositi tot ''wget'' sau ''curl'' pentru a lua fisierul, urmat de un ''sudo make''.
+  * Porniti containerele folosind ''sudo docker start carol cantacuzino titulescu ferdinand''
+<note tip>
+Pentru a opri un container (exact cum ati opri un calculator), folositi ''sudo docker stop xyz'' unde xyz este containerul. \\
+Pentru a restarta un container (exact cum ati restarta un calculator), folositi ''sudo docker restart xyz'' unde xyz este containerul.
+</note>
+
+<note tip>
+Dacă vă e lene să prefixaţi de fiecare dată comanda cu sudo puteţi adăuga utilizatorul student în grupul ''docker'' şi nu veţi avea nevoie de ''sudo''. Pentru checker-ul de uso totuşi e nevoie de ''sudo''.
+</note>
+
+=== Docker survival guide pentru temă ===
+
+Pentru a intra cu un shell pe un container de docker ''xyz'', comanda este ''sudo docker exec -ti xyz bash''.
+Pentru a ne usura treaba, aveti aici un set de aliasuri pentru usurinta de a intra in ele. Aliasurile se dau copy paste in terminalul masinii virtuale, putand fi folosite imediat ulterior. La inchiderea terminalului, aliasurile se pierd si trebuie date din nou.
+
+Veti avea 4 containere: ''carol'', ''ferdinand'', ''titulescu'' si ''cantacuzino''.
+
+<code bash>
+alias go_carol="sudo docker exec -u student -ti carol bash"
+alias go_titulescu="sudo docker exec -u student -ti titulescu bash"
+alias go_cantacuzino="sudo docker exec -u student -ti cantacuzino bash"
+alias go_ferdinand="sudo docker exec -u student -ti ferdinand bash"
+
+alias go_carol_root="sudo docker exec -ti carol bash"
+alias go_titulescu_root="sudo docker exec -ti titulescu bash"
+alias go_cantacuzino_root="sudo docker exec -ti cantacuzino bash"
+alias go_ferdinand_root="sudo docker exec -ti ferdinand bash"
+</code>
+
+Vom folosi ''go_xyz'' pentru a intra in terminalul containerului ''xyz'' cu userul ''student''.
+Vom folosi ''go_xyz_root'' pentru a intra in terminalul containerului ''xyz'' cu userul ''root''.
+Revedeti [[https://ocw.cs.pub.ro/courses/uso/laboratoare/new/05-cli/nice-to-know#aliasuri|sectiunea din laboratorul 5 dedicata alias-urilor]]  pentru a vi le seta corect pe masina virtuala
+
+Pe toate containerele exista userul ''student'' cu parola ''student''. Pe containere nu exista comanda ''sudo'', de aceea folosim 2 aliasuri pentru fiecare container: unul pentru a intra ca ''student'', celalalt pentru a intra ca ''root''. Setup-ul temei este descris în poza de mai jos:
+
+{{ :uso:teme:tema3-setup2.png?500 |}}
+
+==== Task 02 (11p) ====
+
+<note important>
+Masina voastra virtuala este legata intr-o retea cu celelalte containere folosind interfata ''usobr0''. \\
+Nu schimbati adresa IP a masinii voastre virtuale de pe aceasta interfata (''192.168.1.1/24'').  
+</note>
+<note important>
+Containerele se leaga de retea folosind interfata ''**eth0**''. \\
+Aceasta este interfata ce trebuie modificata la exercitiile ce urmeaza.  
+</note>
+
+
+  * Configurati ''carol'' si ''ferdinand'' sa poata comunica (da ''ping'') unul cu celalalt. Ele au deja adrese puse pe interfetele ''eth0'', insa nu pot comunica. Checkerul va verifica daca acestea pot vorbi cu masina virtuala (192.168.1.1).
+
+
+==== Task 03 (11p) ====
+
+  * Configurați în mod static temporar, pe interfetele ''eth0'' ale containerelor urmatoarele adrese:
+  * ''192.168.1.14/24'' pe ''carol''
+  * ''192.168.1.27/24'' pe ''ferdinand''
+  * ''192.168.1.34/24'' pe ''cantacuzino''
+  * ''192.168.1.41/24'' pe ''titulescu''
+
+==== Task 04 (11p) ====
+
+<note important>In cazul task-urilor ''4'', ''7'' si ''9'', checkerul va da restart la containerele de Docker. Pentru a va asigura ca nu se sterg configuratiile efemere pe care le-ati efectuat pe containerele de Docker la punctele anterioare, recomandam cat mai des sa folositi ''sudo uso check <numar>'' unde ''<numar>'' este numarul taskului pe care il doriti verificat. Exemplu ''sudo uso check 3''. Recomandam abia la final de tot rularea a ''sudo uso check'' fara vreun argument.
+</note>
+
+  * Faceţi configuraţiile de la **Task 03** sa fie permanente (dupa un restart al containerului, configuraţiile încă să existe).
+
+
+<note important>In cadrul acestui task, se vor restarta containerele la rularea ''sudo uso check 4'' sau ''sudo uso check''. Restartarea dureaza aproximativ 15 - 20 de secunde, de aceea verificarea poate sa dureze ceva timp.
+</note>
+
+
+==== Task 05 (11p) ====
+
+  * Nu ne putem conecta cu **SSH** pe ''titulescu'' de pe celelalte containere sau de pe masina virtuala. Rezolvati problema. Faceti ca problema sa nu revina la un restart al containerului ''titulescu'' (nu se puncteaza daca doar ati rezolvat temporar problema).
+
+==== Task 06 (11p) ====
+
+  * Pe containerul ''cantacuzino'' pare să nu fie conexiune la internet (''ping google.com'' va eşua). Investigaţi care este sursa problemei şi realizaţi configuraţia necesară. Puteţi folosi orice adresă publică o găsiţi pe Internet, nu există restricţii, important e să rezolvaţi problema. 
+
+==== Task 07 (11p) ====
+  
+<note important>In cazul task-urilor ''4'', ''7'' si ''9'', checkerul va da restart la containerele de Docker. Pentru a va asigura ca nu se sterg configuratiile efemere pe care le-ati efectuat pe containerele de Docker la punctele anterioare, recomandam cat mai des sa folositi ''sudo uso check <numar>'' unde ''<numar>'' este numarul taskului pe care il doriti verificat. Exemplu ''sudo uso check 3''. Recomandam abia la final de tot rularea a ''sudo uso check'' fara vreun argument.
+</note>
+
+  * La task-ul 06 probabil că aţi realizat o configuraţie temporară. Plănuim ca după un restart al containerului ''cantacuzino'' problema să nu mai revină, e nevoie să realizaţi o configuraţie permanentă, care să fie disponibilă şi după reboot. 
+
+==== Task 08 (11p) ====
+
+  * Configuraţi **SSH** astfel incat userul ''student'' de pe containerul ''titulescu'' sa se poata conecta la userul ''student'' de pe containerul ''cantacuzino'' fara sa i se ceara parola. (''student@titulescu'' -> ''student@cantacuzino'')
+  * Configuraţi un server de **SAMBA (smb)** pe ''cantacuzino''. Creaţi un folder ''/mnt/trianon'' pe care sa il distribuiţi prin **samba** şi în el creaţi fişierele: ''franta'', ''marea_britanie'', ''sua'', ''italia'', ''japonia'', ''regatul_sarbocroat'', ''cehoslovacia'', ''ungaria''. Share-ul se va numi ''trianon''.
+  * Montati pe containerul ''titulescu'' filesystemul share-uit prin **samba** in directorul ''/mnt/smb''.
+
+<note tip>**Hint**: tipul de filesystem va fi ''cifs'', altfel veţi avea probleme la mount</note>
+
+<note tip>**Știați că?** Samba este o metodă de file sharing de pe o mașină Linux către o mașină cu Windows, un samba share se poate monta simplu în Windows cu ''\\<ip_host>\nume_share''</note>
+
+==== Task 09 (12p) ====
+<note important>In cazul task-urilor ''4'', ''7'' si ''9'', checkerul va da restart la containerele de Docker. Pentru a va asigura ca nu se sterg configuratiile efemere pe care le-ati efectuat pe containerele de Docker la punctele anterioare, recomandam cat mai des sa folositi ''sudo uso check <numar>'' unde ''<numar>'' este numarul taskului pe care il doriti verificat. Exemplu ''sudo uso check 3''. Recomandam abia la final de tot rularea a ''sudo uso check'' fara vreun argument.
+</note>
+
+   * Realizaţi configuraţia de montare a share-ului ''trianon'' de pe ''cantacuzino'' de la **Task 08** în mod permanent pe containerul ''titulescu'' (dupa restart-ul containerului să găsim în ''/mnt/smb'' gata montat [[https://www.historia.ro/sectiune/general/articol/tratatul-de-la-trianon-96-de-ani-batalia-pentru-transilvania|tratatul de la Trianon]])
+
+<note tip>Dupa reboot un asemenea tip de filesystem este dificil de montat automat. Folositi ''mount -a'' pentru a simula remontarea tuturor mount-urilor persistente (asta face si checkerul oricum).</note>
+
+
+==== Task obligatoriu pentru toate temele la final ====
+
+Când finalizați tema si asigurați-vă că ați trimis tema cu ''sudo uso submit''.                                                                                                                  
+<note warning>
+Este interzis studenților să modifice parametrii de rulare ai mașinii virtuale. Orice tentativă malițioasă de modificare a fișierelor și executabilelor care fac mașina virtuală sa ruleze in parametrii optimi (fișierele si folderele ce nu țin de enunțul temei curente), ne conferă dreptul de a oferi 0 puncte pe temele respectivului student.
+</note>

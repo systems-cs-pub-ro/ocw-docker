@@ -1,0 +1,26 @@
+====== George Milescu ======
+
+{{http://swarm.cs.pub.ro/~george/pictures/george.milescu.jpg}}
+
+
+===== Educație ====
+
+  * 2008 - 2011: Doctorat, Facultatea de Automatică și Calculatoare, UPB
+  * 2008 - 2010: Masterat, Facultatea de Automatică și Calculatoare, UPB
+  * 2003 - 2008: Licență, Facultatea de Automatică și Calculatoare, UPB
+
+
+===== Afilieri =====
+  * [[http://www.rosedu.org|ROSEdu]]
+  * [[http://www.ieee.org|IEEE]]
+  * [[http://www.acm.org|ACM]]
+
+===== Domenii de interes =====
+
+  * Distributed Systems
+  * Peer-to-Peer Systems
+  * Operating Systems
+  * Networking
+  * Network Services
+  * Server Administration
+  * Automated Infrastructures

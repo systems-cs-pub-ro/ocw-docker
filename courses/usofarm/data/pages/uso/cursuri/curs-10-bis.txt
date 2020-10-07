@@ -1,0 +1,13 @@
+====== Curs 10 Bis - Sisteme Integrate =======
+
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-10-bis/curs-10-bis-handout.pdf|Slide-uri curs]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-10-bis/curs-10-bis-handout-4on1-notes.pdf|Handout 4on1 and notes space]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-10-bis/curs-10-bis-handout-6on1.pdf|Handout 6on1]]
+  * **Cuvinte cheie**: Sisteme integrate, Calculatoare, Microcontrollere, Sistem in timp real, ''GPIO'', ''PWM'', ''ADC'', Firmware, Software, Update, Uboot, ''SoC'', ''ARM'', ''PIC'', ''AVR'', ''MIPS''
+
+<HTML>
+  <center>
+    <iframe src="https://docs.google.com/viewer?url=https://elf.cs.pub.ro/uso/res/cursuri/curs-10-bis/curs-10-bis-handout.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>

@@ -1,0 +1,33 @@
+====== Navigare ======
+  * [[:uso:anunturi]]
+  * [[:uso:need-to-know]]
+  * [[:uso:calendar]]
+  * [[:uso:regulament]]
+    * [[:uso:punctaj]]
+    * [[:uso:punctaj-ac]]
+    * [[:uso:Hit List]]
+  * [[:uso:orar]]
+  * [[:uso:catalog]]
+  * [[:uso:catalog-ac]]
+  * [[:uso:echipa]]
+<hidden>
+  * [[:uso:examen|Detalii examen final]]
+  * [[:uso:index|Index]]
+  * [[:uso:playground|Playground]]
+</hidden>
+
+====== Resurse ======
+
+{{section>:uso:resurse:start&noheader&nofooter}}
+
+====== Cursuri ======
+
+{{section>:uso:cursuri:start&noheader&nofooter}}
+
+====== Laboratoare =====
+
+{{section>:uso:laboratoare:start&noheader&nofooter}}
+
+====== Teme ======
+
+{{section>:uso:teme:start&noheader&nofooter}}

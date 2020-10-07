@@ -1,0 +1,19 @@
+======= Alex Olteanu =======
+
+
+{{https://dl.dropbox.com/u/8325154/alex_olteanu.jpg }}
+  * distributed systems + embedded systems >> mobile programming 
+  * passionate about teaching
+  * PhD Student, Teaching Assistant (USO, PA, PM, ASC, SI, APP), Research Assistant
+**E-mail**: <alexandru.olteanu@cs.pub.ro> \\
+
+
+===== Education ====
+
+  * **2010 - present**: PhD student, Faculty of Automatic Control and Computers, University POLITEHNICA of Bucharest
+    * thesis: Contributions on integrating mobile devices in heterogeneous computing systems
+  * **2004 - 2009**: Engineer Degree, Faculty of Automatic Control and Computers, University POLITEHNICA of Bucharest
+    * area of study: Computer Science and Engineering, C4
+    * diploma project: @NUS (National University of Singapore), Improving the quality of textures on 3D models using GPU
+  * **2000 - 2004**: Baccalaureate, Tudor Vianu National College, Bucharest
+    * area of study: Mathematics - Informatics

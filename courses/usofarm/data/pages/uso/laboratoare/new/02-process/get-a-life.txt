@@ -1,0 +1,53 @@
+===== Get a Life =====
+
+
+==== Trimiterea de semnale unui proces ====
+
+Pentru acest exercițiu trebuie să vă asigurați că sunteți în directorul potrivit. Rulați comanda
+<code>
+cd ~/uso-lab/02-process/support/
+</code>
+
+În directorul respectiv este scriptul ''batman.sh'':
+<code>
+student@uso:~/.../02-process/support$ ls
+batman.sh  bg-proc.sh  it-s-a-trap.sh
+</code>
+
+Rulați scriptul ''batman.sh''. Procesul interceptează toate semnalele cu indecși de la 1 la 13, mai puțin 9 (din motive evidente). De fiecare dată când primește un semnal cu indexul între 1 și 13 el afișează pe ecran un caracter. Mai jos aveți maparea dintre indecșii semnalelor și caracterul afișat:
+
+<columns 50% 50% ->
+
+^Index semnal ^ Caracter ^
+| 1           |  o       |
+| 2           |  u       |
+| 3           |  c       |
+| 4           |  d       |
+| 5           |  e       |
+| 6           |  z       |
+
+<newcolumn>
+
+^Index semnal ^ Caracter ^
+| 7           |  s       |
+| 8           |  h       |
+| 10          |  (space) |
+| 11          |  r       |
+| 12          |  k       |
+| 13          |  l       |
+
+</columns>
+
+**2.1** Într-un alt terminal aflați PID-ul procesului și trimiteți-i semnale astfel încât procesul să afișeze pe ecran șirul de caractere ''uso rullz''.
+
+==== Recuperare fișier folosind procfs ====
+
+Descărcați un fișier video de pe Internet. Puteți instala și utiliza [[https://youtube-dl.org|youtube-dl]] pentru a descărca un film de pe [[https://www.youtube.com|YouTube]].
+
+Rulați filmul cu un player de filme. În timp ce rulează, ștergeți fișierul.
+
+Până la a termina de rulat filmul, recuperați fișierul folosind procfs (din ''/proc''), din directorul aferent procesului player de filme.
+
+==== Inspectare comenzi de investigare procese ====
+
+Folosind utilitarul ''strace'' inspectați ce fișiere din procfs (din ''/proc'') sunt deschide de utilitarul ''lsof'' pentru afișarea descriptorilor deschiși de un proces existent, de utilitarul ''pmap'' pentru afișarea memorie unui proces și de utilitarul ''free'' pentru afișarea memoriei disponibile din sistem.

@@ -1,0 +1,10 @@
+ ===== Recapitulare =====  
+  
+ ==== 1. Conectare prin ssh la un VM ====  
+    * Conectați-vă prin ssh la mașina virtuală din cloud ''fep.grid.pub.ro''. Folosiți userul și parola de pe ''acs.curs.pub.ro''. 
+  
+ ==== 2. SCP ====  
+    * Copiați un fișier de pe sistemul local către contul vostru de pe ''fep.grid.pub.ro''.
+  
+ ==== 3. traceroute ====  
+    * Afișați ruta pachetelor către unul din serverele Google pornind **de pe fep**.

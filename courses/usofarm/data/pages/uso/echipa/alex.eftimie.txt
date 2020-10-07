@@ -1,0 +1,15 @@
+====== Alex Eftimie ======
+[[uso:echipa|back]]
+
+{{http://www.gravatar.com/avatar/d43fad239b039cebdb4206cdc692f314.jpg?d=monsterid: }}
+  * El primer mexicano
+  * Lord Ubuntu
+
+**Contacte**: [[http://www.linkedin.com/in/alexef|Li]][[http://facebook.com/alex.eftimie|Fb]]
+===== Afilieri =====
+  * [[http://www.rosedu.org|ROSEdu]] - membru activ, manager [[http://wouso.rosedu.org|wouso]]
+  * [[http://www.ubuntu.ro|Ubuntu - echipa din România]]
+  * [[http://www.korect.ro|KSS]]
+
+===== Tehnic =====
+Tehnologii: **Python**, **Linux**, **web**, **Gtk+**, **C**, **i18n**, **l10n**.

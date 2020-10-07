@@ -1,0 +1,4 @@
+====== Laborator 00: Introducere ======
+{{page>:uso:laboratoare:new:00-intro:setup&nofooter&noeditbutton}}
+===== Cuprins =====
+{{page>uso:laboratoare:new:00-intro:nav&noheader&nofooter&noeditbutton}}

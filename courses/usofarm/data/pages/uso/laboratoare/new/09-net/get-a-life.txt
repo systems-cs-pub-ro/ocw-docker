@@ -1,0 +1,102 @@
+===== Get a Life =====
+
+
+==== 1. Descărcare web de fișiere multiple ====
+
+**[1a]** Folosiți comanda ''wget'' pentru a descărca dintr-o dată toate capitolele de carte (PDF) de USO de la [[http://elf.cs.pub.ro/uso/res/carte/]] (fără alte fișiere).
+
+**[1b]** Folosiți comanda ''wget'' pentru a descărca dintr-o dată toate orarele (.xls) de la [[http://acs.pub.ro/~cpop/orare_sem1/]].
+
+**[1c]** Puneți cele două comenzi într-un script și faceți ca scriptul să primească ca argument un director unde să descarce capitolele din carte (PDF) și orarele (.xls).
+
+
+==== 2. Accesul web în linia de comandă cu autentificare ====
+
+<note>
+Pentru acest exercițiu este nevoie să aveți un cont pe site-ul ''www.github.com''.
+</note>
+
+**[2a]** Utilizând una din comenzile ''curl'' sau ''wget'' realizați un
+request simplu (GET), ''fără autentificare'' folosind următorul URL: ''https://api.github.com/users/<username_github>''.
+
+''username_github'' reprezintă username-ul contului vostru de GitHub.
+
+Salvați rezultatul comenzii într-un fișier (ex. ''curl_without_auth'').
+
+**[2b]** Utilizând una din comenzile ''curl'' sau ''wget'' realizați un
+request simplu (GET), ''cu autentificare'' folosind următorul URL: ''https://api.github.com/users/<username_github>''.
+
+''username_github'' reprezintă username-ul contului vostru de GitHub.
+
+Salvați rezultatul comenzii într-un fișier (ex. ''curl_with_auth'').
+
+**[2c]** Comparați conținutul celor două fișiere utilizând comanda ''diff'', urmărind diferențele.
+
+
+==== 3. Folosirea unui API pentru obținerea de informații ====
+
+**[3a]** Aflați valoarea curentă în ''RON'' a monedei virtuale Bitcoin, utilizând API-ul documentat
+la această adresă: https://www.coindesk.com/api/.
+
+<note tip>
+''RON'' reprezintă codul valid conform ISO 4217 al monedei naționale.
+</note>
+
+
+==== 4. Montarea/Demontarea unui sistem de fișiere la distanță ====
+
+**[4a]** Instalați pe sistemul fizici utilitarul ''sshfs''.
+
+**[4b]** Creați un director nou pe sistemul fizic cu denumirea ''tom_fs''.
+
+**[4c]** Montați directorul ''/home/student'' de pe mașina virtuală ''tom'' pe mașina virtuală ''USO'' folosind directorul creat la **[4b]**.
+
+**[4d]** Pe sistemul fizic adăugați un fișier nou în directorul ''tom_fs''. Observați apariția fișierului creat pe mașina virtuală ''tom''.
+
+**[4e]** Demontați sistemul de fișiere folosind comanda ''umount''.
+
+
+==== 5. Utilizarea VNC între stații ====
+
+La acest exercițiu veți lucra împreună cu un coleg. Veți juca, pe rând, unul dintre rolurile server/client. Vă veți conecta prin VNC (//Virtual Network Computing//), serviciu de conexiune grafică la distanță.
+
+Pentru aceasta aveți nevoie de un server vnc (''x11vnc'') și de un client VNC (''remmina''). Instalați-le pe sistemul fizic folosind comanda:
+<code bash>
+student@uso:~$ sudo apt -y install x11vnc remmina
+</code>
+
+**[5a]** Aflați ambele adrese ale stațiilor pe care lucrați și stabiliți rolurile inițiale.
+
+**[5b]** Folosind utilitarul GUI ''Remmina'' din Ubuntu, clientul se va conecta la server.
+
+**[5c]** Inversați rolurile și repetați partea de la **[5b]**.
+
+
+==== 6. ping sweep folosind nmap ====
+
+Utilitarul [[https://nmap.org|nmap]] este folosit pentru inspectarea informațiilor din rețea. Un rol al său este acela de ''ping scan'': listarea stațiilor prezente în rețeaua locală.
+
+Folosiți ''nmap'' și scanați stațiile din rețeaua locală a sistemului local. Să folosiți o adresă de rețea cu masca cel puțin egală cu ''/24''. O mască mai mică înseamnă prea multe stații și durează mult scanarea.
+
+
+==== 7. Captură de trafic de rețea. tcpdump ====
+
+Am folosit în secțiunea anterioară utilitarul grafic Wireshark pentru captură și inspecție de trafic de rețea. Dacă dorim să folosim linia de comandă atunci vom folosi utilitarul [[http://www.tcpdump.org|tcpdump]].
+
+Folosiți utilitarul ''tcpdump'' pentru a captura traficul ''HTTPS'' **către** stația ''ocw.cs.pub.ro'' (și doar acela). Generați din browser trafic către ''ocw.cs.pub.ro'' pentru a vedea captură în ''tcpdump''.
+
+
+==== 8. Instalarea unui server web Apache2 ====
+
+**[8a]** Asigurați-vă că aveți instalat un server web Apache2.
+
+**[8b]** Porniți serverul web.
+
+**[8c]** Verificați funcționalitatea serverului web utilizând browserul web preferat.
+
+
+==== 9. Instalarea unei aplicații web ====
+
+**[9a]** Instalați aplicația web ''DokuWiki''. (''Hint:'' https://www.dokuwiki.org/install)
+
+**[9b]** Testați funcționalitatea.

@@ -1,0 +1,7 @@
+====== Cartea de USO ======
+
+Cartea de suport pentru cursul de USO se găsește la adresa: http://elf.cs.pub.ro/uso/res/carte/
+
+Cartea în format complet (versiunea draft) este în fișierul ''uso-full-draft.pdf''.
+
+Versiunea veche (2009) a cărții este în fișierul ''carte-uso-2009.pdf''.

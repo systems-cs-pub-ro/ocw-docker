@@ -1,0 +1,12 @@
+====== Laborator 06: Automatizarea sarcinilor. Shell scripting ======
+
+{{page>:uso:laboratoare:new:06-auto:setup&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:06-auto:concepts&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:06-auto:demo&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:06-auto:basics&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:06-auto:practical&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:06-auto:summary&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:06-auto:nav&noheader&nofooter&noeditbutton}}

@@ -1,0 +1,12 @@
+====== Inspectarea sistemului (cuprins) ======
+
+  * [[:uso:laboratoare:new:07-inspect:setup]]
+  * [[:uso:laboratoare:new:07-inspect:concepts]]
+  * [[:uso:laboratoare:new:07-inspect:demo]]
+  * [[:uso:laboratoare:new:07-inspect:recap]]
+  * [[:uso:laboratoare:new:07-inspect:basics]]
+  * [[:uso:laboratoare:new:07-inspect:need-to-know]]
+  * [[:uso:laboratoare:new:07-inspect:nice-to-know]]
+  * [[:uso:laboratoare:new:07-inspect:get-a-life]]
+  * [[:uso:laboratoare:new:07-inspect:summary]]
+  * [[:uso:laboratoare:new:07-inspect:all]]

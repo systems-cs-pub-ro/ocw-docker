@@ -1,0 +1,402 @@
+<hidden>
+====== Tema 4 ======
+<note>
+**Ce trebuie să știu?** Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei.
+
+**Thread nou? Nu.** Pentru o ușoară parcurgere a mesajelor, folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele. În consecință, thread-urile (subiectele de discuții) nou create vor fi șterse.
+
+**Căutare.** Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+**Printscreen/poză? Nu.** În cazul în care doriți să publicați un printscreen pe forum, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către printscreen. Pozele inserate în răspunsuri, vor fi șterse. 
+
+**Actualizări.** Urmăriți atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+
+**Regulament.** Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://cs.curs.pub.ro/|cs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+**Întrebări frecvente.** În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+
+**Ajutor reciproc.** Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți.
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **<del>21 Decembrie</del> 23 Decembrie, ora 23:55**\\
+Timp de lucru: **7 zile**\\
+Punctaj: **0.6 puncte** din nota finală\\
+Formular pentru trimitere temă: https://goo.gl/1gbFAu\\
+</note>
+
+<note>
+**Actualizări enunț:**
+  * **Task01:** ''hello_from_the_other_side.h'' nu este, de fapt, symlink.
+  * **Task04:** Adăugat precizare legată de sortarea alfabetică a numelor de orașe/districte.
+  * **Task04:** Adăugat precizare despre districte cu același nume, dar din țări diferite.
+  * +2 zile la deadline-ul temei
+**Actualizări utilitar ''uso'': <color red>versiunea v16 - "Gold Blackbird"</color>**
+  * Nu există
+**Actualizări checker: <color red>versiunea 4</color>**
+  * **versiunea 2:** Just adding some Christmas spirit! 
+  * **versiunea 3:** Update a test file for task01 (''hello_5.c'') 
+  * **versiunea 4:**
+    * **Task01**: Fișierele ''*_result'' vor fi generate, chiar dacă scriptul iese cu eroare.
+    * **Task04**: Checkerul nu mai consideră două districte cu același nume ca fiind același, dacă fac parte din țări diferite.
+</note>
+===== Cunoștințe evaluate =====
+
+  * lucrul cu diferite metode de stocare a datelor (XML, JSON, SQL)
+  * shell scripting
+    * cunoștințe generale de shell scripting
+    * regex
+    * grep, sed
+  * suport agregat:
+    * cartea de USO
+      * [[http://books.google.ro/books?id=_JFGzyRxQGcC&pg=PA365&redir_esc=y#v=onepage&q&f=false | 12. Shell scripting]]
+    * cursurile:
+      * [[http://ocw.cs.pub.ro/courses/uso/cursuri/curs-09 | 09. Stocarea datelor]]
+      * [[http://ocw.cs.pub.ro/courses/uso/cursuri/curs-10 | 10. Prelucrarea datelor]]
+
+
+    * laboratoarele:
+      * [[http://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-09 | 09. Stocarea datelor ]]
+      * [[http://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-10 | 10. Prelucrarea datelor ]]
+    * cheatsheet laborator
+    * [[https://www.google.ro/|Google, your best friend when things stick in the mud]]
+  * se recomandă citirea cu atenție a întregului enunț înainte de rezolvarea task-urilor
+
+===== Testarea temei. Finalizarea temei. Mașină virtuală. =====
+
+{{section>uso:teme:testare&noheader&nofooter}}
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a temei ori a unui task. Puteți să sugerați diferite abordări sau să dați idei generale (dar nu comenzi) celorlalți. Urmăriți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]]. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă. Temele anterioare sau cele viitoare nu vor fi afectate. Abaterile se păstrează pe parcursul semestrului. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+
+==== Task 01 (20p) ====
+
+Scrieți un script ''get_headers_path.sh'' în directorul ''~/tema4/headers/''care găseaște calea absolută a fiecărui fișier header inclus într-un fișier sursă ''C''. Dacă fișierul header inclus este un link simbolic, trebuie găsita calea fișierului către care pointează. Căile vor fi afișate la ''stdout'', câte o cale pe linie.  Scriptul va primi calea către un fișier sursă și mai poate primi parametri (oricâți) de forma ''-Ipath'', având aceeași semnificație ca opțiunea ''-I'' pentru ''gcc'', pentru a specifica căi suplimentare unde se vor căuta headere. (Vezi ''man gcc, /-I''). După ''-I'' poate urma o cale absolută sau relativă. Căile date astfel au prioritate în fața căilor default pentru headere din sistem (se va căuta mai întâi în ele). Din punct de vedere al căilor pasate cu ''-I'', prioritate are prima cale din cadrul apelului.
+
+Căile default unde se pot afla headere pe ''usovm'' sunt, în această ordine:
+  * /usr/lib/gcc/i686-linux-gnu/5/include
+  * /usr/local/include
+  * /usr/lib/gcc/i686-linux-gnu/5/include-fixed
+  * /usr/include/i386-linux-gnu
+  * /usr/include
+
+
+De exemplu, fie un fișier numit ''test.h'' existent atât în directorul ''a/'', cât și în directorul ''b/'' și inclus de fișierul sursă ''test.c''.
+
+<code bash>
+$ ./get_headers_path.sh -Ia/ -Ib/ test.c
+/path/to/dir/a/test.h
+
+$ ./get_headers_path.sh -Ib/ test.c -I/path/to/dir/a/
+/path/to/dir/b/test.h
+</code>
+
+Presupunând că fișierul ''test.h'' s-ar afla și în ''/usr/include'', outputul rulărilor de mai sus ar fi același, prioritate având căile date explicit cu ''-I''.
+
+Dacă printre argumentele scriptului nu se află calea unui fișier C, se va afișa mesajul de ''Pass a C file'' , la stderr, și scriptul va ieși cu codul de eroare 1.
+
+
+<note imortant>
+Observații:
+   * Headerele de sistem sunt incluse folosind ''#include<header.h>''.
+   * Headerele locale sunt incluse folosind ''#include "header.h"'' sau cu ''#include<header.h>'' dacă este dat și un argument ''-I/path/to/header/dir''.
+   * Pot exista spații și taburi în sintagma de includere, de exemplu ''#include   <   header.h>'' este valid.
+   * O cale validă va fi mereu "lipită" de o opțiune ''-I'', nu vor exista spații(sau taburi).
+   * Fișierele header se caută pe primul nivel al directorului, nu recursiv în subdirectoare. Dacă se dorește includerea unui fișier dintr-un subdirector aceasta trebuie menționat explicit: ''#include<subdir/header.h>''.
+   * Pentru fiecare linie de forma ''#include <header.h>''/''#include "header.h"'' va exista exact o linie corespunzătoare în output (o cale absolută), conform regulilor de prioritate enunțate mai sus. 
+
+
+</note>
+
+<note important>
+Pentru testare, checkerul va genera o serie de fișiere de test în directorul ''~/tema4/headers''. Este vorba de următoarele fișiere:
+<code bash>
+.
+├── hello_0.c
+├── hello_1.c
+├── hello_2.c
+├── hello_3.c
+├── hello_4.c
+├── hello_5.c
+├── hello_6.c
+├── hello_7.c
+├── hello.h
+├── include/
+│   ├── hello_from_the_other_side.h
+│   └── hello.h
+└── math.h
+</code>
+
+Pe lânga acestea, checkerul va genera 3 fișiere în directorul ''/home/student/tema4''. Acestea vor fi:
+  * **headers/task01_input.c**  - ultimul fișier pe care s-a rulat scriptul vostru;
+  * **task01_result**   - rezultatul scriptului vostru;
+  * **task01_expected** - rezultatul la care se așteaptă checkerul. 
+</note>
+
+<note warning>
+Fiți atenți dacă doriți ștergerea fișierelor de test. O comandă de genul ''rm -rf ~/tema4/headers/'' va duce la ștergerea scriptului vostru și va trebui să îl refaceți! Ștergeți fiecare fișier manual pentru a evita situații de acest fel.
+</note>
+
+<note>
+Vi se garantează că fișierele C de test sunt valide, iar headerele incluse sunt fișiere care există.
+</note>
+
+Puctarea acestui task se va face astfel:
+
+   * **[5p]** Funcționarea corectă pentru fișiere simple, cu headere care pot exista doar in căile default sau include-uri de forma ''#include "header.h"'' (doar din directorul curent). Rularea scriptului se va face:
+<code bash>
+$ ./get_headers_path.sh <C_file>
+</code>
+   * **[7p]** Funcționarea corectă atunci când se pasează și argumente de forma ''-Ipath''. Headerele incluse nu vor fi in subdirectoare, adică nu vor fi în fișierul C linii de forma ''#include<dir/header.h>''.Exemple de rulări valide:
+<code bash>
+$ ./get_headers_path.sh <C_file> -I.
+$ ./get_headers_path.sh -I. <C_file>
+$ ./get_headers_path.sh <C_file> -I. -Imydir/
+$ ./get_headers_path.sh -I. <C_file> -Imydir -Iyourdir/
+</code>
+   * **[8p]** Funcționarea corectă și completă a scriptului, cu argumente de forma ''-Ipath'' și cu headere incluse de forma ''#include<dir/header.h>''
+
+==== Task 02 (15p) ====
+
+Creați un script numit ''change_date_format.sh'', în directorul ''/home/student/tema4''. La rulare scriptul primește ca argument un fișier text (calea către acesta) care conține date in format USA, de forma ''YYYY-MM-DD''. De exemplu: ''2016-12-25'' corespunde datei ''25 Decembrie 2016'', ''2001-01-02'' pentru ''2 Ianuarie 2001'' etc.
+
+  * **[7p]** Scriptul trebuie să modifice fișierul dat astfel încât formatul de afișare al datei să devină ''DD/MM/YYYY'' (''25/12/2016'', respectiv ''02/01/2001'' pentru exemplele de mai sus).
+  * **[8p]** Extindeți scriptul astfel încât să funcționeze și pentru date unde ''MM'' din dată este luna în format scurt, de 3 litere, în limba engleză (//Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec//). De exemplu: ''2016-Dec-25'' să devină ''25/12/2016''. Scriptul trebuie să continue să înlocuiască și formatul inițial indicat la subpunctul anterior.
+
+<note imortant>
+Observații:
+   * Scriptul nu trebuie să modifice fișierul primit altfel decât specificat în enunț (datele în formatul specificat).
+   * Modificarea fișierului se va face in-place. La testarea manuală a scriptului folosiți copii ale fișierelor originale.
+   * Nu e nevoie să se testeze apeluri neobișnuite ale scriptului, se va da mereu un singur argument scriptului (calea catre fisierul de test)
+   * Dacă apar spații între oricare dintre entitătile structurii ''YYYY-MM-DD'', nu se va considera o dată validă și nu trebuie înlocuită. De exemplu, ''1992 -05-05'' nu este o dată validă și trebuie lăsată neschimbată.
+   * Fișierele de test se vor găsi in ''~/tema4/dates'' și vor fi generate de checker.
+   * Testarea se va face pe fișiere derivate din acestea. Nu modificați fișierele originale!
+<code bash>
+student@usovm:~/tema4/date_files$ ls
+confs  gsoc_timeline  holidays  linuxcon  twelve_days
+</code>
+</note>
+
+<note>
+La fiecare rulare, pentru acest task checkerul va genera 3 fișiere în directorul ''/home/student/tema4''. Acestea vor fi:
+  * **task02_original**  - ultimul fișier pe care s-a rulat scriptul vostru;
+  * **task02_result**   - rezultatul scriptului vostru;
+  * **task02_expected** - rezultatul la care se așteaptă checkerul. 
+</note>
+
+==== Task 03 (35p) ====
+Scrieți un script bash, ''~/tema4/get_tweets.sh'', care să extragă doar tweet-urile dintr-un fișier text formatat într-un anumit fel. Liniile din fișier cu tweet-uri sunt de forma:
+
+''<tweet user>My awesome tweet about music</tweet>''
+<note>
+În cadrul tagurilor de tweet pot exista spații și/sau taburi. La fel și la finalul/începutul liniilor. Exemple de tweeturi valide:
+<code bash>
+   <tweet user>My awesome tweet about music<    /tweet>  
+<tweet    user> My awesome tweet about music</tweet  >  
+<      tweet user>   My awesome tweet about music<    /tweet  >
+</code>
+</note>
+
+Fișierul poate conține și linii fără tweet-uri. Exemplu de conținut de fișier:
+<code bash>
+<tweet ion   >Ana are mere</tweet>
+
+
+<tweet test_> Test </tweet>
+Random line
+<tweet    ana> la lala      </tweet>
+</code>
+
+  * **[7p]** Scrieți scriptul astfel încât să poată primi calea către un fișier și să afișeze la ''stdout'' toate tweet-urile găsite. Scriptul trebuie sa afiseze la stdout linii de forma:
+<code bash>
+<user>: "<tweet>"
+</code>
+unde  ''<user>'' este numele userului care a postat tweet-ul, iar ''<tweet>'' este conținutul tweetului respectiv. Într-o primă fază puteți considera că nu avem mai mult de un tweet per user în fișier. Liniile trebuie sortate alfabetic dupa user. De asemenea, spațiile și taburile redundante (trailing whitespaces) de la începutul și finalul mesajului nu trebuie să mai apară în outputul final.
+Pentru exemplul de mai sus, outputul va fi:
+<code bash>
+ana: "la lala"
+ion: "Ana are mere"
+test_: "Test"
+</code>
+  * **[8p]** Extindeți scriptul astfel încât dacă există mai multe tweet-uri ale aceluiași user, acestea să apară în output în ordine exact inversă față de cum apăreau în fișier (ultimul tweet din fișier să fie primul, penultimul - al doilea etc.). Păstrați în continuare ordonarea dupa user menționată la subpunctul anterior, iar pentru tweet-urile aceluiași user, aplicați criteriul explicat.
+
+  * **[5p]** Extindeți scriptul astfel încât să poată fi apelat și cu opțiunea(argumentul) ''%%—matching%%'' urmat de un argument ''<word>'' (un cuvânt fără spații). Scriptul trebuie să obțină doar tweet-urile care conțin cuvântul ''<word>'', necontand capitalizarea (litere mari/mici). Se pastrează precizările de la subpunctul anterior. Atenție, nu trebuie extrase și tweet-urile unde ''<word>'' se potrivește doar cu numele userului, acesta trebuiind să apară în textul tweet-ului.
+Exemplu de rulare:
+<code bash>
+$ ./get_tweets.sh tweets_file --matching test
+</code>
+
+  * **[7p]** Extindeți scriptul astfel încât să poată fi apelat și astfel:
+<code bash>
+$ ./get_tweets.sh tweets_file --matching <word1> <word2> … <wordn>
+</code>
+În acest caz scriptul trebuie să obtină doar tweeturile care conțin cel puțin unul dintre cuvintele ''<word1>'' sau ''<word2>'' sau … ''<wordn>'', necontând capitalizarea. Putem presupune că nu vom pasa cuvinte care conțin ''%%--%%''
+
+  * **[8p]**Extindeți scriptul astfel încât să poată fi apelat și astfel:
+<code bash>
+$ ./get_tweets.sh tweets_file --matching <word1> <word2> … <wordn> —all
+</code>
+În acest caz scriptul trebuie să obtină doar tweeturile care conțin toate cuvintele ''<word1>'' sau ''<word2>'' sau … ''<wordn>'', necontând capitalizarea. Putem presupune că nu vom pasa cuvinte care conțin ''%%—%%''. După ''%%—matching%%'' vor urma oricâte cuvinte, iar la final, ultimul argument al scriptului va fi ''%%—all%%''.
+
+<note>
+Pentru testare checkerul va genera o serie de fișiere în directorul ''~/tema4/tweets''.
+<code bash>
+student@usovm:~/tema4/tweets$ tree
+.
+├── tweets-00
+├── tweets-00-shuf
+├── tweets-01
+├── tweets-01-shuf
+├── tweets-02
+├── tweets-02-shuf
+├── tweets-10
+├── tweets-10-shuf
+├── tweets-11
+├── tweets-11-shuf
+├── tweets-20
+├── tweets-20-shuf
+├── tweets-21
+└── tweets-21-shuf
+</code>
+</note>
+
+<note>
+La fiecare rulare, pentru acest task checkerul va genera 3 fișiere în directorul ''/home/student/tema4''. Acestea vor fi:
+  * **task03_original**  - ultimul fișier pe care s-a rulat scriptul vostru;
+  * **task03_result**   - rezultatul scriptului vostru;
+  * **task03_expected** - rezultatul la care se așteaptă checkerul. 
+</note>
+==== Task 04 (30p) ====
+  * **[3p]** Instalați pachetul ''mysql-server-5.7''. Setați parola ''root'' pentru userul ''root''. Asigurați-vă că vă puteți conecta la server folosind comanda ''mysql -uroot -proot''.
+În urma primei rulări a checkerului, dacă subpunctul anterior a fost rezolvat corect, veți găsi database-ul ''world_x'', care conține 4 tabele ''city'', ''country'', ''countryinfo'' și ''countrylanguage''. Scrieți un script în directorul ''tema4'' din home-ul utilizatorului ''student'', numit ''query_world.sh'' care interoghează baza voastră de date locală. Scriptul poate fi rulat în următoarele moduri:
+<note info>
+Puteți rula query-uri MySQL direct dintr-un script bash în felul următor:
+<code bash>
+student@usovm:~$ echo "SELECT Name FROM city limit 2;" | mysql -uroot -proot world_x 2> /dev/null
+Name
+Kabul
+Qandahar
+</code>
+</note>
+<note important>
+La acest task, checkerul va genera 3 fișiere în directorul ''/home/student/tema4''. Acestea vor fi:
+  * **task04_command**  - linia de comandă cu care a fost rulat scriptul vostru;
+  * **task04_result**   - rezultatul scriptului vostru;
+  * **task04_expected** - rezultatul la care se așteaptă checkerul. 
+</note>
+  * **[9p]** <code>./query_world.sh --city-population [-le | -ge ] N</code>
+În acest caz, scriptul va produce la ''stdout'' un fișier CSV cu toate orașele care îndeplinesc condițiile din argumente. Fișierul va avea capul de tabel ''City,Population''. Dacă argumentele ''-le'' sau ''-ge'' lipsesc, atunci se vor afișa toate orașele care au populația egală cu ''N''. Dacă înainte de ''N'' este prezent unul dintre argumentele ''-le'' sau ''-ge'', atunci se vor afișa toate orașele cu o populație mai mică sau egală, respectiv mai mare sau egală cu ''N''. Orașele afișate trebuie sortate crescător după populație, iar dacă numărul de locuitori este identic, atunci alfabetic după nume. Exemple:
+<code bash>
+student@usovm:~/tema4$ ./query_world.sh --city-population 1040000
+City,Population
+Jilin,1040000
+Tangshan,1040000
+student@usovm:~/tema4$ ./query_world.sh --city-population -le 500
+City,Population
+Adamstown,42
+West Island,167
+Fakaofo,300
+Città del Vaticano,455
+student@usovm:~/tema4$ ./query_world.sh --city-population -le 11999 -ge 9500
+City,Population
+Tamuning,9500
+Basseterre,11600
+Avarua,11900
+student@usovm:~/tema4$ ./query_world.sh --city-population -ge 500 -le 699
+City,Population
+Bantam,503
+Yaren,559
+The Valley,595
+Alofi,682
+</code>
+
+<note important>Sortarea trebuie realizată din query-uri MySQL (e.g. ''ORDER BY'') pentru a evita probleme legate de encodarea caracterelor non latine pe care comanda ''sort'' din Linux le va interpreta diferit.</note>
+
+Pentru acest subpunct vi se garantează că primul argument primit de script este ''%%--city-population%%''. În cazul în care ''N'' nu este un număr întreg strict pozitiv, se va afișa mesajul de eroare ''Illegal arguments'' la ''stderr'', iar scriptul se va întoarce cu valoarea de retur ''101''. În cazul în care înainte de ''N'' scriptul primește un argument diferite de ''-ge'' sau ''-le'', se va afișa mesajul ''Illegal arguments'' la ''stderr'' și scriptul va ieși cu valoarea de retur ''101''. În cazul în care argumentul ''%%--city-population%%'' este ultimul, atunci se vor afișa toate orașele din baza de date. În cazul în care argumentele sunt corecte, dar niciun oraș nu satisface cerințele, nu se afișa nimic (**nici măcar capul de tabel**). Exemple:
+<code bash>
+student@usovm:~/tema4$ ./query_world.sh --city-population 100a
+Illegal arguments
+student@usovm:~/tema4$ ./query_world.sh --city-population 0123
+Illegal arguments
+student@usovm:~/tema4$ ./query_world.sh --city-population -gt 123
+Illegal arguments
+student@usovm:~/tema4$ ./query_world.sh --city-population -ge
+Illegal arguments
+student@usovm:~/tema4$ ./query_world.sh --city-population
+City,Population
+Adamstown,42
+West Island,167
+...
+Seoul,9981619
+Mumbai (Bombay),10500000
+</code>
+  * **[9p]** <code>./query_world.sh --city-population [-le | -ge] N [--country COUNTRY] </code>
+Extindeți funcționalitatea scriptului astfel încât dacă primește și un parametru ''%%--country%%'' urmat de numele unei țări, va afișa doar orașe din acea țară. Parametrul ''%%--country%%'' poate apărea doar ultimul, nu va fi intercalat cu celelalte de la subpunctul anterior. Vi se garantează că după argumentul ''%%--country%%'' scriptul va primi încă un argument, numele țării de căutat. Exemple:
+<code bash>
+student@usovm:~/tema4$ ./query_world.sh --city-population -ge 340000 --country Romania
+City,Population
+Constanta,342264
+Iasi,348070
+Bucuresti,2016131
+student@usovm:~/tema4$ ./query_world.sh --city-population  -ge 340000 -le 700000 --country Italy
+City,Population
+Firenze,376662
+Bologna,381161
+Genova,636104
+Palermo,683794
+student@usovm:~/tema4$ ./query_world.sh --city-population --country Tokelau 
+City,Population
+Fakaofo,300
+student@usovm:~/tema4$ ./query_world.sh --city-population 776733 --country "United States"
+City,Population
+San Francisco,776733
+student@usovm:~/tema4$ ./query_world.sh --city-population -le 90000 --country "United States"
+City,Population
+Charleston,89063
+Carson,89089
+Odessa,89293
+Elgin,89408
+Kenosha,89447
+student@usovm:~/tema4$ ./query_world.sh --city-population "United States" --country 776733
+Illegal arguments
+student@usovm:~/tema4$ ./query_world.sh --city-population 123 --country "Romania"
+</code>
+  * **[9p]** <code>./query_world.sh --district-population [-le | -ge] N [--country COUNTRY] </code>
+Extindeți scriptul astfel încât dacă primul parametru este ''%%--district-population%%'', acesta va afișa toate districtele care satisfac condițiile primite prin următoarele argumentele. Scriptul va funcționa în același mod ca la subpunctul anterior, doar că va afișa districte în loc de orașe. Populația unui district se va considera ca fiind **suma** tuturor orașelor care fac parte din acel district. <color red>Două districte cu același nume, dar din țări diferite, vor fi considerate diferite</color>. Exemple:
+<code bash>
+student@usovm:~/tema4$ ./query_world.sh --district-population -le 180000 --country "United States"
+District,Population
+Montana,92988
+New Hampshire,107006
+South Dakota,123975
+Rhode Island,173618
+student@usovm:~/tema4$ ./query_world.sh --district-population -le 200000 -ge 160000 --country "Romania"
+District,Population
+Mures,165153
+Sibiu,169611
+Arad,184408
+Arges,187170
+student@usovm:~/tema4$ ./query_world.sh --district-population -le 200000 -ge 197000
+District,Population
+Northern Cape,197254
+Manipur,198535
+Kaolack,199000
+Plaines Wilhelms,199080
+Pahang,199484
+Yamanashi,199753
+student@usovm:~/tema4$ ./query_world.sh --district-population
+District,Population
+West Island,167
+Fakaofo,300
+...
+England,19978543
+Maharashtra,23659433
+São Paulo,26316966
+</code>
+
+===== Task obligatoriu pentru toate temele (0p) =====
+
+Asigurați-vă că ați submis tema și ați încărcat codul aferent submisiei în formularul din secțiunea de [[#informatii_generale|Informații generale]]. Acest lucru este necesar ori de câte ori modificați tema și o submiteți din nou (detalii [[uso:teme:instructiuni-checker#pasi|aici]]), până la termenul limită. În caz contrar, punctajul aferent temei va fi nul (0 puncte).
+</hidden>

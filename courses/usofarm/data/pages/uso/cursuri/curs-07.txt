@@ -1,0 +1,8 @@
+====== Curs 07 - Componente Hardware. Pornirea Sistemului =======
+
+  * [[https://drive.google.com/open?id=1U0T7L3j6z4yZkB5Ok1GU1IyM6f_eD6Tt| Slide-uri curs]]
+  * [[https://drive.google.com/open?id=15U5kvgFWpQMNan3U28eruiM41VmIlnQ_| Handout 3on1 and notes space]]
+  * [[https://drive.google.com/open?id=1eKe8tBPPf16_UiZ7bb8VxxFrlVCXASXf| Handout 6on1]]
+  * **Suport de curs**
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-08-hw.pdf | Capitolul 8 - Componente Hardware]]
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-09-boot.pdf | Capitolul 9 - Pornirea Sistemului]]

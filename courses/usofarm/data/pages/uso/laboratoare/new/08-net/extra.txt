@@ -1,0 +1,104 @@
+===== Extra =====
+
+==== Tipuri de adrese IP ====
+
+Ne-am pus problema mai devreme cum putem folosi numere pe 32 de biți pentru a identifica toate stațiile din Internet. Este evident
+că **pot exista** mai mult de 2^32 stații conectate simultan la Internet, așadar, ne trebuie o modalitate de a le identifica pe toate
+în mod **unic**. Pentru a rezolva această insuficiență, protocolul IP sare în ajutor prin separarea adreselor IP în 2 categorii:
+private și publice.
+
+=== Adrese IP publice ===
+
+Adresele IP publice sunt alocate în general unui server (email, web, you name it) și permit accesarea directă a acestuia în Internet.
+Adresele IP publice sunt unice la nivel global și pot fi alocate unui sigur host care ulterior va fi identificat prin această adresă
+IP.
+
+=== Adrese IP private ===
+
+Adresele private sunt cele care salvează situația. Proprietatea de ''unicitate'' a unei adrese IP private dispare, cel puțin la
+nivel global. Adresele IP private sunt adrese alocate local/privat stațiilor dintr-o rețea (mai mică) și sunt folosite drept identificatori
+unici **doar în cadrul acelei rețele**. În general, dispozitivele pe care le folosim (laptop-uri, telefoane mobile) au alocate o
+adresă IP privată în cadrul rețelei din care face parte. Dacă spre exemplu, un telefon este conectat la o rețea acum, el va avea
+o adresă IP unică alocată în cadrul acelei rețele, iar dacă se deconectează de la această și ulterior se conectează la alta, acesta
+va avea cel mai probabil o adresă IP diferită față de cea anterioară (se poate ca **pur întâmplător** să fie aceeași). Expunerea în
+Internet nu se face prin această adresă IP privată, această problemă fiind rezolvată de router.
+
+<note tip>
+Exemplele date anterior sunt pentru protocolul IPv4, însă discuția pentru protocolul IPv6 este aceeași.
+</note>
+
+==== Aflare adresă IP publică ====
+
+Adresa IP a calculatorului nostru este una privată în acest moment. Este util să știm și ce adresa publică avem, mai exact adresa cu care ieșim în internet. Această adresa IP publică nu este știută local, și deci este nevoie de un interogare externă pentru a o afla. Cel mai simplu este să folosim utilitarul ''curl'' și pagina ''ipinfo.io/ip'' ca mai jos:
+
+<code bash>
+student@uso:~$ curl ipinfo.io/ip
+141.85.0.122
+</code>
+
+==== Alias pentru conectare la un server SSH ====
+
+Pentru a ușura conectarea prin SSH, se poate defini un alias care să înglobeze username, adresa serverului, port și diverse opțiuni.
+În cadrul aliasului se poate activa și X11 forwarding folosind opțiunea ''ForwardX11 yes''.
+
+<code bash>
+student@uso:~$ cat ~/.ssh/config
+Host coleg
+    HostName <IP-coleg>
+    User student
+    XForward yes
+</code>
+
+Putem folosi alias-ul ''server'' ca în exemplul următor:
+
+<code bash>
+student@uso:~$ ssh coleg
+</code>
+
+**[5a]** Faceți modificările necesare a.î. să vă conectați prin SSH către cele două mașini virtuale folosind aliasuri în loc de numele de domeniu sau adresa IP.
+Pentru verificare testați folosind ''ssh tom'', respecitv ''ssh jerry''.
+
+==== DNS ====
+
+Ne propunem să aflăm serverul DNS al sistemului fizic. Pentru a obține această informație inspectăm fișierul 
+''/etc/resolv.conf''.
+
+<code bash>
+student@uso:~$ cat /etc/resolv.conf
+# This file is managed by man:systemd-resolved(8). Do not edit.
+#
+# This is a dynamic resolv.conf file for connecting local clients to the
+# internal DNS stub resolver of systemd-resolved. This file lists all
+# configured search domains.
+#
+# Run "systemd-resolve --status" to see details about the uplink DNS servers
+# currently in use.
+#
+# Third party programs must not access this file directly, but only through the
+# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+# replace this symlink by a static file or a different symlink.
+#
+# See man:systemd-resolved.service(8) for details about the supported modes of
+# operation for /etc/resolv.conf.
+
+nameserver 141.85.0.82
+search BlinkAP
+</code>
+
+Intrarea ''nameserver 141.85.0.82'' ne arată ca DNS-ul sistemului nostru are adresa IP ''141.85.0.82''. 
+Putem folosi comanda ''nslookup'' să 
+vedem că adresa este într-adevăr cea din fișierul editat mai devreme.
+
+<code bash>
+student@uso:~ $ nslookup www.google.com
+Server:		141.85.0.82
+Address:	141.85.0.82#53
+
+Non-authoritative answer:
+Name:	www.google.com
+Address: 216.58.213.196
+</code>
+
+  - Faceți modificări asupra fișierului ''/etc/resolv.conf'' în așa fel încât adresa DNS-ului să fie ''8.8.8.8''. Verificați faptul că adresa serverului DNS a fost modificată. (Hint: aveți nevoie de drepturi privilegiate să modificați fișierul ''/etc/resolv.conf'')
+  - Folosind comanda ''host'', aflați adresa IP pentru ''www.facebook.com''.
+  - Rulați scriptul ''script.sh'' de la calea ''~/uso/labs/05-cli/support/need-to-know''. Încercați să reluați exercițiul 2. Ce se întâmplă? Inspectați sistemul și rezolvați problema.

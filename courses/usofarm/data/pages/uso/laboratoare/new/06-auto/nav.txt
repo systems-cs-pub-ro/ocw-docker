@@ -1,0 +1,8 @@
+====== Automatizarea sarcinilor. Shell scripting (cuprins) ======
+
+  * [[:uso:laboratoare:new:06-auto:setup]]
+  * [[:uso:laboratoare:new:06-auto:concepts]]
+  * [[:uso:laboratoare:new:06-auto:demo]]
+  * [[:uso:laboratoare:new:06-auto:basics]]
+  * [[:uso:laboratoare:new:06-auto:practical]]
+  * [[:uso:laboratoare:new:06-auto:summary]]

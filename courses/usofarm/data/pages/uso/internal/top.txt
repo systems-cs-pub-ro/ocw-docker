@@ -1,0 +1,116 @@
+======= USO pin list =======
+{{https://systems.cs.pub.ro/resources/courses/uso_pin.png }}
+Pentru anul 2013 mai sunt dispobilile **34 pin-uri**.
+  * 1 (din 3) pentru cel mai bun punctaj la examenul practic de la mijlocul semestrului
+    * 0 pentru seria CA, 1 pentru seria CB și 0 pentru seria CC
+  * 3 (din 3) pentru cel mai bun punctaj la examenul practic din sesiune
+    * 1 pentru seria CA, 1 pentru seria CB și unul pentru seria CC
+  * 3 (din 3) pentru cel mai bun punctaj la examenul grilă din sesiune
+    * 1 pentru seria CA, 1 pentru seria CB și unul pentru seria CC
+  * 5 (din 5) pentru cel mai bun punctaj total la workshop
+  * 3 (din 4) pentru prima temă funcțională trimisă (câte unul pentru fiecare temă)
+  * 5 (din 10) pentru activitatea de pe parcursul semestrului (vot dat de către echipa de asistenți)
+  * 2 (din 3) pentru interacțiunea din cadrul cursului
+    * 0 pentru seria CA, 1 pentru seria CB și unul pentru seria CC
+  * 3 (din 3) pentru cele mai mari punctaje totale
+    * 1 pentru seria CA, 1 pentru seria CB și unul pentru seria CC
+
+===== Pin List =====
+
+^ ID ^ Nume ^ Motiv ^ Data ^
+| 351 | | Greatest score [1CB] | 02.02.2014 |
+| 350 | | Final quiz [1CB] | 02.02.2014 |
+| 349 | | Hans-on Exams Final [1CB] | 02.02.2014 |
+| 348 | | Course activity [1CB] | 02.02.2014 |
+| 347 | | Overall activity | 02.02.2014 |
+| 346 | | Overall activity | 02.02.2014 |
+| 345 | | Overall activity | 02.02.2014 |
+| 344 | | Greatest score [1CC] | 29.01.2014 |
+| 343 | | Final quiz [1CC] | 29.01.2014 |
+| 342 | | Hans-on Exams Final [1CC] | 29.01.2014 |
+| 341 | | Course activity [1CC] | 29.01.2014 |
+| 340 | | Overall activity | 29.01.2014 |
+| 339 | | Workshops | 29.01.2014 |
+| 338 | | Workshops | 29.01.2014 |
+| 337 | | Fourth Assignment | 29.01.2014 |
+| 336 | | Third Assignment | 29.01.2014 |
+| 335 | VASILE G. Cristi-Alexandru | Greatest score [1CA] | 21.01.2014 |
+| 334 | ŞORODOC C. Alexandru | Final quiz [1CA] | 21.01.2014 |
+| 333 | Cristache Gabriel | Hans-on Exams Final [1CA] | 21.01.2014 |
+| 332 | Arsenescu Mihai Catalin | Overall activity | 21.01.2014 |
+| 331 | Troznay Denisa | Workshops | 21.01.2014 |
+| 330 | Plosceanu Dennis - Adrian | Workshops | 21.01.2014 |
+| 329 | Oprea Flavia | Workshops | 21.01.2014 |
+| 328 | Iaru Alexandru-Bogdan | Second Assignment | 21.01.2014 |
+| 327 | FILIP Doru | Course activity [1CA] | 13.01.2014 |
+| 326 | MANCIU Ştefan | First Assignment | 25.11.2013 |
+| 325 | PETCU Marius | Hands-on Exams Midterm [1CC] | 25.11.2013 |
+| 324 | | Hands-on Exams Midterm [1CB] | 25.11.2013 |
+| 323 | GHEORGHE Alin| Hands-on Exams Midterm [1CA] | 25.11.2013 |
+| 322 | MUSCALU Vlad | Overall activity | 25.11.2013 |
+| 321 | BRĂNESCU Mihai | Overall activity | 25.11.2013 |
+| 320 | GROSU Codruț | Overall activity | 25.11.2013 |
+| 319 | SAVUSCAN Theodor | Overall activity | 25.11.2013 |
+| 318 | BUŞILĂ Ştefan | Overall activity | 25.11.2013 |
+| 317 | Tibi Barbu | Assignments | 01.10.2013 |
+| 316 | Mihai Bărbulescu | Lab Author | 01.10.2013 |
+| 315 | Petre Eftime | Assignments | 01.10.2013 |
+| 314 | Adrian Stratulat | Lab Reviewer | 01.10.2013 |
+| 313 | Alex Tomescu | Assignments | 01.10.2013 |
+| 312 | Silvia Stegaru | Lab Review | 01.10.2013 |
+| 311 |	Ioana CULIC | Greatest score [FILS] | 08.02.2013 |
+| 310 |	Cosmin BOACĂ | Greatest score [1CC] | 08.02.2013 |
+| 309 |	Alexandru ORHEAN | Final quiz [1CC] | 08.02.2013 |
+| 308 |	Robert BÎNDAR |	Hands-on Examn [1CC] | 08.02.2013 |
+| 307 |	Eugen STOICA | Hands-on Examn [1CA] | 08.02.2013 |
+| 306 |	Cosmin PETRIȘOR | Final Quiz [1CA] | 08.02.2013 |
+| 305 |	Alexandru ȚIFREA | Greatest score [1CA] | 08.02.2013 |
+| 304 |	Ștefan MIREA | Workshop | 08.02.2013 |
+| 303 |	Robert ALEXE | Workshop | 08.02.2013 |
+| 302 |	Vlad DUMITRESCU | Overall activity | 08.02.2013 |
+| 301 |	Roxana CIOBANU | Overall activity | 08.02.2013 |
+| 300 |	Cristian SOARE | Overall activity | 08.02.2013 |
+| 299 |	Cristian BUZĂ | Overall activity | 08.02.2013 |
+| 298 |	Diana DESPA | Overall activity | 08.02.2013 |
+| 297 |	Răzvan MATEI | Overall activity | 08.02.2013 |
+| 296 |	Constantin SOARE | Overall activity | 08.02.2013 |
+| 295 |	Mădălina HRISTACHE | Overall activity |	08.02.2013 |
+| 294 |	Bogdan MARIN | Overall activity | 08.02.2013 |
+| 293 |	Marius UNGUREANU | Overall activity | 08.02.2013 |
+| 292 | Andrei-Ciprian APRODU | Overall activity | 08.02.2013 |
+| 291 |	Andrei ȚUICU | Overall activity | 08.02.2013 |
+| 290 |	Cristian-Alexandru MOCANU | Fifth Assignment | 14.01.2013 |
+| 289 | Dragos Andrei Calinescu | Fourth Assignment | 14.01.2013 |
+| 288 |	Andrei-Dragoş MANEA | Third Assignment | 14.01.2013 |
+| 287 |	Adrian-Mihai IOSIF | Course activity [1CC] | 14.01.2013 |
+| 286 |	/* Alexander STOCKEL * | Hands-on Exams [FILS] | 17.12.2012 |
+| 285 | Georgiana-Diana CIOCÎRDEL | Hands-on Exams [1CC] | 17.12.2012 |
+| 284 |	Nicolae CUDLENCO | Hands-on Exams [1CB] | 17.12.2012 |
+| 283 |	Andrei-Dorian DUMA | Hands-on Exams [1CA] | 17.12.2012 |
+| 282 | Bogdan CALAPOD | Course activity [1CA] | 17.12.2012 |
+| 281 |	Nicolae BĂDESCU | Second Assignment | 17.12.2012 |
+| 280 |	Andrei Costin LICĂ | First Assignment |	17.12.2012 |
+| 279 |	Andrei Vasiliu | Teaching Assistant | 17.12.2012 |
+| 278 | Tudor Vișan | Teaching Assistant | 17.12.2012 |
+| 277 |	Alex Juncu | Lab Infrastructure | 07.10.2012 |
+| 276 |	Voichița Iancu | Teaching Assistant | 07.10.2012 |
+| 275 |	Mihnea Dobrescu-Balaur | Engine WoUSO | 07.10.2012 |
+| 274 |	Alexandru Radovici | Teaching Assistant | 07.10.2012 |
+| 273 |	Sorina Sandu | Lab Author | 07.10.2012 |
+| 272 |	Paul Vlase | Lab Author | 07.10.2012 |
+| 271 |	Valentin Ilie |	Assignments | 07.10.2012 |
+| 270 |	Răzvan Pricope | Assignments | 07.10.2012 |
+| 269 |	Adrian Șendroiu | Assignments |	07.10.2012 |
+| 268 |	Fănel Ghiță | Lab Infrastructure | 07.10.2012 |
+| 267 |	Eliana Târșa | Teaching Assistant | 07.10.2012 |
+| 266 |	Răzvan Dobre | Linux Assignment | 07.10.2012 |
+| 265 |	Alexandru Olteanu | Course Quiz | 07.10.2012 |
+| 264 |	Alexandru Eftimie | Engine WoUSO | 07.10.2012 |
+| 263 |	Mihai Maruseac | Lab Author | 07.10.2012 |
+| 262 |	Răzvan Deaconescu | Course | 07.10.2012 |
+| 261 | Răzvan Rughiniș | Course | 07.10.2012 |
+| 260 |	Alexandru Heișanu | Course | 07.10.2012 |
+| 259 | Mircea Bardac | Linux Assignment | 07.10.2012 |
+| 258 | George Milescu | Curriculum Lead 2009 |	07.10.2012 |
+| 257 |	Vlad Dogaru | Curriculum Lead 2010 | 07.10.2012 |
+| 256 |	Laura Vasilescu | Curriculum Lead 2012 | 07.10.2012 |

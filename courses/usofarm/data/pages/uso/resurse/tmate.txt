@@ -1,0 +1,28 @@
+====== Folosire tmate ======
+
+În cazul în care aveți probleme cu proiectorul, puteți folosi [[https://tmate.io/|tmate]] pentru a face un screen-cast al terminalului vostru.
+
+Puteți folosi package managerul pentru a-l instala. De ex. pe **Ubuntu** puteți folosi ''sudo apt-get install tmate''.
+
+Odată instalat, rulați comanda ''tmate''. Vi se va deschide o fereastră ''tmux'' la care se pot conecta studenții, pentru a urmării **demo-ul**.
+În cadrul acesteia, rulați comanda ''tmate show-messages''.
+
+<code>
+$ tmate show-messages
+Fri Nov 23 15:36:25 2018 [tmate] Connecting to master.tmate.io...
+Fri Nov 23 15:36:26 2018 Reloaded!
+Fri Nov 23 15:36:26 2018 Reloaded!
+Fri Nov 23 15:36:26 2018 [tmate] Note: clear your terminal before sharing readonly access
+Fri Nov 23 15:36:26 2018 [tmate] web session read only: https://tmate.io/t/ro-5BXhC0r93ra5crftnwIc9Y1Fg
+Fri Nov 23 15:36:26 2018 [tmate] ssh session read only: ssh ro-5BXhC0r93ra5crftnwIc9Y1Fg@am2.tmate.io
+Fri Nov 23 15:36:26 2018 [tmate] web session: https://tmate.io/t/HvrzBkAV1vdGzndMsxFVgEexT
+Fri Nov 23 15:36:26 2018 [tmate] ssh session: ssh HvrzBkAV1vdGzndMsxFVgEexT@am2.tmate.io
+Fri Nov 23 15:36:46 2018 [tmate] Your tmate client can be upgraded to 2.2.1
+</code>
+
+Din rezultatul comenzii de mai sus, ne interesează sesiunea de **ssh read only**
+<code>
+Fri Nov 23 15:36:26 2018 [tmate] ssh session read only: ssh ro-5BXhC0r93ra5crftnwIc9Y1Fg@am2.tmate.io
+</code>
+
+Folsind ''ssh ro-5BXhC0r93ra5crftnwIc9Y1Fg@am2.tmate.io'' studenții se vor conecta, read-only, "la" terminalul vostru.

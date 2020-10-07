@@ -1,0 +1,159 @@
+<hidden>
+====== Tema 3 ======
+<note>
+**Ce trebuie să știu?** Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei.
+
+**Thread nou? Nu.** Pentru o ușoară parcurgere a mesajelor, folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele. În consecință, thread-urile (subiectele de discuții) nou create vor fi șterse.
+
+**Căutare.** Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+**Printscreen/poză? Nu.** În cazul în care doriți să publicați un printscreen pe forum, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către printscreen. Pozele inserate în răspunsuri, vor fi șterse. 
+
+**Actualizări.** Urmăriți atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+
+**Regulament.** Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://cs.curs.pub.ro/|cs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+**Întrebări frecvente.** În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+
+**Ajutor reciproc.** Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți.
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **29 Noiembrie, ora 23:55**\\
+Timp de lucru: **6 zile**\\
+Punctaj: **0.8 puncte** din nota finală\\
+Formular pentru trimitere temă: https://goo.gl/forms/vjzVNNczk5A29uLI3\\
+</note>
+
+<note>
+**Actualizări enunț:**
+
+</note>
+===== Cunoștințe evaluate =====
+
+  * noțiuni simple de networking;
+  * configurarea interfețelor de rețea;
+  * autentificarea pe mașini la distanță folosind ssh cu parolă sau cu chei;
+  * folosirea utilitarelor de lucru cu mașini aflate la distanță;
+  * noțiuni simple de shell scripting;
+  * stocarea și prelucrarea datelor
+
+===== Testarea temei. Finalizarea temei. Mașină virtuală. =====
+
+{{section>uso:teme:testare&noheader&nofooter}}
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a temei ori a unui task. Puteți să sugerați diferite abordări sau să dați idei generale (dar nu comenzi) celorlalți. Urmăriți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]]. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă. Temele anterioare sau cele viitoare nu vor fi afectate. Abaterile se păstrează pe parcursul semestrului. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+==== Docker ====
+
+Pe parcusul acestei teme vom folosi virtualizarea bazată pe containere. Există mai multe proiecte care automatizează lucrul cu containere Linux, iar unul dintre cele mai populare este [[https://docs.docker.com|Docker]]. Docker este un proiect open source început în 2013 și, în momentul de față este foarte folosit și în industrie ([[https://cloud.google.com/container-engine/|Google]], [[https://aws.amazon.com/ecs/|Amazon]], [[https://www.docker.com/microsoft|Microsoft]]). Vom folosi containere pentru această temă pentru //a da senzația// că avem mai multe mașini virtuale conectate la mașina virtuală de USO (''usovm''), cu multiple interfețe de rețea pe care le vom configura în diverse moduri cu scopul de a comunica între ele sau în Internet. În realitate, [[https://blog.docker.com/2016/03/containers-are-not-vms/|un container nu este o mașină virtuală]].
+
+==== Docker cheatsheet ====
+
+  * pentru a lista imaginile de Docker, folosiți comanda ''docker images'';
+  * pentru a crea (și rula) un container folosind o imagine folosiți comanda ''docker run -it image'';
+  * pentru a opri/porni un container, folosiți comanda ''docker stop/start CONTAINER_NAME'';
+  * pentru a vă detașa de la un container fără a-l opri, folosiți combinația de taste ''Ctrl+P Ctrl+Q'';
+  * pentru a vă atașa la un container pornit, folosiți comanda ''docker attach CONTAINER_NAME'';
+  * pentru a vedea ce containere rulează la un moment dat, folosiți comanda ''docker ps'';
+  * pentru a vedea toate containerele create (care fie rulează, fie sunt oprite), folosiți comanda ''docker ps -a'';
+  * pentru a șterge un container folosiți comanda ''docker rm'';
+  * pentru a șterge o imagine folosiți comanda ''docker rmi''.
+
+==== Task 01 (20p) ====
+<note important>
+**Toate** celelalte taskuri următoare sunt dependende de rezolvarea corectă și completă a Taskului 1. În cazul în care opriți sau dați reboot mașinii virtuale de USO containerele vor fi și ele oprite. Va trebui să refaceți o parte din configurări, în acest caz. Pentru comoditate, folosiți **Save the machine state** în loc de **Power off**.
+</note>
+  * **[2p]** Descărcați imaginea ''i386/ubuntu:latest'' folosind comanda ''docker pull''.
+  * **[4p]** Creați și porniți un container Docker cu numele ''dimension-c137'' care folosește imaginea descărcată la punctul anterior. Containerul trebuie să rămână pornit. Urmăriți exemplul [[https://docs.docker.com/engine/reference/commandline/run/#/assign-name-and-allocate-pseudo-tty---name--it|de aici]].
+  * **[4p]** Instalați pachetele ''inetutils-ping'', ''iproute2'', ''openssh-server'', ''sshpass'' , ''sqlite3'', ''vim'' și ''sudo'' pe containerul ''dimension-c137''.
+  * **[2p]** Adăugați utilizatorul ''smith'' pe containerul ''dimension-c137'' cu parola ''smith''. Setați directorul home al acestuia la ''/home/smith_residence'' și shellul la ''/bin/bash''.
+  * **[6p]** Asigurați-vă că puteți realiza o conexiune ''ssh'' între mașina virtuală de USO (''usovm'') și containerul ''dimension-c137'' folosind userul ''smith''.
+  * **[2p]** Creați o imagine a containerului ''dimension-c137'' cu numele ''dimension-c137/ubuntu''. **Hint**: ''docker commit''
+
+==== Task 02 (15p) ====
+
+Checkerul va genera la prima sa rulare 3 containere care folosesc imaginea creată la Task 1:
+
+  * ''rick'' - cu userul ''rick'' și parola ''rick''
+  * ''morty'' - cu user ''morty'' si parola ''morty''
+  * ''summer'' - cu userul ''summer'' și parola ''summer''
+
+Vă puteți atașa la oricare dintre ele folosind comanda ''docker attach CONTAINER_NAME''. În cazul în care ați făcut o configurație greșită și doriți reinițializarea containerelor, ștergeți-le (''docker stop rick morty summer && docker rm rick morty summer'') și rulați din nou checkerul.
+
+  * **[5p]** Configurați în mod static temporar, pe interfața ''eth1'' a containerului ''rick'', a 11-a adresă asignabilă din rețeaua ''192.168.137.0/24''.
+  * **[5p]** Configurați în mod static temporar, pe interfeța ''eth1'' a containerului ''morty'', ultima adresă asignabilă din rețeaua ''192.168.137.0/24''. Testați conectivitatea între cele 2 containere prin intefețele ''eth1'' folosind comanda ''ping''.
+  * **[5p]** Configurați cele 2 containere astfel încât fiecare să se poată conecta la celălalt prin ''ssh'' cu credențialele de mai sus. Conexiunea va folosi adresa IP asignată intefețelor ''eth1'', nu ''eth0''.
+
+<note important>
+Containerele ''rick'' și ''morty'' trebuie să fie pornite la finalul acestui task. Interfețele ''eth1'' ale celor două containere trebuie să aibă configurată câte o singură adresă IP.
+</note>
+
+
+==== Task 03 (25p) ====
+
+  * **[2p]** Opriți interfața eth0 de pe containerul ''summer''.
+  * **[6p]** Configurați în mod static permanent, pe interfața ''eth1'' a containerului ''summer'' o adresă astfel încât să poată da ping cu succes pe adresele setate pe containerele rick si morty (atenție și la adresa setată pe interfața ''usobridge'' de pe host).Un container nu poate fi rebootat, testați faptul că ați făcut configurările corecte folosind comanda ''service networking restart'' în containerul ''summer''.
+  * **[6p]** Faceți configurările necesare atfel încât containerul ''summer'' să aibă conexiune la internet. Testați folosind comanda ''ping -c 2 8.8.8.8''. Configurarea trebuie să fie permanentă.
+  * **[6p]** Configurați containerul ''morty'' astfel încât comanda ''ping google.com'' să se execute cu succes.
+  * **[5p]** Faceți configurările necesare pe mașina virtuală de USO (''usovm'') astfel încât să fie posibilă conectarea la containerele ''rick'', ''morty'' și ''summer'' folosind numele lor. De exemplu:
+<code bash>
+student@usovm:~$ ping rick
+student@usovm:~$ ping morty
+student@usovm:~$ ping summer
+</code>
+
+==== Task 04 (15p) ====
+  * **[5p]** Generați o pereche de chei [[https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm|ECDSA]] (id_ecdsa și id_ecdsa.pub) de lungime 384 biți în directorul ''/home/student/tema3/keys'' de pe mașina virtuală de USO (''usovm''). NU setați niciun passphrase pentru ele.
+  * **[5p]** Faceți configurările necesare astfel încât userul ''student'' de pe host (''usovm'') să se poată conecta pe userii de pe cele 3 containere (''rick'', ''morty'', ''summer''), fără parolă, folosind cheile generate la subpunctul anterior (va trebui să faceți posibilă conexiunea prin ''ssh'' si pe containerul summer cum ați făcut și la task-ul 2 pentru ''rick'' și ''morty'').
+  * **[5p]** Scrieți un script ''~/tema3/task4/send_to_all.sh'' (în home-ul userului ''student'' de pe mașina virtuală) care primește o cale către un fișier ca argument și trimite prin ssh (Hint: ''man scp'') fișierul primit ca argument în directoarele home ale utilizatorilor ''rick'', ''morty'' și ''summer'' de pe containerele asociate fără a cere parolă. Puteți să presupuneți că argumentul primit de script este tot timpul valid.
+
+==== Task 05 (25p) ====
+
+În urma primei rulări a checkerului pe acest task, pe cele 3 containere (''rick'', ''morty'', ''summer'') se va popula câte o bază de date folosind ''sqlite3''.
+  * **[5p]** Creați în mașina virtuala folosind ''sqlite3'' (o sa trebuiască instalat pachetul) o bază de date numită ''rickandmorty.db'' (în ''/home/student/tema3/task5'') și în ea o tabelă nouă numită ''characters'' cu 3 coloane:
+    * name - string de maxim 50 de caractere, nu poate fi null
+    * age - număr întreg
+    * episode - string de maxim 100 de caractere, nu poate fi null
+  * **[7p]** Scrieți un script ''select.sh'' în ''/home/student/tema3/task5'' de pe mașina virtuală care primește 2 argumente:
+    * numele unei baze de date (path către un fișier ''*.db'')
+    * numele unei tabele din baza de date
+Scriptul va trebui:
+  * să selecteze din tabelă intrările care corespund utilizatorului curent (coloana name din tabelă conține numele utilizatorului care rulează scriptul)
+  * să scrie rezultatul selecției în format ''csv'' într-un fișier numit ''query.csv'' în directorul home al utilizatorului curent
+
+Pentru testare va trebui să aveți o tabelă în care să inserați date (preferabil creați o altă tabelă cu aceleași coloane ca și ''characters'' pentru că checker-ul va șterge la rulare toate datele din aceasta).
+
+  * **[7p]** Copiați scriptul ''select.sh'' pe toate cele 3 containerele în home-urile userilor asociați (scriptul trebuie să se numească tot ''select.sh'').
+Scrieți un script nou numit ''wabalubadubdub.sh'' în ''/home/student/tema3/task5'' care primește ca argumente:
+    * numele unui user de pe un container
+    * ip-ul unui container
+    * numele unei baze de date (path către un fișier ''*.db'')
+    * numele unei table in baza de date
+Scriptul va trebui să ruleze **prin ssh** scriptul ''select.sh'' pe userul și ip-ul primite ca argument.
+Scriptului ''select.sh'' i se vor da argumentele 3 și 4 (numele bazei de date si al tabelei).
+
+Apoi scriptul va trebui să copieze **prin ssh** (Hint: ''man scp'') fișierul rezultat în urma comenzii rulate (fișierul ''query.csv'') în **directorul curent** și cu numele ''query_remote.csv''.
+
+<note important>
+Atenție! Trebuie **neapărat** să rulați comanda **prin ssh**. Dacă rulați comanda folosind altceva (cum ar fi ''docker exec'') rezolvarea nu se va puncta (chair dacă checkerul vă dă punctajul).
+</note>
+
+  * **[6p]** Extindeți scriptul să insereze datele din fișierul copiat în tabela creată de voi la primul punct al exercițiului.
+
+<note tip>
+Hints:
+  * http://www.sqlitetutorial.net/sqlite-import-csv/
+  * http://tldp.org/LDP/abs/html/here-docs.html
+</note>
+
+<note important>
+Nu trebuie să tratați cazurile cu input invalid.
+</note>
+
+===== Task obligatoriu pentru toate temele (0p) =====
+
+Asigurați-vă că ați submis tema și ați încărcat codul aferent submisiei în formularul din secțiunea de [[#informatii_generale|Informații generale]]. Acest lucru este necesar ori de câte ori modificați tema și o submiteți din nou (detalii [[uso:teme:instructiuni-checker#pasi|aici]]), până la termenul limită. În caz contrar, punctajul aferent temei va fi nul (0 puncte).
+</hidden>

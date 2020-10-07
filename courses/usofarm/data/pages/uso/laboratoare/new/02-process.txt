@@ -1,0 +1,7 @@
+====== Laborator 02: Procese ======
+
+{{page>:uso:laboratoare:new:02-process:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:02-process:nav&noheader&nofooter&noeditbutton}}

@@ -1,0 +1,345 @@
+====== Curs 11 - Automatizarea sarcinilor =======
+
+  * [[https://drive.google.com/file/d/14oCNFkHaJZSedZMFJWolXdm3PI_-IWFk/view?usp=sharing|Slide-uri curs]]
+
+/*
+  * [[https://drive.google.com/open?id=1aN0VW-LvefVPyJKyI_mFjFTlKEjbu8oM|Handouts 3on1 and notes space]]
+  * [[https://drive.google.com/open?id=1ilzrwOlni4nnUUgO6g_X_fB6Ktg0sqZD|Handouts 6on1]]
+  * **Cuvinte cheie**: 
+
+*/
+
+  * **Suport de curs**
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-13-auto.pdf|Capitolul 13: Automatizarea sarcinilor]]
+
+/*
+
+====== Curs 11 - Elemente de securitate =======
+
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-11/curs-11-handout.pdf | Slide-uri curs]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-11/curs-11-handout-4on1-notes.pdf | Handout 4on1 and notes space]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-11/curs-11-handout-8on1.pdf | Handout 8on1]]
+  * **Cuvinte cheie**: securitate, privilegii, principii de securitate, agenți, obiecte, ''umask'', autentificare, autorizare, controlul accesului, ''root'', ''sudo'', parole, //password cracking//, //passphrase//, ''/etc/passwd'', ''/etc/shadow'', criptografie, criptare, decriptare, //plain text//, //ciphertext//, chei simetrice, chei asimetrice, semnătură digitală, semnare, verificare
+  * **Suport de curs**
+    * [[http://books.google.com/books?id=_JFGzyRxQGcC | Introducere în sisteme de operare]]
+      * [[http://books.google.com/books?id=_JFGzyRxQGcC&pg=PA279 | Capitolul 10 - Elemente de securitate]]
+
+<HTML>
+  <center>
+    <iframe src="https://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-11/curs-11-handout.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>
+
+===== Demo-uri =====
+
+Pentru rularea demo-urilor de mai jos folosim [[http://repository.grid.pub.ro/cs/uso/USO%20Demo.ova|mașina virtuală USO Demo]]. Mașina virtuală (în format OVA) poate fi importată în VirtualBox. Comenzile le vom rula în cadrul mașinii virtuale.
+
+Mașina virtuală deține două interfețe de rețea:
+  * ''eth0'' pentru accesul la Internet (interfață de tipul NAT)
+  * ''eth1'' pentru comunicarea cu sistemul fizic (gazdă, //host//) (interfață de tipul //Host-only Adapter//)
+
+Pentru a rula demo-ul avem două opțiuni:
+  - Folosim direct consola mașinii virtuale.
+  - Aflăm adresa IP de pe interfața ''eth1'' a mașinii virtuale și ne conectăm prin SSH, de pe sistemul fizic, folosind comanda<code>
+ssh student@<adresa-IP-vm-eth1>
+</code> unde ''<adresa-IP-vm-eth1>'' este adresa IP a interfeței ''eth1'' din cadrul mașinii virtuale.
+
+Pentru conectarea la mașina virtuală folosim numele de utilizator ''student'' cu parola ''student''. Contul ''student'' are permsiuni de ''sudo''. Folosind comanda<code>
+sudo su -
+</code>
+obținem permisiuni privilegiate (de ''root'') în shell.
+
+<note>
+Dacă dorim să ne conectăm pe SSH iar mașina virtuală nu are adresă IP configurată pe interfața ''eth1'' atunci folosim comanda<code>
+sudo dhclient eth1
+</code>
+pentru a obține o adresă IP.
+</note>
+
+<note>
+Dacă optăm pentru rularea prin SSH iar sistemul fizic rulează Windows, putem folosi [[http://www.chiark.greenend.org.uk/~sgtatham/putty/|Putty]] pe post de client SSH pe sistemul fizic.
+</note>
+
+<note>
+Comenzile folosite sunt de uz general. Actualizând adresele IP cu adrese potrivite, putem rula cu succes comenzile pe orice sistem sau mașină virtuală Linux.
+</note>
+
+==== Folosire umask pentru configurarea permisiunilor de creare ====
+
+Unul dintre cele mai importante principii în securitate este principiul celui mai mic privilegiu (//least privilege//). Pentru aceasta, inclusiv în sistemul de fișiere (fișiere, directoare), se recomandă permisiuni (drepturi de acces minime). Acestea pot fi schimbate folosind comanda ''chmod''. Dorim, însă, să putem configura permisiunile implicite la crearea intrărilor în sistemul de fișiere. Pentru aceasta folosim comanda ''umask''.
+
+La o rulare simplă, comanda ''umask'' ne afișează valoarea sa:<code>
+student@uso-demo:~$ umask
+0022
+</code>
+Comanda ''umask'' indică permisiunile care vor fi **absente** în momentul creării unor intrări. Regulile de stabilire a permisiunilor de creare sunt:
+  * pentru fișiere: 666 & ~umask (adică 666 **ȘI logic** cu masca negată)
+  * pentru directoare: 777 & ~umask (adică 777 **ȘI logic** cu masca negată)
+
+Pentru ''umask = 0022'', ''~umask = 7755''. Rezultă permisiunile de creare:
+  * pentru fișiere: ''666 & 7755 = 0644''
+  * pentru directoare: ''777 & 7755 = 0755''
+
+Putem verifica acest lucru creând un fișier și un director:<code>
+student@uso-demo:~$ touch test-file
+student@uso-demo:~$ mkdir test-dir
+student@uso-demo:~$ ls -l
+total 4
+drwxr-xr-x 2 student student 4096 Jan  5 11:31 test-dir
+-rw-r--r-- 1 student student    0 Jan  5 11:31 test-file
+</code>
+Observăm că fișierul (''test-file'') a fost creat cu permisiunile ''%%rw-r--r--%%'' (adică ''644'') iar directorul (''test-dir'') a fost creat cu permisiunile ''%%rwxr-xr-x%%'' (adică ''755''). Adică valorile așteptate.
+
+În ideea de //least privilege//, este uzual să oferim permisiuni doar utilizatorului (''user'') și nici o permisiune pentru ''group'' și ''others''. Pentru aceasta stabilim valoarea ''umask'' la ''077'', folosind comanda<code>
+student@uso-demo:~$ umask 077
+student@uso-demo:~$ umask
+0077
+</code>
+Observăm din a doua comandă că acum valoarea ''umask'' este alta.
+
+Creăm un nou fișier și un nou director și verificăm aplicarea noii valori a ''umask'' pentru stabilirea permisiunilor de creare:<code>
+student@uso-demo:~$ touch test-file-2
+student@uso-demo:~$ mkdir test-dir-2
+student@uso-demo:~$ ls -l 
+total 8
+drwxr-xr-x 2 student student 4096 Jan  5 11:31 test-dir
+drwx------ 2 student student 4096 Jan  5 11:36 test-dir-2
+-rw-r--r-- 1 student student    0 Jan  5 11:31 test-file
+-rw------- 1 student student    0 Jan  5 11:36 test-file-2
+</code>
+Observăm că fișierul (''test-file-2'') a fost creat cu permisiunile ''%%rw-------%%'' (adică ''600'') iar directorul (''test-dir'') a fost creat cu permisiunile ''%%rwx------%%'' (adică ''700''). Adică valorile așteptate, rezultate în urma calculului:
+  * pentru fișier: ''%%666 & ~umask = 666 & ~0077 = 666 & 7700 = 600 = rw-------%%''
+  * pentru director: ''%%777 & ~umask =777 & ~0077 = 777 & 7700 = 700 = rwx------%%''
+
+Valoarea ''umask'' este configurată funcție de nevoile utilizatorului ținând cont și de principiul celui mai mic privilegiu.
+
+<note>
+Valoarea ''umask'' este pe 4 cifre în octal. Prima cifră este aferentă biților speciali (''setuid'', ''setgid'', ''sticky'') folosiți în permisiuni. Nu insistăm pe acest lucru. Puteți găsi informații în secțiunile aferente din [[http://man7.org/linux/man-pages/man1/chmod.1.html|pagina de manual a chmod]].
+</note>
+
+<note>
+Pentru configurarea persistentă a valorii ''umask'' se recomandă plasarea comenzii de configurare într-un fișier de configurare a sesiunii de shell (precum ''~/.bashrc'').
+</note>
+==== Folosire John the Ripper pentru password cracking ====
+
+Din perspectiva atacatorului (sau a unui [[http://www.computerhope.com/jargon/e/ethihack.htm|hacker etic]]) este util să putem "sparge" parolele dintr-un sistem. Dacă ajungem să avem acces la baza de date cu parole a unui sistem putem încerca spargerea acestora. Un utilitar pentru acest lucru este [[http://www.openwall.com/john/|John the Ripper]].
+
+Pentru a folosi ''john'' întâi îl vom instala:<code>
+student@uso-demo:~$ sudo apt-get install john
+Reading package lists... Done
+Building dependency tree       
+[...]
+Setting up john-data (1.8.0-2) ...
+Setting up john (1.8.0-2) ...
+</code>
+
+John vine în mod implicit cu un dicționar de parole comune de folosit în fișierul ''/usr/share/john/password.lst''<code>
+student@uso-demo:~$ head -20 /usr/share/john/password.lst 
+#!comment: This list has been compiled by Solar Designer of Openwall Project
+#!comment: in 1996 through 2011.  It is assumed to be in the public domain.
+#!comment:
+#!comment: This list is based on passwords most commonly seen on a set of Unix
+#!comment: systems in mid-1990's, sorted for decreasing number of occurrences
+#!comment: (that is, more common passwords are listed first).  It has been
+#!comment: revised to also include common website passwords from public lists
+#!comment: of "top N passwords" from major community website compromises that
+#!comment: occurred in 2006 through 2010.
+#!comment:
+#!comment: Last update: 2011/11/20 (3546 entries)
+#!comment:
+#!comment: For more wordlists, see http://www.openwall.com/wordlists/
+123456
+12345
+password
+password1
+123456789
+12345678
+1234567890
+student@uso-demo:~$ wc -l /usr/share/john/password.lst
+3559 /usr/share/john/password.lst
+</code>
+Există fișiere de parole mai bune care, în general, costă bani.
+
+Aceste parole sunt parole frecvente folosite de utilizatori și care pot fi ușor sparte cu John.
+
+Pentru verificare, să creăm doi utilizatori (''ana'' și ''bogdan'') cu parole relativ comune ''test123'' și ''qazwsx'':<code>
+student@uso-demo:~$ sudo useradd -m -d /home/ana -s /bin/bash ana
+student@uso-demo:~$ sudo useradd -m -d /home/bogdan -s /bin/bash bogdan
+student@uso-demo:~$ less /usr/share/john/password.lst
+student@uso-demo:~$ echo "ana:test123" | sudo chpasswd
+student@uso-demo:~$ echo "bogdan:qazwsx" | sudo chpasswd
+student@uso-demo:~$ id ana
+uid=1001(ana) gid=1001(ana) groups=1001(ana)
+student@uso-demo:~$ id bogdan
+uid=1002(bogdan) gid=1002(bogdan) groups=1002(bogdan)
+</code>
+
+Mai sus am creat cei doi utilizatori cu parolele dorite.
+
+<note>
+Comanda ''chpasswd'' este o comandă care schimbă/actualizează parola unuia sau mai mulți utilizatori. Parola primește la intarea standard linii în forma ''<username>:<password>'' și actualizează parola utilizatorului ''<username>'' cu valoarea ''<password>''.
+</note>
+
+Parolele utilizatorilor sunt stocate în forma criptată (//hash//) în fișierul ''/etc/shadow'', accesibil doar cu permisiuni privilegiate<code>
+student@uso-demo:~$ tail -2 /etc/shadow
+tail: cannot open ‘/etc/shadow’ for reading: Permission denied
+student@uso-demo:~$ ls -l /etc/shadow
+-rw-r----- 1 root shadow 1276 Jan  5 11:59 /etc/shadow
+student@uso-demo:~$ sudo tail -2 /etc/shadow
+ana:$6$Lz4VGpO.$NhGn3XzSJ8dRd.EURfPRnPPlU3rvTG5C7xEvvh8taiPCLEFb0V2LAFG.6s.GlXWZqby326wvZm91QMDoCXCoU0:16805:0:99999:7:::
+bogdan:$6$AJ8cjSHz$QdI1KrolofQtAk4F2bHweL7vxzGYcM3gHxfLgRiUzR7UtEugUZyWARc66zo8YMEiMmAWob5PJMlaoUyA8rfCx.:16805:0:99999:7:::
+</code>
+Dacă avem acces la hash-urile parolelor putem încerca spargerea lor cu John. În cazul de față vom reuși pentru că parolele sunt foarte simple:<code>
+student@uso-demo:~$ sudo tail -2 /etc/shadow > shadow-entries
+student@uso-demo:~$ cat shadow-entries 
+ana:$6$Lz4VGpO.$NhGn3XzSJ8dRd.EURfPRnPPlU3rvTG5C7xEvvh8taiPCLEFb0V2LAFG.6s.GlXWZqby326wvZm91QMDoCXCoU0:16805:0:99999:7:::
+bogdan:$6$AJ8cjSHz$QdI1KrolofQtAk4F2bHweL7vxzGYcM3gHxfLgRiUzR7UtEugUZyWARc66zo8YMEiMmAWob5PJMlaoUyA8rfCx.:16805:0:99999:7:::
+
+student@uso-demo:~$ /usr/sbin/john -wordlist:/usr/share/john/password.lst shadow-entries
+Created directory: /home/student/.john
+Loaded 2 password hashes with 2 different salts (crypt, generic crypt(3) [?/32])
+Press 'q' or Ctrl-C to abort, almost any other key for status
+test123          (ana)
+qazwsx           (bogdan)
+2g 0:00:00:33 100% 0.05959g/s 62.93p/s 71.51c/s 71.51C/s pretty..celtic
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+</code>
+Mai sus, pentru început, am extras cele două intrări din ''/etc/shadow'' și apoi am folosit John ca să încercăm spargerea lor. În mod așteptat, parolele fiind simple, John a reușit spargerea lor.
+
+În general, un atacator va încerca să obțină accesul la baza de date cu parole. Chiar dacă acestea sunt criptate, atacatorul va încerca să le spargă. Doar parolele puternice (cu multe caractere dintr-un set mai mare) pot supraviețui suficient de mult timp unui atacator. Chiar și așa, se recomandă actualizarea parolelor după o perioadă de 6 luni sau 1 an.
+
+<note>
+John are diverse opțiuni care permit scheme de alterare a parolelor din wordlist-uri. Aceste scheme prelungesc posibilitățile de parole încercate; de exemplu înlocuirea ''a'' cu ''@'' sau ''e'' cu ''3''. Cu un word list bun, multe parole pot fi sparte relativ rapid.
+</note>
+==== Criptare/decriptare folosind chei simetrice ====
+
+Pentru securizarea informației transmise sau stocate este recomandat ca aceasta să fie criptată. În Internet, foarte multe site-uri folosesc acum ''HTTPS'' (HTTP securizat). Pentru date locale se pot folosi utilitare de criptare.
+
+Un utilitar folosit pentru criptare (și alte operații criptografice) este ''openssl''. Cu ''openssl'' putem cripta și folosind chei simetrice și chei asimetrice.
+
+Pentru testare, să creăm un fișier //plain text// (ușor de citit):<code>
+student@uso-demo:~$ echo "This is my life's biggest secret: I have no life" > plain.txt
+student@uso-demo:~$ cat plain.txt 
+This is my life's biggest secret: I have no life
+</code>
+
+Pentru a cripta accest fișier, folosim algoritmul ''AES'' (//Advanced Encryption Standard//), un standard de facto de criptare, cu ajutorul comenzii<code>
+student@uso-demo:~$ openssl enc -e -aes-256-cbc -in plain.txt -out encrypted.dat
+enter aes-256-cbc encryption password:
+Verifying - enter aes-256-cbc encryption password:
+student@uso-demo:~$ ls -l encrypted.dat 
+-rw------- 1 student student 80 Jan  5 12:17 encrypted.dat
+student@uso-demo:~$ xxd encrypted.dat 
+0000000: 5361 6c74 6564 5f5f 6b32 c1b2 6580 bcfe  Salted__k2..e...
+0000010: f988 bd4d 4432 9aa3 8925 0097 4262 1732  ...MD2...%..Bb.2
+0000020: 119a c5c8 f5de bca0 3a9e 4d96 57c7 1e1f  ........:.M.W...
+0000030: 3e22 e8ec eeec 3905 4e93 3ee8 fb5e c04a  >"....9.N.>..^.J
+0000040: e443 955f c693 7171 fa10 f5ac ded1 f947  .C._..qq.......G
+</code>
+În prima comandă am realizat criptarea fișierului ''plain.txt'' în fișierul ''encrypted.dat''. Utilitarul ne-a cerut cheia de criptare și apoi a realizat criptarea în fișierul ''encrypted.dat''. Fișierul este un fișier binar; putem urmări conținutul său folosind comanda ''xxd''.
+
+De obicei vom șterge fișierul ''plain.txt'' și apoi vom decripta, la nevoie, fișierul ''encrypted.dat''. Facem acest lucru folosind comenzile de mai jos<code>
+student@uso-demo:~$ rm plain.txt 
+student@uso-demo:~$ openssl enc -d -aes-256-cbc -in encrypted.dat -out plain.txt
+enter aes-256-cbc decryption password:
+student@uso-demo:~$ cat plain.txt 
+This is my life's biggest secret: I have no life
+</code>
+Observăm că, după ștergerea fișierului //plain text// inițial, și după operația de decriptare căreia i-am transmis cheia folosită la pasul anterior, am obținut fișierul inițial.
+
+<note>
+Sunt și alți algoritmi posibili pentru criptare simetrică folosind comanda ''openssl''. Pentru a-i determina folosim comanda<code>
+student@uso-demo:~$ openssl enc -help
+</code>
+</note>
+
+Dacă dorim să stocăm fișierul criptat într-o formă de fișier text (dar tot criptat) putem realiza o codificare [[https://en.wikipedia.org/wiki/Base64|base64]] a acestuia. Pentru aceasta, folosim pentru criptare și decriptare comenzile în forma de mai jos:<code>
+student@uso-demo:~$ openssl enc -e -base64 -aes-256-cbc -in plain.txt -out encrypted.dat
+enter aes-256-cbc encryption password:
+Verifying - enter aes-256-cbc encryption password:
+student@uso-demo:~$ cat encrypted.dat 
+U2FsdGVkX18HD7U8AkSTfWFQEryHAjfJ7hQlWZQSdMvmdwZSES76zQz7JioIultg
+x4sLDHbAA6xTo8ioX3gG/L+7REMUuN46hUXCBB+G1c4=
+
+student@uso-demo:~$ openssl enc -d -base64 -aes-256-cbc -in encrypted.dat -out plain.txt
+enter aes-256-cbc decryption password:
+student@uso-demo:~$ cat plain.txt 
+This is my life's biggest secret: I have no life
+</code>
+
+Observăm mai sus că avem o formă ASCII a fișierului criptat ''encrypted.dat''.
+==== Criptare/decriptare folosind chei asimetrice ====
+
+Criptarea cu chei simetrice are avantajul vitezei dar dezavantajul că trebuie știută (și partajată între cel care criptează și cel care decriptează) cheia de criptare. Mai mult, dacă acea cheie este slabă, un atacator poate sparge cheia și decripta fișierul.
+
+Criptarea cu chei asimetrice folosește cheia publică pentru criptare; oricine poate astfel cripta. Pentru decriptare se folosește cheia privată și doar cel care o deține poate decripta.
+
+Pentru aceasta, vom folosi tot utilitarul ''openssl''. Vom folosi algoritmul ''RSA'' (//Rivest-Shamir-Adleman//) pentru criptarea asimetrică. Pentru început vom genera cheia privată și cheia publică:<code>
+student@uso-demo:~$ openssl genrsa -out privkey 2048
+Generating RSA private key, 2048 bit long modulus
+......................................................+++
+.....................+++
+e is 65537 (0x10001)
+student@uso-demo:~$ cat privkey 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA4o1PEkzZawYItZFdxsPwA/7kbffcDLQOSCtbdORA23uO6zk8
+[...]
+-----END RSA PRIVATE KEY-----
+student@uso-demo:~$ openssl rsa -pubout -in privkey -out pubkey
+writing RSA key
+student@uso-demo:~$ cat pubkey 
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4o1PEkzZawYItZFdxsPw
+A/7kbffcDLQOSCtbdORA23uO6zk8+4WLYrc1tgh827N2qcW28UsIxaA2YlowXJu7
+[...]
+-----END PUBLIC KEY-----
+</code>
+
+Mai sus am generat cheia privată în fișierul ''privkey'' și cheia publică în fișierul ''pubkey''. Cheia publică este derivată din cheia privată. Formatul în care sunt stocate cele 2 cheie se numește PEM (//Privacy-enhanced Electronic Mail//).
+
+Ca să criptăm fișierul ''plain.txt'' folosind cheia publică din fișierul ''pubkey'', vom rula comanda<code>
+student@uso-demo:~$ openssl rsautl -encrypt -in plain.txt -out encrypted.dat -pubin -inkey pubkey 
+
+student@uso-demo:~$ xxd encrypted.dat 
+0000000: 97e7 bc72 4d76 708f 5b2b 7437 b698 2937  ...rMvp.[+t7..)7
+[...]
+00000f0: dfd0 3bfc f5b1 9a17 9655 2b9b e441 7bba  ..;......U+..A{.
+</code>
+
+Fișierul criptat este un fișier binar; îl putem vizualiza folosind comanda ''xxd''.
+
+Pentru a decripta fișierul ''encrypted.dat'' înapoi în fișierul ''plain.txt'' folosind cheia privată din fișierul ''privkey'' vom rula comanda de mai jos:<code>
+student@uso-demo:~$ openssl rsautl -decrypt -in encrypted.dat -out plain.txt -inkey privkey
+student@uso-demo:~$ cat plain.txt 
+This is my life's biggest secret: I have no life
+</code>
+
+<note>
+Cheia privată, la fel cum este cheia/parola în criptare simetrică, trebuie ținută în siguranță. O recomandare este ca o cheie privată să fie protejată și de un passphrase. Introducerea passphrase-ului condiționează folosirea cheii private. O altă recomandare este folosirea unui [[http://lifehacker.com/5529133/five-best-password-managers|Password manager]] care să rețină toate parolele și cheile în mod sigur (să nu fie scrise plain text undeva) sub protecția unui master password.
+</note>
+==== Semnare/verificare folosind chei asimetrice ====
+
+Un alt scenariu de folosire a cheilor asimetrice este pentru semnarea unor mesaje. Semnarea se face cu ajutorul cheii private (doar posesorul are acces) iar verificarea cu ajutorul cheii publice (oricine poate verifica). De obicei se transmite mesajul în plain text dar este de știut că cel care a trimis mesajul chiar este cel care l-a trimis, și pentru aceea se atașează fișierul de tip semnătură mesajului.
+
+Vom folosi tot cheia privată ''privkey'' și cheia publică ''pubkey'' de mai sus.
+
+Pentru semnarea mesajului vom folosi<code>
+student@uso-demo:~$ openssl rsautl -sign -in plain.txt -out signature -inkey privkey 
+student@uso-demo:~$ xxd signature 
+0000000: 910f be3f 6a47 b150 f239 8105 3d64 a60d  ...?jG.P.9..=d..
+[...]
+00000f0: 7ffd 183f 26e4 221f c9dc 90b5 9510 7eca  ...?&.".......~.
+</code>
+
+Pentru verificarea semnăturii vom folosi comanda<code>
+student@uso-demo:~$ openssl rsautl -verify -in signature -pubin -inkey pubkey 
+This is my life's biggest secret: I have no life
+</code>
+
+<note>
+Pentru criptare/decriptare și semnare/verifcare cu chei asimetrice putem folosi și suita [[https://www.gnupg.org/|GnuPG]] (//GNU Privacy Guard//).
+</note>
+
+*/

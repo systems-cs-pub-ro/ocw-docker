@@ -1,0 +1,37 @@
+===== Get a Life =====
+
+În această secțiune vom face activități avansate în Linux, multe obscure. Nu există tutoriale în această secțiunea, doar exerciții. Folosiți Internet, Google și orice formă de documentare pentru rezolvarea acestor exerciții. Nu veți primi decât indicații și ajutor minimal din partea asistentului. Aceste exerciții necesită documentare, răbdare și perseverență. Fiți puternici! 
+
+Puteți rezolva exercițiile în orice ordine doriți. Faceți ce vi se pare interesant.
+
+==== Creare scurtătură pe Desktop ====
+
+Creați pe desktop un icon cu scurtătură pentru clientul Bittorrent ''Deluge''. Astfel că la dublu click pe icon să pornească aplicația ''Deluge''.
+
+==== Editare avansată cu Vim ====
+
+Creați cu Vim un fișier ''vim-rocks.txt'' în care apare mesajul de mai jos de 538 de ori:
+<code>
+Vim rocks and you know it!
+</code>
+
+==== Editare avansată cu Emacs ====
+
+Creați cu editorul Emacs un fișier ''emacs-rocks.txt'' în care apare mesajul de mai jos de 538 de ori:
+<code>
+Emacs rocks and everybody knows it!
+</code>
+
+==== Shell Hardcore Ski11z ====
+
+Afișați în terminal de 538 mesajul:
+<code>
+Bash rocks. All bow!
+</code>
+
+==== Caractere speciale în shell ====
+
+Afișați în terminal mesajul de mai jos, așa cum se vede:
+<code>
+Ana are $ si ii place sa i se spuna <Ana din Moldova> si sa fie strigata cu "Heey!". Niciodata 'helou!'.
+</code>

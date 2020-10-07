@@ -1,0 +1,145 @@
+===== Need to know =====
+
+==== Crearea unei mașini virtuale ====
+
+Până acum am folosit doar mașini virtuale deja setate, le-am importat în VirtualBox și le-am folosit ca atare. Acum vom învăța cum să 
+ne instalăm propria mașină virtuală. Pentru a crea o mașină virtuală avem nevoie de un fișier ''.iso'' care conține imaginea sistemului 
+de operare pe care vrem să-l instalăm. Acesta conține imaginea nucleului sistemului de operare pe care urmează să îl instalăm.
+
+0. Descărcați de [[http://elf.cs.pub.ro/uso/res/laborator/lab09/|aici]] imaginea TinyCore-current.iso (TinyCore - 16MB)
+
+1. Deschideți VirtualBox pentru a începe acest tutorial. Apăsați butonul ''new'':
+
+{{ :uso:laboratoare:new:09-vm:create_vm_1.png?500 |}}
+
+2. Dați un nume mașinii virtuale, selectați tipul sistemului de operare ''Linux'' și ''Ubuntu (64 bit)''.
+
+{{ :uso:laboratoare:new:09-vm:create_vm_2.png?500 |}}
+
+3. Setați dimensiunea memoriei RAM alocate mașinii voastre virtuale la 1024MB (adică 1GB).
+
+{{ :uso:laboratoare:new:09-vm:create_vm_3.png?500 |}}
+
+4. Vrem să adăugăm și un hard disk corespunzător acestei mașini virtuale. Selectați opțiunea ''Create a new virtual hard disk now''.
+
+{{ :uso:laboratoare:new:09-vm:create_vm_4.png?500 |}}
+
+5. Mai departe selectați tipul ''VDI (VirtualBox Disk Image)'' ca tip al fișierului hard disk.
+
+{{ :uso:laboratoare:new:09-vm:create_vm_5.png?500 |}}
+
+6. Bifați opțiunea fixed size la pasul ''Storage on physical hard disk''. 
+
+{{ :uso:laboratoare:new:09-vm:create_vm_6.png?500 |}}
+
+7. Selectați dimensiunea de 10GB, spre exemplu și calea unde vreți să fie salvat fișierul ''.vdi''.
+
+{{ :uso:laboratoare:new:09-vm:create_vm_7.png?500 |}}
+
+În acest moment mașina virtuală este creată (adică au fost alocate toate resursele hardware pe care le-am specificat mai devreme). În 
+momentul în care pormim mașina virtulă, va trebui să îi specificăm ce imagine ''.iso'' să folosească. Vom folosi imaginea descărcată 
+anterior.
+
+{{ :uso:laboratoare:new:09-vm:create_vm_8.png?500 |}}
+
+În acest moment aveți creată prima voastră mașină virtuală. 
+
+    - Exportați mașina virtuală anterior creată. (Hint: File -> Export Appliance)
+
+
+==== Conectare la Internet ====
+
+Verificați că aveți conexiune la Internet de pe mașina virtuală în felul următor: 
+<code bash>
+tc@box:~$ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: icmp_seq=0 ttl=119 time=62.082 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=119 time=32.354 ms
+^C
+--- 8.8.8.8 ping statistics ---
+2 packets transmitted, 2 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 32.354/47.218/62.082/14.864 ms
+</code>
+
+În cazul în care nu există conexiune la Internet, urmăriți pașii de [[https://askubuntu.com/questions/363003/no-internet-connection-on-virtualbox-windows-7-as-guest-ubuntu-13-04-as-host|aici]] pentru a rezolva problema.
+
+<note important>
+Pentru a avea conexiune la Internet de pe mașina noastră virtuală, trebuie să avem setat un adaptor de tip ''NAT''.
+</note>
+==== Server SSH ====
+
+Vrem să ne putem conecta prin ssh la mașina noastră virtuală și invers. Dacă vrem să ne conectăm de pe mașina virtuală pe mașina fizică 
+trebuie să aflăm adresa IP a mașinii fizice.
+
+<code bash>
+student@uso:~$ ip a s eno1
+eno1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether dc:a9:04:7f:e2:53 
+	inet6 fe80::c65:9f0a:3b1e:cecd%en0 prefixlen 64 secured scopeid 0x8 
+	inet 192.168.1.6 netmask 0xffffff00 broadcast 192.168.1.255
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+</code>
+
+De pe mașina virtuală ne conectăm prin ssh în felul următor:
+
+<code bash>
+tc@box:~$ ssh student@192.168.1.6
+sh: ssh command not found
+</code>
+
+Observăm că pe mașina virtuală nu avem instalat un ''server de ssh'', așadar nu putem folosi ''ssh'' încă. 
+
+    - Urmăriți tutorialul de [[https://iotbytes.wordpress.com/configure-ssh-server-on-microcore-tiny-linux/|aici]] pentru a instala un server de ssh **pe mașina virtuală**. La final, pentru verificare, conectați-vă la stația fizică prin ssh.
+
+==== Resetarea parolei de root din GRUB ====
+
+Exista situatii în care sistemul poate deveni inaccesibil: am modificat greșit fișierul ''/etc/sudoers'' și nu mai putem folosi sudo, 
+am uitat parola utilizatorului și nu mai putem face login sau dorim setarea unei parole pentru root, dar nu avem drepturi privilegiate.
+
+Este nevoie să găsim o altă cale pentru a accesa sistemul. Este nevoie de resetarea parolei utilizatorului root.
+
+Pentru a realiza acest lucru trebuie sa configuram sistemul ca atunci cand inițializează kernelul, în loc să pornească procesul ''init'', să deschidă un shell. Deoarece utilizatorul root este cel care deține procesele inițiale, și shell-ul nostru o să pornească cu drepturi "speciale".
+
+<note important>
+Atenție, din motive de securitate, niciodată nu o să puteți afla parola unui utilizator. În cel mai bun caz o puteți doar suprascrie.
+</note>
+
+<note> 
+Pentru a intra în meniul GRUB, la pornire țineți apăsat pe tasta ''Shift''.
+</note>
+
+
+Porniți mașina virtuală ''jerry''. În meniul GRUB, apăsați tasta ''e'' atunci când intrarea corespunzătoare este selectată. Se va 
+deschide un mic script într-un editor. Printre instrucțiunile de acolo, avem și parametrii cu care pornește kernel-ul (linia care 
+începe cu **linux**). Adăugați la finalul acelei linii șirul init=/bin/bash, similar liniei de mai jos:
+
+
+<code bash>
+(...)
+linux /boot/vmlinuz-3.13.0-39-generic [...] init=/bin/bash
+(...)
+</code>
+
+Apăsați combinația de taste ''Ctrl+x'' pentru a salva modificările și a porni sistemul.
+
+În acest moment aveți acces privilegiat la sistem (vedeți prompt-ul de root care se încheie în #) și puteți face orice acțiuni. În mod 
+obișnuit așa se resetează parola de root (folosind comanda passwd) și apoi se bootează în Linux obișnuit și se folosește acea parolă.
+
+
+<note important>
+Este posibil să nu puteți modifica parola pentru că sistemul de fișiere a fost montat //read-only//. La rularea comenzii ''passwd'' veți primi mesajul de eroare:
+<code>
+passwd: Authentication token manipulation error
+</code>
+În această situație va trebui să remontați fișierul în mod //read-write// folosind comanda:
+<code>
+mount -o remount /
+</code>
+</note>
+
+
+<note important>
+După ce ați schimbat parola, nu puteți folosi comanda ''reboot'' pentru a reporni mașina virtuală. Folosiți interfața grafică VirtualBox pentru repornirea mașinii virtuale. După ce bootează, verificați că parola utilizatorului ''root'' este cea proaspăt introdusă.
+</note>

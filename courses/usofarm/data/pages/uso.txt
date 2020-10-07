@@ -1,0 +1,12 @@
+~~NOCACHE~~
+
+====== Utilizarea Sistemelor de Operare ======
+
+/*
+
+[[https://systems.cs.pub.ro/teaching/courses/uso/hit-list/|{{ http://elf.cs.pub.ro/uso/uso-pin-list.png?600 }}]]
+
+*/
+
+{{section>:uso:echipa&nofooter}}
+{{section>:uso:orar&nofooter}}

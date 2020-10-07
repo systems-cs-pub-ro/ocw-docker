@@ -1,0 +1,36 @@
+===== Înainte de laborator =====
+
+^ Comandă  ^ Descriere scurtă       ^
+| **''lscpu''**     | afișează informații despre CPU |
+| **''free''**       | afișează informații despre memoria sistemului       |
+| **''lshw''**       | afișează informații despre toate componentele hardware |
+| **''dd''**   | copiază conținutul fișierelor și oferă control asupra acestui proces |
+| **''lsmod''**   | afișează starea unui modul în cadrul kernelului Linux |
+| **''modinfo''**      | afișează informații despre un modul |
+| **''systemctl''**   | controlează sistemul systemd | 
+| **''crontab''**  | gestionează fișierele crontab |
+
+==== Obiective ==== 
+  * Prezentarea specificațiilor componentelor hardware
+  * Familiarizarea cu dispozitivele fizice și virtuale
+  * Familiarizarea cu driverele disponibile în sistem
+  * Ințelegerea conceptelor legate de serviciile ce rulează în cadrul unui sistem
+  * Obținerea de abilități de lucru cu servicii
+
+==== Folosire Git pentru laborator ====
+
+Pe parcursul laboratoarelor, pentru descărcarea fișierelor necesare laboratorului, vom folosi Git. Git este un sistem de controlul versiunii și e folosit pentru versionarea codului în proiectele software mari. Celor interesați să aprofundeze conceptele din spatele comenzii ''git'', precum și utilizări avansate, le recomandăm cursul practic online de pe [[http://gitimmersion.com/|gitimmersion]].
+
+Informațiile despre laboratorul de USO se găsesc în [[https://github.com/systems-cs-pub-ro/uso-lab|acest repository Git]].
+
+<note important>
+Pentru a pregăti infrastructura de laborator rulați comenzile de mai jos într-un terminal. Deschideți un terminal folosind combinația de taste ''Ctrl+Alt+t''. În listarea de mai jos ''student@uso:~$'' este promptul unde introduceți comenzile, pe acela nu-l tastați.
+
+<code>
+student@uso:~$ cd ~
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso-lab.git
+</code>
+
+</note>
+
+Cam atât cu pregătirea laboratorului. Acum haideți să ne apucăm de treabă! :-)

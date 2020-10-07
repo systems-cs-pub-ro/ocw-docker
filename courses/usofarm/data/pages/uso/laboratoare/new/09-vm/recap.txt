@@ -1,0 +1,21 @@
+===== Recapitulare ===== 
+
+==== 1. Conectare prin ssh la un coleg ==== 
+
+Întrebați un coleg ce adresă IP are (HINT: ifconfig). Conectați-va prin ssh la el. 
+
+==== 2. Fep.grid.pub.ro ==== 
+
+Conectați-vă prin ssh pe mașina ''fep.grid.pub.ro''. Folosiți userul și parola de pe cs.curs. 
+
+==== 3. SCP ==== 
+
+Folosind comanda ''scp'', copiați un fișier de pe local pe mașina ''fep.grid.pub.ro''. 
+
+==== 4. Wget ==== 
+
+Downladati pdf-ul de [[http://www.pdf995.com/samples/pdf.pdf|aici]] din linia de comandă. 
+
+==== 5. Adresa IP publică ==== 
+
+Aflați, folosind ''curl'', adresa IP publică (cea cu care se iese în internet). 

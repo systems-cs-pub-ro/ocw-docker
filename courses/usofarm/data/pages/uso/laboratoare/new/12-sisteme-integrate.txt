@@ -1,0 +1,177 @@
+====== 12. Sisteme Integrate ======
+
+Scopul laboratorului este accesarea unui sistem integrat si modificarea comportamentului sau.
+
+Scopul acestui laborator este de a gasi niste coduri ascunse in sistemul integrat. Acestea incep mereu cu textul //USO// si sunt urmate de niste cifre si litere.
+
+Fiecare echipa va avea nevoie de:
+  * un calculator cu Linux instalat (statie din laborator)
+  * un Raspberry Pi conectat prin cablu la Internet
+  * un cablu serial Adafruit (mufa albastra sau mov) sau un adaptor de serial TTL (o placuta mica albastra)
+
+<hidden>
+<note warning>
+Daca in timpul laboratorului se desprinde vreun cablu, anuntati pe slack si cineva va veni sa repare montajul.
+</note>
+  - Dati reboot calculatorului asistentului (in EG 306 acesta e calculatorul de langa catedra, in EG 106 acesta e calculatorul din stanga, langa tabla).
+  - Executati "Wyliodrin Studio" de pe desktop
+  - Selectati tabul "CTF ADMIN"
+  - Apasati start pentru a porni serverul local (daca nu se precizeaza portul, va fi by default 5000)
+  - Studentii vor porni placutele.
+<note warning>
+Asigurati-va ca studentii pornesc placutele abia la aproximativ 10 minute dupa ora fixa (ora de pe sistem a unor placute nu este in urma cu cateva minute si codul generat nu va fi cel corect).
+</note>
+  - Dupa ce acestea booteaza, vor merge pe adresa host-ului (ip-ul pc-ului pe care se va deschide Wyliodrin Studio de pe interfata eno1), unde se vor inregistra cu un nume de echipa, si numarul pi-ului de pe ecran. (Atentie, daca numarul pi-ului este gresit, nici un flag nu va fi corect !)
+  - Studentii inchid pi-ul, conecteaza cablul serial, iar inainte de a alimenta placuta, asistentul trebuie sa verifice ca pinii au fost conectati corespunzator. {{:uso:laboratoare:new:unnamed.png?600|}} {{:uso:laboratoare:new:unnamed_1_.png?600|}}
+  - Asistentul se va conecta la videoproiector, pe care va afisa scorul echipelor, care poate fi gasit la adresa: IP(host):PORT(stabilit)/dashboard.html
+
+Daca una din echipe, noteaza gresit numarul pi-ului, pentru moment, dati stop la server, lansati DB Browser, deschideti ~/.wyliodrinstudio/databases/USO Test 1.sqlite, mergeti pe tabul Browse Data, selectati din drop down, Teams, si modificati / stergeti intrarea gresita, dupa care porniti din nou serverul. In cazul in care ati sters intrarea respectiva, studentii trebuie sa se inregistreze din nou.
+
+In cazul in care studentii inchid browser-ul, acestia nu trebuie sa se inscrie din nou. Pe pagina de register, au un buton de recover, ce ii va redirecta catre o pagina de login, pe care vor avea nevoie sa introduca un ID. Acest ID va fi comunicat de catre asistent, care va trebui sa apese pe SHOW TEAMS in Wyliodrin Studio, iar acolo va gasi respectivul camp.
+
+</hidden>
+
+===== Raspberry Pi =====
+Aveti pe masa o placuta Raspberry Pi atasata de cateva componente electronice.
+
+<note warning>
+Nu modificati montajul in nici un fel! Daca in timpul laboratorului se desprinde vreun cablu, anuntati asistentul.
+</note>
+
+Acest montaj simuleaza partea electronica a unui dispozitiv (frigider, aspirator etc.).
+
+===== Partea 1 - Feedback ====
+
+Pentru a îmbunătăți cursul de USO, componentele sale și modul de desfășurare, ne sunt foarte utile opiniile voastre. Pentru aceasta, vă rugăm să accesați și completați formularul de feedback de pe site-ul [[https://acs.curs.pub.ro]]. Trebuie să fiți autentificați și înrolați în cadrul cursului.
+
+Formularul este anonim și este activ în perioada 6 ianuarie 2020 - 17 ianuarie 2020. Rezultatele vor fi vizibile în cadrul echipei cursului doar după încheierea sesiunii. Găsiți formularul în partea dreaptă a paginii principale de USO (seria voastra) de pe acs.curs.pub.ro într-un frame intitulat "FEEDBACK".
+
+Vă invităm să evaluați activitatea echipei de USO și să precizați punctele tari și punctele slabe și sugestiile voastre de îmbunătățire a disciplinei. Feedback-ul vostru ne ajută să creștem calitatea materiei în anii următori și să îmbunătățim disciplinele pe care le veți face în continuare.
+
+Ne interesează în special:
+  * Ce nu v-a plăcut și ce credeți că nu a mers bine?
+  * De ce nu v-a plăcut și de ce credeți că nu a mers bine?
+  * Ce ar trebuie să facem ca lucrurile să fie plăcute și să meargă bine?
+
+Formularele de feedback sunt următoarele:
+  * [[https://acs.curs.pub.ro/2019/mod/feedback/view.php?id=591|seria CA]]
+  * [[https://acs.curs.pub.ro/2019/mod/feedback/view.php?id=595|seria CB]]
+  * [[https://acs.curs.pub.ro/2019/mod/feedback/view.php?id=599|seria CC]]
+  * [[https://acs.curs.pub.ro/2019/mod/feedback/view.php?id=603|Seria CD]]
+  * [[https://acs.curs.pub.ro/2019/mod/feedback/view.php?id=587|Seria AC]]
+
+
+===== Partea 2 - Inscrierea in concurs =====
+
+<note>
+Acest laborator se va desfasura in echipe de doua sau trei persoane. Va rugam sa va grupati inainte de inceperea laboratorului.
+</note>
+
+Puneti in priza dispozitivul din fata voastra. Dupa ce acesta porneste, pe ecran va fi afisat un text similar cu //raspberrypiNNN//. //**NNN**// (poate avea mai multe cifre in baza 10) este ID-ul echipei voastre.
+
+Folosind ID-ul afisat, inregistrati echipa in concurs folosind adresa afisata pe proiector.
+
+<note important>
+Scoateti dispozitivul din priza dupa ce v-ati inscris in concurs.
+</note>
+
+===== Partea 3 - Concursul =====
+Asigurati-va ca dispozitivul este scos din priza.
+
+==== 1. Portul Serial ====
+In general fiecare dispozitiv are un port serial prin care poate fi accesat. Primul pas este sa accesati dispozitivul folosind cablul serial Adafruit sau PL2303 USB-TTL.
+
+<note warning>
+Nu conectati firul rosu de la cablul serial de tip Adafruit, deoarece veti arde controllerul!
+</note>
+
+<note>
+  * asteptati sa primiti acordul asistentului inainte sa puneti in priza Raspberry Pi-ul.
+  * alimentati Raspberry Pi-ul dupa ce ati legat cablul
+  * pentru a accesa portul serial din Linux puteti folosi screen (atentie, aveti nevoie de root)
+  * comanda dmesg va ajuta sa aflati care este numele fisierului care reprezinta portul serial pe calculator
+</note>
+
+<hidden>
+  * [[https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/connect-the-lead|Adafruit]]
+  * [[https://www.instructables.com/id/Connect-to-Raspberry-PI-Via-USB-to-TTL-Serial-Cabl/|PL2303 USB-TTL]]
+</hidden>
+
+
+==== 2. Accesarea dispozitivului ====
+Producatorii dispozitivului au uitat sa dezactiveze conturile de Linux. Mai mult acestia au lasat un cont ce are unul din cele mai folosite nume de utilizator si parola pentru dispozitive.
+
+<hidden>
+user: admin
+password: adminID # ID este ID-ul echipei
+
+Daca nu merge parola (si stiti ca e buna), scoateti placa din priza si puneti-o inapoi.
+</hidden>
+
+<note>
+  * router-ul vostru de acasa este un dispozitiv
+  * parola este unica pentru fiecare dispozitiv
+</note>
+
+==== 3. SSH ====
+Accesarea sistemului prin portul serial are limitari. Accesati placa prin ssh.
+
+<hidden>
+Afiseaza IP-ul si se conecteaza cu ssh in el. Flag-ul e in banner-ul de la ssh.
+</hidden>
+
+==== 4. Utilizatorul Privilegiat ====
+Producatorii dispozitivului au uitat sa dezactiveze contul standard pentru Raspberry Pi. Totusi, au schimbat parola implicita.
+LED-ul care clipeste va poate ajuta sa va logati cu acest utilizator.
+
+<hidden>
+LED-ul clipeste parola in cod morse.
+</hidden>
+
+==== 5. Eticheta produsului ====
+Eticheta produsului are o informatie ascunsa. Aveti pe dispozitiv un LED transparent care va poate ajuta.
+
+<hidden>
+Pentru fiecare Raspberry Pi exista pe catedra un teanc de foi care contine urmatoarele informatii:
+  * Product name: <id-ul de pe LCD pentru raspberry pi-ul corespunzator>
+  * Usage: Lab <data>/<ora>
+  * Secret info:
+
+La inceputul laboratorului veti inmana fiecarei echipe "eticheta" corespunzatoare, tinand cont de ID-ul placii si de data si ora la care are loc laboratorul.
+
+Codul scris pe foaie e cu majuscule pentru a fi mai usor de citit, dar va trebui introdus cu litere mici.
+
+Pentru a lumina LED-ul pot sa foloseasca cele doua comenzi:
+
+<code bash>
+gpio mode 12 out # or 26 if 12 isn't working
+gpio write 12 1 # or high 
+</code>
+
+In cazul in care solutia anterioara nu functioneaza, incercati-o pe urmatoarea.
+
+<code bash>
+# version 2
+echo 12 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio12/direction
+echo 1 > /sys/class/gpio/gpio12/value
+</code>
+</hidden>
+
+<note>
+Pentru a accesa pinii (si a aprinde LED-ul) va poate ajuta utilitarul gpio (pentru Raspberry Pi).
+</note>
+
+==== 6. Afisarea numelui ====
+Dispozitivul are un ecran atasat care afiseaza un text. Schimbati textul afisat pe ecran
+
+<hidden>
+Prima linie de pe ecran afiseaza hostname-ul.
+</hidden>
+
+==== 7. Programul de afisare ====
+Pe dispozitiv exista un proces care se ocupa de afisarea pe ecran. Semnalizati procesului sa afiseze un cod special.
+
+<hidden>
+Se trimit semnale catre procesul display pana acesta afiseaza flag-ul pe a doua linie de pe ecran. Semnalul e random la fiecare pornire a Raspberry Pi-ului.
+</hidden>

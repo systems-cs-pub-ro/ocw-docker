@@ -1,0 +1,15 @@
+====== Curs 13 - Netiquette & Internet Guidelines =======
+
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-13/curs-13-handout.pdf | Slide-uri curs]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-13/curs-13-handout-4on1-notes.pdf | Handout 4on1 and notes space]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-13/curs-13-handout-8on1.pdf | Handout 8on1]]
+  * **Cuvinte cheie**: căutare, site-uri, forum, listă de discuții, Usenet, IRC, pastebin, codepad, imageshack, postimage, întrebări inteligente, feedback, DAWA, netiquette, top/bottom/interleaved posting
+  * **Suport de curs**
+    * [[http://www.google.ro | Google]]
+
+<HTML>
+  <center>
+    <iframe src="https://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-13/curs-13-handout.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>

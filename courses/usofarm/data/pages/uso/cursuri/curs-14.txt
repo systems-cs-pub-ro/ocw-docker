@@ -1,0 +1,32 @@
+====== Activități semestrul 2 ======
+
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-14/WoUSO_2012-2013_Premiere.pdf | Slide-uri premiere World of USO]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-14/Afis-Academia-Microsoft.pdf | Afiș Academia Microsoft]]
+  * [[https://www.youtube.com/watch?v=Z_cp_WNO_og | Cisco Networking Academy, The World's Largest Classroom]]
+  * [[http://prezi.com/kj2shutudxdu/prezentare-cdl-la-wouso/ | Curs de Dezvoltare Liberă v6]]
+  * [[http://elf.cs.pub.ro/uso/res/cursuri/curs-14/USO_Activitati-sem2_2012-2013_LPIC.pdf | LPIC - Linux Professional Institute Certification]]
+
+<HTML>
+  <center>
+    <iframe src="http://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-14/WoUSO_2012-2013_Premiere.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>
+
+----
+
+<HTML>
+  <center>
+    <iframe src="http://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-14/Afis-Academia-Microsoft.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>
+
+----
+
+<HTML>
+  <center>
+    <iframe src="http://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-14/USO_Activitati-sem2_2012-2013_LPIC.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>

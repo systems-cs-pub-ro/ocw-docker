@@ -1,0 +1,10 @@
+====== Curs 12 - Sisteme încorporate=======
+
+  * [[ https://drive.google.com/file/d/1wrQJUxahJNktlsy6--BKpU2Zjz9lO9P3/view?usp=sharing| Slide-uri curs 12]]
+  * [[https://drive.google.com/file/d/1qmcjzRWnT4lUa9YdEf-BJ9ZxhzMbcj_9/view?usp=sharing| Handout 3on1 and notes space]]
+  * [[https://drive.google.com/file/d/14PdRy_yuXyFwYD3FwOesvmFvBshE5j8V/view?usp=sharing | Handout 6on1]]
+  * **Cuvinte cheie**: microcontroller, arduino, raspeberryPi, I2C, comunicare serială, IoT, Alexa, Stiva IoT 
+  * **Suport de curs**
+      * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-15-embed.pdf| Capitolul 15 - Sisteme încorporate]]
+
+

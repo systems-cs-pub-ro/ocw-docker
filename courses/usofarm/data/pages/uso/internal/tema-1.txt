@@ -1,0 +1,164 @@
+====== Tema 1 ======
+
+**Draft**
+
+===== Informații generale =====
+
+<note warning>
+ În urma informărilor de pe forumul temei 0, vă recomandăm următoarele:
+  * Folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele, atât în forumul pentru [[http://cs.curs.pub.ro/2015/mod/forum/view.php?id=82|Discuții Generale]] cât și în forumul temei. În consecință, thread-urile (subiectele de discuții) nou create __vor fi șterse__.
+  * Căutați informația pe care doriți să o obțineți de pe forum, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+  * În cazul în care doriți să publicați un screenshot, folosiți site-uri pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale. Dorim să păstrăm o parcurgere ușoară a forumului, din acest motiv, orice poză inserată în răspunsuri, __va fi ștearsă__. 
+  * __Urmăriți__ atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+  * Secțiunea de [[#testare|Testare]] vă explică cum să copiați codul primit de utilitarul ''uso'' în momentul în care efectuați ''submit'', __fără__ să în introduceți de mână în formularul temei, evitând astfel erorile de transcriere.
+</note>
+
+<note important>
+Deadline: **4 Noiembrie, ora 23:55**
+
+Timp de lucru: **7 zile**
+
+Punctaj: **0.6 puncte** din nota finală
+
+Formular de trimitere temă: [[TODO]] 
+
+Tema va fi considerată rezolvată la data trimiterii codului pe site. **NU** se acceptă întârzieri!
+
+</note>
+
+<note>
+Actualizări enunț:
+
+  * **27 Octombrie 2015, 23:55** - Publicare
+
+</note>
+
+<note>
+Actualizări utilitar ''uso'':
+
+Versiunea curentă: <color red>**v16 - "Gold Blackbird"**</color>
+
+  * **Nu există actualizări pentru utilitarul ''uso''**
+</note>
+
+<note>
+Actualizări checker:
+
+Versiunea curentă: <color red>**versiunea 1**</color>
+
+</note>
+===== Cunoștințe evaluate =====
+
+  * Navigarea in sistemul de fisiere
+  * Folosirea utilitarului git
+  * Compilarea programelor
+  * Crearea de Makefile
+
+===== Testare =====
+
+{{section>teme-testare&noheader&nofooter}}
+
+
+===== Task-uri =====
+
+<note warning>Este **__STRICT__** interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a temei ori a unui task. La prima abatere, la decizia oricărui membru al echipei de USO, studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă, temele anterioare sau cele viitoare nefiind afectate. Abaterile rămân valabile pe tot parcursul semestrului, acestea nefiind anulate în momentul în care se publică o temă nouă. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în [[catalog|catalog]].</note>
+==== Task 00 (0p) ====
+
+Creați fișierul ''directie.txt'' în directorul ''/home/student/''. Adăugați pe prima linie a fișierului ''directie.txt'' direcția din care faceți parte (''CTI'', ''FILS'' sau ''IS''), ca în exemplul de mai jos.
+
+<note important>
+
+Dacă acest fișier există deja, fiind creat la o temă anterioară, săriți peste acest task.
+</note>
+
+<note>
+Exemplu:
+
+<code bash>
+student@vm-uso ~ $ pwd
+/home/student
+student@vm-uso ~ $ echo "CTI" > directie.txt
+student@vm-uso ~ $ cat directie.txt
+CTI
+</code>
+</note>
+
+==== Task 01 (15p) ====
+
+Clonați în directorul ''/home/student'' repository-ul disponibil la adresa ''https://github.com/systems-cs-pub-ro/uso''. Directorul creat după clonare trebuie să aibă numele ''uso''.
+
+Adaugați în directorul ''uso'' urmatoarea structură de directoare și fișiere: 
+
+    Star Wars/
+    ├── Empire Forces/
+    │   ├── Chewie/
+    │   │   ├── AAARGH.c
+    │   │   └── Han Solo/
+    │   ├── Darth Maul/
+    │   └── Darth Vader/
+    └── Rebel Forces/
+        ├── Luke Skywalker/
+        ├── Obi-Wan Kenobi/
+        └── Yoda/
+
+
+
+<note>
+Directoarele au după nume caracterul ''/'' (slash)
+</note>
+
+Adaugați toate fișierele în git și efectuați un commit cu mesajul ''initial commit'' (Hint: [[https://try.github.io|try.github.io]] și [[http://git-scm.com/doc|git-scm.com/doc]])
+==== Task 02 (15p) ====
+
+Aflandu-va in directorul ''uso'', folositi o singura comanda pentru fiecare din cerintele urmatoare:
+  - mutati directorul ''Chewie'' in ''Rebel Forces''
+  - redenumiti ''AAARGH.c'' in ''speak-chewie.c''
+  - mutati ''Han Solo'' in ''Rebel Forces''
+
+
+Adaugați toate modificarile în git și efectuați un commit cu mesajul ''Millennium Falcon''
+<note>
+Cerintele trebuie rezolvate in ordine.
+</note>
+
+==== Task 03 (20p) ====
+
+<note warning>
+
+Pentru acest task aveți nevoie de fișierul obiect ''chewie.o'' aflat la adresa https://github.com/systems-cs-pub-ro/uso/blob/master/tema1/chewie/chewie.o?raw=true
+</note>
+
+Creați directorul ''~/uso/task3/'' și descărcați fișierul obiect ''chewie.o'' (Hint: ''man wget'') în directorul anterior creat. Fișierul obiect ''chewie.o'' conține un apel la funcția ''translate()'' de tip ''void''. Funcția **nu** a fost implementată în fisierul obiect descarcat. 
+
+Fără a modifica fișierul obiect ''chewie.o'', trebuie să implementați funcția ''void translate()'' într-un fișier sursă ''han_solo.c'' care să afișeze textul ''Han: Chewie said hi.''
+
+Fișierul ''han_solo.c'' se va compila in fișierul obiect ''han_solo.o'' si apoi sa va genera executabilul ''chewbacca'' folosind atat fisierul obiect ''chewie.o'' cat si fisierul obiect ''han_solo.o''.
+
+==== Task 04 (25p) ====
+
+Se cere să creați un fișier Makefile cu numele ''Makefile'' care generează executabilul ''chewbacca'' folosind atât fișierul obiect ''chewie.o'' cât și fisierul obiect ''han_solo.o'' obținut în urma compilării sursei ''.c'' implementată anterior. La primirea oricăreia dintre comenzile ''make'' sau ''make build'' va fi generat fișierul executabil ''chewbacca'' iar în momentul rulării acestuia se va afișa textul : 
+<note>
+Chewbacca: AAAAARGH
+
+Han: Chewie said hi.
+</note>
+Adăugați o regulă numită ''run'' care recompilează întreg programul, dacă e cazul, apoi îl rulează.
+
+<note>
+Acest task se puncteaza doar daca se foloseste oriunde este posibil ''automatic variables''
+
+Hint: http://lmgtfy.com/?q=make+automatic+variables
+</note>
+
+==== Task 05 (25p) ===
+
+Dupa rularea ''sudo uso start'' veti gasi in directorul ''uso'' urmatoarele fisiere: ''returnofthejedi.txt'' si ''edit_returnofthejedi.txt''. Scopul acestui exercitiu este de a va familiariza cu editorul de text ''vim''. Va trebui sa editati in vim fisierul ''edit_returnofthejedi.txt'' astfel incat sa respecte urmatoarele criterii:
+  - stergeti liniile 42, 424, 4242
+  - inlocuiti aparitia 100 a cuvantului ''Luke'' cu ''The chosen one''
+  - inlocuiti aparitia 42 a cuvantului ''Vader'' cu ''Vader(father figure)''
+  - modificati toate aparitiile cuvantului ''THREEPIO'' in ''3PO''
+  - aflati de cate ori apare cuvantul ''corrupt'' in text, notati numarul de aparitii in fisierul ''/home/student/uso/info_text'' pe prima linie si inlocuiti cu ''unprincipled'' in text
+
+<note>
+Urmati task-urile in ordine !!!
+</note>

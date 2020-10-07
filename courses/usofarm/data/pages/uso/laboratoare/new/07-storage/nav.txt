@@ -1,0 +1,11 @@
+====== Administrarea spatiului de stocare (cuprins) ======
+
+  * [[:uso:laboratoare:new:07-storage:setup]]
+  * [[:uso:laboratoare:new:07-storage:concepts]]
+  * [[:uso:laboratoare:new:07-storage:demo]]
+  * [[:uso:laboratoare:new:07-storage:recap]]
+  * [[:uso:laboratoare:new:07-storage:basics]]
+  * [[:uso:laboratoare:new:07-storage:need-to-know]]
+  * [[:uso:laboratoare:new:07-storage:nice-to-know]]
+  * [[:uso:laboratoare:new:07-storage:get-a-life]]
+  * [[:uso:laboratoare:new:07-storage:summary]]

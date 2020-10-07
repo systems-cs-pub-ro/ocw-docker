@@ -1,0 +1,10 @@
+====== Index ======
+
+Aici sunt toate paginile în namespace-ul USO de pe OCW. Paginile sunt de trei tipuri:
+  * Pagini publice și vizibile: Adică au link-uri accesibile din [[:uso|pagina principală]] sau din [[:uso:sidebar|sidebar]].
+  * Pagini publice și nevibizile: Adică pot fi accesate public dar nu sunt link-uri prezente în [[:uso|pagina principală]] sau în [[:uso:sidebar|sidebar]]. Este nevoie de un link explicit către aceste pagini.
+  * Pagini private: Sunt accesibile doar membrilor echipei.
+
+===== Listing pagini =====
+
+{{indexmenu>:uso#4|js}}

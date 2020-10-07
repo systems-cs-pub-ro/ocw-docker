@@ -1,0 +1,11 @@
+====== Laborator 02: Procese ======
+
+{{page>:uso:laboratoare:new:02-process:setup&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:concepts&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:demo&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:recap&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:basics&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:need-to-know&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:nice-to-know&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:get-a-life&nofooter&noeditbutton}}
+{{page>:uso:laboratoare:new:02-process:summary&nofooter&noeditbutton}}

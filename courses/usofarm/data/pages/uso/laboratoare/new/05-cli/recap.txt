@@ -1,0 +1,5 @@
+===== Recapitulare =====
+
+    - În directorul ''~/uso-lab/05-cli/support/recap/ex1'' avem fișierul ''main.c''. Compilați-l cu opțiunea ''-Wall'' și rezolvați warning-urile apărute. Completați regulie din fișierul ''Makefile'' (build, run, clean).
+    - La calea ''~/uso-lab/05-cli/support/recap/ex2'' se află 2 fișiere C. Compilați-le si linkați-le pentru a obține, în final, un singur fișier executabil.
+    - Creați directorul ''~/uso-lab/05-cli/support/recap/ex3'' și inițializați-l cu un repository local de git. Creați un fișier C în care să scrieți orice program simplu și creați un commit cu modificările făcute.

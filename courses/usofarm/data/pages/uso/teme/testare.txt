@@ -1,0 +1,21 @@
+====== Testarea temei. Finalizarea temei. Mașină virtuală. ======
+
+<note>
+**Instrucțiuni de utilizare a checkerului ''uso''**
+  * Pentru mai multe detalii referitoare la checkerul ''uso'', consultați [[uso:teme:instructiuni-checker|instrucțiunile de utilizare]].
+
+**Descărcare mașină virtuală și informații despre aceasta**
+  * Mașina virtuală și link-ul de unde poate fi ea descărcată se găsesc pe pagina cu informații despre [[uso:resurse/mv|mașina virtuală]].
+</note>
+
+**Testarea temei** se va face doar pe **mașina virtulă** ([[uso:resurse/mv|aici]]) autentificat ca utilizator ''student'', folosind utilitarul ''uso''. Acesta poate fi executat în orice moment pentru a verifica dacă au fost rezolvate corect task-urile. Nu lucrați autentificat ca utilizator ''root'' în sistem, la nicio temă. Din acest motiv există posibilitatea să nu vă treacă testele. Pe de altă parte, nu este o metoda de siguranță să lucrați autentificat ca utilizator ''root'' din motive de securitate și/sau permisiuni.
+
+Utilitarul ''uso'' implementează testele doar pentru task-urile temei curente. La fiecare temă nouă, pentru a folosi utilitarul ''uso'', primul pas este să porniți tema folosind comanda ''sudo uso start''. În caz contrar, nu veți avea actualizat checker-ul pentru tema curentă.
+
+Verificați versiunea utilitarului ''uso'' cât și a checker-ului, afișată la rularea comenzii ''sudo uso start'' sau ''sudo uso check'', pe prima linie a output-ului. Asigurați-vă că aveți ultima versiune înainte de a continua lucrul pentru temă. Versiunea actuală este specificată în secțiunea [[#informatii_generale|Informații generale]] prezentă în enunțul temei. Pentru situațiile în care nu dispuneți de ultima versiune a utilitarului ''uso'' sau checker-ului, rulați ''sudo uso update''.
+
+**Finalizarea temei** se realizează prin rularea comenzii ''sudo uso submit'' și încărcarea codului returnat de această comandă (32 de caractere alfanumerice), în formularul din secțiunea [[#informatii_generale|Informații generale]]. Pentru a evita transcrierea eronată a codului returnat de checker, recomandăm copierea acestuia din interfața mașinii //host// conectată prin SSH către mașina //guest// după cum urmează:
+  * În cazul în care folosiți Linux sau macOS, copierea codului se realizează din terminal selectând codul emis și apăsând combinația de taste CTRL+SHIFT+C (//copy//)
+  * În cazul in care folosiți Windows, copierea se realizează din //PuTTy// selectând codul codul emis (nu este nevoie să folosiți CTRL+SHIFT+C, codul fiind automat copiat la selectare).
+  * După ce a fost copiat în [[https://en.wikipedia.org/wiki/Clipboard_(computing)|clipboard]] codul emis de checker, il puteți lipi (//paste//) în formularul din secțiunea [[#informatii_generale|Informații generale]]
+

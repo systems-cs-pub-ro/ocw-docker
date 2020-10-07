@@ -1,0 +1,118 @@
+===== Need to Know =====
+
+În această secțiune vom face primii pași în folosirea liniei de comandă. O subsecțiune va conține mai multe activităti: unele activități sunt tutoriale, cu ghid pas cu pas, în vreme ce altele sunt exerciții pe care le veți rezolva.
+
+<note important>
+Pentru început, dacă este cazul închideți orice fereastră de browser sau de de terminal aveți deschisă.
+</note>
+
+==== Afișare fișiere ====
+
+Deschideți un terminal. În acel terminal tastați comanda de mai jos urmată de apăsarea tastei ''Enter'':
+<code>
+cat /etc/hostname
+</code>
+Comanda va afișa la terminal conținutul fișierului ''/etc/hostname'', fișier existent pe sistem. Comanda este compusă din comanda ''cat'' (de afișare) urmată de argumentul ''/etc/hostname'' care este calea către fișierul pe care vrem să îl afișăm.
+
+**Exercițiu**: Afișați conținutul fișierului ''/etc/passwd''. Afișați conținutul fișierului ''/var/lib/apt/cdroms.list''.
+
+<note important>
+Rețineți comanda ''cat'' pentru afișarea conținutului unui fișier la terminal.
+</note>
+
+Rulați comanda ''cat'' fără argumente (apăsați ''Enter'' după comanda ''cat''). Comanda ''cat'' pare să se blocheze; de fapt, comanda așteaptă intrare de utilizator; scrieți orice și apăsați ''Enter'', de mai multe ori; observați că vă afișează la ieșire ce îi furnizați la intrare.
+
+Opriți comanda ''cat''  folosind ''Ctrl+c''.
+
+<note important>
+Reamintim să rețineți combinația de taste ''Ctrl+c'' pe care să o folosiți ori de câte ori vreți să închideți o comandă care vă blochează terminalul.
+</note>
+
+==== Afișare mesaje ====
+
+Închideți toate ferestrele de terminal. Apoi dechideți o fereastră nouă. Facem acest lucru ca să ne acomodăm cu modul de deschidere și închidere a terminal-ului.
+
+<note important>
+De acum încolo când vom prezenta comenzi care vor fi rulate, vom preciza și promptul terminalului. Adică atunci când vom spune: "Rulați comanda de mai jos:
+<code>
+student@eg306:~$ ls
+</code>
+înseamnă că veți tasta ''ls'' urmat de apăsarea tastei ''Enter''.
+
+**Nu** tastați ''student@eg306:~$''. Acela este promptul afișat de terminal, locul în care voi veți tasta comenzi.
+</note>
+
+La terminal, tastați comanda de mai jos și observați rezultatul afișat:
+<code>
+student@eg306:~$ echo "dani mocanu"
+</code>
+Comanda va afișa la terminal șirul ''dani mocanu''. Comanda este ''echo'' și primește ca parametrul șirul ''dani mocanu''.
+
+<note important>
+În terminal folosim comenzi care primesc parametri. Separăm comenzile de parametri și parametrii între ei folosind caracterul ''blank'' (spațiu).
+</note>
+
+**Exercițiu**: Afișați la terminal mesajul ''Eu nu dau inapoi''. Afișați la terminal mesajul ''Make America great again''.
+
+==== Terminal de root ====
+
+**Exercițiu**: Să aveți un terminal cu două tab-uri.
+
+**Exercițiu**: Într-un tab terminal accesați contul ''root''. Observați diferențele de prompt dintre cele două tab-uri, ca mai jos:
+<code>
+student@eg306:~$
+</code>
+respectiv
+<code>
+root@eg306:/home/student#
+</code>
+
+**Exercițiu**: Rulați în fiecare dintre cele două tab-uri comanda ''whoami''. Observați și explicați rezultatul comenzii în cele două tab-uri de terminal.
+
+**Exercițiu**: Afișați în cele două tab-uri de teminal conținutul fișierului ''/etc/shadow''. Observați că în cazul tab-ului de terminal pentru utilizatoru ''student'' comanda eșuează cu afișarea mesajului ''Permission denied''. Discutați între voi și cu asistentul motivul pentru care se întâmplă acest lucru.
+
+==== Instalare de pachete software ====
+
+Închidem toate terminalele și tab-urile și apoi deschidem un terminal nou.
+
+Adesea dorim să avem pe sistem aplicații suplimentare. În Linux acest lucru se face foarte ușor folosind //repository-uri// de pachete software de unde putem descărca și instala pachete (similar Google Play pentru Android sau Apple App Store pentru iOS).
+
+Ne propunem să instalăm clientul de Bittorrent numit Deluge (https://deluge-torrent.org). Pentru aceasta rulăm comanda de mai jos și primim rezultatul afișat:
+<code>
+student@eg306:~$ apt install deluge
+E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
+E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
+</code>
+
+<note important>
+Pentru a instala pachete trebuie să folosim contul ''root''.
+
+Instalarea pachetelor în Ubuntu Linux se face folosind comanda ''apt''.
+</note>
+
+Pentru a instala pachetul, folosind permisiuni de ''root'', folosim comanda:
+<code>
+student@eg306:~$ sudo apt install deluge
+</code>
+
+Dacă vi se cere parola, introduceți parola ''student''. La promptul ''Do you want to continue? [Y/n]'' apăsați tasta ''y'' (pentru //yes//) urmată de tasta ''Enter'' sau apăsați direct ''Enter''.
+
+**Exercițiu**: Acum porniți aplicația ''deluge'' folosind ''Alt+F2'' **sau** folosind terminalul. Apoi închideți aplicația ''deluge''.
+
+**Exercițiu**: Instalați pachetul ''wireshark''. Observați că este deja instalat și primiți un mesaj corespunzător.
+
+**Exercițiu**: Acum porniți aplicația ''wireshark'' folosind ''Alt+F2'' **sau** folosind terminalul. Apoi închideți aplicația ''wireshark''.
+
+==== Repornire sistem din linia de comandă ====
+
+Putem reporni mai ușor sistemul din linia de comandă. Pentru aceasta folosiți, în terminal, comanda:
+<code>
+student@eg306:~$ sudo reboot
+</code>
+
+<note tip>
+Dacă doriți să opriți un sistem, folosiți comanda
+<code>
+student@eg306:~$ sudo poweroff
+</code>
+</note>

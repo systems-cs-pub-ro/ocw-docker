@@ -1,0 +1,7 @@
+====== Laborator 04: Dezvoltarea programelor ======
+
+{{page>:uso:laboratoare:new:04-appdev:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:04-appdev:nav&noheader&nofooter&noeditbutton}}

@@ -1,0 +1,7 @@
+====== Laborator 11: Investigarea sistemului (CTF) ======
+
+{{page>:uso:laboratoare:new:11-ctf:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:11-ctf:nav&noheader&nofooter&noeditbutton}}

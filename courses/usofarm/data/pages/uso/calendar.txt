@@ -1,0 +1,38 @@
+===== Calendar =====
+
+Săptămâna de laborator începe **miercurea** și se termină **marțea**. Primul curs are loc **marți, 24 septembrie 2019**, astfel:
+  * seria 1CA: intervalul 10-12, sala EC105
+  * seria 1CB: intervalul 12-14, sala EC105
+  * seria 1CC: intervalul 08-10, sala EC105
+  * seria 1CD: intervalul 16-18, sala PR001
+
+Pentru 1AC, primul curs are loc vineri, 27 septembrie 2019, intervalul 9-11, sala AN034. 
+
+Primul laborator are loc **miercuri, 25 septembrie 2019**.
+
+Testul practic de mid-term are loc sâmbătă **09 noiembrie 2019**.
+
+În perioada miercuri-vineri, 11-13 decembrie 2019, nu au loc laboratoare de USO.
+
+Examenele de USO în sesiunea iarnă 2019-2020 vor avea loc în săli de laborator din facultate astfel:
+  * 1CA: luni, 20 ianuarie 2020, 09:00-12:00
+  * 1CD: sâmbătă, 25 ianuarie 2020, 09:00-12:00
+  * 1CC: sâmbătă, 1 februarie 2020, 09:00-12:00
+  * 1AC: sâmbătă, 1 februarie 2020, 13:00-16:00
+  * 1CB: vineri, 7 februarie 2020, 09:00-12:00
+
+  * Calendar ID: 4qbn8on8ucms8la7jraff0348g%40group.calendar.google.com
+  * [[https://calendar.google.com/calendar/ical/4qbn8on8ucms8la7jraff0348g%40group.calendar.google.com/public/basic.ics|ICAL]]
+  * [[https://calendar.google.com/calendar/embed?src=4qbn8on8ucms8la7jraff0348g%40group.calendar.google.com&ctz=Europe/Bucharest|HTML]]
+
+<html>
+  <iframe src="https://www.google.com/calendar/embed?src=4qbn8on8ucms8la7jraff0348g%40group.calendar.google.com&ctz=Europe/Bucharest" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</html>
+
+==== Planificare calendaristică ====
+
+Link public: [[https://docs.google.com/spreadsheets/d/e/2PACX-1vQnoZqxvqtpfkcbjwlWqJGgzfr_gwTmA0EzR5xaakS78lrcF5inMqnd3JLErY_x0v8LWWYRGTpMTafC/pubhtml?gid=0&single=true|aici]]
+
+<html>
+  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQnoZqxvqtpfkcbjwlWqJGgzfr_gwTmA0EzR5xaakS78lrcF5inMqnd3JLErY_x0v8LWWYRGTpMTafC/pubhtml?gid=0&single=true" style="border: 0" width="750" height="700" frameborder="1" scrolling="yes"></iframe>
+</html>

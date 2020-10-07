@@ -1,0 +1,10 @@
+ ===== Sumar. Cuvinte cheie ===== 
+
+  * Encodare -> prezentarea datelor sub un alt format, fără a ascunde / proteja informații 
+  * Criptare -> ascunderea datelor cu un algoritm public și o cheie secretă 
+  * Hashing -> funcție one-way de verificare a integrității unui fișier sau de stocare a parolelor 
+  * Wordlist -> listă de cuvinte de poate fi folosită la spargerea de parole 
+  * Man-in-the-middle -> interceptarea traficului între 2 entități 
+  * HTTPS -> protocolul http cu un strat suplimentar de criptare 
+  * Least privilege -> minimul de privilegii necesare unui utilizator 
+  * Wireshark -> program pentru a captura și analiza capturi de rețea 

@@ -1,0 +1,171 @@
+===== Nice to know =====
+
+==== VBoxManage ====
+
+Pentru gestiunea mașinilor virtuale dintr-un sistem, VirtualBox ne pune la dispoziți suita de comenzi **vboxmanage**.
+
+Folosind ''vboxmanage'' putem lista toate mașinile virtuale importate în VirtualBox în felul următor:
+
+<code bash>
+student@uso:~$ vboxmanage list vms 
+"USO_tom" {97c22092-baa0-485f-b254-c8f1a0235228}
+"USO_jerry" {cc61b2ce-6d2b-4dff-b245-3cd083d25070}
+</code>
+
+Porniți doar mașina virtuală ''tom'' din interfața grafică. Pentru a lista doar mașinile virtuale aflate în starea ''running'' folosim comanda:
+
+<code bash>
+student@uso:~$ vboxmanage list runningvms 
+"USO_tom" {97c22092-baa0-485f-b254-c8f1a0235228}
+</code>
+
+Dacă vrem să oprim mașina virtual din linia de comandă, avem nevoie de numele ei, ''USO_tom'' și rulăm comanda:
+
+<code bash>
+student@uso:~$ vboxmanage controlvm USO_tom poweroff 
+</code>
+
+Operația opusă, de pornire a unei mașini virutale din linia de comandă se face în felul următor:
+
+<code bash>
+student@uso:~$ vboxmanage startvm USO_jerry
+Waiting for VM "USO_jerry" to power on...
+VM "USO_jerry" has been successfully started.
+</code>
+
+Tot prin intermediul ''vboxmanage'' vrem să repornim o mașină virtuală ''jerry''. Pentru a restarta mașina virtuală procedăm în felul 
+următor:
+
+<code bash>
+student@uso:~$ vboxmanage controlvm USO_jerry reset 
+</code>
+
+O funcționalitate utilă a unei mașini virtuale este aceea de a-și salva starea curentă, prin trecerea în starea de pauză (pause), 
+în care nu consumă resurse, și revenirea la starea inițială atunci cand e nevoie de ea (resume). Comenzile folosite sunt:
+
+Pentru a trece în starea de pauză:
+<code bash>
+student@uso:~$ vboxmanage controlvm USO_jerry pause 
+</code>
+
+Pentru a reveni la starea de rulare:
+<code bash>
+student@uso:~$ vboxmanage controlvm USO_jerry resume 
+</code>
+
+    - Opriți toate mașinile virtuale pornite în tutorialul anterior folosind linia de comandă.
+
+==== Adăugare Host-only adaptor pentru conectivitate cu host-ul ====
+
+Ca o mașină virtuală să poată comunica cu mașina gazdă, trebuie să aibă un adaptor de tip Host-only setat. Acesta are rolul de a 
+interconecta cele 2 interfețe de rețea, cea de pe stația fizică și cea de pe mașina virtuală. Setați un adaptor de acest tip urmărind 
+pașii de mai jos.
+
+Deschideți VirtualBox și selectați mașina virtuală ''tom'' fără a o deschide. Apăsați butonul ''Settings'' după care mergeți la tabul 
+''Network''. 
+
+{{ :uso:laboratoare:new:09-vm:host_only_adaptor_1.png?500 |}}
+
+Selectați opțiunea ''Enable Network Adaptor'' pentru ''Adaptor 1'' și realizați configurările ca în imaginea de mai jos.
+
+{{ :uso:laboratoare:new:09-vm:host_only_adaptor_2.png?500 |}}
+
+Apăsați butonul ''Ok'' după care deschideți mașina virtuală și verificați că a fost alocată o adresă IP pentru ea. Porniți mașina virtuală și dați comanda ''sudo dhclient enp0s8'' după care închideți mașina virtuală salvând starea curentă.
+
+Testați acum conectivitatea de pe mașina fizică pe mașina virtuală ''tom'' folosind ''ssh''.
+
+<hidden>
+==== Creare mașină virtuală pe OpenStack ====
+
+Așa cum este menționat și la secțiunea [[https://ocw.cs.pub.ro/courses/uso/laboratoare/new/09-vm/concepts|Concepte]], OpenStack este un serviciu cloud privat ce ne oferă posibilitatea să creăm 
+mașini virtuale pentru uz propriu, nefiind nevoiți să trecem prin etapa de instalare a unui VMM, crearea unei mașini virtuale locale, 
+configurarea acesteia astfel încât să ne putem conecta la Internet. Pentru a crea o mașină virtuală pe OpenStack, urmăriți tutorialul 
+de [[https://docs.openstack.org/horizon/latest/user/launch-instances.html|aici]].
+</hidden>
+
+==== Creare mașină virtuală pornind de la un VDI existent ====
+
+La această secțiune ne propunem să ne configurăm o nouă mașină virtuală, dar de data asta vrem să folosim un VDI deja existent, nu să 
+creăm noi unul, așa cum am făcut la secțiunea Need to know. 
+
+Descărcați arhiva ''minix.zip'' unde veți găsi un fișier ''.vdi'' de [[http://elf.cs.pub.ro/uso/res/laborator/lab09/|aici]] până a începe tutorialul. 
+
+<note> 
+Pentru a dezarhiva arhiva ''minix.zip'' instalați mai întâi pachetul ''p7zip-full'' folosind comanda ''sudo apt-get install p7zip-full''. Pentru dezarhivare folosiți comanda ''7z e minix.zip''.
+</note>
+
+Urmăriți pașii de la secțiunea [[https://ocw.cs.pub.ro/courses/uso/laboratoare/new/09-vm/need-to-know|Need to know]] cu următoarele modificări:
+
+  * la pasul 2, selectați tipul sistemului de operare ''Other'' și versiunea ''Other/Unknown''.
+  * la pasul 4, alegeți opțiunea ''Use an existing virtual hard disk file''.
+
+După ce creați mașina virtuală, deschideți-o și vedeți că funcționează.
+
+<note>
+Accesați sistemul prin utilizatorul ''root''. Nu vi se va cere parolă.
+</note>
+==== Headless mode ====
+
+Să ne imaginăm următorul scenariu. Avem un server care poate hosta multe mașini virtuale. Fiecarui student de la facultatea noastră 
+îi revine câte o mașină virtuală pe care o poate folosi așa cum dorește. Dat fiind faptul că mașina virtuală se află la distanță și 
+nu local, opțiunea GUI a mașinii virtuale este inutilă. În cazul serverelor de acest tip, scenariul prezentat este unul tipic. Modul de 
+pornire a mașinilor virtuale fără GUI se numeste **headless**. 
+
+Folosind suita ''vboxmanage'' putem porni mașini din CLI în modul headless. Acest lucru poate fi făcut prin [[https://www.virtualbox.org/manual/ch07.html#idp8971072|VRDP]], 
+iar pentru asta trebuie să instalăm pachetul care poate fi descărcat de [[https://download.virtualbox.org/virtualbox/5.2.22/Oracle_VM_VirtualBox_Extension_Pack-5.2.22.vbox-extpack|aici]].
+
+Urmăriți tutorialul de [[https://www.thomas-krenn.com/en/wiki/Headless_Mode_for_Virtual_Machines_of_VirtualBox#Starting_and_Connecting_to_the_Wirtual_Machine|aici]] pentru a 
+instala pachetul anterior descărcat.
+
+În continuare vrem să pornim mașina virtuală în modul **headless**. Pentru porni mașina virtuală astfel urmăriți pașii de mai jos:
+
+<code bash>
+student@uso:~$ vboxmanage list vms
+"USO_tom" {070b1e1b-917b-43ad-9fa3-8bb8f03b12fb}
+"USO_jerry" {602d9e7d-72e8-4b79-9940-6cae2b9b7fb5}
+"my-first-vm" {f6fa7d95-b4dc-47f6-9aba-e95a0984c195}
+</code>
+
+<note important>
+Înainte să porniți mașina în modul ''headless'' aflați adresa IP a mașinii ''tom''. În cazul în care nu are adresă IP, folosiți comanda ''sudo dhclient enp0s8''.
+</note>
+
+Vrem să pornim în modul **headless** mașina ''tom''.
+
+<code bash>
+student@uso:~$ vboxmanage startvm USO_tom --type headless
+Waiting for VM "USO_tom" to power on...
+VM "USO_tom" has been successfully started.
+</code>
+
+<note>
+Vom așteptam puțin până când mașina virtuală pornește până să ne conectăm prin ''ssh'' la ea.
+</note>
+
+Dat fiind faptul că pe mașina virtuală am setat un ''Host-only-Adapter'', ''tom'' va avea o adresă IP alocată dinamică prin DHCP și ne 
+vom putea conecta prin ''ssh'' la ea.
+
+<code bash>
+student@uso:~$ ssh student@192.168.56.101
+student@192.168.56.101's password: 
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-33-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Dec  1 10:19:29 UTC 2018
+
+  System load:  0.13              Processes:             89
+  Usage of /:   50.1% of 9.78GB   Users logged in:       0
+  Memory usage: 25%               IP address for enp0s3: 192.168.56.101
+  Swap usage:   0%
+
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sat Dec  1 09:44:20 2018
+student@tom:~$ 
+</code>

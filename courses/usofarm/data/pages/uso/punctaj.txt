@@ -1,0 +1,155 @@
+====== Notare ======
+/**
+  * Anumite componente ale materiei (teme, laborator, examen grilă final, lucrări de curs) dispun de punctaje bonus sau suplimentare. Acestea pot fi folosite pentru a suplimenta punctaje mai mici în cadrul **aceeași** componente. Dacă nota pe componentă trece de nota maximă aferentă, atunci această notă se trunchiază. Nu puteți transfera punctaje bonus între componente.
+*/
+
+  * Pentru absolvirea disciplinei este necesară obținerea a **5 puncte** (din cele 11 disponibile).
+    * Adică **nu** se trece cu nota **4.99**.
+  * Trebuie să obțineți **minim 3 din 10 puncte** la examenul practic final.
+    * Un punctaj mai mic atrage după sine restanță, cu posibilitatea de refacere în sesiunea de restanță din septembrie. 
+  * Nu există alte condiții de promovare a disciplinei sau de participare la examenele din sesiune.
+  * Anumite componente ale materiei (teme, laborator, examen grilă final) dispun de punctaje bonus sau suplimentare. Acestea pot fi folosite pentru a suplimenta punctaje mai mici în cadrul **aceeași** componente. Dacă nota pe componentă trece de nota maximă aferentă, atunci această notă se trunchiază. Nu puteți transfera punctaje bonus între componente.
+  * Se poate veni la o singură lucrare, un singur examen, un singur test practic etc. atât în timpul semestrului cât și în timpul sesiunii de restanțe. Nu se poate veni în aceeași sesiune de evaluare de două ori la aceeași formă de evaluare.
+
+===== Sumar notare =====
+/**
+  * 1 punct - laborator (12 laboratoare)
+  * 1.5 puncte - lucrări de curs (3 lucrări)
+  * 1 punct - examen practic la mijlocul semestrului - din primele 6 laboratoare
+  * 2.5 puncte - teme (4 teme)
+  * 2.5 puncte - examen grilă ﬁnal (sesiune)
+  * 2.5 puncte - examen practic ﬁnal (sesiune) - din toate laboratoarele
+  * **total** - 11 puncte (nota se trunchiază la 10)
+*/
+  * 1 punct - laborator (11 laboratoare)
+  * 1 punct - examen practic la mijlocul semestrului - din primele 6 laboratoare
+  * 3 puncte - teme (4 teme)
+  * 2.5 puncte - examen grilă ﬁnal (sesiune)
+  * 2.5 puncte - examen practic ﬁnal (sesiune) - din toate laboratoarele
+  * **total** - 10 puncte
+
+<hidden>
+===== Activități extra =====
+
+=== Lucrări de curs ===
+Vor fi 3 lucrări de curs pe parcursul întregului semestru, fără punctare, cu scopul de pregătire a examenului final. Lucrările vor fi disponibile pentru 24 de ore pe [[https://curs.upb.ro/course/view.php?id=10676|meta-cursul USO]], conform planificării:
+
+  * lucrarea nr. 1: la cursul 4, pe 3 Noiembrie 2020, din cursul 0, cursul 1, cursul 2 și cursul 3
+  * lucrarea nr. 2: la cursul 7, pe 24 Noiembrie 2020, din cursul 4, cursul 5 și cursul 6
+  * lucrarea nr. 3: la cursul 10, pe 12 Ianuarie 2021, din cursul 7, cursul 8 și cursul 9
+</hidden>
+
+====== Notare detaliat ======
+
+===== Curs =====
+/**
+  * [[uso:punctaj#lucrari_de_curs|Lucrări de curs]]
+*/
+Punctajul total care poate fi obținut de la curs este de **2.5 puncte ** și este compus din:
+  * [[uso:punctaj#examen_grila_final|Examen grilă de final]]
+
+<hidden>
+==== Lucrări de curs ====
+
+Vor fi 3 lucrări de curs pe parcursul întregului semestru, în total valorând **1.5 puncte** din nota finală.
+
+O lucrare conține **5 întrebări** punctate cu 0 sau 1 (nu există punctaj parțial). O lucrare durează **10 minute** și este dată la începutul cursului. Pentru a putea participa la lucrare să fiți prezenți, vă rugăm, în sala de curs la cel târziu 5 minute după începerea oficială a orei de curs.
+
+Se pot obține maxim 15 puncte (3 lucrări x 5 puncte) la lucrările de curs. Pentru obținerea notei maxime (10) pe lucrările de curs, trebuie să obțineți 12 puncte; ce este peste cele 12 puncte se tunchiază.
+
+La lucrările de curs nu aveți voie cu nici un fel de material. Aveți nevoie doar de un instrument de scris. Foaia cu subiectele o veți primi de la noi. Tot pe acea foaie veți realiza și rezolvarea subiectelor. Tentativele de copiere sau fraudare prin orice mijloc se penalizează cu anularea lucrării. În caz de recidivă va rezulta în referat la decanatul facultății.
+
+După desfășurarea și corectarea unei lucrări, dacă sunteți de părere că nota nu este în conformitate cu răspunsurile voastre, puteți solicita recorectarea lucrării. Puteți solicita doar recorectare, nu validarea unor răspunsuri, sau indicație dacă răspunsurile au fost sau nu corecte. Veți primi răspuns că nota nu s-a schimbat sau, dacă în urma recorectării a fost schimbată, în ce notă a fost schimbată.
+
+<note>
+Găsiți un exemplu de lucrare de curs la adresa: http://elf.cs.pub.ro/uso/res/cursuri/exemplu-test-de-curs.pdf
+</note>
+
+=== Planificare ===
+
+  * **lucrarea nr. 1:** la cursul 4, pe 22 octombrie 2019, din cursul 0, cursul 1, cursul 2 și cursul 3
+  * **lucrarea nr. 2:** la cursul 7, pe 12 noiembrie 2019, din cursul 4, cursul 5 și cursul 6
+  * **lucrarea nr. 3:** la cursul 11, pe 10 decembrie 2019, din cursul 7, cursul 8, cursul 9 și cursul 10
+
+</hidden>
+
+
+==== Examen grilă final ====
+
+Examenul grilă final valorează **2.5 puncte** din nota finală și este susținut în sesiune.
+
+Examenul conține 44 de întrebări grilă fie cu o singură variantă de răspuns corectă fie mai multe. Se precizează în cadrul întrebării numărul de răspunsuri corecte. Fiecare întrebare valoarează **1 punct**, pentru un total de **44 de puncte**. Nota pe exemenul grilă final se află împărțind punctajul la 4; ce este peste nota 10 se trunchiază.
+
+Examenul grilă final acoperă întreaga materie de curs, așa cum este prezentată în [[https://books.google.ro/books?id=_JFGzyRxQGcC|suportul de curs]]. Se va desfășura pe platforma [[http://cs.curs.pub.ro/|Moodle]] și va dura **40 de minute**.
+
+Nu vom publica variantele de subiecte pentru examen.
+
+Examenul este individual. Nu aveți voie cu acces la nici un material pe parcursul desfășurării examenului grilă final. Puteți folosi foi albe sau o fereastră de editor pentru notițe. Tentativele de copiere sau fraudare prin orice mijloc se penalizează cu eliminarea din examen.
+
+Se primește punctaj pozitiv pentru fiecare răspuns corect și punctaj negativ pentru răspunsuri greșite, astfel:
+  * pentru fiecare răspuns corect se primește ''1/număr_răspunsuri_corecte''; aceasta înseamnă:
+    * 1 punct pentru întrebările cu un singur răspuns corect
+    * 0.5 puncte pentru întrebările cu două răspunsuri corecte
+    * 0.33 puncte pentru întrebările cu trei răspunsuri corecte
+  * pentru fiecare răspuns greșit se scad ''-0.5'' puncte; punctajul negativ cumulează.
+
+De exemplu, fie o întrebare cu 7 variante de răspuns, dintre care 3 corecte. Funcție de răspunsurile oferite, rezultă punctajele:
+  * pentru 2 răspunsuri corecte (doar două bife): ''2*0.33 = 0.66 puncte''
+  * pentru 2 răspunsuri corecte și 1 răspuns greșit: ''2*0.33-0.5 = 0.16 puncte''
+  * pentru 1 răspuns corect și 2 răspunsuri greșite: ''1*0.33 - 2*0.5 = -0.66 puncte''
+  * pentru 3 răspunsuri greșite: ''3*(-0.5) = -1.5 puncte''
+
+Dacă la o întrebare nu se alege nici o variantă de răspuns **sau** dacă se optează pentru varianta ''Nu știu/Nu răspund'', acea întrebare va primi **0 puncte** (nu se scade, nu se adună).
+
+Dacă se obține punctaj negativ la examenul grilă final, punctajul/nota va fi **0** (zero).
+
+==== Participare examen final ====
+
+Fiecare student va participa la examenul final planificat pentru grupa sa. Dacă nu poate participa din motive întemeiate, va trimite un e-mail titularului de curs cu subiectul ''[USO] Participare examen final - NUME Prenume, Grupa'', de exemplu ''[USO] Participare examen final - POPESCU Ana, 313CD'' și va preciza motivele. I se va semnala o altă dată de participare.
+
+Studenții care refac materia pot veni la examen la orice dată doresc. Sunt rugați să trimită un e-mail cu data la care doresc să participe lui [[sergiu121@gmail.com|Sergiu Weisz]] cu subiectul ''[USO] Participare examen final - NUME Prenume, Grupa'', de exemplu ''[USO] Participare examen final - MUNTEANU Ionuț, 324CA'' în care să precizeze data de examen când dorește să participe.
+
+===== Examen practic =====
+
+Există două teste pentru verificarea abilităților practice dobândite. Cele două teste valorează, împreună, **3.5 puncte** din nota finală.
+
+Pentru cele două teste aveți voie cu acces la orice formă de documentație necolaborativă atât în format fizic cât și electronic și online. Puteți parcurge cartea de USO, cursuri, laboratoare, puteți căuta pe Internet. Nu aveți voie să discutați cu colegii sau să folosiți forme interactive de comunicare/colaborare pe Internet: chat, întrebări pe StackOverflow, IRC, Google Docs sau altele. Mai pe scurt, puteți accesa resursele de pe Internet în mod "read-only".
+
+Examenul este individual. Tentativele de copiere sau fraudare prin orice mijloc se penalizează cu eliminarea din examen.
+
+Nu vom publica variantele de subiecte pentru examen.
+
+==== Mijloc de semestru ====
+
+Se desfășoară pe data de **21 Noiembrie 2020**. Durează **50 de minute** și valorează **1 punct** din nota finală. Acoperă materia din primele 6 laboratoare.
+
+==== Final ====
+
+Se desfășoară în **sesiune**. Valorează **2.5 puncte** din nota finală. Acoperă materia din toate laboratoarele.
+
+Examenul practic final durează **100 de minute**. Trebuie să obțineți **minim 3 din 10 puncte** la examenul practic final. Un punctaj mai mic atrage după sine restanță, cu posibilitatea de refacere în sesiunea de restanță din septembrie.
+
+===== Laborator =====
+
+Laboratorul valorează **1 punct** din nota finală.
+
+Vor fi 10 laboratoare pe parcursul semestrului. Fiecare laborator este punctat 10 puncte din exerciții de bază și bonusuri; ce se obține peste în laborator (exerciții de bonus).
+
+Nota pe laborator se obține împărțind punctajul la 10. Ce este peste nota 10 se trunchiază.
+
+===== Teme =====
+
+Temele valorează **3 puncte** din nota finală.
+
+Temele se vor rezolva doar în mașina virtuală. Nu este permisă alterarea în niciun fel a mașinii virtuale decât dacă cerința temei permite o astfel de modificare.
+
+Sunt 4 teme. Tema 0 valorează **0.2 puncte**, tema 1 valorează **0.8 puncte**, iar temele 2, 3 valorează **1 punct** fiecare. Temele pot avea subiecte bonus pentru obținerea unui punctaj mai mare.
+
+Punctajul total al temelor se trunchiază la 3 puncte.
+
+==== Planificare ====
+
+  * Tema 0: 28 Octombrie 2020, 23:55 - 11 Noiembrie 2020, 23:55
+  * Tema 1: 11 Octombrie 2020, 23:55 - 25 Noiembrie 2020, 23:55
+  * Tema 2: 25 Noiembrie 2020, 23:55 - 09 Decembrie 2020, 23:55
+  * Tema 3: 09 Decembrie 2020, 23:55 - 03 Ianuarie 2021, 23:55

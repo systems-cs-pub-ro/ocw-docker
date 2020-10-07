@@ -1,0 +1,40 @@
+====== Răzvan-Aurelian Pricope ======
+  * e-mail: razvan.pricope [at] cti.pub.ro
+  * website: razvan.pricope.net
+  * blog: razvan.pricope.net/blog
+
+
+====== Educație ======
+  * 2006-2010 - Colegiul Național „Vasile Alecsandri”, Galați
+  * 2010-2014 - Politehnica București, facultatea de Automatică și Calculatoare
+
+
+====== Domenii de interes ======
+  * Sisteme de operare (chestii foarte low-level)
+  * Compilatoare
+  * Sisteme distribuite
+  * Cloud computing
+  * Rețelistică 
+  * Limbaje de programare
+  * Mașini virtuale/hypervisors  
+  * Citit (de obicei ce mi se recomandă de către prieteni)
+  * Role, bicicletă
+====== Competențe ======   
+  * c++ - foarte bine 
+  * c - mediu
+  * shell scripting - mediu 
+  * x86 assembly - începător
+  * java - mediu 
+  * Windows api (winapi) - avansat  
+
+====== O parte din proiecte: ======
+  * (vara 2012) internship Bitdefender 
+  * compilator de expresii matematice: (vezi [1])
+  * iocp sockets - librarie de abstractizare a operațiilor cu sockets - folosind I/O Completion ports [2]
+  * extend::string - un wrapper peste std::string ce conține câteva funcții helper [3]
+
+
+
+  - [1] http://razvan.pricope.net/blog/2012/01/expression-compiler-fast-mathematical-expression-parser/
+  - [2] http://razvan.pricope.net/projects/iocp-sockets.html
+  - [3] http://razvan.pricope.net/projects/extend-string.html

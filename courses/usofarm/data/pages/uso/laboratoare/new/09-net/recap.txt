@@ -1,0 +1,7 @@
+===== Recapitulare =====
+
+**1.** Afişaţi pentru partiţţile din sistem, următoarele informaţii: numele, dimensiunea, unde este montat şi deţinătorul acesteia. (**hint**: ''lsblk -o'')
+
+**2.a** În directoul ''home'' al utilizatorului ''student'', creaţi un fişier cu dimensiunea de 10MB, plin cu zerouri (**hint**: ''dd''). Apoi, formataţi-l astfel încât peste acesta să avem o partiţie de tip **ext4** (**hint**: ''mkfs'').
+
+**2.b** Creaţi directoul **/mnt/my-mount** şi montaţi sistemul de fişiere ext4 creat anterior în acest director.

@@ -1,0 +1,74 @@
+===== Get a Life =====
+
+==== 1. Emulare ====
+[[http://qemu.org|QEMU]] este un emulator care permite rularea unui sistem de operare complet ca un simplu program în cadrul unui alt sistem. A fost dezvoltat inițial de Fabrice Bellard și este disponibil gratuit, sub o licență open source. QEMU poate rula atât pe Linux, cât și pe Windows. Este un emulator deoarece poate rula sisteme de operare și programe compilate pentru o platformă (ex: o placă cu procesor ARM, similară cu ce găsim într-un smartphone) pe o altă platformă (ex: un PC [[https://en.wikipedia.org/wiki/X86|arhitectură x86]] așa cum sunt sistemele din EG306 sau EG106). Acest lucru este făcut prin translatarea dinamică a intrucțiunilor architecturii guest în instrucțiuni pentru arhitectura host.
+
+**[1a]** Rularea unei imagini de Raspbian (arhitectura ARM)
+
+<note important>
+Acest exercițiu se desfășoară pe **sistemul fizic**.
+</note>
+
+Pentru acest exercițiu sunt necesare:
+  * O imagine de kernel Linux pentru arhitectura ARM, descărcabil de [[http://repository.grid.pub.ro/cs/uso/2015-2016/lab09/kernel-qemu|aici]].
+  * O imagine de Raspbian (mașină virtuală de Debian care merge pe un sistem de fișiere tip Raspberry Pi), descărcabilă de [[http://repository.grid.pub.ro/cs/uso/2015-2016/lab09/2012-10-28-wheezy-raspbian.zip|aici]]. Folosiți Raspbian Wheezy, un flavor de Ubuntu pentru platforma Raspberry Pi. Dezarhivați imaginea în directorul în care ați descărcat-o folosind comanda<code>
+unzip 2012-10-28-wheezy-raspbian.zip
+</code>
+  * Un set de pachete pentru a rula într-o mașina virtuală QEMU imaginea de Raspbian. Pentru a instala pachetele necesare rulați comanda<code bash>
+student@uso~:$ sudo apt-get install qemu qemu-kvm qemu-system-arm
+</code>
+
+<note tip>
+Există posibilitatea ca în urma rulării comenzii de mai sus să obțineți mesajele de eroare. Mesajul de eroare vă indică ce aveți de făcut, anume actualizarea pachetelor folosind comanda<code>
+sudo apt-get update
+</code>
+după care să rulați din nou comanda de instalare, care va rula acum fără probleme.
+</note>
+
+**[1b] Rulati o distribuție de Linux** pentru platforma Raspberry Pi, folosind cele 2 fisiere downladate mai sus.
+
+
+După bootare vă apare un ecran de configurare. În ecranul apărut mergeți până la butonul ''Finish'' (folosind ''Tab'').
+
+<note>
+Dacă nu sunteți autentificați, folosiți următoarele date de autentificare:
+   - username: ''pi''
+   - parolă: ''raspberry''
+</note>
+
+După ce a bootat sistemul de operare din emulatorul QEMU (adică mașina virtuală Raspabian) rulați, în cadrul acestei mașini virtuale, comenzile: <code bash>
+$ lscpu
+$ uname -a
+</code>
+
+<note tip>
+Comanda ''lscpu'' s-ar putea să nu vă meargă pentru că nu este montat sistemul de fișiere ''proc'' necesar comenzii ''lscpu''. Pentru a monta acest sistem de fișiere rulați comanda<code>
+$ sudo mount -t proc proc /proc
+</code>
+</note>
+
+Observați că în loc de arhitectura ''x86'' în output (așa cum vedeam la primul exercițiu) avem ca arhitectură ''arm''. Mai multe detalii despre ARM pe [[http://www.arm.com/products/processors/instruction-set-architectures/index.php|site-ul oficial]].
+
+<note> 
+**Informativ**: Pentru a scrie imaginea de mai sus pe un card SD și a o rula pe un dispozitiv de tipul [[https://www.raspberrypi.org/|Raspberry Pi]] trebuie să rulăm trei comenzi: una pentru idenficarea partițiilor (e.g. ''df''), una pentru demontarea partiției care repzintă cardul SD și una pentru scrierea imaginii de Raspbian pe cardul SD, folosind ''dd''. Urmăriți [[https://www.raspberrypi.org/documentation/installation/installing-images/linux.md|indicațiile de aici]] dacă nu sunteți siguri ce comenzi trebuie să dați. 
+</note>
+
+==== 2. Docker ==== 
+[[http://qemu.org|Docker]] este un program folosit pentru virtualizare la nivelul sistemului de operare, cunoscut și sub numele de "containerization". Docker este folosit pentru a rula pachete software numite ''containere''. Containerele sunt izolate între ele, dar pot comunica prin diverse canale bine definite. Toate containerele sunt rulate de un singur sistem de operare, fapt ce face Docker mai ''"lightweight"'' decât mașinile virtuale clasice. 
+
+**[2a]** Instalați Docker pe mașina fizică folosind [[https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-convenience-script|ghidul oficial]], varianta de instalare printr-un script. 
+
+**[2b]** Clonați repo-ul [[https://github.com/yeasy/simple-web|simple-web]]. Deschideți-l și inspectați fișierele Dockerfile și index.py. Încercați să înțelegi fiecare linie din Dockerfile (întrebați asistentul dacă aveți nelămuriri). 
+
+**[2c]** Folosind proiectul clonat mai devreme, creați un container folosind Docker. Pentru a vă verifica, accesați http://localhost/. 
+
+==== 3. Mașini virtuale în CLI ==== 
+
+Până acum am folosit VirtualBox pentru a importa mașini virtuale. Am făcut acest lucru din interfața grafică, dar este important de știut că putem folosi și linia de comandă, și anume comanda VBoxManage. Urmăriți tutorialul de [[https://www.perkin.org.uk/posts/create-virtualbox-vm-from-the-command-line.html|aici]]. 
+
+
+==== 4. Montare .vdi fără VM ==== 
+
+**[4a]** Descărcați de aici [[https://sourceforge.net/projects/virtualboximage/files/MINIX/3.2.0/Minix_320.7z/download|VM]] arhivă zip.  
+
+**[4b]** Dezarhivați arhiva și montați fișierul .vdi, fără a vă folosi de o mașină virtuală. 

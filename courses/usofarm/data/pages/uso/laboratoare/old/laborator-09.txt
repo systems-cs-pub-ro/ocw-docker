@@ -1,0 +1,786 @@
+~~SHOWSOLUTION~~
+====== Laborator 9 - Stocarea si prelucrarea datelor ======
+
+====== Suport laborator ======
+  * **Cuvinte cheie**: date digitale, structurate, nestructurate, entitate, proprietate, asociere, format tabelar, format text, format binar, serializare, atribut-valoare, INI, JSON, YAML, XML, CSV, spreadsheet, bază de date, SGBD, DBMS, relațional, RDMBS, interogare, SQL, sed, histograma, gnuplot
+
+
+
+====== Repository laborator =====
+
+Pentru a descărca fișierele necesare acestui laborator deschidem un terminal (folosim combinația de taste ''Alt+Ctrl+t'') și clonăm repository-ului oficial uso. Folosim comanda:
+
+<code bash>
+student@midgard:~$ git clone https://github.com/systems-cs-pub-ro/uso
+</code>
+ 
+În directorul ''/home/student/uso/lab09'' găsim fișierele necesare pentru laboratorul 9.
+
+====== Prezentare generală ======
+Pe parcursul acestui laborator, vom urmări moduri în care putem stoca, analiza și prelucra datele. Termenul în limba engleză pentru prelucrarea datelor este **//data processing//** sau **//data analysis//**.
+
+<spoiler Click pentru mai multe informații>
+
+Prin prelucrarea datelor ne referim la preluarea acestora din formatul de stocare și prezentarea acestora într-o formă utilă unui observator uman. Operații de acest tip sunt convertirea datelor într-un alt format, căutarea și selectarea anumitor informații (care satisfac criterii date), sortarea datelor, sumarizarea informațiilor, realizarea de grafice. În general, procesul de prelucrare a datelor are la intrare date în formatul de stocare, iar la ieșire are un format de prezentare: diagrame sau grafice (numite și //plots// sau //charts//), rapoarte, date tabelare, date numerice. Formatul de prezentare trebuie să conțină informația într-o formă cât mai accesibilă și mai ușor de urmărit de observatorul uman.
+
+Spre exemplu, fie situația în care avem un fișier cu date în format CSV (//Comma Separated Values//) cu studenți, grupele din care fac parte și notele la USO. Acest fișier reprezintă datele de intrare stocate în format CSV. În urma prelucrării datelor, putem avea următoarele forme de ieșire/output:
+  * lista studenților care au nota 10
+  * un tabel cu studenții și grupele din care fac parte care au nota 10
+  * un tabel cu studenții, grupele din care fac parte și notele studenților sortate în ordinea notelor
+  * un tabel cu studenții al căror nume de familie începe cu o literă din intervalul ''A-M'' și nota acestora la USO
+  * media notelor din tabel
+  * abaterea pătratică medie (//standard deviation//) a notelor din fișier
+  * un tabel cu grupele, media notelor studenților din grupă și abaterea pătratică medie
+  * un grafic de tipul //plot// (cu puncte) cu notele pe abscisă (1 până la 10) și numărul de note pe ordonată (câți studenți au luat acea notă)
+  * un grafic de tipul histogramă sau de tipul //barchart// (cu bare) cu numărul de note
+
+Formatul de ieșire/output/prezentare (tabel, raport, număr, grafic) ține de cerințele observatorului uman. Datele selectate și prezentate țin, de asemenea, de relevanța acestora pentru utilizatorul uman. Este posibil ca într-o situație să nu conteze numele de familie al studentului, dar în alta să conteze. Poate pentru un observator contează data nașterii sau domiciliul (presupunând că aceste informații ar fi disponibile), dar pentru altul nu contează. Metodele de prelucrare a datelor sunt, astfel, doar metode, observatorul uman decidând cum le va folosi, pe ce date vor fi aplicate și care va fi formatul de ieșire.
+
+Datele de intrare sunt într-un format anume. În general, parcurgerea datelor de intrare și interpretarea lor poartă numele de parsarea datelor (sau **//data parsing//**) (tradusă parțial în limba română ca //analiza datelor//). Dacă formatul de intrare este JSON spunem că parsăm datele în format JSON. În urma parsării datele sunt puse în memorie în formă de vectori, liste, arbori sau alte structuri de date, unde pot fi apoi prelucrate; utilitarul care face parsarea se cheamă **//parser//**. În cazul în care datele sunt stocate într-un format cunoscut (JSON, CSV, YAML, INI) putem apela la parsere deja existente. Altfel, dacă datele sunt stocate într-un format oarecare, va trebui să implementăm mecanismul de parsare.
+
+Diagrama de mai jos sumarizează fazele procesului de prelucrare a datelor.
+
+{{ :uso:laboratoare:prelucrarea-datelor.png?800 |}}
+
+</spoiler>
+
+====== Demo ======
+
+În continuare, împreună cu asistentul veți parcurge câteva exerciții de tip demo/tutorial pentru a vă acomoda cu noțiunile, metodele și utilitarele pentru prelucrarea datelor.
+
+<hidden>
+Ca viziune, ar trebui să le indicați studenților că:
+  * Există faze în prelucrarea datelor: parsare, prelucrare efectivă, prezentare (așa cum am discutat și la curs).
+  * Există mai multe moduri de a "jupui pisica"; că vei alege calea mai "bună" (bună = fezabilă, accesibilă, performantă, portabilă), funcție de situație (așa cum am discutat și la curs).
+
+Pentru partea de stocare: insistati pe utilitatea bazelor de date.
+
+Pentru partea de parsare: Concentrati-va pe functionalitatea SED, dar mentionati si diverse utilitare pe care ei deja la cunosc: GREP, FIND, STAT, CUT.
+
+Notiuni avansate de parsare (regexp-uri, awk), precum si o lista extensiva a tuturor utilitarelor vor fi prezentate in laboratorul 10 de Shell Scripting.
+
+Insistați pe modul în care abordezi problema, unde e bine să faci așa și unde e bine să faci altfel, de ce ai folosi X în loc de Y în situația Z.
+
+Precizați-le că se vor lovi cu multe situații de parsare/deserializare de date text (în diverse formate) și de prelucrat acele date. Și să aibă atunci în vedere ce metode pot folosi ce mijloace (//means//) funcție de obiective (//ends//).
+
+
+Ar trebui să încheiați demo-ul la și 30 de minute din prima oră ca apoi să facă exercițiile.
+</hidden>
+
+===== 1. Formatul Tabelar =====
+
+Un alt mod de stocare a informațiilor este sub formă tabelară. Fiecare o să ocupe propria linie în cadrul tabelului, iar fiecare atribut o să aibă propria coloană.
+
+|Nr.|Producator | Model         | Frecventa     | Cache      |
+|1. |Intel	| i7-5960X	| 3.00GHz	| 20MB Cache |
+|2. |Intel	| i7-5930K	| 3.50GHz	| 15MB Cache |
+|3. |Intel	| i7-4790K	| 4.00GHz	| 8MB Cache  |
+|4. |AMD	| FX X8 9370	| 4.70GHz	| 16MB Cache |
+|5. |AMD	| FX X8 9370	| 4.40GHz	| 16MB Cache |
+
+Există o mulțime de formate de fișiere, care se bazează pe stocarea informațiilor sub forma unor tabele. Cele mai importante sunt **CSV**, **ODT**, **ODS** etc. Datele pot fi stocate fie în forma binară, fie în text clar.
+
+Aplicații care sunt specializate pe lucrul cu astfel de formate sunt: Microsoft Excel, LibreOffice Calc, Google Sheets.
+===== 2. Baze de date =====
+
+O bază de date, reprezintă un mod de stocare a informațiilor pe un suport extern.
+
+Ca şi utilitate, bazele de date ne permit:
+  * memorarea unor cantităţi mari de date
+  * regăsirea datelor pe baza unor criterii ce căutare (ce sunt legate în mod direct de structurarea datelor)
+  * prelucrarea unor volume mari de date (filtrare, ordonare, agregare).
+
+Pornind de la același model de structurare a datelor (sub forma tabelară) s-au dezvoltat **bazele de date relaționale**.
+Acestea sunt un tip de baze de date în care datele, văzute ca şi atribute ale entităţilor reale, sunt stocate în tabele şi sunt legate între ele prin relaţii. 
+
+Acest mod de structurare a datelor, bazat pe legături între date, permite eliminarea redundanţei, astfel încât stocarea şi, mai ales, modificarea unei informaţii se face într-un singur loc, iar, din punct de vedere funcţional, această structură permite regăsirea, filtrarea, ordonarea şi agregarea datelor, în mod natural.
+
+Pentru manipularea și accesul la bazele de date relaționale, se folosește limbajul **SQL**.
+
+Pentru a putea rula comenzi SQL, avem nevoie de o bază de date pe care să lucrăm:
+<code bash>
+student@midgard:~/uso/lab09$ sqlite3 lab09 < db/lab09.dump
+</code>
+
+Cea mai simplă comandă, care listează toate intrările dintr-o tabelă este următoarea:
+<code bash>
+student@midgard:~/uso/lab09$ sqlite3 lab09 "select * from students";
+1|Ionescu|Ion|7.0
+2|Gheorghescu|Gheorghe|3.0
+3|Vasilescu|Vasile|8.0
+4|Marinescu|Marian|10.0
+</code>
+
+Dacă vrem să limităm afișarea doar la coloana cu nume (filtrare pe coloane), folosim comanda:
+<code bash>
+student@midgard:~/uso/lab09$ sqlite3 lab09 "select nume from students";
+Ionescu
+Gheorghescu
+Vasilescu
+Marinescu
+</code>
+
+Dacă se dorește afișarea unui număr mai mic de intrări (filtrare pe linii), se folosește cuvântul cheie **WHERE**:
+<code bash>
+student@midgard:~/uso/lab09$ sqlite3 lab09 "select * from students WHERE nota > 5";
+1|Ionescu|Ion|7.0
+3|Vasilescu|Vasile|8.0
+4|Marinescu|Marian|10.0
+</code>
+
+<note important>
+Observați că toate instrucțiunile SQL se finalizează cu simbolul **;**
+</note>
+
+===== 3. Sed ===== 
+  
+[[https://linux.die.net/man/1/sed|sed]] este un **stream editor**. Sintaxa pentru ''sed'' este: 
+<code bash> 
+ sed /pattern/ action input_files 
+</code> 
+  
+**Pattern** este o **expresie regulată** (vom învăța mai multe despre expresii regulate în laboratorul următor). Caracterele / din jurul expresiei regulate sunt folosite ca delimitatori. 
+  
+**Action** este acțiunea ce trebuie executată când este identificat un pattern. Acțiunea este executată asupra **liniei** pe care a fost găsit patternul. Acțiuni uzuale sunt: 
+
+  - ''p'' afișează linia 
+  - ''d'' șterge linia 
+  - ''s/pattern1/pattern2/'' substituie pattern1 cu pattern2 
+  
+Când este invocat, ''sed'' urmează un set de pași: 
+
+  - Caută patternul în input până când găsește o potrivire. Căutarea este realizată secvențial. 
+  - Când găsește o potrivire, execută acțiunea action asupra liniei pe care a fost găsit patternul.  
+  - Continuă căutarea patternului și reia pașii de mai sus până la sfarsitul inputului. 
+  
+Să luăm un exemplu: 
+<code bash> 
+ student@ubuntu:~/uso/lab09/sed_examples$ cat db_select.out 
+ 1|Ionescu|Ion|7.0 
+ 2|Gheorghescu|Gheorghe|3.0 
+ 3|Vasilescu|Vasile|8.0 
+ 4|Marinescu|Marian|10.0 
+  
+ student@ubuntu:~/uso/lab09/sed_examples$ sed 'p' db_select.out  
+ 1|Ionescu|Ion|7.0 
+ 1|Ionescu|Ion|7.0 
+ 2|Gheorghescu|Gheorghe|3.0 
+ 2|Gheorghescu|Gheorghe|3.0 
+ 3|Vasilescu|Vasile|8.0 
+ 3|Vasilescu|Vasile|8.0 
+ 4|Marinescu|Marian|10.0 
+ 4|Marinescu|Marian|10.0 
+  
+ student@ubuntu:~/uso/lab09/sed_examples$ sed -n 'p' db_select.out  
+ 1|Ionescu|Ion|7.0 
+ 2|Gheorghescu|Gheorghe|3.0 
+ 3|Vasilescu|Vasile|8.0 
+ 4|Marinescu|Marian|10.0 
+</code> 
+  
+Acțiunea ''p'' afișează fiecare linie din input. Observăm că pentru prima comandă dată fiecare linie din input apare de două ori. Asta se întâmplă deoarce **sed afișează implicit fiecare linie pe care o procesează**. Acțiunea ''p'' afișează încă o data fiecare linie la stdout. Pentru a anula acest comportament, vom folosi opțiunea ''-n'' care dezactivează afișarea implicită a fiecărei linii. 
+  
+<code bash> 
+ student@ubuntu:~/uso/lab09/sed_examples$ sed -n '/Marinescu/p' db_select.out  
+ 4|Marinescu|Marian|10.0 
+</code> 
+  
+Putem folosi ''sed'' pentru a avea același comportament ca ''grep''. Comanda de mai sus caută pe fiecare linie șirul 'Marinescu' și afișează liniile pe care șirul este găsit. 
+  
+ <code bash> 
+ student@ubuntu:~/uso/lab09/sed_examples$ sed -n 's/Vasil/Gigel/p' db_select.out  
+ 3|Gigelescu|Vasile|8.0 
+ </code> 
+  
+Cel mai adesea vom folosi ''sed'' pentru a **substitui** diverse patternuri. În exemplul de mai sus este căutat pe fiecare linie șirul 'Vasil' și este înlocuit cu 'Gigel'. Observăm că deși există mai multe potriviri pe aceeași linie, comportamentul default ''sed'' este să **înlocuiască doar prima apariție**. La ieșire sunt afișate liniile pe care patternul a fost găsit. 
+  
+Pentru a înlocui **toate** aparițiile din linie, folosim opțiunea ''g'' (global). 
+  
+ <code bash> 
+ student@ubuntu:~/uso/lab09/sed_examples$ sed -n 's/Vasil/Gigel/gp' db_select.out  
+ 3|Gigelescu|Gigele|8.0 
+ </code> 
+  
+<note>
+Funcționalitatea ''sed'' o include pe cea a lui [[https://linux.die.net/man/1/tr |tr]].
+</note>
+
+===== 4. Trasare de grafice =====
+
+De multe ori, una dintre cele mai bune forme de prezentare a datelor e în forma unor grafice. Există mai multe tipuri de grafice (cu puncte, cu linii, //pie chart//, //bar chart// etc.) decizia de a folosi un tip sau altul aparținând observatorului uman.
+
+Pentru trasarea de grafice, putem folosi utilitarul [[http://www.gnuplot.info/|gnuplot]]. Gnuplot primește comenzi care pot fi trecute într-un script pentru a trasa grafice.
+
+Pentru un exemplu de utilizare a gnuplot, accesăm subdirectorul ''draw-plots/'' din directorul laboratorului:<code>
+student@mjolnir:~/uso.git/lab11/process-table-data$ cd ../draw-plots/
+student@mjolnir:~/uso.git/lab11/draw-plots$ ls
+draw-overhead-for-kpps.gnu     transcode-overhead-for-kpps.csv
+memwalk-overhead-for-kpps.csv
+</code>
+
+În acest director sunt două fișiere format CSV care conțin rezultatele unor experimente ce folosesc trafic de rețea. Fișierele ''memwalk-overhead-for-kpps.csv'' și ''transcode-overhead-for-kpps.csv'' conțin overhead-ul în secunde pentru diverse viteze de trafic de rețea, măsurate în //kilopackets per second// (kpps). Prima coloană din fiecare fișier reprezintă viteza în ''kpps'', iar a doua coloană overhead-ul în secunde. Cele două fișiere indică overhead-ul indus în momentul rulării unor aplicații numite respectiv ''memwalk'' și ''transcode''.
+
+Tot aici se găsește și un script gnuplot, ''draw-overhead-for-kpps.gnu'' care trasează graficul dependenței overhead-ului față de viteza de trafic pentru aplicația ''memwalk''.
+
+<spoiler Click pentru explicații legate de conținutul scriptului ''draw-overhead-for-kpps.gnu''>
+Conținutul scriptului este:
+<file gnuplot draw-overhead-for-kpps.gnu>
+# Create plot showing overhead (in seconds) for different traffic rates.
+# Traffic is measured in kilopackets per second (kpps).
+# We use a CSV file as input.
+#
+# Input file is memwalk-overhead-for-kpps.csv. Output file is
+# overhead-for-kpps.pdf.
+#
+# Run using: gnuplot draw-overhead-for-kpps.gnu
+
+set autoscale
+unset log
+unset label
+unset key
+set term pdf
+set output 'overhead-for-kpps.pdf'
+set datafile separator ','
+set xlabel 'Kilopackets per Second (kpps)'
+set ylabel 'Running Time Overhead (seconds)'
+set title 'Overhead for Different Traffic Rates'
+plot 'memwalk-overhead-for-kpps.csv' with linespoints
+</file>
+Scriptul configurează următoarele:
+   * formatul de ieșire este PDF (din linia ''set term pdf'')
+   * fișier de ieșire (format PDF) este fișierul ''overhead-for-kpps.pdf''
+   * separatorul fișierul de intrare (de date) este virgulă ('','', //comma//) pentru că avem la intrare format CSV
+   * titlul graficului și axelor
+   * fișierul de intrare este ''memwalk-overhead-for-kpps''
+   * tipul de grafic este ''linespoints'', însemnând că se trasează și puncte și linii care unesc punctele
+</spoiler>
+
+Pentru a rula scriptul folosim comanda<code>
+student@mjolnir:~/uso/lab09/draw-plots$ gnuplot draw-overhead-for-kpps.gnu
+</code>
+În urma rulării rezultă fișierul ''overhead-for-kpps.pdf'':<code>
+student@mjolnir:~/uso/lab09/draw-plots$ ls
+draw-overhead-for-kpps.gnu     overhead-for-kpps.pdf
+memwalk-overhead-for-kpps.csv  transcode-overhead-for-kpps.csv
+</code>
+Putem vizualiza fișierul cu ajutorul utilitarului ''evince'' folosind comanda<code>
+student@mjolnir:~/uso/lab09/draw-plots$ evince overhead-for-kpps.pdf
+</code>
+
+Întrucât dorim să plasăm pe același grafic și datele pentru aplicația ''transcode'', vom adăuga în script și fișierul de intrare ''transcode-overhead-for-kpps.csv''. Pentru aceasta vom schimba ultima linie din script în două linii care vor avea conținutul<code gnuplot>
+plot 'memwalk-overhead-for-kpps.csv' with linespoints, \
+     'transcode-overhead-for-kpps.csv' with linespoints
+</code>
+După ce schimbăm ultima linie din fișier conform indicațiilor de mai sus și după ce salvăm fișierul, rulăm din nou scriptul și deschidem fișierul rezultat ''overhead-for-kpps.pdf'':<code>
+student@mjolnir:~/uso/lab09/draw-plots$ gnuplot draw-overhead-for-kpps.gnu
+student@mjolnir:~/uso/lab09/draw-plots$ evince overhead-for-kpps.pdf
+</code>
+
+Observăm că nu avem legendă și nu ne putem da ușor seama care grafic reprezintă care aplicație. În scriptul ''draw-overhead-for-kpps.gnu'' am dezactivat legenda prin folosirea liniei<code gnuplot>
+unset key
+</code>
+Pentru a activa legenda comentăm acea linie în cadrul scriptului prefixând-o cu simbolul diez (''#'', //hash//):<code gnuplot>
+#unset key
+</code>
+După ce am comentat linia care dezactiva legenda, rulăm din nou scriptul și deschidem fișierul rezultat ''overhead-for-kpps'':<code>
+student@mjolnir:~/uso/lab09/draw-plots$ gnuplot draw-overhead-for-kpps.gnu
+student@mjolnir:~/uso/lab09/draw-plots$ evince overhead-for-kpps.pdf
+</code>
+
+Acum legenda apare pe grafic, dar este plasată neconvenabil în partea de sus a ecranului. Cel mai bine este ca legenda să fie plasată în partea dreapta centru. Pentru aceasta scriem în fișier linia<code gnuplot>
+set key right center
+</code>
+Putem scrie linia oriunde înainte de linia ''plot''. O putem scrie imediat după linia comentată mai sus. După ce am adăugat linia care poziționează legenda în partea dreapta centru, rulăm din nou scriptul și deschidem fișierul rezultat ''overhead-for-kpps'':<code>
+student@mjolnir:~/uso/lab09/draw-plots$ gnuplot draw-overhead-for-kpps.gnu
+student@mjolnir:~/uso/lab09/draw-plots$ evince overhead-for-kpps.pdf
+</code>
+
+Ca ultimă schimbare, putem configura graficul să folosească pe post de limite pentru ordonată (axa ''Oy'') reprezentând overhead-ul, valorile ''0'' și ''150''. Pentru aceasta adăugăm în script linia<code gnuplot>
+set yrange [0:150]
+</code>
+Putem scrie linia oriunde înainte de linia ''plot''.
+
+Pentru estetică, putem să precizăm etichetelor din legendă. Pentru aceasta înlocuim liniile care defineau graficul (ultimele două linii din script) cu liniile de mai jos, care folosesc cuvântul cheie ''title'' pentru a preciza etichetele în legendă:<code gnuplot>
+plot 'memwalk-overhead-for-kpps.csv' with linespoints title 'memwalk', \
+     'transcode-overhead-for-kpps.csv' with linespoints title 'transcode'
+</code>
+Apoi rulăm din nou scriptul și deschidem fișierul rezultat. Rezultatul final trebuie să fie similar imaginii de mai jos.
+
+{{ :uso:laboratoare:overhead-for-kpps.png?400 |}}
+
+În acest moment avem un grafic care indică dependența overhead-ului de viteza traficului pentru două aplicații. Datele au fost prelucrate din două fișiere de intrare în format CSV, conținând două coloane: prima cu viteza traficulului (în //kilopackets per second//) și a doua cu overhead-ul cauzat de aplicație (în secunde). Am trasat două grafice de tipul //linespoints// (puncte și linii între puncte), am plasat legenda în partea din centru dreapta a graficului, am creat etichete pentru legendă și am configurat pentru axa ''Oy'' limitele ''0'' și ''150''.
+
+<spoiler Click pentru un model de script finalizat>
+În final scriptul final gnuplot va avea o formă similară celui de mai jos<file gnuplot draw-overhead-for-kpps.gnu>
+# Run using: gnuplot draw-overhead-for-kpps.gnu
+
+set autoscale
+unset log
+unset label
+#unset key
+set key right center
+set term pdf
+set output 'overhead-for-kpps.pdf'
+set datafile separator ','
+set xlabel 'Kilopackets per Second (kpps)'
+set ylabel 'Running Time Overhead (seconds)'
+set title 'Overhead for Different Traffic Rates'
+set yrange [0:150]
+plot 'memwalk-overhead-for-kpps.csv' with linespoints title 'memwalk', \
+     'transcode-overhead-for-kpps.csv' with linespoints title 'transcode'
+</file>
+</spoiler>
+
+<spoiler Click pentru informații despre utilitare de trasare de grafice>
+<note>
+O gamă foarte largă de funcționalități de prelucrare a datelor (statistică și grafică) este furnizată de [[http://www.r-project.org/|limbajul R]]. R oferă un mediu de dezvoltare a aplicațiilor de prelucrarea statistică; are un limbaj propriu cu ajutorul căruia se pot prelucra date, în principal numerice și statistice. Funcționalitățile oferite sunt vaste de la lucru pe vectori și matrice, la operații pe date tabelare, agregare de date, trasare de grafice în diferite formate. [[http://www.r-project.org/|Site-ul oficial]] conține documentație de instalare, utilizare și configurare a R.
+</note>
+
+<note>
+O listă de utilitare pentru trasarea de grafice găsiți pe pagina [[http://en.wikipedia.org/wiki/Wikipedia:How_to_create_charts_for_Wikipedia_articles|How to create charts for Wikipedia articles]].
+</note>
+</spoiler>
+
+
+===== Exerciții =====
+
+==== 0. Setup laborator (1p) ====
+
+Pentru a descărca fișierele necesare acestui laborator deschidem un terminal (folosim combinația de taste ''Alt+Ctrl+t'') și clonăm repository-ului oficial uso. Folosim comanda:
+
+<code bash>
+student@midgard:~$ git clone https://github.com/systems-cs-pub-ro/uso
+</code>
+ 
+În directorul ''/home/student/uso/lab09'' găsim fișierele necesare pentru laboratorul 9.
+
+Trebuie să ne asigurăm că avem atât clientul cât și serverul de MySQL instalate pe stația pe care lucrăm:
+
+<code bash>
+student@uso:~$ sudo apt-get update; sudo apt-get install sqlite
+student@uso:~$ sudo apt-get install mysql-server mysql-client
+</code>
+
+<note tip>
+Dacă aveți probleme în instalarea pachetelor, este posibil să nu fie actualizate listele de pachete. Pentru aceasta rulați comanda<code>
+student@uso:~$ sudo apt-get update
+</code>
+</note>
+
+<note important>
+La instalarea serverului de MySQL configurați parola ''root'' pentru utilizatorul ''root''.
+</note>
+
+
+==== 1. Importarea unui fișier CSV într-o bază de date (3p) ====
+
+<note>
+Pentru acest exercițiu e nevoie să descărcăm [[https://docs.google.com/spreadsheets/d/1rX23ArPIJv3Qin6ortEAW5cVZ4YEGC0OCBvjhauNT54/edit#gid=957325511|fisierul spreadsheet de aici]] cu studenți în format CSV.
+
+Pentru a descărca fișierul, folosiți un browser în mod grafic și (Firefox sau Chrome) și apoi folosiți intrarea ''File > Download As > Comma Separated Value''. **Asigurați-vă că separatorul este virgula (,)**
+</note>
+
+În exercițiile precedente, am modificat câteva fișiere de tip CSV. Am văzut că putem să și filtrăm textul în linie de comandă. 
+
+Vrem acum să stocăm toate aceste informații într-o bază de date relațională ce poate fi interogată ulterior de mai multe aplicații. 
+
+
+După instalare pornim ''mysql'' cu parola configurată la instalare. Mai jos am presupus că parola este ''root'':
+
+<code bash>
+student@uso:~/uso$ mysql -u root -proot
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 42
+Server version: 5.5.44-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+</code>
+
+<note important>
+Cea mai mare parte din comenzile SQL se încheie cu punct și virgulă (**;**).
+</note>
+
+Creăm o bază de date goală, fără tabele:
+<code bash>
+mysql> create database uso;
+Query OK, 1 row affected (0.00 sec)
+</code>
+
+Pentru a valida comanda de mai sus folosim:
+
+<code bash>
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| uso                |
++--------------------+
+4 rows in set (0.00 sec)
+
+</code>
+
+Creăm o tabelă care imită CSV-ul descărcat. Trebuie să alegem baza de date cu care lucrăm. Aceasta va fi ''uso'':
+
+<code bash>
+mysql> use uso
+Database changed
+
+mysql> create table studenti( 
+        nume varchar(100) not null, 
+        grupa varchar(10) not null, 
+        nota1 float, 
+        nota2 float, 
+        nota3 float);
+</code>
+
+Pentru a valida corectitudinea comenzii folosim comanda:
+
+<code bash>
+mysql> describe studenti;
+</code>
+
+Pentru a importa un fișier CSV versiunea actuală de MySQL nu ne lasă în mod implicit. Trebuie să oprim consola folosind combinația de taste **''CTRL+d''** și să pornim ''mysql'' astfel:
+
+<code bash>
+student@uso:~/uso$ mysql -u root -proot --local-infile=1 uso
+</code>
+
+Pentru importarea CSV-ului se folosește în ''mysql'' următoarea comandă:
+
+<code bash>
+mysql> load data local infile '/path/to/file/students.csv' into table studenti columns terminated by ',' lines terminated by '\n';
+</code>
+
+În loc de ''/path/to/file/students.csv'' dați calea către locul în care ați salvat fișierul Excel descărcat ca CSV din Google Spreadsheets. În caz de succes observați output-ul dat de ''mysql'':
+
+<code bash>
+Query OK, 91 rows affected (0.01 sec)
+Records: 91  Deleted: 0  Skipped: 0  Warnings: 0
+</code>
+
+<note>
+Dacă apar warning-uri le puteți ignora.
+</note>
+
+Aceasta ne spune că au fost adăugate 91 de intrări. Puteți verifica faptul că CSV-ul avea 91 de intrări folosind [[http://linux.die.net/man/1/wc|wc]]:
+
+<code bash>
+student@uso:~/uso$ cat students.csv | wc -l
+</code>
+==== 2. Selecție, sortare date din baza de date (2p) ====
+
+Bazei noastre de date îi lipsește o cheie primară. Aceasta se poate adăuga folosind comanda (asigurați-vă că folosiți baza de date ''uso'' când lucrați):
+
+<code bash>
+mysql> alter table studenti add id int unsigned not null auto_increment,add primary key (id);
+
+Query OK, 92 rows affected (0.06 sec)
+Records: 92  Duplicates: 0  Warnings: 0
+</code>
+
+Putem verifica acest lucru afișând primele 10 intrări din tabela ''studenti'':
+
+<code bash>
+mysql> select * from studenti limit 10;
++-----------------------------------+-------+-------+-------+-------+----+
+| nume                              | grupa | nota1 | nota2 | nota3 | id |
++-----------------------------------+-------+-------+-------+-------+----+
+| VLĂDUȚU I. Liviu-Alexandru        | 311CC |     6 |   3.5 |  5.22 |  1 |
+| GEORGIU V. Alexandra-Maria        | 311CC |    10 |    10 |  9.67 |  2 |
+| PĂUNOIU N. Gabriel                | 311CC |     7 |   6.5 |   3.5 |  3 |
+| BĂCÎRCEA A. Andrei                | 311CC |     7 |   5.5 |  4.44 |  4 |
+| BOU V. Paul                       | 311CC |     7 |  5.75 |   3.6 |  5 |
+| PETRIA O.T. Cristina              | 311CC |     4 |  2.25 |     4 |  6 |
+| DRĂGAN Al. Andrei-Teodor          | 311CC |     6 |  2.25 |   4.9 |  7 |
+| BURGHELEA C. Stelian              | 311CC |     9 |  8.75 |     8 |  8 |
+| POPESCU A. Rodica                 | 311CC |     7 |   7.5 |   5.5 |  9 |
+| NIȚĂ‚ I. Diana-Maria              | 311CC |     5 |   5.5 |  2.67 | 10 |
++-----------------------------------+-------+-------+-------+-------+----+
+</code>
+
+Ne propunem să efectuăm următoarele sarcini simple în MySQL:
+  * selecția DOAR a coloanelor ''nume'', ''grupa'' și ''nota1'' - așadar, dorim afișarea notei 1 pentru toți studenții.
+  * sortarea studenților după ''nota1'' și afișarea tuturor coloanelor. 
+  * afișarea unei sortări alfabetice a studenților
+
+Rulați câte o comandă SQL pentru fiecare sarcină.
+
+<note tip>
+Puteți porni de la exemplele de SELECT oferite [[http://www.thegeekstuff.com/2013/09/mysql-select-command/|în această pagină]].
+</note>
+==== 3. Prelucrare Fisier JSON  (2p) ====
+
+**JSON** (JavaScript Object Notation) este un format de stocare a datelor ca text human-readable sub formă de perechi cheie-valoare. Este adesea folosit în limbaje de programare precum **Javascript** pentru a agrega și transmite date între diverse componente. Un exemplu clasic este transmiterea datelor de la un sever la o pagină web. 
+
+<file json>
+{
+	"title": "Example Schema",
+	"type": "object",
+	"properties": {
+		"firstName": {
+			"type": "string"
+		},
+		"lastName": {
+			"type": "string"
+		},
+		"age": {
+			"description": "Age in years",
+			"type": "integer",
+			"minimum": 0
+		}
+	},
+	"required": ["firstName", "lastName"]
+}
+</file>
+
+Mai multe detalii despre structura acestui fișier puteți găsi [[https://en.wikipedia.org/wiki/JSON | aici]]. 
+  
+Pentru acest exercițiu vom trimite un request către  [[https://jsonplaceholder.typicode.com/users | acest site]] folosind [[https://linux.die.net/man/1/curl|curl]]  pentru a obține lista de utilizatori înrolați. Răspunsul de la server va fi în formatul ''JSON''. 
+  
+<note tip>
+Pentru a obține lista de utilizatori înrolați, intrați pe website și căutați după ''resources''.
+</note>
+
+Salvați răspunsul în fișierul ''user_list.json''.  
+
+Folosind ''sed'', afișați intrarea din''json'' care corespunde utilizatorului cu ''id-ul 2''. Va trebui să căutați după linia ce conține id-ul și să afișați următoarele linii din intrare.
+
+<note tip>
+''Man sed'' si căutați după ''lines following''.
+</note>
+
+<solution -hidden>
+<code bash>
+sed -n '/"id": 5/,+20p' user_list.json
+</code>
+</solution> 
+  
+Folosind ''sed'', modificați ''user_list.json'' astfel încât atributul "phone" din toate intrările să fie înlocuit cu "mobile_phone". 
+<solution -hidden>
+<code bash>
+sed 's/"phone"/"mobile_phone"/' user_list.json
+</code>
+</solution>
+
+
+==== 4. Prelucrarea informațiilor despre sistemul de fișiere (2p) ==== 
+  
+Este deseori util să știm să prelucrăm informațiile pe care le obținem de la utilitarele Linux. În acest sens dorim ca datele să fie salvate într-un format bine precizat. 
+  
+Când dorim să aflăm informații despre sistemul de fișiere, două utilitare des folosite sunt [[https://linux.die.net/man/1/find|find]] și [[https://linux.die.net/man/1/stat |stat]]. Cu **find** am mai lucrat în [[http://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-06 |laboratorul 6]]. 
+  
+Sarcina voastră este să listați primele 5 fișiere obișnuite (regular files) din ierarhia /etc (adică din toate directoarele, subdirectoarele și subdirectoarele acestora etc.) sortate descrescător în ordinea dimesiunii ocupate de fiecare fișier. Outputul trebuie salvat în fișierul '''uuuuge_files.txt'', fără a include erorile. 
+  
+<note tip> 
+Folosiți find pentru a extrage fișierele. Apoi folosiți expandarea comenzii și stat pentru a afișa doar numele și dimensiunea fișierului. Adică o construcție de forma 
+<code> 
+stat -c ... $(find ...) 
+</code> 
+
+Opțiunea ''-c'' a comenzii ''stat'' permite selectarea doar a anumitor atribute care să fie afișate. Urmăriți pagina de manual a comenzii ''stat''.
+
+Apoi filtrați output-ul comenzii de mai sus cu ajutorul comenzii [[https://linux.die.net/man/1/sort|sort]] pentru a sorta **numeric** în funcție de dimensiunea fișierului. Adică o construcție de forma: 
+<code> 
+stat -c ... $(find ...) | sort ... 
+</code> 
+Apoi filtrați output-ul pentru a extrage doar primele 5 fișiere, în ordinea dimensiunii. Folosiți ''head''.
+</note> 
+  
+<solution -hidden>
+<code bash>
+stat -c "%s %n" $(find /etc -type f 2> /dev/null) | sort -n -k 1,1 | tail -n 5
+</code>
+</solution>
+
+===== BONUS =====
+
+==== 1. Prelucrare HTML (2 karma WoUSO) ====
+
+Obțineți fișierul ''index.html'' al paginii web  [[http://elf.cs.pub.ro]]. [[ https://linux.die.net/man/1/wget | wget ]]
+  
+Dorim să eliminăm toate tag-urile HTML din ''index.html'' folosind ''sed''. Sed va primi ca pattern o **expresie regulată**. Fișierul ar trebui să aibă următorul conținut. 
+<file html>
+<html>
+	<head>
+		<meta name="google-site-verification" content="gTsIxyV43HSJraRPl6X1A5jzGFgQ3N__hKAcuL2QsO8" />
+	</head>
+
+	<body>
+		<h1>It works!</h1>
+	</body>
+</html>
+</file> 
+
+<note tip>
+Expresiile regulate sunt subiectul laboratorului următor. Totuși dacă vreți să încercați să scrieți RegExp-uri și să vedeți pe ce bucăți din text fac match, puteți încerca site-ul interactiv [[http://regexr.com/]].
+</note>
+
+<note tip>
+Un tag HTML are forma <tag>. 
+Trebuie să scrieți o expresie regulată care identifică orice expresie începe cu ''<'' și apoi face match pe oricâte caractere până când este întâlnit carcaterul ''>''. Output-ul așteptat este următorul:
+<code>
+
+	
+		
+	
+
+	
+		It works!
+	
+
+
+</code>
+</note>
+
+După ce am eliminat tag-urile, observăm că textul nu apare la început de rând întrucât este precedat de o suita de whitespaces. Dorim să eliminăm și toate whitespace-urile (''s'') aflate la început de linie. 
+  
+<note tip> 
+Trebuie să scrieți o expresie regulată care identifică orice secvența de whitespaces care începe fix la începutul liniei. Apoi trebuie să o înlocuiți cu un șir vid. 
+Atenție! Textul de pe linie nu trebuie eliminat. Output-ul așteptat este următorul: 
+<code> 
+
+
+
+
+
+
+It works!
+
+
+
+</code>
+</note>
+
+Întrucât am eliminat toate spațiile de la început de linie, liniile care conțineau numai spații au rămas goale. Observăm că în output apar multe astfel de linii. Dorim să le eliminăm și pe acestea folosind sed. 
+  
+<note tip> 
+Trebuie să scrieți o expresie regulată care identifică orice linie fără nici un caracter. Folosiți opțiunea ''delete'' a lui sed pentru a o șterge. 
+<code>
+It works!
+</code>
+</note>
+
+<solution -hidden>
+<code bash>
+wget http://elf.cs.pub.ro
+
+sed "s/<[^>]*>//g" index.html | sed "s/^\s*//g" | sed "/^$/d"
+</code>
+</solution>
+==== 2. Creare grafic de tip histogramă cu număr de note (2 karma WoUSO) ====
+
+Folosind datele din fișierul ''grades.txt'' ne propunem să creăm o histogramă a notelor obținute de studenți; adică un grafic care are pe axa ''Ox'' notele studenților de la ''1'' la ''10'' iar pe axa ''Oy'' prezintă câți studenți au luat nota respectivă. Astfel, pentru fiecare notă va exista o bară care va indica câți studenți au obținut acea notă.
+
+Fișierul ''grades.txt'' are formatul:
+<file>
+[...]
+15 8
+15 9
+13 10
+</file>
+Ultima linie înseamnă că au fost obținute 13 note de 10, penultima linie înseamnă ca au fost obținute 15 note de 9, iar antepenultima linie înseamnă că au fost obținute 15 note de 8
+
+Pentru aceasta, accesați subdirectorul ''draw-plots/'' și creați o copie a scriptului ''draw-overhead-for-kpps.gnu'' numită ''draw-student-grades-histogram.gnu''. Acest script va folosi la intrare fișierul ''grades.txt'' din directorul părinte și va genera la ieșire un fișier PDF numit ''student-grades.pdf'' cuprinzând histograma notelor studenților.
+
+<spoiler Click pentru indicații>
+Recomandăm să realizați scriptul urmând pașii:
+  - Actualizarea numelui fișierului de intrare și a fișierului de ieșire: pe linia cu ''output'' și cea cu ''plot''.
+  - Actualizarea titlurilor: ''xlabel'', ''ylabel'', ''title''.
+  - Folosirea caracterului spațiu (//blank//) pe post de separator: pe linia ''set datafile separator''.
+  - Dezactivarea afișării legendei. Adică linia<code>
+unset key
+</code> trebuie să **nu** fie comentată. Și trebuie ștearsă (sau comentată) linia<code>
+set key right center
+</code>
+  - Specificarea automată de limite pentru axa ''Oy''. Adică ștergeți sau comentați linia<code>
+set yrange [0:150]
+</code>
+  - Trasarea unui grafic cu puncte, folosind a doua coloană pentru axa ''Ox'' și prima coloană pentru axa ''Oy''. Vedeți și indicațiile.
+  - Trasarea unui grafic de tip histogramă, pornind de la cel anterior. Vedeți și indicațiile.
+
+<note tip>
+Parcurgeți secțiunea [[#trasare_de_grafice|Trasare de grafice]] pentru ajutor legat de crearea de scripturi gnuplot și folosirea comenzii ''gnuplot''.
+</note>
+</spoiler>
+
+<note tip>
+Pașii de rezolvare sunt detaliați **în subsecțiunile** exercițiului (subsecțiunile 2.1 și 2.2). Parcurgeți subsecțiunile pentru indicații legate de acești pași și pentru rezolvarea exercițiului.
+</note>
+
+=== 2.1. Crearea grafic cu puncte cu număr de note (1p) ===
+
+<note tip>
+Pentru a trasa graficul cu puncte și să folosiți a doua coloană pentru axa ''Ox'' și prima coloană pentru axa ''Oy'' folosiți construcția ''using 2:1'' la sfârșitul liniei cu ''plot''. Nu mai e nevoie de construcția ''with linespoints'' întrucât nu dorim grafic cu linii între puncte.
+
+Detalii despre folosirea construcției ''using'' găsiți [[http://www.cs.hmc.edu/~vrable/gnuplot/using-gnuplot.html|aici]]. Căutați după șirul //Using using// în cadrul paginii.
+</note>
+
+
+Folosiți comanda ''gnuplot'' cu argument scriptul ''draw-student-grades-histogram.gnu'' pentru a genera la ieșire graficul cu puncte în fișierul ''student-grades.pdf''. Deschideți fișierul folosind comanda ''evince''. Rezultatul final trebuie să fie similar imaginii de mai jos.
+
+{{ :uso:laboratoare:student-grades-points.png?400 |}}
+
+=== 2.2. Creare grafic de tip histogramă cu număr de note (1p) ===
+
+<note tip>
+Pentru a trasa graficul în formă de histogramă, adăugați în script liniile<code>
+set style data histogram
+set style fill solid border
+</code>
+și modificați linia de plot pentru a specifica ce coloană este folosită pentru axa ''0x'' și ce coloană pentru axa ''Oy''. Sintaxa pentru histogramă este de forma ''using 1:xticlabels(2)'' pentru a folosi a doua coloană pentru axa ''Ox'' și a prima coloană pentru axa ''Oy''.
+
+Detalii despre crearea de histograme în gnuplot găsiți [[http://psy.swansea.ac.uk/staff/carter/gnuplot/gnuplot_histograms.htm|aici]] și [[http://gnuplot.sourceforge.net/demo/histograms.html|aici]].
+</note>
+
+Folosiți comanda ''gnuplot'' cu argument scriptul ''draw-student-grades-histogram.gnu'' pentru a genera la ieșire graficul cu histogramă în fișierul ''student-grades.pdf''. Deschideți fișierul folosind comanda ''evince''. Rezultatul final trebuie să fie similar imaginii de mai jos.
+
+{{ :uso:laboratoare:student-grades.png?400 |}}
+
+<solution -hidden>
+<code bash>
+set autoscale
+unset log
+unset label
+unset key
+set term pdf
+set output 'student-grades.pdf'
+set datafile separator ' '
+set style data histogram
+set style fill solid border
+set xlabel 'Grade'
+set ylabel 'Number of Grades'
+set title 'Student Grades'
+plot '../grades.txt' using 1:xticlabels(2)
+</code>
+Scriptul se rulează folosind comanda<code>
+$ gnuplot draw-student-grades-histogram.gnu
+</code>
+
+Pentru deschiderea fișierului PDF rezultat folosim comanda<code>
+$ evince student-grades.pdf
+</code>
+</solution>
+
+===== Sumar =====
+
+Pe parcursul acestui laborator am acoperit câteva aspecte practice legate de moduri în care putem stoca, analiza și prelucra datele. 
+Datele sunt preluate dintr-un suport și format specific de stocare și apoi sunt prelucrate și prezentate într-o formă utilă observatorului uman: rapoarte, tabele, grafice, rezultate numerice.
+
+Un mod uzual de stocare a informațiilor este sub formă tabelară, unde fiecare intrare o să ocupe propria linie în cadrul tabelului, iar fiecare atribut o să aibă propria coloană.
+
+Pornind de la același model de structurare a datelor (sub forma tabelară) s-au dezvoltat bazele de date relaționale. Acestea sunt un tip de baze de date în care datele, văzute ca şi atribute ale entităţilor reale, sunt stocate în tabele şi sunt legate între ele prin relaţii. Pentru manipularea și accesul la bazele de date relaționale, se folosește limbajul SQL.
+
+Sed este un stream editor util pentru manipularea datelor. Sed poate fi folosit pentru afișa, șterge sau substitui patternuri intr-un text primit la intrare. Cel mai adesea vom folosi sed pentru a substitui diverse patternuri.
+
+De multe ori, una dintre cele mai bune forme de prezentare a datelor e în forma unor grafice. Pentru trasarea de grafice, putem folosi utilitarul gnuplot. Gnuplot primește comenzi care pot fi trecute într-un script pentru a trasa grafice.

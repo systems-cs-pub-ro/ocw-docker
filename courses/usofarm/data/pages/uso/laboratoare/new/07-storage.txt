@@ -1,0 +1,8 @@
+====== Laborator 08: Administrarea spațiului de stocare ======
+
+{{page>:uso:laboratoare:new:07-storage:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:07-storage:nav&noheader&nofooter&noeditbutton}}
+

@@ -1,0 +1,5 @@
+====== Administrarea spațiului de stocare ======
+
+{{page>uso:laboratoare:new:08-storage:nav&noheader&nofooter&noeditbutton}}
+====== Navigare ======
+{{page>uso:sidebar&noheader&nofooter&noeditbutton}}

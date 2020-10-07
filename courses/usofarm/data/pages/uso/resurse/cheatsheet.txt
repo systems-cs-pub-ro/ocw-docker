@@ -1,0 +1,12 @@
+====== Cheatsheet ======
+
+Documentul este împărțit în 2 pagini: 
+  * cele mai uzuale comenzi în Linux
+  * Bash/Shell scripting
+
+Cheatsheet-ul USO este disponibil {{:uso:resurse:uso01-refcard.pdf|aici}}. 
+
+==== Alte cheatsheet-uri utile ====
+
+   * {{:uso:resurse:bash_cheat_sheet.pdf|Linux Bash Shell Cheat Sheet}} via [[http://cli.learncodethehardway.org/|Learn CLI the hard way]]
+   * [[http://www.pixelbeat.org/cmdline.html|Agregator de comenzi Linux - format HTML]]

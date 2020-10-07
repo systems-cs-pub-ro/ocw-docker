@@ -1,0 +1,15 @@
+== Vlad Dogaru ==
+
+{{http://swarm.cs.pub.ro/~ddvlad/files/vd_beer.png?500}}
+
+  * Worker ant, the programming kind.  I work for Intel doing Linux kernel development; it's great. In the past I have worked for Ixia, Intel, Facebook, Freescale (as an intern or full timer).
+  * I help out with USO and other operating system related activities when I get the chance.
+  * Open source fan, trying not to be a zealot.
+  * Linux user at work (by choice), Windows user for games.  I like games.  Some of what I am currently enjoying: Civilization V and Beyond Earth, Paradox games such as Europa Universalis 4.  I don't like WoW, DOTA or the like, sorry.
+  * I like beer a lot, people usually say this should be the first bullet point.
+  * Raised in Brăila, you might notice that.
+  * Very bad at remembering names, sorry.
+
+**Fields of interest**: operating systems, kernel programming, networking, open source, functional programming.
+
+I speak C (only a bit of C++), Python, Haskell, Java (only reluctantly).  I like finding out about new programming languages, as long as they are not Ruby.

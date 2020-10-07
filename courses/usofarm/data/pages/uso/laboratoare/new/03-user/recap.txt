@@ -1,0 +1,4 @@
+===== Recapitulare =====
+
+  - Să se afișeze toate procese din sistem în timp real.
+  - Să se afișeze utilizatorul, id-ul procesului, id-ul procesului părinte, comanda și memoria folosită pentru toate procesele utilizatorului ''student''.

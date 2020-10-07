@@ -1,0 +1,27 @@
+===== Înainte de laborator =====
+
+==== Obiective laborator ====
+
+  * Familiarizarea cu etapele prin care trecem de la codul sursă la executabil
+  * Familiarizarea cu utilitarele necesare acestui lucru (gcc)
+  * Automatizarea procesului de compilare
+  * Prezentarea principiilor de bază în scrierea/editarea de cod
+  * Înțelegerea necesității de versionare de cod
+
+==== Folosire Git pentru laborator ====
+
+Pe parcursul laboratoarelor, pentru descărcarea fișierelor necesare laboratorului, vom folosi Git. Git este un sistem de controlul versiunii și e folosit pentru versionarea codului în proiectele software mari. Celor interesați să aprofundeze conceptele din spatele comenzii ''git'', precum și utilizări avansate, le recomandăm cursul practic online de pe [[http://gitimmersion.com/|gitimmersion]].
+
+Informațiile despre laboratorul de USO se găsesc în [[https://github.com/systems-cs-pub-ro/uso-lab|acest repository Git]].
+
+<note important>
+Pentru a pregăti infrastructura de laborator rulați comenzile de mai jos într-un terminal. Deschideți un terminal folosind combinația de taste ''Ctrl+Alt+t''. În listarea de mai jos ''student@uso:~$'' este promptul unde introduceți comenzile, pe acela nu-l tastați.
+
+<code>
+student@uso:~$ cd ~
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso-lab.git
+</code>
+
+</note>
+
+Cam atât cu pregătirea laboratorului. Acum haideți să ne apucăm de treabă! :-)

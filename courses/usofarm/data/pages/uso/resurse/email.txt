@@ -1,0 +1,9 @@
+===== Conturi de email @stud.acs.upb.ro ===== 
+
+<note important>E-mail-urile oficiale pentru studenti din partea UPB. E-mail-ul este de forma ''user_cs_curs@stud.acs.upb.ro'' si poate fi accesat de la adresa [[http://outlook.com/upb.ro]]. **Pentru a se activa, trebuie sa schimbati cel putin o data parola folosind aceasta platforma** (sau folosind [[http://cs.curs.pub.ro/2015/]] - mergeți pe contul vostru, Preferences > Change Password). Activarea se va realiza in aproximativ 3-4 ore. E-mail-ul se acceseaza cu aceeasi parola cu cea a site-ului de cursuri. </note> 
+
+   * Utilizatorul este adresa de mail, //inclusiv// ce se află după caracterul ''@''. Deci Ionuț Popescu va avea utilizatorul ''ionut.popescu@stud.acs.upb.ro''. 
+
+Urmăriti acest tutorial, care conține printscreen-uri cu pașii necesari pentru forwarding a emailurilor catre adresa personala: [[https://support.office.com/en-us/article/Forward-email-messages-to-another-account-in-Outlook-on-the-web-7f2670a1-7fff-4475-8a3c-5822d63b0c8e|How to forward email in Office 365]].  
+
+<note tip> Livrarea mailurilor nu este instantanee. Durează câteva minute ca mail-ul trimis la adresa de pe stud.acs.upb.ro să fie forwardat. </note>

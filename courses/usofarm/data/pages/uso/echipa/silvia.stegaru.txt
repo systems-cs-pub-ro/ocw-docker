@@ -1,0 +1,18 @@
+===== Silvia Cristina Stegaru =====
+{{:uso:echipa:stegaru_silvia_small.jpg?150|Silvia}}
+  * **Mail**: <silvia.stegaru@cs.pub.ro>
+
+===== Education ====
+
+  * **2013 - present**: PhD, Faculty of Automatic Control and Computers, University POLITEHNICA of Bucharest
+    * area of study: Automatic Differentiation. Energy Efficiency in Passive Houses (monitoring; estimation; prediction)
+  * **2011 - 2013**: Master Degree, Faculty of Automatic Control and Computers, University POLITEHNICA of Bucharest
+    * area of study: Parallel and Distributed Systems
+  * **2007 - 2011**: Bachelor Degree, Faculty of Automatic Control and Computers, University POLITEHNICA of Bucharest
+    * area of study: Computer Science and Engineering, C3
+
+===== Interests and causes ====
+
+  * Women in STEM fields (Co-founder [[http://codette.ro|Codette]])
+  * Robots & Artificial Intelligence
+  * Energy efficiency in smart buildings

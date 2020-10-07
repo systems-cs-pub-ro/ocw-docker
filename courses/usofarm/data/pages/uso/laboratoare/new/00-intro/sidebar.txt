@@ -1,0 +1,5 @@
+====== Laborator 00 - Introducere ======
+
+{{page>uso:laboratoare:new:00-intro:nav&noheader&nofooter&noeditbutton}}
+====== Navigare ======
+{{page>uso:sidebar&noheader&nofooter&noeditbutton}}

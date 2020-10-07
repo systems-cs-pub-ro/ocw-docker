@@ -1,0 +1,16 @@
+Pe parcursul anului academic 2017-2018 vor fi acordate 58 de distincții clasificate în 5 categorii:
+* 8 pentru rezultate de midterm
+* 8 pentru implicarea în activitățile de curs
+* 18 pentru implicarea în activitățile de laborator
+* 16 pentru rezultatele la examenul final
+* 8 extra vor fi acordate pentru implicarea în comunitate pe cs.curs.pub.ro și facebook
+
+398	Andrei HORTOPAN 	315CB
+397	Adelin-Nicuşor BĂCANU	311CC
+396	Andrei SERIŢAN	311CA
+395	Lucian-Cristian MANEA	 313CA
+394	Vlad-Alexandru SĂNDULEAC	314CD
+393	Cristian-MihaiVIJELIE	312CC
+392	Andrei SIMESCU	314CC
+391	Filip ȚEPEȘ-ONEA	312CD
+390	Andrei Alin BĂLAȘA	313CC

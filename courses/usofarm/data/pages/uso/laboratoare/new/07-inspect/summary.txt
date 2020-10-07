@@ -1,0 +1,7 @@
+===== Sumar. Cuvinte cheie  =====
+
+  * Vizualizarea componentelor hardware: ''lshw'', ''lscpu''
+  * Dispozitive în cadrul unui sistem: ''/dev''
+  * Dispozitive virtuale: ''/dev/random'', ''/dev/urandom'', ''/dev/zero''
+  * Lucrul cu ''systemd'': ''systemctl''
+  * Vizualizare informații despre drivere/module: ''lsmod'', ''modinfo''

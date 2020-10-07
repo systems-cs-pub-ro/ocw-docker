@@ -1,0 +1,557 @@
+~~SHOWSOLUTION~~
+====== Laborator 05 - Gestiunea sistemului de fișiere ======
+
+===== Suport laborator ======
+
+  * [[http://books.google.ro/books?id=_JFGzyRxQGcC&lpg=PA365&pg=PA284#v=onepage&q&f=false|10.2 Securitatea sistemului de operare]]
+  * [[http://books.google.ro/books?id=_JFGzyRxQGcC&lpg=PA365&pg=PA69#v=onepage&q&f=false|4. Sisteme de fișiere]]
+  * [[http://www.explainxkcd.com/wiki/index.php/981:_Porn_Folder|Proper Porn Folder permissions]]
+  * [[http://www.explainxkcd.com/wiki/index.php/1597:_Git|This is GIT: memorize shell commands]]
+
+<note important>
+Când folosiți linia de comandă, aveți în vedere completarea automată (//autocompletion//) folosind tasta ''Tab'' sau apăsând de două ori tasta ''Tab'' pentru a vă afișa toate posibilitățile. Vă va ajuta să rulați mai repede comenzi. În plus, vă ajută și să nu greșiți; vă completează fișierul și nu trebuie să-l scrieți voi (poate greșit) de mână.
+</note>
+
+<note important>
+Este foarte important ca după fiecare comandă care alterează/configurează ceva (sistemul de fișiere, utilizatori, rețea, procese) să **rulați o comandă de verificare**. De exemplu:
+  * După ce creați sau ștergeți un fișier sau un director (folodind ''touch'', ''mkdir'', ''rm'' sau ''rmdir''), rulați comanda ''ls -l'' pentru a verifica faptul că a fost creat (si a investiga permisiunile).
+  * După ce ați schimbat directorul curent (folosind ''cd''), rulați comanda ''ls'' sau ''pwd'' pentru a verifica faptul că ați ajuns unde doreați.
+  * După ce schimbați permisiunile sau posesia unei intrări în sistemul de fișiere (folosind ''chmod'', ''chown'' sau ''chgrp''), rulați comanda ''ls -l'' pentru a verifica noile permisiuni sau noua posesie.
+  * După ce creați un link simbolic (folosind ''ln -s''), rulați comanda ''ls -l'' pentru a verifia faptul că noul link pointează unde trebuie.
+  * După ce formatați o partiție (folosind o comanda din familia ''mkfs...''), rulați comanda ''file -s'', cu argument partiția, pentru a verifica sistemul de fișiere de pe aceasta.
+  * După ce montați sau demontați o partiție (folosind ''mount'' sau ''umount''), rulați comanda ''mount'' fără parametri pentru a lista partițiile montate.
+  * După ce porniți un proces, rulați comanda ''ps'' pentru a verifica existența procesului.
+  * După ce creați un utilizator, folosind comanda ''adduser'', rulați comanda ''id user_name'', cu argument numele utilizatorului, pentru a verifica existența utilizatorului sau ''getent passwd user_name'' pentru a vedea setarile lui.
+</note>
+======= Demo =======
+
+<note hint>
+Deschideți un teminal nou folosind combinația de taste ''Alt+Ctrl+t''. În terminal clonați repository-ului oficial de USO folosind comanda:
+
+<code>
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso 
+</code>
+
+În directorul ''~/uso/lab05'' găsiți fișierele și directoarele necesare pentru parcurgerea exercițiilor acestui laborator. 
+</note>
+
+===== 1. Permisiuni =====
+
+În laboratorul precedent am aflat că într-un sistem pot exista mai mulți utilizatori. Totuși, fiecare utilizator trebuie sa poată avea fișierele lui personale care să nu poată fi modificate de un alt utilizator fără permisiunea sa, iar unele fișiere sau resurse trebuie să nu poată fi accesate decât de către utilizatorul privilegiat (//root//). În alte cuvinte trebuie să avem o metodă de a controla accesul utilizatorilor la diversele elemente ale sistemului.
+
+Abordarea utilizată în Linux este de a folosi permisiuni. Acestea dictează ce operații (de scriere, citire sau executare) poate să efectueze un utilizator asupra unui fișier sau director. Ele sunt împărțite în trei categorii:
+  * //utilizator (owner)//: utilizatorul care este deținătorul fișierului/directorului
+  * //grup (group)//: un grup de utilizatori care sunt deținătorii fișierului/directorului
+  * //ceilalți (others)//: utilizatorii care nu intră în niciuna dintre categoriile dinainte
+
+Pentru fiecare dintre cele trei categorii există trei permisiuni:
+  * //de citire//: utilizatorul poate citi conținutul fișierului respectiv poate lista conținutul directorului
+  * //de scriere//: utilizatorul poate modifica conținutul fișierului/directorului
+  * //de execuție//: utilizatorul poate lansa fișierul în execuție respectiv poate parcurge directorul
+
+Ordinea în care se aplică aceste permisiuni este: dacă utilizatorul este deținătorul fișierului, atunci se aplică permisiunile pentru //owner//; dacă face parte din grupul deținător, atunci se aplică permisiunile pentru //group//; dacă niciuna dintre condițiile precedente nu este adevărată, atunci se aplică permisiunile pentru //others//.
+
+==== Vizualizarea permisiunilor ====
+
+Pentru a vedea conținutul unui director folosim comanda ''ls''. Dacă îi pasăm argumentul ''-l'' atunci comanda va lista conținutul în format lung, adică va afișă informații suplimentare. Să luăm un exemplu:
+
+<code>
+student@uso:~/uso/lab05/demo$ touch a
+student@uso:~/uso/lab05/demo$ sudo touch b
+student@uso:~/uso/lab05/demo$ ls
+a  b
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 student student 0 oct  6 23:58 a
+-rw-r--r-- 1 root    root    0 oct  6 23:58 b
+</code>
+
+Să ne uităm mai indeaproape la rezultatul rulării comenzii ''ls -l'':
+
+^  -  ^  rw-  ^  rw-  ^  %%r--%%  ^  1  ^  student  ^  student  ^  0  ^  oct 6 23:58  ^  a  ^
+|  Tipul intrării  |  Permisiuni  |||  Numărul de hardlink-uri  |  Deținătorul  |  Grupul  |  Dimensiunea  |  Data ultimei modificări  |  Numele fișierului  |
+
+  * Tipul intrării indică dacă intrarea respectivă este un fișier normal (''-''), director (''d'') sau altceva (rulați ''info ls'' și citiți secțiunea 10.1.2).
+  * Permisiunile indică ce drepturi au anumiți utilizatori asupra fișierului. Sunt împărțite în trei grupuri, primul (''rw-'') corespunde deținătorului (owner), al doilea (''rw-'') corespunde grupului (group) și ultimul (''%%r--%%'') corespunde tuturor celorlalți utilizatori (others). Primul bit din fiecare grup reprezintă dreptul de citire, al doilea reprezintă dreptul de scriere iar al treilea dreptul de execuție. Valoarea 0 (''-'') pe una dintre poziții indică lipsa dreptului respectiv, pe când valoarea 1 (''r'', ''w'' sau ''x'') indică prezența dreptului.
+  * Numărul de hardlink-uri indică câte hardlink-uri există către acest fișier.
+  * Deținătorul fișierului este, în general, utilizatorul care a creat fișierul, dar poate fi modificat.
+  * Grupul fișierului este, în general, grupul utilizatorului care a creat fișierul, dar poate fi modificat.
+
+<hidden>
+Întrebați de ce diferă owner-ul și grupul celor două fișiere. Întrebați ce permisiuni are utilizatorul //student//, respectiv //root// asupra fișierelor. Dacă am vrea ca utilizatorul //student// să poată edita fișierul //b//, ce permisiuni ar trebui să aibă acesta? Dar dacă am vrea ca utilizatorul //root// să poată edita fișierul //a//, ce permisiuni ar trebui să aibă acesta?
+</hidden>
+
+==== Modificarea permisiunilor ====
+
+Pentru a modifica permisiunile unui fișier folosim comanda ''chmod''. Putem să specificăm noile permisiuni în două moduri:
+  * mod literal: specificăm căror utilizatori vrem să le modificăm permisiunile (''u'' pentru deținător, ''g'' pentru grup, ''o'' pentru ceilalți și ''a'' pentru toți utilizatorii), specificăm dacă să adăugăm (''+''), să retragem (''-'') sau să setăm exact (''='') un set de permisiuni și permisiunile ce trebuie modificate (''r'' pentru citire, ''w'' pentru scriere sau ''x'' pentru execuție).
+
+<code>
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 student student 0 oct  6 23:58 a
+-rw-r--r-- 1 root    root    0 oct  6 23:58 b
+student@uso:~/uso/lab05/demo$ chmod u+x a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rwxrw-r-- 1 student student 0 oct  6 23:58 a
+-rw-r--r-- 1 root    root    0 oct  6 23:58 b
+student@uso:~/uso/lab05/demo$ chmod o=w a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rwxrw--w- 1 student student 0 oct  6 23:58 a
+-rw-r--r-- 1 root    root    0 oct  6 23:58 b
+</code>
+
+  * mod octal: specificăm permisiunile pentru deținător, grup și ceilalți printr-o cifră în baza 8. Bitul 0 reprezintă dreptul de execuție (''x''), bitul 1 reprezintă dreptul de scriere (''w'') și bitul 2 reprezintă dreptul de citire (''r''). Prezența unei permisiuni este marcată prin valoarea 1 a bit-ului respectiv iar absența prin valoarea 0 a bit-ului respectiv.
+
+^  r w x  ^  r - x  ^  r - -  ^
+|  1 1 1  |  1 0 1  |  1 0 0  |
+|    7    |    5    |    4    |
+
+<code>
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rwxrw--w- 1 student student 0 oct  7 21:48 a
+-rw-r--r-- 1 root    root    0 oct  7 21:48 b
+student@uso:~/uso/lab05/demo$ chmod 754 a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rwxr-xr-- 1 student student 0 oct  7 21:48 a
+-rw-r--r-- 1 root    root    0 oct  7 21:48 b
+student@uso:~/uso/lab05/demo$ chmod 664 a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 student student 0 oct  7 21:48 a
+-rw-r--r-- 1 root    root    0 oct  7 21:48 b
+</code>
+
+<hidden>
+Faceți câteva exerciții cu ei, eu aș sugera la tablă. Sugestii exerciții:
+  * Vrem ca doar utilizatorul //student// să poată edita fișierul //a//, și doar grupul //student// să poată să îl citească.
+  * Vrem ca toti utilizatorii din sistem să poată citi și executa fișierul //b//, dar doar //root// să-l poată modifica.
+</hidden>
+
+==== Modificarea utilizatorului și a grupului ====
+
+Pentru acest demo avem nevoie de utilizatorul ''gigi'' pe care îl vom crea folosind comanda ''adduser'' și apoi îl vom verifica folosind comanda ''id'':
+
+<code>
+student@uso:~/uso/lab05/demo$ sudo adduser gigi
+[...]
+student@uso:~/uso/lab05/demo$ id gigi
+uid=1001(gigi) gid=1001(gigi) groups=1001(gigi)
+</code>
+
+Pentru a modifica utilizatorul deținător al unui fișier folosim comanda ''chown''.
+
+<code>
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 student student 0 oct  7 21:48 a
+-rw-r--r-- 1 root    root    0 oct  7 21:48 b
+student@uso:~/uso/lab05/demo$ sudo chown gigi a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 gigi student 0 oct  7 21:48 a
+-rw-r--r-- 1 root root    0 oct  7 21:48 b
+</code>
+
+Acum să verificăm faptul că utilizatorul ''gigi'' chiar poate scrie și citi din fișierul ''a''. Vom schimba utilizatorul curent din ''student'' în ''gigi'' și vom rula o comandă de modificare și una de afișare a conținutului.
+
+<code>
+student@uso:~/uso/lab05/demo$ sudo su gigi
+gigi@uso:~/uso/lab05/demo$ id
+uid=1001(gigi) gid=1001(gigi) groups=1001(gigi)
+gigi@uso:~/uso/lab05/demo$ echo "ana are mere" > a
+gigi@uso:~/uso/lab05/demo$ cat a
+ana are mere
+gigi@uso:~/uso/lab05/demo$ exit
+student@uso:~/uso/lab05/demo$ id
+uid=1000(student) gid=1000(student) groups=1000(student)
+</code>
+
+Pentru a modifica grupul deținător al unui fișier folosim comanda ''chgrp''. Alternativ putem folosi tot comanda ''chown'', dar îi vom pasa un parametru de forma ''owner:group''.
+
+<code>
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 gigi student 0 oct  7 21:48 a
+-rw-r--r-- 1 root root    0 oct  7 21:48 b
+student@uso:~/uso/lab05/demo$ sudo chgrp gigi a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 gigi gigi 0 oct  7 21:48 a
+-rw-r--r-- 1 root root 0 oct  7 21:48 b
+student@uso:~/uso/lab05/demo$ sudo chown student:student a
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw-r-- 1 student student 0 oct  7 21:48 a
+-rw-r--r-- 1 root    root    0 oct  7 21:48 b
+</code>
+
+<note tip>
+Operația de schimbare utilizatorului sau a grupului deținător ale unui fișier sunt operații privilegiate, deci trebuie executate cu ''sudo''.
+</note>
+
+<hidden>
+Dacă e cazul, niște exerciții de consolidare:
+  * vrem ca fișierul //a// să aibă owner //gigi// și grup //bibi//, folosind întâi două comenzi apoi o singură comandă
+    * sudo chown gigi a; sudo chgrp bibi a
+    * sudo chown gigi a; sudo chown :bibi a
+    * sudo chown gigi:bibi a
+  * vrem ca fișierul //a// să aibă owner //student// și grup grupul principal al lui student
+    * sudo chown student: a
+</hidden>
+
+
+
+===== 2. Link-uri =====
+
+Link-urile sunt legături între două puncte ale sistemului de fișiere. În general le folosim când vrem să ne ușurăm accesul la un fișier sau director, sau pentru a uniformiza accesul.
+
+Sistemul de fișiere folosit în Linux permite două tipuri de link-uri:
+  * //link-uri simbolice (soft links)//: se comportă precum un shortcut din Windows; pointează către un alt fișier/director
+  * //link-uri hard (hard links)//: nu au echivalent în Windows; simplu spus, sunt două fișiere ce împart aceleași date, însă descrierea completă și implementarea lor o veți învăța la cursul de [[http://ocw.cs.pub.ro/courses/so|Sisteme de Operare]]
+
+==== Link-uri simbolice ====
+
+Pentru a crea un link folosim comanda ''ln''. Pentru a crea un link simbolic trebuie să specificăm parametrul ''-s''. 
+
+<code>
+student@uso:~/uso/lab05/demo$ touch a
+student@uso:~/uso/lab05/demo$ ln -s a sym
+student@uso:~/uso/lab05/demo$ ls -l
+total 0
+-rw-rw---- 1 student student 0 oct  7 22:42 a
+lrwxrwxrwx 1 student student 1 oct  7 22:42 sym -> a
+</code>
+
+Observați că ultima linie începe cu ''l'', semnificând ca intrarea este un link simbolic. Mai mult, ''ls -l'' ne arată și către ce fișier pointează link-ul: //a//.
+
+<code>
+student@uso:~/uso/lab05/demo$ echo "abc" > a
+student@uso:~/uso/lab05/demo$ cat a
+abc
+student@uso:~/uso/lab05/demo$ cat sym
+abc
+</code>
+
+Link-ul se comportă ca și fișierul către care pointează. Putem să le folosim ca fiind același fișier. Ce se întamplă totuși dacă mutăm fișierul destinație?
+
+<code>
+student@uso:~/uso/lab05/demo$ mv a ..
+student@uso:~/uso/lab05/demo$ cat sym
+cat: sym: No such file or directory
+</code>
+
+Link-ul nu mai funcționează dacă am mutat fișierul către care pointa. Această problemă nu poate fi rezolvată cu link-uri simbolice. Dacă vrem să putem muta fișierul destinație, trebuie sa folosim link-uri hard.
+
+===== 3. Lucrul cu sisteme de fișiere =====
+
+Un sistem de fișiere reprezintă modul de organizare a fișierelor pe un mediu de stocare pentru a le face mai ușor accesibile. Sistemul de fișiere folosit, în general, pe sistemele Linux se numește //ext4//. Pentru a vedea ce sisteme de fișiere există în sistem folosim comanda ''fdisk -l''.
+
+<code>
+student@uso:~/uso/lab05/demo$ sudo fdisk -l
+Disk /dev/sda: 8589 MB, 8589934592 bytes
+255 heads, 63 sectors/track, 1044 cylinders, total 16777216 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000de65a
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    14680063     7339008   83  Linux
+/dev/sda2        14682110    16775167     1046529    5  Extended
+/dev/sda5        14682112    16775167     1046528   82  Linux swap / Solaris
+</code>
+
+<note important>
+Comanda ''fdisk'' va merge în cazul majorității calculatoarelor, iar în cazul nostru va merge pentru calculatoarele din sala EG106. Se poate totuși să aveți partiții ce folosesc GPT (GUID Partition Table), cum este cazul stațiilor din sala EG306. În acest caz trebuie să folosiți comanda ''gdisk''.
+
+<code>
+student@uso-eg306:~$ sudo fdisk -l /dev/sda
+
+WARNING: GPT (GUID Partition Table) detected on '/dev/sda'! The util fdisk doesn't support GPT. Use GNU Parted.
+
+
+Disk /dev/sda: 500.1 GB, 500107862016 bytes
+255 heads, 63 sectors/track, 60801 cylinders, total 976773168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk identifier: 0xc90ab212
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1   976773167   488386583+  ee  GPT
+Partition 1 does not start on physical sector boundary.
+student@uso-eg306:~$ sudo gdisk -l /dev/sda
+GPT fdisk (gdisk) version 0.8.8
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+Disk /dev/sda: 976773168 sectors, 465.8 GiB
+Logical sector size: 512 bytes
+Disk identifier (GUID): ED4BC435-E352-403E-898B-09B7A9BA2F2E
+Partition table holds up to 128 entries
+First usable sector is 34, last usable sector is 976773134
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 139800557 sectors (66.7 GiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048       400001023   190.7 GiB   8300  
+   2       400001024       800002047   190.7 GiB   8300  
+   3       800002048       816003071   7.6 GiB     8200  
+   4       816003072       836974591   10.0 GiB    8300  Linux filesystem
+</code>
+</note>
+
+Pentru a afla informații despre unul dintre aceste sisteme de fișiere, folosim comanda ''df''. Pentru a face rezultatul mai ușor de citit pentru noi, vom folosi argumentul ''-h'' (//human-readable//).
+
+<code>
+student@uso:~$ df -h /
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       6,8G  3,3G  3,2G  52% /
+</code>
+
+Pentru a afla informații despre cât spațiu ocupă pe disc un director sau fișier folosim comanda ''du''. Din nou vom folosi argumentul ''-h''. Putem folosi și argumentul ''-s'' pentru a primi doar totalul pentru fiecare director primit ca argument.
+
+<code>
+student@uso:~/uso$ du -h lab05
+0	lab05/demo
+3.6M	lab05/star_wars_episode_iv_a_new_hope/death_star
+0	lab05/star_wars_episode_iv_a_new_hope/millenium_falcon/smuggling_compartment
+0	lab05/star_wars_episode_iv_a_new_hope/millenium_falcon
+512	lab05/star_wars_episode_iv_a_new_hope/tatooine/mos_eisley
+512	lab05/star_wars_episode_iv_a_new_hope/tatooine
+0	lab05/star_wars_episode_iv_a_new_hope/yavin/plans
+0	lab05/star_wars_episode_iv_a_new_hope/yavin
+3.6M	lab05/star_wars_episode_iv_a_new_hope
+3.6M	lab05/
+student@uso:~/uso$ du -hs lab05
+3.6M	lab05/
+</code>
+
+==== Montarea și demontarea sistemelor de fișiere ====
+
+Un sistem de fișiere nu poate fi folosit decât dacă este montat. Comanda cu ajutorul căreia putem face asta este ''mount''. Fără niciun argument ne va spune ce sisteme de fișiere sunt montate și în ce directoare sunt montate.
+
+<code>
+student@uso:~/uso/lab05/demo$ mount
+/dev/sda1 on / type ext4 (rw,errors=remount-ro)
+proc on /proc type proc (rw,noexec,nosuid,nodev)
+sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)
+[...]
+</code>
+
+Comanda returnează, pe fiecare linie, fișierul bloc, punctul din ierarhia de fișiere unde este montat, tipul sistemului de fișiere și flag-urile cu care a fost montat. Să luăm ca exemplu linia ''/dev/sda1 on / type ext4 (rw,errors=remount-ro)'': ''/dev/sda1'' este fișierul bloc, ''/'' este punctul în care este montat (chiar în rădăcina sistemului de fișiere), ''ext4'' este tipul sistemului de fișiere și ''(rw,errors=remount-ro)'' sunt flag-urile cu care a fost montat (read-write iar in caz de eroare va fi remontat read-only).
+
+Pentru a putea să monteze un sistem de fișiere trebuie să îi specificăm ce tip este acesta, fișierul bloc unde se află și directorul în care să îl monteze.
+
+<code>
+student@uso:~/uso/lab05/demo$ mkdir mnt
+student@uso:~/uso/lab05/demo$ ls mnt
+student@uso:~/uso/lab05/demo$ sudo mkfs.ext4 /dev/sda4
+student@uso:~/uso/lab05/demo$ sudo mount -t ext4 /dev/sda4 mnt
+student@uso:~/uso/lab05/demo$ ls mnt
+lost+found
+</code>
+
+<note tip>
+Partiția ''/dev/sda4'' nu avea niciun sistem de fișiere pe ea. Folosind comanda ''sudo mkfs.ext4 /dev/sda4'' am creat un sistem de fișiere de tip //ext4// pe partiția ''/dev/sda4''
+</note>
+
+Operația opusă montării este demontarea, care se realizează cu ajutorul comenzii ''umount''. Acesteia nu trebuie să îi specificăm decât directorul unde este montat sistemul de fișier ce se dorește a fi demontat sau fișierul bloc.
+
+<code>
+student@uso:~/uso/lab05/demo$ sudo umount mnt
+student@uso:~/uso/lab05/demo$ ls mnt
+</code>
+
+<note warning>
+Montarea și demontarea sistemelor de fișiere este o acțiune privilegiată. Dacă dorim să montăm/demontăm un sistem de fișiere ca un utilizator neprivilegiat, trebuie sa prefixăm comanda cu ''sudo''.
+</note>
+
+====== Exerciții =======
+
+<note hint>
+Dacă nu ați făcut deja acest lucru la partea de demo, intrați în directorul ''/home/student''. Clonați repository-ului oficial de USO folosind comanda:
+
+<code>
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso 
+</code>
+
+În directorul ''~/uso/lab05'' găsiți fișierele și directoarele necesare pentru parcurgerea exercițiilor acestui laborator. 
+</note>
+
+==== 1. Adăugarea unor utilizatori și grupuri noi (1.5p) ====
+Ca administratori ai infrastructurii IT a școlii de care răspundeți ați primit [[https://docs.google.com/spreadsheets/d/15LxIrhz0JTdLgWJqyHwj4hfVOg_uW6TyRnUbKqEtB8Y/edit#gid=0|următorul excel]] cu nume de utilizatori și grupuri din care trebuie să facă parte, conform cu politica școlii. 
+
+Sarcina voastră este să adăugați în sistem grupurile și apoi utilizatorii, utilizatorii să îi înscrieți în grupuri conform cu excelul primit. 
+
+De asemenea, trebuie să configurați următoarele parole:
+  * Studenții vor avea parola ''student''
+  * Profesorii vor avea parola ''profesor007''
+  * Adminii vor avea parola ''admin1234''
+
+Pentru cei care sunt în mai multe grupuri simultan alegeți parola mai dificilă (să conțină cifre diferite). 
+
+<note tip>
+Pentru **verificarea** adăugării utilizatorilor în sistem trebuie să inspectăm fișierele: ''/etc/passwd'' și pentru grupuri ''/etc/group''. De asemenea, pentru a vedea grupurile din care face parte un anumit utilizator (să zicem ''dan'') și totodată existența sa în sistem mai putem folosi comanda:
+<code bash>
+student@uso~$ id dan
+</code>
+</note>
+
+<note tip>
+Pentru a verifica directorul home al unui utilizator folosiți comanda ''finger'' urmată de numele utilizatorului, ca de exemplu comanda de mai jos:
+<code bash>
+student@uso~$ finger dan
+</code>
+</note>
+
+==== 2. Permisiuni 1 (2p) ====
+
+În directorul ''/home/student/uso/lab05/cursuri/'' vor trebui să lucreze atât utilizatorul ''alex'', cât și ''mihai''. Configurat permisiunile necesare astfel încât cei doi să aibă permisiuni asupra directorului așa cum este descris mai jos, iar restul utilizatorilor să îl poată doar vizualiza.
+
+<note tip>
+Utilizatorul ''alex'' și ''mihai'' sunt parte a aceluiași grup (''profesor''). Va trebui
+  * să schimbați grupul directorului ''/home/student/uso/lab05/cursuri/'' în grupul ''profesor'' (folosind comanda ''chgrp'')
+  * să schimbați permisiunile directorului astfel încât grupul să aibă permisiuni de citire, scriere și execuție (folosind comanda ''chmod'')
+</note>
+
+<note tip>
+Pentru a verifica faptul că ați configurat permisiunile utile trebuie să schimbați utilizatorul din ''student'' în ''alex'' și ''mihai'' și să vedeți dacă aceștia pot face modificări în director; ceilalți utilizatori nu trebuie să poată face modificări în director.
+
+Folosiți **alte tab-uri de terminal** pentru verificare.
+
+Folosiți comanda ''sudo su'' urmată de numele utilizatorului; apoi faceți modificări în director, delogați-vă folosind combinația de taste ''Ctrl+D'' și repetați procesul pentru alt utilizator.
+</note>
+==== 3. Permisiuni 2 (2p) ====
+
+  * **a)** Intrați în directorul ''/home/student/uso/lab05/teste_curs''. În acest director se află fișierele ''test-1.txt'' și ''test-2.txt'' care trebuie protejate. Setați permisiunile necesare fișierelor astfel încât utilizatorii care nu se află în grupul ''profesor'' să nu aibă nicio permisiune asupra lui.
+  * **b)** Intrați în directorul ''/home/student/uso/lab05''. În acest director se află fișierul ''coduri_alarma'' în care se găsesc codurile de acces la sistemele de securitate din diferite săli din facultate. Vrem ca doar profesorii și administratorii să aibă acces asupra acestui fișier, prin urmare realizați modificările necesare astfel încât doar utilizatorii ''alex'', ''mihai'', ''geo'' și ''razvan'' să aibă drept de citire și scriere, iar toți ceilați utilizatori să nu aibă niciun drept asupra fișierului.
+
+<note tip> Din cauza limitării de un singur owner și un singur grup owner asupra unui fișier, la acest exercițiu este nevoie să creați un grup nou în care să adăugați toți utilizatorii menționați la subpunctul **b)** și să setați acest grup ca grup owner al fișierului ''coduri_alarma''.
+</note>
+==== 4. Link-uri (1p) ====
+Fiind autentificați ca utilizatorul ''student'', intrați în directorul ''/home/student/uso/lab05''. Creați un link simbolic cu numele ''EC'' către fișierul ''corp_EC'' din directorul ''cladiri''. Folosiți calea cea mai scurtă, relativă: ''cladiri/corp_EC''. Verificați faptul că puteți accesa linkul creat folosind comanda:
+<code bash>
+student@uso:~/uso/lab05$ cat EC
+EC101
+EC004
+EC102
+EC105
+</code>
+
+Mutați fișierul EC (linkul) în directorul ''/home/student'' și rulați din nou comanda ''cat'' cu argumentul ''~/EC''. Observați că primiți eroare datorită faptului că ați mutat linkul și, așadar, calea relativă cu care a fost el creat nu mai este corectă.
+
+Mergeți din nou în directorul ''/home/student/uso/lab05/cladiri''. Acest director conține fișierul ''corp_EC''. Aflați acum în directorul ''/home/student/uso/lab05/'', creați din nou un link simbolic catre fișierul ''corp_EC'' din directorul ''/home/student/uso/lab05/cladiri'' folosind o cale absoluta; numiți link-ul simbolic ''new_EC''. Mutați apoi linkul creat (''new_EC'') în directorul home al utilizatorului ''student'' și verificați că de această dată puteți accesa fișierul ''corp_EC'' prin intermediul linkului, chiar dacă acesta din urmă a fost mutat. 
+
+==== 5. Montarea sistemelor de fișiere (2p) ====
+
+=== 5.1. Montarea ISO (1p) ===
+
+În ciuda eforturilor de securizare a codurilor de alarmă, fișierul ''/home/student/uso/lab05/alarm_codes.iso'', a rămas accesibil. Inspectați întâi tipul fișierului ''alarm_codes.iso'' folosind comanda ''file''. Rețineți tipul sistemului de fișiere de pe imagine și, folosind această informație, montați imaginea după procedura descrisă în secțiunea [[laborator-05#montarea sistemelor de fișiere]] în directorul ''~/uso/lab05/coduri''.
+
+<note tip>
+Imaginea folosește sistemul de fișiere [[http://en.wikipedia.org/wiki/ISO_9660|iso9660]], deci pentru montare veți folosi parametrul ''-t iso9660''.
+
+Adică veți folosi o comandă de forma
+<code>
+mount -t iso9660 /path/to/iso/file /path/to/mount/point
+</code>
+</note>
+
+Accesați apoi codurile de alarmă folosind comanda:
+<code bash>
+student@uso:~/uso/lab05$ cat coduri/coduri_alarma
+EG106: 1234
+EG306: 5678
+EG208: 0208
+</code>
+
+La final, demontați sistemul de fișiere montant în directorul ''/home/student/uso/lab05/coduri'' folosind comanda ''umount''. Căutați în paginile de manual care este formatul comenzii ''umount''.
+
+<solution>
+<code bash>
+student@uso:~$ mkdir -p /home/student/uso/lab05/coduri
+student@uso:~$ sudo mount -o loop -t iso9660 /home/student/uso/lab05/alarm_codes.iso /home/student/uso/lab05/coduri
+student@uso:~$ df -hT   # pentru verificare
+student@uso:~$ ls -lh /home/student/uso/lab05/coduri   # pentru verificare
+</code>
+</solution>
+
+=== 5.2. Montarea sistemului propriu de fișiere (1p) ===
+
+Avem nevoie de un sistem de fișiere propriu pe care să ținem temele de la USO. Vrem să ne alegem singuri dimensiunea și tipul său, dar și locul unde aceasta să fie montată.
+
+Folosiți comenzile necesare pentru a crea un fișier cu dimensiunea de 100MB, plin cu zero-uri (octeți de zero). Apoi avem nevoie să facem un sistem de fișiere de tipul **ext3** peste acest fișier nou.
+
+<note tip>
+Pentru a crea un fișier cu dimensiunea de 100MB folosiți comanda ''dd'' și folosind ca //input file// intrarea specială ''/dev/zero''. Adică ceva de genul
+<code>
+dd if=/dev/zero ...
+</code>
+Exemple de folosire a comenzii ''dd'' pentru a genera fișiere de dimensiune dată găsiți la adresa http://matrafox.info/create-a-1g-100mb-10mb-file-for-testing-transfer-speed.html
+</note>
+
+<note tip>
+Un fișier poate fi formatat exact ca și cum ar fi o partiție. Pentru aceasta folosiți comanda ''mkfs.ext3'' urmată de calea către fișier. Adică ceva de genul
+<code>
+sudo mkfs.ext3 /path/fo/file/to/be/formatted
+</code>
+</note>
+
+Apoi trebuie făcute următoarele setări pentru montare:
+  * montarea noului sistem de fisiere în **/mnt/myfs**
+  * montarea automată a acestuia la fiecare repornire a sistemului (Indicație: [[http://man7.org/linux/man-pages/man5/fstab.5.html|fstab]]). 
+
+<note tip>Pentru verificare folosiți comanda ''**df -hT**''. Să descifrăm parametrii:
+  * ''df'' afișează partițiile montate în acel moment de timp
+  * ''-h'' e folosit pentru //human-readable// size a partițiilor
+  * ''-T'' e folosit pentru a afișa încă o coloană cu tipul sistemului de fișiere (e.g. ''ext3'', ''ext4'', ''nfs'' etc.)
+
+O altă comandă de verificare este ''**mount**'' fără nici un alt parametru. Încercați să descifrați output-ul ei (sau căutați pe google :-P)
+</note>
+
+<solution>
+<code bash>
+student@uso:~$ dd if=/dev/zero of=filesys.bin bs=1M count=100
+student@uso:~$ mkfs.ext3 -F filesys.bin
+student@uso:~$ mount -o loop -t ext3 filesys.bin /mnt/myfs
+student@uso:~$ df -hT   # pentru verificare
+</code>
+</solution>
+
+==== 6. Drepturi de execuție (1p) ====
+
+Intrați în directorul ''/home/student/uso/lab05/''. Aici veți găsi fișierul ''restart_servers''. Setați permisiunile necesare astfel încât fișierul să poată fi executat doar de către utilizatorul ''geo''. După ce ați făcut aceasta lansați fișierul în execuție.
+
+==== 7. Linkuri simbolice circulare (0.5p) ====
+Creați în directorul ''home/student/uso/lab05'' un director cu numele ''circularity''. În directorul ''circularity'' creați 3 linkuri simbolice care să se refere unul pe celălalt, într-o manieră circulară. De exemplu: ''link_a'' -> ''link_b'', ''link_b'' -> ''link_c'' și ''link_c'' -> ''link_a''.
+
+<code bash>
+student@uso:~/uso/lab05/circularity$ ls -l
+total 0
+lrwxrwxrwx 1 student student 6 nov  1 15:06 link_a -> link_b
+lrwxrwxrwx 1 student student 6 nov  1 15:06 link_b -> link_c
+lrwxrwxrwx 1 student student 6 nov  1 15:06 link_c -> link_a
+</code>
+
+Rulați acum comanda ''cat'' pe unul dintre linkuri și observați eroarea întoarsă.
+
+=== BONUS ===
+==== 1. Liste de acces (POSIX ACL) [2 Karma] ====
+Am văzut la [[http://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-05#permisiuni_2_2p|exercițiul 3]] cum putem proceda pentru a acorda drepturi asupra unui fișier, unor utilizatori din două grupuri diferite: adăugăm un grup nou, adăugăm toți utilizatorii respectivi în grupul nou și setăm grupul nou ca fiind grupul owner al fișierului. Dar ce se întâmplă dacă în viitor adăugăm un utilizator nou, ''ion'', în grupul profesori? Am vrea să aibă implicit și el drepturi asupra fișierului ''coduri_alarma'', însă acest lucru nu este posibil folosind doar permisiunile de bază.
+
+Pentru acest task, putem folosi însă **liste de acces** sau ACLs (Access Control Lists). Manipularea listelor de acces se face cu comanda ''setfacl''. Pentru a verifica ACL-urile, putem folosi comanda ''getfacl''. După ce citiți informațiile de la acest [[http://www.computerhope.com/unix/usetfacl.htm|link]] realizați modificările necesare astfel încât orice utilizator care face parte din grupul ''profesor'' sau ''admin'' să poată scrie și citi fișierul ''coduri_alarma'' din directorul ''/home/student/uso/lab05/'', iar toți ceilalți utilizatori să nu aibă niciun drept. Verificați acest lucru adăugând încă un utilizator în oricare dintre cele două grupuri.
+
+<note tip>
+Fiți atenți la faptul că listele de acces vin ca o completare la permisiunile de bază ale fișierului, deci mai întâi va trebui să revocați drepturile de acolo și, mai apoi, să setați ACL-urile corespunzătoare.
+</note>

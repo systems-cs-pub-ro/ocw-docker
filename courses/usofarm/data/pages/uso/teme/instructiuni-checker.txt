@@ -1,0 +1,61 @@
+====== Instrucțiuni de folosire a checkerului ======
+
+<note>
+Actualizări:
+
+  * **12 Octombrie 2018, 23:55** - Publicare
+</note>
+
+===== Descriere =====
+
+[[#resurse/mv|Mașina virtuală]] pusă la dispoziție oferă toate setările necesare pentru efectuarea temei precum și setări necesare pentru colectarea de statistici privind dificultatea temei (pentru echilibrarea dinamică a acestora).
+
+Orice folosire a utilitarului ''uso'' se va face doar prin intermediul utilizatorului ''student'', însă cu drepturi privilegiate (folosind ''sudo'' în fața comenzii). Singura excepție este valabilă pentru comanda ''uso version'', care nu necesită folosirea drepturilor privilegiate.
+
+Executabilul ''uso'' va fi folosit pentru a obține checkerul fiecărei teme, pentru a verifica temele și pentru a submite codul final în momentul terminării acestora.
+
+
+===== Sintaxă =====
+
+Sintaxa folosită de checker este ''uso [OPTION]...'', unde ''[OPTION]...'' reprezintă o listă de parametri opţionali şi poate avea una dintre valorile de mai jos. În cazul în care nu s-a specificat niciun parametru ''OPTION'', acțiunea implicită este de a rula parametrul ''check''.
+
+  * **''version''** : Afișează versiunea curentă a executabilului ''uso''.
+  * **''check''** : Verifică tema curentă în întregime și afișează punctajele aferente fiecărui task
+  * **''check N''** : Unde ''N'' reprezintă numărul task-ului din enunțul 
+  * **''update''** : Actualizează atât checkerul temei curente cât și executabilul ''uso''. Recomandarea este să efectuați ''update'' de fiecare dată când se anunță pe forum faptul că a fost actualizat checker-ul.
+  * **''start N''** : Descarcă executabilele necesare funcționării unei noi teme. Poate restaura o temă la configurația inițială, doar dacă este specificat în cerința temei.
+    * O temă este formată din mai multe taskuri. 
+    * Nu trebuie rulat ''uso start'' înaintea fiecărui task.
+    * Nu puteți începe să lucrați la o temă nouă fără a rula ''uso start'' în prealabil.
+  * **''submit''** : Finalizează tema.
+
+Exceptând parametrii **''version''** și **''check''**, toate celelalte necesită prezența unei conexiuni de Internet.
+
+<note warning>Finalizarea temei cu ajutorul comenzii ''uso submit'' este obligatorie! 
+
+Chiar și după ce ați încărcat codul, **NU** modificați fișierele corespunzătoare temei! Dacă vor exista probleme în corectarea temei, iar fișierele au fost modificate după submiterea codului, contestațiile **NU** vor mai fi luate în considerare. Puteți în schimb să lucrați pe mașina virtuală fără nicio problemă, __atâta timp cât nu sunt alterate fișierele ori condițiile de funcționare a oricărui task din tema precedentă.__
+</note>
+
+===== Pași =====
+
+<note important>
+
+Rețineți că orice folosire a utilitarului ''uso'' se va face doar prin intermediul utilizatorului ''student'', însă cu drepturi privilegiate (folosind ''sudo'' în fața comenzii). Singura excepție este valabilă pentru comanda ''uso version'', care nu necesită folosirea drepturilor privilegiate.
+</note>
+
+În acest moment considerăm că mașina virtuală este înregistrată corespunzător cu contul de utilizator și grupa corespunzătoare fiecărui student. Dacă această condiție este îndeplinită cu succes, pașii uzuali de lucru pentru o temă se regăsesc mai jos. Altfel, este necesară identificare mașinii virtuale conform secțiunii [[#identificare_masina_virtuala|Identificare mașină virtuală]].
+
+  - se pornește tema cu ''uso start N'' unde N este tema curenta
+  - se verifică tema cu ''uso check''
+    - pentru verificarea unui singur task putem folosi comanda ''uso check N'', unde ''N'' reprezinta numărul task-ului
+    - exemplu: ''uso check 4''
+  - dacă rezultatele de la pasul anterior nu sunt ok, se repetă pasul 2 și 3
+    - altfel, se finalizează tema folosind ''uso submit''.
+  - se păstrează fișierele aferente temei - nu se șterg fișiere (pentru o eventuală contestație, dacă va fi necesar)
+  - dacă după trimiterea temei se fac modificări asupra exercițiilor, se repetă pasul 2, 3, 4, 5 și 6
+    - __acest lucru este permis doar dacă nu a fost depășit deadline-ul temei__
+  - oricând pe parcursul ciclului de mai sus, se poate rula ''uso update''.
+
+<note>Puteți submite tema (pasul 3.a) ori de câte ori doriți (în cazul în care faceți modificări asupra temei), însă **doar înainte de de deadline-ul temei**. De fiecare dată când se rulează ''uso submit'', va trebui să încărcați noul cod returnat în formular. Se va lua în considerara doar ultimul cod submis înainte de deadline. Orice submisie după deadline nu va fi luată în considerare. În cazul în care ați modificat ulterior tema și ați primit un nou cod la rularea comenzii ''uso submit'', dacă uitați să încărcați noul cod în formular, nu veți primi punctajul pe temă.</note>
+
+**Orice tentativă de copiere duce la aplicarea regulilor împotriva copierii temelor (consultați [[uso:regulament#reguli_de_realizare_a_temelor|regulamentul]]).**

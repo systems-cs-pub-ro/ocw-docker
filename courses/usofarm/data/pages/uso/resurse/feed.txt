@@ -1,0 +1,5 @@
+====== Feed RSS ======
+
+Pentru urmărirea ușoară a modificărilor realizate în wiki puteți folosi următoarele feed-uri:
+  * [[http://ocw.cs.pub.ro/courses/feed.php?mode=recent&linkto=diff&content=diff&ns=uso|Feed-ul pentru USO]]
+  * [[http://ocw.cs.pub.ro/courses/feed.php?mode=recent&linkto=diff&num=5&content=diff&ns=uso|Ultimele 5 modificări]]

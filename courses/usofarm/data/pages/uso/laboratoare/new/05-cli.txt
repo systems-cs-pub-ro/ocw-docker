@@ -1,0 +1,7 @@
+====== Laborator 05: Interfața în linia de comandă ======
+
+{{page>:uso:laboratoare:new:05-cli:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:05-cli:nav&noheader&nofooter&noeditbutton}}

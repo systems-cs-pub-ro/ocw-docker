@@ -1,0 +1,7 @@
+====== Laborator 01: Utilizarea sistemului de fișiere ======
+
+{{page>:uso:laboratoare:new:01-fs:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:01-fs:nav&noheader&nofooter&noeditbutton}}

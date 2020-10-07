@@ -1,0 +1,35 @@
+====== USO Need to Know =======
+
+===== De unde încep? =====
+
+  * Urmărește [[https://acs.curs.pub.ro|instanța de curs de pe acs.curs.pub.ro]].
+    * Dacă nu ești înrolat la [[https://acs.curs.pub.ro|instanța de curs de pe acs.curs.pub.ro]], te poți înrola individual folosind URL-ul instanței.
+    * Atunci când ai întrebări legate de curs, laborator sau teme, folosește, te rugăm, forumurile de pe acs.curs.pub.ro. Rolul forumurilor acesta este: să îți răspundă la întrebări și la probleme pe care le ai.
+    * Evită discuții private cu asistenții acolo unde forumurile pot fi ușor folosite. Șansa este foarte mare ca asistentul să nu se poată ocupa pentru că nu intră în atribuțiile sale.
+  * Adaugă [[:uso:resurse:feed|RSS Feed-ul wiki-ul de USO]] și urmărește [[:uso:anunturi|pagina de anunțuri]].
+  * Citește pagina de [[:uso:regulament|regulament]], în special secțiunea de [[:uso:regulament#realizarea_temelor|realizare a temelor]] și cea cu [[:uso:regulament#recomandari_de_comunicare_electronica|recomandări de comunicare electronică]].
+  * Urmărește [[:uso:calendar|calendarul semestrului]] și [[:uso:calendar#planificare-calendaristica|planificarea calendaristică]].
+  * Explorează resursele puse la dispoziție pe [[:uso|wiki-ul ocw]].
+
+===== Resurse =====
+
+  * [[https://acs.curs.pub.ro|Portalul acs.curs.pub.ro]]:​ Conține link-uri către wiki, forumuri pentru discuții și formularul de feedback.
+  * [[https://teams.microsoft.com/l/team/19%3ab5e714a2c3f04895a9fe008fdc395092%40thread.tacv2/conversations?groupId=36f116c6-8052-4770-8fa2-2a4ba243b656&tenantId=2d8cc8ba-8dda-4334-9e5c-fac2092e9bac|Platforma Microsoft Teams]] pentru activități didactice online
+  * Pagina de [[:uso:anunturi|anunțuri]]
+  * [[:uso:resurse:feed|RSS Feed-ul wiki-ul de USO]]
+  * Pagina de [[https://www.facebook.com/uso.acs|Facebook]]
+  * Pagina de [[:uso:regulament|regulament]]
+  * [[:uso:catalog|Catalogul USO]] cu notele pe activități (laboratoare, teste de curs, teme, examene)
+  * [[:uso:calendar|Calendarul USO]] cuprinzând activitățile semestrului și planificarea calendaristică a acestora
+  * [[:uso:orar|Orarul]] cursurilor și laboratoarelor
+  * Puteți ajuta la îmbunătățirea materiei prin editarea [[:uso|wiki-ului]]. Pentru a obține drept de editare pe [[:uso|wiki]] trimiteți un e-mail lui [[razvan.deaconescu@cs.pub.ro|Răzvan]].
+
+===== Feedback ====
+
+Vă încurajăm să folosiți forumurile de pe cs.curs.pub.ro, [[http://www.facebook.com/uso.acs|pagina de Facebook]] și discuțiile din timpul cursului și laboratorului pentru trimiterea de feedback echipei de USO.
+
+Analiza publică a feedback-ului trimis la sfârșitul semestrului pe [[http://cs.curs.pub.ro/|portalul cs.curs.pub.ro]] este accesibilă la [[https://docs.google.com/spreadsheets/d/e/2PACX-1vQjYPRzAN5bGzcmuS4WQzIcLCoZEUn0VTULYb_0zs0esJFbU2LahGTeyZRVfwRJmXqH9xfNzKxOTe9v/pubhtml|aici]] și vizibilă mai jos.
+
+<html>
+  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQjYPRzAN5bGzcmuS4WQzIcLCoZEUn0VTULYb_0zs0esJFbU2LahGTeyZRVfwRJmXqH9xfNzKxOTe9v/pubhtml" style="border: 0" width="750" height="700" frameborder="1" scrolling="yes"></iframe>
+</html>

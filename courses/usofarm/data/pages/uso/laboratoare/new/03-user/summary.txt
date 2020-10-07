@@ -1,0 +1,9 @@
+===== Sumar. Cuvinte cheie =====
+
+  * Utilizatori privilegiați și neprivilegiați
+  * Grupuri de utilizatori
+  * Gestiunea utilizatorilor: ''adduser'', ''deluser''
+  * Gestiunea grupurilor de utilizatori: ''addgroup'', ''delgroup''
+  * Aflare informații despre utilizatori: ''id'', ''finger'', ''whoami''
+  * Comanda ''sudo''
+  * Ownership și permisiuni: ''chmod'', ''chown''

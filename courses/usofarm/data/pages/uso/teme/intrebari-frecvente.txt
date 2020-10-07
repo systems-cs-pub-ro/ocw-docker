@@ -1,0 +1,44 @@
+====== Întrebări și probleme întâlnite frecvent în cadrul temelor ======
+
+  - **Ce înseamnă SO și OS?**
+    - SO = Sistem de Operare; OS = Operating System.
+  - **Ce înseamnă mașină //host//?**
+    - Mașina //host// este mașina fizică/sistemul de operare care rulează la bază pe un calculator. Poate fi văzut ca sistemul de operare care rulează atunci cand pornim un calculator. Vezi întrebarea 3 și răspunsul acesteia.
+  - **Ce înseamnă mașină //guest//?**
+    - Mașina //guest// este mașina virtuală/sistemul de operare care ruleaza peste un alt sistem de operare de bază. Vezi întrebarea 2 și răspunsul acesteia. În cele mai multe cazuri când vorbim despre mașina //guest// ne referim la mașina virtuală dintr-o soluție de virtualizare precum VirtualBox.
+  - **Ce versiune de VirtualBox trebuie sa folosesc?**
+    - Consultă pagina cu informații despre [[uso:resurse/mv|mașina virtuală]].
+  - **Pot folosi altă soluție de virtualizare în afară de VirtualBox?**
+    - Da, însă recomandăm VirtualBox din motive de uniformitate.
+  - **Pot folosi propria mașină virtuală?**
+    - Nu. Pentru rezolvarea temelor trebuie să folosiți [[uso:resurse/mv|mașina virtuală]] pusă la dispoziție de echipa de USO.
+  - **Nu merge comanda ''ping google.ro'', însă comanda ''ping 8.8.8.8'' merge. Ce este de făcut?**
+    - Pe mașina //host// deschide un Command Prompt (folosind Start > Run > "cmd").
+    - Deschide directorul în care este instalat VirtualBox, folosind comanda ''cd "C:\Program Files\Oracle\VirtualBox"''
+    - Rulează comanda: ''VBoxManage modifyvm "VM name" --natdnshostresolver1 on'', unde ''VM name'' reprezintă numele mașinii virtuale din VirtualBox.
+    - Restartează mașina virtuală.
+    - Soluția se găsește și [[http://www.virtualbox.org/manual/ch09.html#nat_host_resolver_proxy|aici]] sau [[https://forums.virtualbox.org/viewtopic.php?f=7&t=50368|aici]].
+  - **Pot să schimb parola utilizatorului ''student'' sau ''root''?**
+    - Nu. Recomandăm parcurgerea informațiilor din secțiunea //Testare// din enunțul fiecărei teme.
+  - **După rularea comenzii ''sudo uso start'' și alegerea temei corespunzătoare, primesc mesajul de eroare "Cannot connect to server!" deși Internetul merge în mașina virtuală. Ce este de făcut?**
+    - Dacă în interioul mașinii virtuale, rezultatul comenzilor ''ping 8.8.8.8'' și ''ping google.ro'' (rulate pe rând) întorc un mesaj de tipul ''64 bytes from bud02s22-in-f3.1e100.net (216.58.209.195): icmp_req=1 ttl=52 time=16.2 ms'', atunci cel mai probabil este indisponibil server-ul checker-ului de USO din facultate ori nu este Internet în facultate. Vă rugăm așteptați. Este recomandat să aduceți la cunoștință echipei, pe forum, acest lucru.
+    - Sau vezi întrebarea 7.
+  - **Este vreo diferență dacă rulez comanda ''sudo uso submit'' din interiorul mașinii virtuale (terminal) sau din PuTTy ori ssh (client SSH în Linux)?**
+    - Nu. Nu este nicio diferență, rezultatul fiind același.
+  - **Am rulat ''sudo uso submit'' de două/mai multe ori. Care dintre coduri se va lua in considerare?**
+    - Vom lua în considerare __doar__ ultimul cod returnat de checker în urma rulării comenzii ''sudo uso submit''. __Doar__ acel cod trebuie submis în formularul din enunțul temei. De asemenea, este obligatorie completarea formularului de pe Google Forms cu noul cod.
+  - **VirtualBox îmi afișează următorul mesaj de eroare: "VT-x/AMD-V hardware acceleration is not available on your system. Your 64-bit guest will fail to detect a 64-bit CPU and will not be able to boot". Ce este de făcut?**
+    - Click dreapta pe mașina virtuală din VirtualBox, apoi click pe opțiunea //Settings//.
+    - Tabul General -> Basic -> Schimbă 'Version' la Linux 2.6 / 3.x / 4.x (32-bit)
+    - Tabul System -> Processor -> Schimbă numărul procesoarelor de la 2 la 1
+    - Tabul System -> Acceleration -> Debifează 'Enable VT-x/AMD-V'
+  - **VirtualBox îmi afișează următorul mesaj de eroare: "Failed to open a session for the virtual machine. VT-x is disabled in the BIOS for all CPU modes (VERR_VMX_MSR_ALL_VMX_DISABLED). Result Code:	E_FAIL (0x80004005)". Ce este de făcut?**
+    - Procesoarele Intel si AMD oferă suport pentru virtualizare hardware. Din acest motiv, este recomandat să activăm din BIOS opțiunea de virtualizare hardware. Un exemplu de activare se găsește [[https://docs.fedoraproject.org/en-US/Fedora/13/html/Virtualization_Guide/sect-Virtualization-Troubleshooting-Enabling_Intel_VT_and_AMD_V_virtualization_hardware_extensions_in_BIOS.html|aici]], [[https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Virtualization_Administration_Guide/sect-Virtualization-Troubleshooting-Enabling_Intel_VT_and_AMD_V_virtualization_hardware_extensions_in_BIOS.html|aici]] sau [[https://forums.xamarin.com/discussion/54479/vt-x-is-disabled-in-the-bios-for-both-all-cpu-modes-verr-vmx-msr-all-vmx-disabled|aici]]
+    - O altă cauză poate fi soluția AntiVirus instalată. Un exemplu poate fi [[https://forums.virtualbox.org/viewtopic.php?f=6&t=76191|acesta]].
+  - **VirtualBox îmi afișează următorul mesaj de eroare: "Appliance file must have .ovf or .ova. Result Code: VBOX_E_FILE_ERROR (0x80BB0004)". Ce este de făcut?**
+    - Asigură-te că fișierul pe care îl imporți are extensia //.ova// sau //.ovf//.
+    - Dacă ai luat fișierul de la un coleg, asigură-te ca nu este arhivat. Unele fișierele arhivate au extensia //.zip//, //.rar//, //.tar//, //.bz2//, //.bzip//.
+  - **VirtualBox îmi afișează următorul mesaj de eroare: "VBoxNetAdpCtl: Error while adding new interface: VBoxNetAdpCtl: ioctl failed for /dev/vboxnetctl: Inappropriate ioctl for devic. Result Code: NS_ERROR_FAILURE (0x80004005)". Ce este de făcut?**
+    - Deschide VirtualBox și închide toate mașinile virtuale pornite ori care sunt în starea //Suspend//.
+    - Închide și redeschide VirtualBox.
+    - În cazul sistemului de operare macOS se rulează comanda: ''sudo "/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh" restart'' (atenție la copierea efectivă a comenzii, deoarece ghilimele nu respectă [[https://en.wikipedia.org/wiki/Character_encoding|encoding-ul]] corect).

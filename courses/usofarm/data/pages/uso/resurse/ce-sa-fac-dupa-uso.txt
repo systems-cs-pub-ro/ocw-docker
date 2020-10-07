@@ -1,0 +1,199 @@
+====== Ce să fac după USO? ======
+
+Ai finalizat USO și vrei să știi ce să faci în continuare. Cum poți să aprofundezi un domeniu care ți se pare interesant? Mai jos îți oferim sfaturi pentru domenii de interes.
+
+===== Activități în semestrul 2 =====
+
+==== Cursuri Cisco ====
+
+Persoana de contact: [[flavia.oprea@ccna.ro|Flavia Oprea]]
+
+Cursurile Cisco, ce se predau în 165 de țări, sunt o lingua franca a ingineriei globale, de la San Francisco la Beijing. Academia Cisco ccna.ro este o comunitate vibrantă de tineri care testează și împing marginile infrastructurilor informatice de azi. În spatele fiecărui computer sau mobil se află o rețea interconectată la alte rețele. Dacă vrei să înțelegi transformarea continuă a acestor tehnologii, riscurile și potențialul disruptiv, fundamentele lor inginerești și oportunitățile profesionale ce ți se deschid, vino să trăiești experiența de network administrator. Cursurile CCNA sunt recunoscute de majoritatea companiilor IT din domeniu, certificările fiind valabile timp de 10 ani. Poți obține aici și certificările CCNP și CCNASec.
+
+==== Cursul de Dezvoltare Liberă (CDL) ====
+
+Persoană de contact: [[tudorcebere@rosedu.org|Tudor Cebere]] [[dorin.geman@rosedu.org|Dorin Geman]] [[andrei.seritan@rosedu.org|Andrei Serițan]]
+
+Participanții vor avea ocazia să dezvolte diferite feature-uri în cadrul unui proiect, sub îndrumarea unui mentor specializat.
+Un proiect de bază al [[https://www.rosedu.org/|ROSEdu]], acest curs/laborator alternativ este dedicat tuturor studenților pasionați de programare, care vor să își formeze o impresie legată de ceea ce înseamnă dezvoltarea de software în realitate. [[https://cdl.rosedu.org/|CDL]] cuprinde prezentări tehnice sau non-tehnice, a căror scop este de a îi ajuta pe studenți să dobândească și alte noțiuni necesare pentru a putea contribui la proiecte open source. Subiectele abordate vor incude Linux, Open Source, Version Control Systems(VCS), OOP, Software Testing etc.
+
+Detalii: https://cdl.rosedu.org/
+==== Cursuri Linux Profesional Institute (LPIC) ====
+
+Persoană de contact: [[tudorcebere@rosedu.org|Tudor Cebere]] [[dorin.geman@rosedu.org|Dorin Geman]] [[andrei.seritan@rosedu.org|Andrei Serițan]]
+
+Dacă ți-a plăcut USO și vrei să devii un "Power User" și să administrezi corect și eficient un sistem Linux, [[https://www.rosedu.org/|ROSEdu]] organizează cursuri de LPIC - 101 & 102, pe parcursul celui de-al doilea semestru. Aceste cursuri se întind pe o durată de 6 săptămâni + sesiune de examinare și sunt conform programei [[https://www.lpi.org/|LPI]]. Certificările ce pot fi obținute în urma acestui curs au o valabilitate de 5 ani și sunt recunoscute și apreciate de majoritatea companiilor din domeniul IT.
+Scopul cursului e de a îi ajuta pe cei pasionați de acest subiect să înțeleagă mai în profunzime anumite noțiuni și să le poată aplica cu ușurință în multele domenii ce au la bază un sistem de operare bazat pe Linux - de la Embedded Systems, la DevOps, Networking și Securitate.
+
+Detalii: http://www.lpic.ro/wiki/
+==== Cursuri Microsoft ====
+
+Persoane de contact: [[mihai.chiroiu@cs.pub.ro|Mihai Chiroiu]], [[razvan.rughinis@cs.pub.ro|Răzvan Rughiniș]]
+
+Laboratorul Microsoft din cadrul Universității POLITEHNICA București este un spațiu deschis, accesibil tuturor studenților, fie că vor să lucreze la o temă, să interacționeze cu ceilalți colegi sau să învețe noi tehnologii Microsoft. Academia Microsoft, administrator al acestui laborator, își propune să devină un hub cu privire la noile tehnologii dezvoltate de către Microsoft și nu numai. Participarea în comunitatea MIC-UPB permite dialogul cu oameni din industrie, implicarea în laboratoarele de tehnologie (la început din perspectiva studentului, ulterior din cea a unui formator), sau participarea la diferite competiții precum Imagine Cup sau Innovation Labs. Ca membru al organizației MIC-UPB vei putea să propui noi teme de dezbatere, noi tehnologii de abordat, dar și noi metode de a petrece nopțile în Politehnică :). Te așteptăm la începutul fiecărui semestru, odată cu perioada de înscriere în cadrul laboratorului.
+
+==== 3D GameDev (Gameloft lab) ====
+
+Workshop semestrial, oferit de unul dintre partenerii nostri traditionali. De-a lungul anilor, Gameloft a organizat in facultate multe workshop-uri semestriale (ca acesta) sau in cadrul scolii de vara 3DPub. Intotdeauna au fost tinute de specialisti excelenti din industrie.
+
+Detalii la: http://3d.upb.ro/Gameloft_Lab_2017.jpg
+
+===== Activitități de vară =====
+
+Informații despre școli de vară găsiți pe [[http://wiki.cs.pub.ro/studenti/summer-schools/home|wiki-ul Departamentului de Calculatoare]].
+
+==== Școala de vară de IoT  ====
+
+Persoane de contact: [[daniel.rosner@cs.pub.ro|Daniel Rosner]], [[alexandru.radovici@cs.pub.ro|Alexandru Radovici]]
+
+Această școală de vară se desfășoare pe parcursul a două săptămâni în final de iulie în cadrul Facultății de Automatică și Calculatoare. Selecția candidaților se face în luna mai.
+
+Activitățile ediției anterioare pot fi explorate aici [[http://ocw.cs.pub.ro/courses/iot|Curs de IoT]]
+
+==== Școala de vară IP Workshop ====
+
+Persoane de contact: [[alexandru.radovici@cs.pub.ro|Alexandru Radovici]]
+
+În fiecare an, școala de vară IP Workshop aduce laolaltă peste 100 de elevi și studenți pasionați de IT din toată țara. Organizat într-un cadru informal, evenimentul își propune să ofere o experiență completă prin care participanții au ocazia să învețe și să lucreze cu cele mai noi tehnologii IT și să lucreze în echipă pentru a realiza proiecte cu potențial de a deveni produse folosite la scară largă. În plus, o componentă importantă a școlii de vară o reprezintă activitățile de socializare, de la petreceri tematice, la concursuri sportive, Just Dance și LAN Party-uri.
+
+Cea de-a 14 ediție IP Workshop va avea loc în perioada 3-16 august 2020, în Târgu Mureș. [[https://www.eventbrite.com/e/scoala-de-vara-ip-workshop-2020-tickets-86680560891|Înscrierile sunt deschise.]]
+
+Mai multe informații despre eveniment sunt disponibile pe [[https://www.facebook.com/ipworkshop/|facebook]] și pe [[https://www.ipworkshop.ro/|site-ul]] dedicat evenimentului.
+
+
+==== Security Summer School ====
+
+Students taking part in the [[https://security.cs.pub.ro/summer-school/wiki/|Security Summer School]] will go through an in-depth tour of what it means to discover, successfully exploit and patch a software vulnerability and develop the necessary skills and insights needed to embark on such an endeavor.
+
+Activities take place during three intensive training sessions per week as well as two Capture the Flag (CTF) contests that are held mid-term and at the end of the summer school. The final CTF contest will be the highlight of the summer school and students will be able to showcase the skills they have learned and be awarded prizes offered by Ixia.
+
+==== 3D UPB ====
+
+Scoala de vara ampla, cu traditie, pentru toti cei pasionati de Jocuri, Grafica 2D/3D, Modelare 3D, Realitate virtuala, Realitate augmentata, Grafica pe mobile, GPGPU, Audio 3D, Body tracking, Imagistica si multe alte subiecte inrudite. Organizata de catre Grupul de Grafica si Realitate Virtuala din ACS si unele din principalele companii de game development din Romania, in fiecare vara, pe perioada a 2-2.5 luni, 3DPub reuneste o colectie de 10-15 workshop-uri distincte, care pot fi urmate la alegere. Poate echivala practica obligatorie. Editia a 10-a (2017), va fi lansata in curand !
+
+Detalii despre editia anterioara: http://3d.upb.ro/pub/
+
+===== Securitate =====
+
+Persoane de contact: [[razvan.deaconescu@cs.pub.ro|Răzvan Deaconescu]], [[mihai.chiroiu@cs.pub.ro|Mihai Chiroiu]], [[marios.choudary@cs.pub.ro|Marios Choudary]]
+
+Pentru abilități mai bune în securitate, recomandăm participarea la competiții de tip [[https://ctftime.org/|CTF]] (//Capture the Flag//). Partea frumoasă la CTF este că poți să înveți în mod gamificat/competitiv și că sunt multe site-uri de tip "CTF practice" sau wargames pentru asta.
+
+Ce îți recomanăm este, pentru început, să intri pe [[http://overthewire.org/wargames/|OverTheWire]] și să faci wargame-urile în ordinea indicată de ei: Bandit primul, apoi Leviathan, apoi Natas, Krypton, Narnia etc. Primele sunt mai ușoare și rezolvabile cu ce știi de la USO. Mai apoi (de la Narnia) vei intra în partea de exploiting unde lucrurile sunt mai complicate dar și mai interesante.
+
+Pe măsură ce faci mai multe wargame-uri, poți consulta lista de wargames și site-uri de challenge-uri de [[http://captf.com/practice-ctf/|aici]].
+
+Pentru documentare, anumite informații găsești pe [[http://security.cs.pub.ro/hexcellents/wiki/home|wiki-ul Hexcellents]], deși credem că te vei putea folosi de Google în mare parte a timpului. Reține că nu vei ajunge de pe azi pe mâine la un nivel avansat. Vei face câte puțin și în mod constant și apoi vei simți, pe măsură ce lucrezi și te documentezi la nevoie, cum începi să dobândești cunoștințe și abilități practice.
+
+În măsura în care rămâi interesat/interesată de subiect și dacă simți că progresezi și ai nevoie de un boost, te invităm să aplici la vară
+(iunie-iulie 2017) la [[https://security.cs.pub.ro/summer-school/wiki/|Security Summer School]].
+
+Când ai întrebări, nu ezita să ne contactezi.
+
+===== Internet of Things / Embedded / Robotică =====
+
+Persoane de contact: [[alexandru.radovici@cs.pub.ro|Alexandru Radovici]], [[daniel.rosner@cs.pub.ro|Daniel Rosner]], [[iuliu.vasilescu@cs.pub.ro|Iuliu Vasilescu]], [[dan.tudose@cs.pub.ro|Dan Tudose]], [[andrei.voinescu@cs.pub.ro|Andrei Voinescu]], [[ioana.culic@cs.pub.ro|Ioana Culic]]
+
+Un domeniu de mare actualitate, Internet of Things, constă în interconectarea obiectelor folosite zi de zi și conectarea acestora la
+Internet. Astfel astăzi găsim dispozitive inteligente de la ceasuri la frigidere ce completează automat lista de cumpărături. Dezvoltarea unor astfel de produse necesită atât un spectru larg de cunoștințe, pornind de la hardware, la programare, rețelistică, securitate etc.
+
+Pentru început, îți recomandăm să urmezi tutoriale simple despre programarea plăcuțelor de tipul Arduino și Raspberry Pi, ca mai apoi să aprofundezi acest domeniu într-o anumită direcție. În cadrul facultății noastre a fost dezvoltată Wyliodrin STUDIO (https://wyliodrin.studio/), o platformă open source destinată prototipării aplicațiilor IoT, care este folosită la nivel global. Pe canalul youtube (https://www.youtube.com/wyliodrin) dedicat platformei, poti găsi cursuri teoretice și proiecte practice pe care le poți implementa. În plus, poți urma cursul despre servicii și arhitecturi IoT (https://ocw.cs.pub.ro/courses/iot).
+
+Dacă îți dorești să aprofundezi acest domeniu sau vrei să contribui la platforma Wyliodrin STUDIO, nu ezita să ne contactezi.
+
+===== Antreprenoriat și start-up-uri =====
+
+Persoane de contact: [[razvan.rughinis@cs.pub.ro|Răzvan Rughiniș]],[[daniel.rosner@cs.pub.ro|Daniel Rosner]]
+
+Vino să trăiești experiența unui startup tech în Innovation Labs, comunitatea de dezvoltare de prototip și de produs ce unește centrele academice și mediul de business din București, Cluj, Iași, Sibiu și Timișoara. Industria IT este un ecosistem de companii de diferite dimensiuni – de la giganții infrastructurilor până la startupuri de câteva persoane. Limbajul antreprenoriatului este tot mai folosit în toate organizațiile, traducând excelența tehnică în design de produs și legătură cu piața. În Innovation Labs vei participa, alături de mentori de top din industrie și mediul antreprenorial, într-o experiență de trei luni de imersiune în ecosistemul startup. De la Hackathon, la workshop-uri, pitch-urile din Boost Day și interacțiunile din Demo Day, vei fi alături de oameni care definesc industria IT românească și lansează produse IT transformatoare la nivel global. 
+
+Vă așteptăm la Hackathonul din 4-5 Martie:
+[[https://www.facebook.com/events/1838589139741300]]
+
+[[http://innovationlabs.ro]]
+
+===== Rețelistică și infrastructură =====
+
+Persoana de contact: [[razvan.rughinis@cs.pub.ro|Răzvan Rughiniș]], [[mihai.chiroiu@cs.pub.ro|Mihai Chiroiu]], [[mihai.carabas@cs.pub.ro| Mihai Carabaș]]
+
+Cursurile de „Rețele locale” și „Proiectarea rețelelor de calculatoare” te vor ghida în stăpânirea tehnologiilor rețelisticii actuale. Rețelele informatice devin tot mai provocatoare, odată cu dezvoltarea Internet of Things, digitalizarea crescândă a economiei, vieții culturale și mai ales a vieții personale. Rețelistica deschide traiectorii profesionale foarte cerute în industria globală de IT – din zona optimizării conectivității până la managementul securității și riscurilor în sisteme informatice critice. Prin cursurile de rețelistică vei pune baza unor competențe de configurare, diagnoză și protecție a unor structuri digitale diverse, deschizându-ți orizonturile profesionale și sporindu-ți abilitățile de control digital al riscurilor informatice. 
+
+===== Open Source =====
+
+Persoane de contact: [[razvan.deaconescu@cs.pub.ro|Răzvan Deaconescu]], [[mihai.carabas@cs.pub.ro|Mihai Carabaș]], [[alexandru.radovici@cs.pub.ro|Alexandru Radovici]], [[eduard.staniloiu@cs.pub.ro|Eduard Stăniloiu]], [[razvan.nitu1305@gmail.com|Răzvan Nițu]], [[razvan.rughinis@cs.pub.ro|Răzvan Rughiniș]]
+
+Mișcarea open source / free software, inițial susținută de câțiva oameni, a ajuns să fie omniprezentă în toate mediile: instrustrie / economic, administrație publică / guvernamentală, organizații civice, educație / mediu academic. Pe lângă software (unde s-a aplicat inițial termenul de open source / free software), acum creațiile de tot felul se pot găsi sub o licență liberă (precum [[https://creativecommons.org/|Creative Commons]]) și inclusiv [[https://ohwr.org/welcome|hardware-ul]].
+
+În Facultatea de Automatică și Calculatoare suntem utilizatori, susținători și dezvoltatori de proiecte open source Pe parcursul facultății veți întâlni la cursuri și laboratoare utilitare, aplicații, sisteme de operare, resurse de tot felul din lumea open source. Vă recomandăm să vă creați și să folosiți conturi pe platformele de dezvoltare de aplicații cu suport open source așa cum este [[https://github.com/|GitHub]].
+
+Pe lângă folosirea soluțiilor open source, avem proiecte dezvoltate de tip open source unde puteți contribui. Dezvoltarea de aplicații în open source vă ajută să vă creați un portofoliu de contribuții publice, ușor accesibile, un CV instant din care pot reieși competențele voastre.
+
+Proiecte din zona open source în care suntem implicați:
+  * [[http://www.rosedu.org/|ROSEdu]] este o organizație studențească / educațională care susține și dezvoltă proiecte open source, precum [[https://github.com/rosedu/vmchecker|vmchecker]]
+  * suntem implicați în comunitatea [[https://dlang.org/|limbajului D]], un limbaj nou, puternic, construit open source ca alternativă la C/C++; începând cu 2019 organizăm [[https://ocw.cs.pub.ro/courses/dss|școala de vară D]]
+  * [[https://wyliodrin.com/|proiectul Wyliodrin]] are componente open source pentru dezvoltarea de aplicații în zona IoT (Internet of Things)
+  * suntem implicați în comunitatea [[https://github.com/freebsd-upb|FreeBSD]], un sistem de operare din familia Unix folosit în servere din lumea întreagă
+  * comunitatea [[https://github.com/malus-security/|Malus Security]], de cercetare în securitate iOS publică aplicațiile dezvoltate sub licență open source
+
+De asemenea, dezvoltăm multe proiecte educaționale (conținut didactic, administrare resurse) în spiritul open source, accesible în [[https://github.com/systems-cs-pub-ro/|organizația de pe GitHub]].
+
+Lumea open source vă oferă accesul la comunități de oameni cu pasiune și competențe, de la care puteți învăța și o pleiadă de proiecte unde puteți contribui, pe gustul fiecăruia. Creați-vă un cont pe [[https://github.com/|GitHub]] și vă încurajăm și vă așteptăm să contribuiți!
+===== Algoritmică =====
+
+Persoane de contact: [[traian.rebedea@cs.pub.ro|Traian Rebedea]]
+
+Algoritmii reprezintă unul dintre domeniile de bază din informatică și calculatoare, cu aplicabilitate imediată în programare, dar esențiali inclusiv în aspecte mai dificile din rețelistică, telecomunicații, proiectare hardware etc. Pentru a stapâni acest domeniu sunt necesare atât cunoștințe de matematică, logică și structuri de date, dar cel mai important este exercițiul și rezolvarea efectivă a unui număr cât mai variat de probleme. 
+
+Primul pas îl reprezintă cursurile Analiza algoritmilor și Proiectarea algoritmilor din anul 2, care introduc aspectele de baza legate de algoritmi - aceste cursuri trec prin majoritatea capitolelor din Introduction to Algorithms de Cormen, Leiserson, Rivest si Stein (https://mitpress.mit.edu/books/introduction-algorithms), dar și prin câteva noțiuni suplimentare. 
+Alternativ, puteți folosi cursurile introductive de algoritmi de pe Coursera, Udacity sau cel al lui Erik Demaine de la MIT (vedeti raspunsul de aici: https://www.quora.com/Which-is-the-best-course-for-learning-algorithms-and-data-structure-on-Coursera-Edx-or-Udemy). 
+
+Pentru exerciții individuale, puteți folosi infoarena, Codeforces, TopCoder sau HackerRank. Totuși, pentru a participa cu succes la concursurile online de pe aceste site-uri, trebuie să aveți deja o experiență minimală (de ex., să treceți cel puțin o dată prin Cormen sau prin cursurile menționate anterior). Tot pe aceste site-uri puteți găsi rezolvări propuse pentru anumite probleme - folosind forumurile de discuții unde participanții explica soluțiile lor, dar și puteți interacționa cu alți programatori. Un exemplu îl reprezintă arhiva educațională de pe infoarena (http://www.infoarena.ro/arhiva-educationala).
+
+În final, după ce ați rezolvat un număr suficient de mare de probleme pe site-urile sugerate, puteți participa la concursuri cu premii. Printre cele mai cunoscute sunt:  ACM International Collegiate Programming Contest (ICPC) - echivalentul olimpiadei de informatică pentru studenți, doar că se concurează în echipe de 3 studenți, Google Code Jam, Facebook Hacker Cup, etc. 
+
+Dacă sunteți interesați să participați la ACM ICPC, vă rugăm să discutați cu Traian Rebedea (traian.rebedea@cs.pub.ro) sau cu profesorii voștri de programare sau structuri de date.
+
+===== Grafică, Realitate Virtuală, Augmentată, GameDev =====
+
+Persoane de contact:
+  * Grafica, imagistica, multimedia: [[florica.moldoveanu@cs.pub.ro|Florica Moldoveanu]], [[irina.mocanu@cs.pub.ro|Irina Mocanu]],  [[costin.boiangiu@cs.pub.ro|Costin Boiangiu]], [[victor.asavei@cs.pub.ro|Victor Asavei]], [[anca.morar@cs.pub.ro|Anca Morar]]
+  * Realitate virtuala, augmentata, game development: [[alin.moldoveanu@cs.pub.ro|Alin Moldoveanu]], [[victor.asavei@cs.pub.ro|Victor Asavei]]
+
+Grafica pe calculator este unul dintre domeniile de baza din informatică și calculatoare, esentiala pentru tot ce inseamna vizualizare si interactiune fundamentala (sisteme de operare, aplicatii desktop, web, mobile) dar si pentru domenii specializate de larga raspandire (jocurile pe calculator, industria media, imagistica, realitatea virtuala si cea augmentata).
+Importanta domeniului este reflectata, printre altele, si de evolutii recente, cum ar fi progresul spectaculoas al placilor grafice (GPU) - care au ajuns sa aiba mii de core-uri, depasind de multe ori puterea de calcul bruta a CPU-urilor – sau afirmarea in ultimii ani a realitatii virtuale și augmentate ca forma cea mai puternica si naturala de interactiune om-calculator, susținuta de evoluția explozivă a unor tehnologii de ultima generație (HMD opace sau transparente, camere 3D, urmărirea corpului în timp real, etc.)
+
+Este de notat, din punct de vedere al carierei, ca in tara noastra industria jocurilor video este, probabil, cel mai dezvoltat sub-domeniu ICT, companiile de profil apropiindu-se de un total de 10.000 angajati! Facultatea noastra acorda mare atentie graficii si domeniilor conexe, atat prin 2 cursuri de licenta cat si printr-un program de master dedicat.
+
+Licenta:
+  * Elemente de Grafica pe Calculator, din anul 3, introduce bazele sintezei de imagini grafice, algoritmi pentru crearea de imagini realiste prin eliminarea partilor nevizibile ale scenelor 3D, simularea reflexiei luminii de catre obiectele scenei, introducerea umbrelor in imagini, reflexia si refractia multipla a luminii intr-o scena 3D. De asemenea, studentii sunt familiarizati cu programarea operatiilor din banda grafica executate de GPU si utilizarea bibliotecii OpenGL pentru dezvoltarea de aplicatii grafice.
+  * Sisteme de Prelucrare Grafica de la anul 4 are doua parti distincte : prima parte introduce notiuni avansate de modelare si vizualizare a suprafetelor 3D complexe (suprafete de forma libera) si a solidelor. Prin temele de laborator studentii invata sa implementeze tehnici de redare fotorealista in timp real a scenelor 3D bazate pe programarea GPU, folosind OpenGL si GLSL. Partea a 2-a  a cursului introduce notiuni si algoritmi fundamentali de prelucrare si analiza a imaginilor digitale : filtrarea, extragerea caracteristicilor din imagini, segmentarea, recunoasterea formelor, s.a.
+
+**Masterat: GMRV (Grafica, Multimedia si Realitate Virtuala) **
+
+Acest program are drept misiune specializarea reală pentru crearea de jocuri video, grafică, multimedia, realitate virtuală și augmentată, printr-un număr mare de discipline ce dezvoltă multiplele cunoștințe și abilități necesare pentru angajare și performanță în aceste domenii profund creative.
+
+  * Limbaje: C, C++, C#/Java Script, OpenGL/GLSL, CUDA/OpenCL.
+  * Tehnologii: GPGPU, shaders, camere 3D, head mounted displays, Unity 3D, Unreal Engine, Cry Engine, Vuforia, Open CV, body, hand, face tracking, senzori biometrici, 3D Max, Maya, etc.
+
+Mai multe detalii despre masterul GMRV:
+  * http://3d.upb.ro/master/
+  * https://www.facebook.com/acs.gmrv
+
+**GameCup**
+
+In 2016 a fost lansat, de ACS si industria de profil, cel mai mare concurs de game development dedicat tuturor studentilor din Romania! Doar pentru studenti, pe echipe, de maxim 5. Cu mentori, multe premii si surprize frumoase. Editia 2016 se afla in plina desfasurare, avand tema „TIME. GRAVITY”.
+Detalii la: http://gamecup.ro/
+
+===== Data Science și Învățare Automată (Machine Learning) =====
+
+Persoane de contact: sisteme multi-agent (Adina Magda Florea, Andrei Olaru, Alexandru Sorici), prelucrarea limbajului natural (Stefan Trausan-Matu, Traian Rebedea, Mihai Dascalu), viziune computerizată (Marius Leordeanu, Irina Mocanu; Computer Vision - CV)
+
+În ultimii ani, rolul de data scientist sau de ML engineer a devenit unul dintre cele mai căutate poziții pentru absolvenții de calculatoare, informatică sau statistică aplicată. Între cele două poziții există asemănări puternice în sensul că ambele sunt centrate pe analiza cantităților mari de date folosind algoritmi și instrumente specifice, oferirea de suport departamentelor de business, extragerea de informații și șabloane din date, implementarea de predicții și clasificări, optimizarea diverselor procese folosind statistică și învățare automată. Totuși, există și diferențe relativ subtile - în general, un data scientist explorează datele și propune modele pentru analize și rezolvarea unor probleme, pe când un ML engineer trebuie să implementeze aceste modele pe seturi mari de date, să optimizeze arhitecturile și eventual să decidă infrastructura de calcul.
+
+Ambele poziții necesită cunoștințe de programare, algoritmi, inteligență artificială, învățare automată, matematică (în special algebră și statistică), baze de date, arhitectura sistemelor de calcul, sisteme distribuite, elemente avansate specifice de prelucrarea limbajului natural, viziune computerizată sau sisteme multi-agent.
+
+Exemple de companii care angajează specialiști în analiza datelor și învățare automată: bănci, asiguratori, Google, Facebook, IBM, Amazon, Microsoft, Twitter, SAP, companii telecom, servicii de informații, multe startup-uri.
+
+Pe lângă colegii din facultate menționați mai sus, inclusiv în București există mai multe comunități specifice unde puteți interacționa cu specialiști și persoane pasionate de ML: [[https://www.meetup.com/Bucharest-Deep-Learning/|Bucharest Deep Learning meetup]], [[https://www.meetup.com/Bucharest-AI-Meetup/|Bucharest.AI]], [[https://www.facebook.com/bucharestschoolofai/|Bucharest School of AI]], întalniri regulate ale grupurilor de NLP si CV (contactați-i pe Traian Rebedea pentru NLP sau Marius Leordeanu pentru CV). De asemenea, recomandăm următoarele școli de vară: [[https://aimas.cs.pub.ro/lemas-2018/|LeMAS]], [[https://www.eeml.eu/|EEML]] (ediția din 2019, cu peste 200 de participanți organizată în facultate), Romanian Machine Learning Summer School (prima ediție va avea loc în anul 2020, discutați cu Traian Rebedea pentru detalii). 
+
+Totodată, [[https://aimas.cs.pub.ro/master_ai_2018/|programul de master în Artificial Intelligence din cadrul facultății A&C]] este locul unde puteți aprofunda elementele de AI și ML pentru a lucra în industrie sau a continua studiile ca doctorand. Suplimentar, masterul de Inginerie a Sistemelor Internet oferă o abordare mai practică, axată pe procesul de inginerie, dar care are la bază aceleași procese care integrează tehnici de învățare automată și modele statistice.

@@ -1,0 +1,610 @@
+~~SHOWSOLUTION~~
+
+====== Folosire Vim ======
+
+<hidden>
+Ar fi interesant ca in josul paginii, in loc de exercitii, fiecare asistent sa puna cate un lucru pe care el il considera "awesome" la vim
+sau un exemplu de situatie reala in care vim "i-a salvat viata" :)
+</hidden>
+
+===== Video tutorials =====
+
+  * [[http://www.youtube.com/watch?v=GdZxzS3veBA|IT Assistant - Introducere in vim 1]]
+  * [[http://www.youtube.com/watch?v=GJaAEOk6-zs|IT Assistant - Introducere in vim 2]]
+
+===== Suport laborator =====
+
+  * [[http://books.google.com/books?id=_JFGzyRxQGcC&lpg=PA532&pg=PA473#v=onepage&q&f=false|Cartea de USO cap. 14.3. Editorul Vim]]
+  * [[http://www.benjiegillam.com/2012/02/switching-to-vim-the-easy-way/|Switching to Vim: The Easy Way - Installing/Vimtutor]]
+  * [[http://vim-adventures.com/|VIM Adventures]] - un joc simpatic care vă va ajuta să aveți o tranziție și mai ușoară către vim și să exersați comenzi de bază.
+  * [[http://www.moolenaar.net/habits.html|Sfaturi de la Bram Moolenaar, creatorul Vim]]
+  * [[http://mislav.uniqpath.com/2011/12/vim-revisited/|A Gentle Introduction to Vim]]
+  * [[https://danielmiessler.com/study/vim/|Vim - 5 levels to mastery]]
+===== Cheat sheet =====
+
+==== Movement ====
+{{ :uso:resurse:vim-shortcuts.png?direct&350 |}}
+
+==== Complete ====
+
+{{ :uso:resurse:vi-vim-cheat-sheet.gif?direct&350 |}}
+
+==== More cheatsheets ====
+
+  * [[http://www.mihneadb.net/post/vim-cheatsheet/|Mihnea's Vim Cheatsheet]]
+  * [[http://www.fprintf.net/vimCheatSheet.html|Complete vim CheatSheet]]
+  * [[http://linuxmoz.com/vi-commands-cheat-sheet/|Vi Commands Cheat Sheet]]
+  * [[http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html|Graphical vim cheatsheet and tutorial]]
+
+===== Pachete necesare =====
+  * [[http://linux.die.net/man/1/vi|vim]]
+  * [[http://linux.die.net/man/1/vimtutor|vimtutor]]
+
+===== Arhivă laborator =====
+  * {{:uso:laboratoare:lab03.tar.gz|lab03.tar.gz}}
+
+
+====== Introducere ====== 
+
+<note tip>
+Deși pare complicat, **''vim''** nu este dificil de folosit. Nu trebuie să rețineți toate comenzile posibile de la prima folosire. Comenzile de Vim se învață în momentul în care vă loviți de ele și căutați să găsiți o soluție eficientă.
+</note>
+
+<note warning>Înainte de a începe tutorialul de aici vă recomandăm să parcurgeți lecțiile din ''vimtutor''. Sunt 7 lecții care vă trec prin comenzile de bază și lucrați direct pe textul din ''vimtutor'', fără a fi nevoie să deschideți alt terminal. 
+
+Rulați comanda:
+
+<code bash>
+student@uso:~$ vimtutor
+</code>
+</note>
+===== Editorul vim. Intro =====
+
+**''Vim''** se deosebește de editoarele clasice prin faptul că este un editor **modal**. Fiecare tastă are o semnificație diferită, în funcție de starea editorului.
+
+Imaginea următoare sugerează, pe scurt, ce face fiecare mod:
+
+{{http://elf.cs.pub.ro/uso/store/03_vim_modes.png?nocache}}
+
+  * modul __Normal__ este modul inițial. Aici se poate naviga prin fișier
+  * modul __Insert__ este modul în care se poate insera text
+  * modul __Command__ permite introducerea de comenzi pentru Vim
+  * modul __Replace__ permite înlocuirea unor fragmente de text
+  * modul __Visual__ permite selecția unui fragment de text 
+
+Veți observa cum partea de jos a ecranului se modifică modul în care suntem: 
+
+{{ :uso:laboratoare:vim-1.png?500 |}}
+
+Pentru a reveni în modul __Normal__ se folosește tasta ESC. Pentru a trece din modul __Normal__ în celelalte se folosesc diverse combinații de taste. Mai jos sunt câteva exemple: 
+
+^ Tastă         ^ Trecere efectuată ^
+|**''i''**        | din __Normal__ în __Insert__ |
+| **''v''**        | din __Normal__ în __Visual__   |
+| **'':''**        | din __Normal__ în __Comand__   |
+| **''R''** (**''SHIFT+R''**) | din __Normal__ în __Replace__   |
+| **''Insert''** | din __Insert__ în __Replace__ |
+===== Navigare în fișiere =====
+
+Pentru a deschide un fișier se folosește următoarea comandă (dacă dăm mai multe fișiere ca arguemnte vor fi deschise și ele, dar în față avem primul fișier dat ca argument):
+
+<code bash>
+vim my_super_file
+</code>
+
+Odată ce a fost deschis, vim se va afla în modul __Normal__. Pentru a naviga prin fișier se folosesc tastele **''h''**, **''j''**, **''k''**, **''l''** exact ca în figura următoare.
+
+{{http://elf.cs.pub.ro/uso/store/03_vim_nav_keys.png?nocache}}
+
+<note tip>
+Rândul din mijloc al tastaturii poartă numele de __home row__. Dacă aveți degetele deasupra lui veți face cele mai scurte mișcări pentru a ajunge la orice tastă.
+</note>
+
+Evident, se pot deschide mai multe fișiere: 
+
+<code bash>
+vim file1 file2
+</code>
+
+<note warning>Atenție la denumirile fișierelor care conțin spații. Dacă avem astfel de fișiere trebuie să folosim \ sau ghilimele pentru a escapa spațiul</note>
+
+Deseori trebuie să edităm mai multe fișiere simultan. Desigur, putem deschide mai multe terminale sau mai multe taburi în același terminal dar nu vom putea copia text dintr-un fișier în celalt folosind comenzile vim (trebuie să folosim copy/paste la nivelul sistemului). 
+
+<code bash>
+vim -p file1 file2 file3 file4
+</code>
+
+și folosim combinațiile de taste:
+
+  * **''gt''** - next tab
+  * **''gT''** - previous tab
+  * **''Xgt''** - unde X = un număr întreg - navigare la tab-ul X
+
+Putem folosi taburi în **''vim''** utilizând **'':tabnew''** (deci în modul __Comandă__), dacă am deschis doar un fișier. Fără nici un argument **'':tabnew''** deschide un fișier gol. Îi putem da ca argument doar un singur fișier deja existent.  
+
+<note info>
+**''g''** este pentru orice fel de navigare. **''t''** și **''T''** sunt pentru taburi.
+</note>
+
+Însă dacă, de exemplu, avem un fișier header cu definițiile a foarte multe funcții sau macro-uri am vrea să îl avem undeva în stânga sau în dreapta pentru a putea apela corect acele funcții în codul nostru. Pentru a vizualiza simultan conținutul a mai multe fișiere folosim split views:
+
+^ Comandă         ^ Formă scurtă ^ Efect           ^
+| **'':split''**  | **'':sp''**  | split orizontal |
+| **'':vsplit''** | **'':vsp''** | split vertical  |
+
+Navigarea între view-uri se face cu //Ctrl+w// și apoi //Ctrl + litera// asociată direcției de deplasare (//h, j, k, l//)
+
+Aceste //splits// ar putea fi folosite și pentru compararea a două surse. Dar, de exemplu, scriem cod în echipă și vrem să comparăm fișierul nostru original cu ce a adăugat nou un coleg al nostru e mai bine să folosim un utilitar care semnalează diferențele între cele două fișiere pe care le vizualizăm. Pentru aceasta putem folosi **''vimdiff''** (care uneori poate fi mai util decât **''diff''** din linia de comandă). **''vimdiff''** e un shortcut pentru **''vim -d''**. Dacă aveți nevoie de ajutor **'':h vimdiff''** 
+
+<code bash>
+vimdiff file1 file2
+vim -d file1 file2
+</code>
+
+
+===== Părăsire editor =====
+
+Am terminat de editat fișierul și acum vrem să părăsim **''vim''**. Pentru aceasta, trebuie să-i dăm o //comandă// în care-i zicem că vrem să ieșim.
+
+Pentru a ne întoarce în modul __Normal__ din modul __Insert__ putem folosi tasta __ESC__.
+
+Pentru a putea introduce o comandă va fi necesar să ne aflăm în modul __Command__. Pentru a intra în acesta, veți tasta **'':''**. Veți observa că acum cursorul este pe linia de jos din terminal.
+
+Dacă vrem să renunțăm la o comandă, putem folosi tasta ESC și ne întoarcem în modul __Normal__. Dacă vrem să executăm comanda, o terminăm prin Enter.
+
+Pentru a ieși din **''vim''** folosim **''quit''** în modul __Command__. Putem abrevia comanda la **''q''**
+
+<note info>
+În **''vim''** toate comenzile pot fi abreviate la o secvență neambiguă de litere.
+</note>
+
+În cazul în care am modificat fișierul, nu vom putea părăsi editorul folosind comanda **''quit''**, deoarece nu am salvat modificările. Pentru a salva modificările realizate în fișier, vom folosi comanda **''write''** (sau **''w''**). După ce am salvat fișierul, putem ieși din acesta fără probleme.
+
+Putem salva și ieși din **''vim''** fără a folosi 2 comenzi. Fiind o combinație freceventă, comenzile **''write''** și **''quit''** pot fi date împreună în forma abreviată, sub forma **''wq''**.
+
+<note tip>
+Unele dintre cele mai folosite combinații de comenzi în vim pot fi folosite împreună în forma abreviată.
+</note>
+
+Dacă vrem să ieșim fără a salva modificarea, nu putem da **''q''** simplu, trebuie să spunem editorului că suntem siguri că dorim să ieșim fără să salveze. Folosim **''!''** __după__ comandă pentru a forța execuția ei.
+
+<note tip>
+Dacă vrem să forțăm execuția unei comenzi în Vim, folosim **''!''** după aceasta.
+</note>
+
+Dacă am deschis mai multe fișiere și vrem să le închidem pe toate o dată trebuie să folosim **''qa''**. Dacă vrem să salvăm toate modificările: **''wqa''**
+
+===== Comenzi frecvente și utile în vim =====
+
+Sumarizăm mai jos câteva din cele mai frecvente comenzi în vim, foarte utile la început. O listă detaliată cu comenzi găsiți [[http://www.tuxfiles.org/linuxhelp/vimcheat.html|aici]]
+
+
+^ Comandă          ^ Mod   ^ Descriere scurtă                                     ^
+| **''w''**rite    | __Command__     | salvează modificările                                |
+| **''q''**uit     | __Command__     | iese din fișier                                      |
+| **''x''**        | __Normal__     | cut pentru un caracter                               |
+| **''d''**        | __Normal__     | șterge următorul movement                            |
+| **''d''**        | __Visual__     | șterge textul selectat                               |
+| **''y''**        | __Normal__     | copiază următorul movemet                            |
+| **''y''**        | __Visual__     | copiază textul selectat                              |
+| **''s''**        | __Command__     | search and replace                                   |
+===== Searching =====
+
+De multe ori, vrem să căutăm într-un fișier anumite secvențe.
+
+Pentru a lansa o căutare folosim **''/''** (căutare înainte, spre finalul fișierului) sau **''?''** (înapoi, spre început). Se poate observa că și acum cursorul este plasat pe ultima linie, exact ca în modul __Command__.
+
+Pentru a căuta următoarea apariție, putem folosi **''n''** sau **''Shift-n''**, în funcție de direcția în care vrem să mergem.
+
+<note important>
+Observați asemnărarea cu o căutare prin man-pages.
+</note>
+
+<note warning>Observați că se caută un șir, NU un cuvânt. Veți învăța în viitor cum introduceți noțiunea de cuvânt în căutare.</note>
+
+
+===== Replacing =====
+
+De multe ori, într-un fișier, vrem să înlocuim un șir cu alt șir. Pentru a face aste lucru trebuie să intrăm în modul __Command__ și să dăm o comandă care începe cu **''s/''**, de exemplu:
+
+<code bash>
+s/old_string/new_string
+</code>
+
+Formatul comenzii este următorul:
+
+  * avem ca separator între câmpuri caracterul **''/''**
+  * primul câmp reprezintă șirul ce trebuie înlocuit
+  * al doilea câmp reprezintă expresia cu care va fi înlocuit șirul căutat
+
+<note>
+Se pot folosi și expresii regulate dar despre ele vom învăța într-un laborator viitor.
+</note>
+
+După Enter, se realizează înlocuirea și se revine în modul __Normal__.
+
+
+Folosind comanda în formatul prezentat, se va realizeaza __doar__ o singură înlocuire, chiar dacă linia conținea mai multe potriviri. Pentru a forța înlocuirea pe toată lungimea liniei, vom adăuga un **''/g''** la finalul comenzii de replace.
+
+Vrem să înlocuim __toate aparițiile__ șirului **''old_string''** în fișier cu șirul **''new_string''**. Desigur, putem înlocui linie cu linie dar ar fi neproductiv. Pentru a face înlocuirea globală pe tot fișierul vom prefixa comanda de înlocuire cu **''%''**:
+
+<note important>
+Această comandă nu înlocuiește toate aparițiile, vedeți mai jos de ce:
+</note>
+
+<code bash>
+:%s/old_string/new_string
+</code>
+
+Această comandă înlocuiește în tot fișierul, prima apariție de pe fiecare linie. Pentru a obține înlocuirea pe întregul fișier, va trebui să înlocuim toate aparițiile de pe toate liniile. În acest sens, vom folosi atât **''%''** cât și **''g''**, ca în exemplul:
+
+<code bash>
+:%s/old_string/new_string/g
+</code>
+
+
+===== Selections =====
+
+Vrem să înlocuim șirul **''old_string''** cu **''new_string''** dar __doar pe primele 5 linii din fișier__.
+
+În acest caz, din ce știm până acum putem înlocui doar linie cu linie. Deoarece este un proces total ineficient, va trebui să selectăm întâi zona pe care vrem să facem înlocuirea pentru a putea da o singură comandă.
+
+Pentru a face selecții, trebuie să intrăm în modul __Vizual__. Facem acest lucru folosind **''v''** astfel:
+
+  * pentru selecție la nivel de caracter folosim **''v''**
+  * pentru selecție la nivel de linie folosim **''V''**
+  * pentru selecție la nivel de block (dreptunghiuri de text) folosim **''^V''** (**''^''** este Control)
+
+În modul __Vizual__ ne deplasăm cu **''h, j, k, l''** ca în modul __Normal__.
+
+
+===== Copy-Paste-Cut-Delete =====
+
+Aproape tot timpul când editați ceva aveți nevoie să duplicați o bucată de text sau să o mutați. Într-un editor clasic foloseați Copy-Paste sau Cut-Paste. Și **''vim''** oferă acest lucru.
+
+Putem șterge un caracter cu **''x''** dacă ne aflăm peste el.
+
+Putem șterge mai multe caractere cu **''d''**. N se șterge nimic dacă apăsăm doar **''d''**, trebuie să-i spunem și cât să șteargă.
+
+Exemple:
+  * **''dl''**, șterge un caracter la dreapta
+  * **''dxh''**, șterge x caractere la stânga (x este un număr)
+
+<note warning>
+Operațiile de copy și delete așteaptă o mișcare pentru a determina lungimea textului afectat.
+
+Sau le puteți folosi după ce ați selectat textul în modul __Vizual__.
+</note>
+
+
+Pentru a nu face mișcări lungi până la finalul rândului există scurtături. Comanda **''dd''** șterge linia curentă, iar  **''D''** șterge restul liniei curent.
+
+
+Dacă vrem să lipim textul șters ne poziționăm în poziția dorită și folosim **''p''** sau **''P''**. Al doilea face paste __înainte__ de poziția curentă.
+
+Copiem textul cu **''y''**. La fel ca la **''d''**, trebuie o deplasare pentru a determina lungimea textului de copiat.
+  * **''yxl''**, copiază următoarele x caractere spre dreapta, unde x este un număr.
+  * **''yy''**, copiază întreaga linie pe care se află cursorul.
+
+Ce se întâmplă dacă tastăm **''xp''**? Încercați să explicați cu noțiunile prezentate aici.
+
+===== More movement =====
+
+După cum ați observat în secțiunea anterioară, operațiile de copy și delete necesită o deplasare pentru a determina lungimea textului afectat. Ar fi ineficient să folosim doar **''h, j, k''** și **''l''**.
+
+Din fericire, **''vim''** oferă operații complexe de deplasare, sumarizate în următorul tabel. Încercați să vă jucați cu toate.
+
+^ Comandă    ^ Deplasare                 ^
+| **''^''**  | începutul rândului        |
+| **''$''**  | finalul rândului          |
+| **''w''**  | următorul cuvânt          |
+| **''e''**  | finalul cuvântului curent |
+| **''b''**  | cuvântul anterior         |
+| **''gg''** | prima linie din fișier    |
+| **''G''**  | ultima linie din fișier   |
+
+De asemenea, puteți merge pe o anumită linie din fișier utilizând modul __Command__: **'':n''** vă deplasează pe linia **''n''**.
+===== More editing =====
+
+Există și metode de intrare în modul __Insert__ (din modul __Normal__) mai avansate. Tabelul următor ilustrează câteva din ele:
+
+^ Comandă   ^ Acțiune                                              ^
+| **''o''** | pornește editare pe linie nouă __sub__ linia curentă |
+| **''O''** | inserează o linie nouă __deasupra__ liniei curente   |
+| **''a''** | adaugă text __după__ caracterul curent               |
+| **''A''** | adaugă text __la finalul__ liniei curente            |
+| **''I''** | adaugă text __la începutul__ liniei curente          |
+
+
+
+===== Ooops. Undo, undo, redo =====
+
+Din când în când se întâmplă să facem o modificare greșită și să vrem să dăm înapoi. Într-un editor clasic foloseați Ctrl + z.\\
+În vim folosiți următoarele comenzi în modul __Normal__:
+
+^ Comandă          ^ Acțiune ^
+| **''u''**        | undo    |
+| **''CTRL + r''** | redo    |
+
+
+===== Where am I? =====
+
+În anumite situații, veți dori să aveți afișat numărul fiecărei linii din fișierul curent. În modul __Comandă__, introduceți comanda **''set number''**. Puteți dezactiva cu **''set nonumber''**.
+
+În alte cazuri, veți dori să aveți o metodă rapidă de a localiza cursorul în fișier. Introduceți, __pe rând__, comenzile **''set cursorline''** și **''set cursorcolumn''**.
+
+<note tip>
+Pentru a seta o opțiune folosiți comenzi de tipul **''set opțiune''** în modul __Command__.
+
+Pentru a reseta o opțiune folosiți **''set no''**''opțiune''.
+</note>
+
+<note>Putem seta toate aceste opțiuni să pornească o dată cu pornirea lui vim prin crearea unui fișier în home directory-ul nostru numit **''.vimrc''** și în care punem toate aceste opțiuni pe care le vrem neapărat la pornirea editorului. Un exemplu cu comentarii găsiți [[http://vim.wikia.com/wiki/Example_vimrc|aici]], și unul mai simplu [[http://mislav.uniqpath.com/2011/12/vim-revisited/|aici]] 
+
+Pe internet există multe **''.vimrc''** publicate de utilizatorii **''vim''**. Recomandarea noastră este să vă inspirați din ele și să preluați ce pare interesant și util pentru voi.
+
+Puteți folosi de exemplu:
+  * https://github.com/adrians/arch_settings/blob/master/vimrc
+  * https://github.com/ddvlad/cfg/blob/master/_vimrc 
+  * http://swarm.cs.pub.ro/~mihai/.vimrc
+</note>
+====== Exerciții ======
+
+<note>
+Toate cunoștințele necesare pentru a rezolva primele 2 secțiuni se găsesc în partea de introducere. Ulterior, fiecare exercițiu conține și o descriere a ceea ce vi se cere.
+</note>
+
+===== 1. Vim Basic Usage ====
+
+== Navigare și inserare text ==
+
+  * Deschideți fișierul **''steve jobs''** (Atenție: există un spațiu în numele fișierului, folosiți `\ ` sau ghilimele).
+  * Folosiți tastele de navigare pentru a ajunge pe cuvântul Reed (linia 8, coloana 18).
+  * Inserați cuvântul **College** după cuvântul **Reed** (pe care v-ați oprit la exercițiul anterior)
+  * Salvați modificările apoi ieșiți din fișier.	 
+  * Deschideți din nou același fișier și introduceți o linie noua la începutul lui conținând textul: Steve Jobs at Standford, 2005. 	
+  * Salvați modificările și părăsiți editorul folosind o singură comandă.
+  * Deschideți din nou același fișier. Ștergeți prima linie din acesta.
+  * Părăsiți editorul fără a salva modificările.
+
+== Search and replace ==
+
+  * Deschideți fișierul **''steve jobs''**.
+  * Găsiți a 4 apariție a șirului **''life''** de la începutul fișierului și apoi a treia repetiție spre începutul fișierului a șirului **''class''** de unde ați rămas.
+  * Închideți fișierul.
+
+  * Deschideți fișierul **''search_replace''**.
+  * Înlocuiți **''RPL1''** cu **''asdf''** doar pe prima linie.
+  * Înlocuiți șirul **''RPL2''** cu **''qwert''** în întregul fișier.
+  * Înlocuiți cuvântul **''RPL3''** cu **''1qaz''** dar doar pe primele 5 linii din fișier.
+  * Înlocuiți **''DONE''** cu **''done''** pe ultimele 5 linii din fișier. Pentru aceasta folosiți sintaxa de replace anterioară și pastrați caracterele '<,'> aparute în zona de comandă.
+  * Închideți fișierul, salvând modificările.
+
+== Copy-Paste-Cut-Delete ==
+
+  * Deschideți din nou fișierul **''steve jobs''**.
+  * Ștergeți primul caracter din fișier.
+   <solution> **''dl''** sau **''x''** </solution>
+  * Ștergeți linia care conține textul "My third story is about death."
+   <solution> **''/My third<Enter>dd''** </solution>
+  * Duplicați prima linie din fișier.
+   <solution> **''ggYp''** </solution>
+  * Mutați ultima linie din fișier pe linia 3 a acestuia.
+   <solution> **''Gdd:3<Enter>P''** </solution>
+  * Ștergeți primul paragraf din fișier. Folosiți modul Visual.
+   <solution> **'':4v4jd''** </solution>
+  * Nu închideți fișierul sau salvați modificările.
+ 
+== Undo, redo ==
+
+  * Încercați să vă întoarceți la starea originală a fișierului utilizând undo.
+  * Reveniți la starea actuală folosind redo.
+  * Închideți fișierul fără să salvați modificările.
+===== 2. Efficient Editing =====
+
+Utilizând cunoștințele de până acum, rezolvați următoarele taskuri într-un număr minim de taste.
+  - deschideți fișierul **''search_replace''**.
+  - mergeți pe linia 4
+  - copiați toată linia
+  - mergeți pe ultima linie din fișier
+  - faceți paste la linia copiată
+  - mergeți pe prima linie
+  - copiați ultimul cuvânt de pe aceasta
+  - mergeți pe ultima linie
+  - faceți paste cuvântului copiat la finalul acesteia
+
+
+Care este numărul minim de taste necesare pentru a rezolva următoarea situație?
+
+  - adăugati o linie nouă (la finalul fișierului) în care scrieți textul **''Acum stiu vim.''**
+  - navigați la prima linie din fișier
+  - navigați la ultima linie din fișier -- cea introdusă
+  - adăugați după vim textul **''si il folosesc''**
+
+<note important>Punctul de la finalul propoziției trebuie să rămână acolo!</note>
+
+===== 3. Tabs =====
+
+Uneori trebuie să edităm mai multe fișiere simultan. Desigur, putem deschide mai multe terminale sau mai multe taburi în același terminal dar nu vom putea copia text dintr-un fișier în celalt (încercați).
+
+Putem folosi taburi în **''vim''** utilizând **'':tabnew''** (deci în modul __Comandă__).
+
+Nagivarea între taburi se face cu **''gt''** și **''gT''**.
+
+<note info>
+**''g''** este pentru orice fel de navigare. **''t''** și **''T''** sunt pentru taburi.
+</note>
+
+Deschideți 3 taburi în aceeași instanță de **''vim''**, scrieți text în primul și copiați-l în al treilea.
+
+
+===== 4. Split screen =====
+
+Taburile sunt utile dar nu ne permit să vizualizăm simultan conținutul a mai multe fișiere. Pentru aceasta, folosim split views:
+
+^ Comandă         ^ Formă scurtă ^ Efect           ^
+| **'':split''**  | **'':sp''**  | split orizontal |
+| **'':vsplit''** | **'':vsp''** | split vertical  |
+
+Navigarea între view-uri se face cu //Ctrl+w// și apoi //Ctrl + litera// asociată direcției de deplasare (//h, j, k, l//)
+
+Deschideți 4 view-uri împărțind ecranul în 4 zone egale. Introduceți text într-o zonă și copiați-l în toate celelalte zone.
+
+
+
+
+===== 5. Rulare comenzi externe =====
+
+Cel mai probabil dorim să ne ținem fișierele organizate pe disk. Pentru asta, atunci când facem un nou fișier, am vrea să-l salvăm într-un director anume. Dacă acel director nu există deja, nu putem să salvăm direct, așa că va trebui să îl creăm.
+
+Putem, bineînțeles, face asta închizând **''Vim''**, sau dintr-un alt termial, dar putem lucra și mai eficient, rulând comanda direct din **''Vim''**. 
+
+<note tip>
+Putem rula orice comandă externă dacă o prefixăm cu **''!''**. De exemplu, pentru a crea un director nou numit ''new_dir'' în directorul de unde am lansat **''Vim''**, vom rula:
+<code> :!mkdir new_dir </code>
+</note>
+
+Acest lucru este în special folositor atunci când scriem cod și dorim să compilăm fără să părăsim editorul.
+
+  * Deschideți fișierul sursă ''permutation.c'' în vim.
+  * Compilați în vim fișierul sursă utilizând ''gcc''.
+    * Hint: <code bash> gcc -o NUME_EXECUTABIL FIȘIER_SURSĂ</code> 
+  * Rulați în vim executabilul obținut.
+
+<solution>
+<code vim>
+!gcc permutari.c
+!./a.out
+</code>
+</solution>
+===== 6. Salvare opțiuni vim. vimrc =====
+
+Pentru a nu fi nevoiți să introduceți aceleași setări de fiecare dată când trebuie să porniți **''vim''** este bine să le salvăm într-un fișier numit **''.vimrc''**.
+
+Sintaxa fișierului este puțin ciudată. Momentan, vom introduce opțiuni simple, pentru lucruri mai complicate va trebui să consultați documentația **''vim''**.
+
+Vrem să setăm opțiunea **''textwidth''** la 79. În acest fel, **''vim''** va începe automat o linie nouă dacă depășim coloana 79.
+
+Deschideți fișierul **''.vimrc''** din home-ul vostru și introduceți linia următoare:
+
+<code bash>
+set textwidth=79
+</code>
+
+Salvați și ieșiți. Deschideți o instanță de **''vim''**. Putem testa opțiunea introducând o linie foarte lungă și așteptând să vedem dacă ni se limitează linia la 79 de caractere.
+
+Sau, putem să afișăm valoarea opțiunii. Folosiți (**''tw''** e prescurarea de la **''textwidth''**):
+
+<code bash>
+:set tw?
+</code>
+
+<note tip>
+Pentru a afișa valoarea curentă a unei opțiuni în loc de a o activa se folosește un **''?''** după aceasta.
+</note>
+
+Introduceți următoarele opțiuni în **''.vimrc''**, folosind **''set''** inainte de ele:
+
+  * **''cindent''**
+  * **''autoindent''**
+  * **''smartindent''**
+  * **''incsearch''**
+  * **''autowrite''**
+  * **''hls''**
+  * **''syntax on''**
+
+<note warning>**Atenție!!** **''syntax on''** nu este o opțiune în sine, nu se setează cu **''set''**!. Introduceți-o așa cum apare.</note>
+
+Aflați ce face fiecare din opțiunile introduse în **''.vimrc''**.
+
+<note tip>
+Puteți folosi fișierul **''.vimrc''** și acasă, conține setări minimale pentru un lucru eficient cu **''vim''**.
+</note>
+
+
+===== 7. Spellcheck =====
+
+Puteți folosi **''vim''** și pentru a scrie text. În acest caz, o facilitate utilă este cea de spellcheck.
+
+Există programe precum **''aspell''** dar **''vim''** vine integrat cu un modul de spell checking.
+
+Pentru a-l activa, trebuie să setați opțiunea **''spell''**. Se vor colora imediat cuvintele greșite. Pentru a obține o listă de sugestii de corectare folosiți **''z=''**.
+
+Activați facilitatea de spellcheck și corectați fișierul **''users''**. Încercați să fiți cât mai eficienți, folosind mișcările descrise în //''Introducere/More Movement''//.
+
+
+===== 8. Registre =====
+
+După cum ați observat, ștergerea unei porțiuni de text va face ca următoarea comandă de tip paste să lipească textul șters. Dacă dorim să avem mai multe bucăți de text salvate pentru a fi lipite ulterior trebuie să folosim registre.
+
+Pentru a salva într-un registru prefixăm comanda de ștergere cu **''"''** și numele registrului. Pentru a-l folosi, procedăm similar.
+
+Format comandă: **''"rop''**, unde:
+  * **''r''**  - registrul folosit
+  * **''op''** - comanda dată în modul __Normal__
+
+Exemplu:
+
+  * **''"ayy''** - copiaza întreaga linie pe care se află cursorul în registrul a.
+  * **''"aP''**  - adaugă linia copiată în registrul a deasupra liniei pe care se află cursorul.
+
+Efectuați task-urile din **''2_lines''**. Folosiți cât mai puține taste.
+===== 9. diffs =====
+
+Pentru a vedea diferențele între două fișierele putem folosi **''diff''**. Pentru a crește productivitatea, **''vim''** vine cu **''vimdiff''** (shortcut pentru **''vim -d''**).
+
+Folosiți **''vimdiff''** pentru a vedea diferențele între fișierele **''file1''** și **''file2''**.
+
+<note tip>
+Modul de diff are multe opțiuni utile. Consultați-le în timpul liber (folosiți cu încredere **'':h vimdiff''**).
+</note>
+
+
+===== 10. Macro-uri =====
+
+Uneori este nevoie să repetăm aceeași secvență de acțiuni pentru mai multe linii. Pentru aceasta s-au creat macro-urile.
+
+ăvem următoarea succesiune de pași pentru a crea un macro:
+
+  * În modul __Normal__ introduceți comanda **''qa''**, unde a este registrul în care vreți să salvați macro-ul. (Putea fi orice litera din intervalul a-z). O să observați că va apare jos în stânga textul "recording".
+
+  * Odată pornită înregistrarea, orice acțiune realizată în vim este memorată.
+
+    * Presupunem că vreți să adăugați șirul " NEWLINE" la sfârșitul liniei și vă aflați pe prima linie din următorul fișier. 
+
+
+exemplu de linie\\
+alt exemplu de linie
+
+
+    * Vă deplasați la sfârșitul liniei cu **''$''**.
+    * Inserați textul dorit folosind comanda **''a''** pentru a adăuga după cursor.
+
+exemplu de linie NEWLINE\\
+alt exemplu de linie
+
+    * Reveniți în modul __Normal__, tastând **ESC**.
+
+  * După ce ați terminat secvența de acțiuni pe care vroiați să le repetați, tastați **''q''**  pentru a salva macro-ul. 
+
+  * Acuma vreți să repetați acțiunile înregistrare la pasul anterior.
+
+    * Vă deplasați pe a doua linie, folosind **''j''**.
+
+    * Executați comanda **''@a''** în modul __Normal__ pentru a repeta macro-ul salvat în registrul a. O să observați că a fost adăugat textul " NEWLINE" la sfârșitul liniei, așa cum ați făcut în timpul înregistrării pentru prima linie.
+
+exemplu de linie NEWLINE\\
+alt exemplu de linie NEWLINE 
+
+    * Pentru a repeta macro-ul de N ori folosiți comanda **''N@a''** (N este un număr).
+
+\\
+^ **''Comandă''** ^ **''Mod''**   ^ **''Descriere scurtă''**                          ^
+| **''qa''**      | Normal        | porniți înregistrarea unui macro în registrul a   |
+| **''q''**       | Normal        | opriți înregistrarea dacă a fost pornită anterior |
+| **''@a''**      | Normal        | repetați macro-ul salvat în registrul a           |
+\\
+
+Folosiți macro-uri pentru a insera **'', 3''** înainte de ultima paranteză închisă de pe toate liniile din fișierul **''one_more_arg.c''**
+
+Exista și o altă modalitate?

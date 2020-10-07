@@ -1,0 +1,7 @@
+===== Sumar. Cuvinte cheie =====
+
+  * Dispozitive de stocare externe: ''HDD'', ''SSD''
+  * Partiționare, formatare, sistemul de fișiere
+  * Tipuri de tabele de partiții: ''MBR'', ''GPT''
+  * Afișare informații despre dispozitivele de stocare și partiții: ''lsblk'', ''parted'', ''fdisk'', ''gdisk''
+  * Montare și demontare partiții: ''mount'', ''umount''

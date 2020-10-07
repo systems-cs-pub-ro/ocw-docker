@@ -1,0 +1,24 @@
+====== Curs 02 - Procese =======
+
+
+
+  * [[https://drive.google.com/open?id=1_AZB1OPPtta9ydDxooVmtBC_RNZ6PKBa | Slide-uri curs]]
+  * [[https://drive.google.com/open?id=1D0n2mHD2mgc_qcLozTEHa46tnKYKlMsc | Handout 3on1 and notes space]]
+  * [[https://drive.google.com/open?id=1sj55Dz-E-yMSkoyx5e4Bnwucckk7pscd | Handout 6on1]]
+  * **Cuvinte cheie**: resurse, instrucțiuni, atribute, ps, top, shel, init, fg, bg, descriptor de fișiere, kill, killall, semnale, interacțiuni, daemoni
+
+
+  * Suport de curs
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-04-process.pdf|Capitolul 4 din carte: Procese]]
+  * **Suport de curs vechi**
+    * [[http://books.google.com/books?id=_JFGzyRxQGcC | Introducere în sisteme de operare]]
+      * [[http://books.google.com/books?id=_JFGzyRxQGcC&pg=PA111 | Capitolul 5 - Procese]]
+
+/*
+<HTML>
+  <center>
+    <iframe src="https://docs.google.com/viewer?url=http://elf.cs.pub.ro/uso/res/cursuri/curs-02/curs-02-handout.pdf&embedded=true" width="600" height="480" style="border: none;">
+    </iframe>
+  </center>
+</HTML>
+*/

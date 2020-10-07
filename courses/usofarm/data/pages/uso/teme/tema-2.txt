@@ -1,0 +1,263 @@
+====== Tema 2 ======
+
+
+<note>
+**Ce trebuie să știu?** Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei.
+Nu contactaţi responsabilii de temă pe mail privat decât dacă aceştia vă cer explicit (e.g. pentru debugging local, vizualizarea unor comenzi din rezolvare)
+Pentru orice fel de întrebare **VĂ RUGĂM SĂ FOLOSIŢI FORUMUL!!!**
+
+**Thread nou? Nu.** Pentru o ușoară parcurgere a mesajelor, folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele. În consecință, thread-urile (subiectele de discuții) nou create vor fi șterse.
+
+**Căutare.** Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+**Printscreen/poză? Nu.** În cazul în care doriți să publicați un printscreen pe forum, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către printscreen. Pozele inserate în răspunsuri, vor fi șterse. 
+
+**Actualizări.** Urmăriți atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+
+**Regulament.** Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://acs.curs.pub.ro/|acs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+**Întrebări frecvente.** În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+
+**Ajutor reciproc.** Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți.
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **25 Noiembrie 2019 ora 23:55**\\
+Timp de lucru: **14 zile**\\
+Punctaj: **0.8 puncte** din nota finală\\
+</note>
+
+<note>
+Actualizări enunț:\\
+  * **Nu există actualizări**
+</note>
+
+<note>
+Actualizări checker:\\
+Versiunea curentă: <color red>**versiunea 1.0.0**</color>
+
+  * **Nu există actualizări**
+</note>
+
+===== Cunoștințe evaluate =====
+
+  * folosirea corectă a redirectării
+  * înlănțuiri de comenzi și comunicare eficientă interprocese
+  * noțiuni de scripturi Bash - este bine comenzi lungi de procesare să le punem în astfel de fişiere. 
+  * suport agregat:
+    * [[http://linuxcommand.org/lc3_writing_shell_scripts.php|LinuxCommand.org - Writing Shell Scripts]]
+    * [[https://www.tldp.org/LDP/Bash-Beginners-Guide/html/|TLDP - The Linux Documentation Project - Bash beginners guide]]
+        * Pentru cei curioşi există şi un [[https://www.tldp.org/LDP/abs/html/|advanced Bash guide]] cu filtre de text mai exotice, I/O redirection cum s-a făcut la laborator, dar în care stdout/stderr sunt unite.
+    * [[https://bash.cyberciti.biz/guide/Main_Page|Bash Guide - Cyberciti]]
+    * Tot pentru curioşi: puteţi să faceţi analiză statică a codului scris de voi în shell-script şi să vedeţi dacă aveţi erori general întâlnite care pot cauza diverse probleme. Există utilitarul [[https://github.com/koalaman/shellcheck|shellcheck]] care să vă ajute să scrieţi cod Bash de calitate mai bună. Puteţi să folosiţi tool-ul online [[https://www.shellcheck.net/|https://www.shellcheck.net/]]
+    * **Suport de curs vechi**
+      * [[http://books.google.com/books?id=_JFGzyRxQGcC | Introducere în sisteme de operare]]
+       * [[http://books.google.com/books?id=_JFGzyRxQGcC&pg=PA36 | Capitolul 12 - Shell scripting]]
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-07-cli.pdf|Capitolul 7 din carte: Interfața în linia de comandă]]
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-08-hw.pdf | Capitolul 8 Componente Hardware]]
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-09-boot.pdf | Capitolul 9 Pornirea sistemului]]
+
+
+<note warning>se recomandă citirea cu atenție a întregului enunț înainte de rezolvarea task-urilor sau de a pune întrebări pe forum sau colegilor din jur</note>
+
+===== Testarea temei. Finalizarea temei. Mașină virtuală. =====
+
+Verificaţi toate indicaţiile din [[uso:teme:tema-0|Tema 0]] cu privire la maşina virtuală şi configuratiile necesare. Dacă aveţi probleme puneţi pe forum!
+
+/*
+{{section>uso:teme:testare&noheader&nofooter}}
+*/
+
+
+
+<note warning>
+Orice shell script pe care îl creaţi **trebuie** să înceapă cu ''shebang''-ul ''#!/bin/bash'', adică:
+
+<code bash>
+#!/bin/bash
+
+#aici puneţi comenzile voastre
+</code>
+
+FOARTE IMPORTANT: Asiguraţi-vă că aţi dat drept de execuţie pentru toată lumea: ''chmod a+x /path/to/my/script.sh''
+</note>
+
+<note important>In cazul task-urilor, scripturile scrise de voi sunt rerulate 
+la ''sudo uso check'' si ''sudo uso submit''. 
+Rularea unui script este echivalenta cu ''/cale/catre/script.sh'' 
+In cazul in care scriptul face ceva ce nu ar trebui, aveti grija sa corectati inainte sa dati 
+''sudo uso check'' sau ''sudo uso submit''. De asemenea ''sudo uso check'' si ''sudo uso submit'' 
+sterg orice fisier ce trebuie creat de scripturile voastre inainte de a rula scriptul 
+(de exemplu la primul task, fisierul ''filesys.bin'' va fi sters de fiecare data pentru a ne asigura ca 
+scriptul il genereaza)
+
+Pentru validarea tuturor celor 6 task-uri durata totala a checker-ului in cazul in care totul e corect e de aproximativ **1 minut**
+pe un sistem cu 8 GB RAM si CPU i5 cu 2.5GHz
+</note>
+
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a 
+temei ori a unui task. Dacă e necesar acest lucru vă rog să contactaţi în privat responsabilii de temă, la specificarea explicită a acestora pe forum!
+
+**Aveţi voie, însă, să sugerați diferite abordări pe care mergeţi sau să dați idei generale (dar nu comenzi sau fişiere shell script) celorlalți chiar direct pe forum. Încurajăm clarificarea lucrurilor între studenţi atât timp cât nu sunt rezolvate cerinţele în mod direct. ** 
+
+Urmăriți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]]. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă. Temele anterioare sau cele viitoare nu vor fi afectate. Abaterile se păstrează pe parcursul semestrului. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+==== Task obligatoriu pentru toate temele la final ====
+
+Când finalizați tema si asigurați-vă că ați submis tema cu ''sudo uso submit''.                                                                                                                  
+
+<note warning>
+Este interzis studenților să modifice parametrii de rulare ai mașinii virtuale. Orice tentativă malițioasă de modificare a fișierelor și executabilelor care fac mașina virtuală sa ruleze in parametrii optimi (fișierele si folderele ce nu țin de enunțul temei curente), ne conferă dreptul de a oferi 0 puncte pe temele respectivului student.
+</note>
+
+===== Cerinţele temei =====
+
+==== Task 00 (0p) - Pregătire ====
+
+Creaţi în ''/home/student'' un director numit ''tema2-scripts''. Aici trebuie puse toate fişierele necesare temei. Porniti lucrul la tema 2
+
+<code bash>
+student@usohomework:~$ sudo uso start 2
+</code>
+
+Verificarea temei
+
+    * verificare toate task-urile
+<code bash>
+student@usohomework:~$ sudo uso check
+</code>
+
+    * verificare task X, unde ''X = (1..5)''. Tema are 5 task-uri:
+
+<code bash>
+student@usohomework:~$ sudo uso check 5
+</code>
+
+<note tip>Dacă vom anunţa pe forum că apar modificări la checker trebuie rulată comanda. Mai jos e cum trebuie să arate outputul la succes
+
+<code bash>
+student@usohomework:~$ sudo uso update
+User logged in as: mbarbulescu
+Updatam tema. Te rog asteapta...
+Tema updatata.
+</code>
+</note>
+
+==== Punctarea temei ====
+
+Fiecare task are număr de puncte pe care checker-ul îl acordă în mod automat. Din nota maximă pe care o veţi obţine se pot
+scădea 10 puncte. Asistenţii vor evalua conţinutul scripturilor cerute şi a configuraţiilor de sistem din task-uri. 
+
+<note warning>Citiţi de asemenea notele despre teme copiate: https://ocw.cs.pub.ro/courses/uso/regulament#penalizare_pentru_teme_copiate</note>
+
+
+
+==== Task 01 (22 p) ====
+
+Să se creeze un script în directorul ''/home/student/tema2-scripts'' numit ''powsnsums.sh'' care 
+primește argumente în linia de comandă, să se decidă care dintre ele sunt numere intregi in baza 10 și să se afișeze:
+
+  - Numărul de argumente primite în lina de comandă.
+  - Numerele ce reprezintă o putere de a lui 2, câte unul pe linie, în ordinea primită. (A nu se considera 1 putere a lui 2)
+  - Suma numerelor.
+
+Exemplu de rulare şi output:
+
+<code bash>
+student@usohomework:~/tema2-scripts$ ./powsnsums.sh xyz 4 -2 uso 1024 31 rullZ
+Numarul de argumente este 7.
+4
+1024
+Suma numerelor este 1057.
+</code>
+
+Hints: 
+   * [[https://www.devdungeon.com/content/taking-command-line-arguments-bash|Taking Command Line Arguments in Bash]]
+   * [[https://www.tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html|Regular expressions]]
+   * [[https://bash.cyberciti.biz/guide/Perform_arithmetic_operations|Arithmetic operations]] 
+
+==== Task 02 (22 p) ====
+
+Realizaţi un shell script numit ''task2.sh'' plasat în ''/home/student/tema2-scripts''. Acesta va monitoriza următoarele valori din sistem şi le va plasa într-un fişier ''/home/student/system_monitor.csv'' în modul append. Fiecare linie din csv va avea forma:
+
+''name_of_computer,timestamp,percent_cpu_usage_inSystemAtThisTime,bytes_of_mem_usage_inSystemAtThisTime,num_bytes_transmitted,num_bytes_received''
+
+Octeţii (bytes) received/transmitted se referă la octeţii de date primiţi şi transmişi pe interfaţa de reţea: ''enp0s3''
+
+Memoria consumată se referă la memoria RAM consumată la acel moment de timp. Se doreşte valoarea în KB (kilobytes, kilo-octeţi), 
+**nu** MB, GB etc...
+
+CPU usage: este procentul de CPU folosit de întregul sistem la acel moment pe o medie de 15 minute. 
+Valoarea va fi un număr real (de tip float, de forma ''0.19'' - observaţi că separarea părţii întregi de cea fracţionară se face prin **PUNCT** (''.'') şi nu prin virgulă!)
+
+Se vor monitoriza 10 iteraţii în fişierul ''csv'' cerut. Asta înseamnă că fişierul ''csv'' va conţine doar 10 linii de forma descrisă mai sus, separate prin **virgulă** ('','')
+
+Hints:
+  * Pentru timestamp: ''man date'', căutaţi după ''seconds since 1970-01-01 00:00:00 UTC''
+  * Pentru octeţii transmişi/primiţi pe interfaţa de reţea: ''/proc/net/dev'' sau ''ls /sys/class/net/enp0s3/statistics''
+  * Pentru memoria consumată: ''free''
+  * Pentru CPU usage: ''uptime''
+  * Pentru numărul de iteraţii: [[http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html|Bash loops]]
+  * [[https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_04.html|shell expansion]]
+
+==== Task 03 (22p) ====
+
+  * Realizaţi un script în ''/home/student/tema2-scripts'' numit ''task3.sh'' în care afişaţi dimensiunea totală în octeţi (bytes) a tuturor fişierelor cu extensia ''.conf'' din folderul ''/etc'' (**în mod recursiv**) într-un fişier ''/home/student/total_size.txt'' iar erorile le raportează în ''/home/student/error.txt''. Câteva aspecte importante despre script:
+      * Nu se va rula ca ''root''. Se va rula ca ''student''. Aşadar fişierele asupra cărora student nu va putea citi vor da erori ce vor fi raportate
+      * Nu-l complicaţi prea mult, ideal se poate face dintr-o singură comandă (oneliner) sau un shell script cu maxim 3 linii. 
+
+Hints: 
+  * Când descoperiţi fişierele ''*.conf'' - lista lor - s-ar putea să fie nevoie să afişaţi totul pe o singură linie. 
+Puteţi obţine acest lucru folosind [[https://www.tldp.org/LDP/Bash-Beginners-Guide/html/chap_05.html|sed]]
+  * ''stat'', ''paste'', ''bc'', ''find''
+
+==== Task 04 (22 p) ==== 
+
+  * Creați un script în directorul ''/home/student/tema2-scripts'' numit ''real_users.sh'' care să afișeze toți utilizatorii reali din sistem, sortați lexicografic, câte unul pe linie. Prin utilizator real înţelegem un utilizator care are un shell valid de login. 
+
+Hint: [[https://bash.cyberciti.biz/guide//etc/shells|/etc/shells]]
+
+
+==== Task 05 (22 p) ==== 
+
+ 
+  * Creați un script în directorul ''/home/student/tema2-scripts'' numit ''add_students.sh'' care să primească ca input un sir de caractere de forma ''<nickname>,<country_code>'' pe mai multe linii (mai putem pasa si fisiere dar doar prin redirectare de la intrarea standard) și adaugă in sistem utilizatorii, grupați dupa țara de proveniență
+Asta înseamnă să adăugaţi utilizatorul cu numele ''nickname'' şi el va fi adăugat în grupul ce corespunde lui ''country_code''.
+
+
+  * La [[https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema2/countries.csv|acest link]] găsiți un fișier csv ce conține tările și codurile aferente (ultima coloană), pe care trebuie să îl folosiţi pentru a determina ţara (numele grupului care va fi în sistem). Aveti două variante de lucru:
+     * Vă adăugaţi voi manual în sistem numele grupurilor de pe prima coloană 
+     * Din scriptul ''add_students.sh'' pe măsură ce apare un country code nou, selectaţi numele ţării pe bază de cod //on-the-fly// şi adăugaţi acel grup în sistem dacă el nu există
+
+Câteva aspecte despre script (în curs de actualizare pe baza întrebărilor voastre de pe forum sau a cazurilor pe care le descoperiţi):
+
+  * Fişierul ''csv'' **NU** se dă ca parametru scriptului. Scriptul poate primi de la tastatură o serie de şiruri ''<nickname>,<country_code>'' separate prin newline.
+  * Unii cetăţeni pot avea multiple ţări de origine. Asta înseamnă că putem întâlni în fişierul ''csv'' şi ''paul,40'' şi peste 10 linii ''paul,49''. Trebuie să verificaţi că utilizatorii există înainte de a îi adăuga. Dacă ei există în sistem trebuie doar să îi adăugaţi în grupul nou. 
+  * În sistem trebuie să existe utilizatori cu numele ''nickname'' şi grupuri cu numele ţării pe care îl obţineţi pe baza country code-ului. 
+
+Hints:
+  * Exemplu de citire fişiere csv: https://www.cyberciti.biz/faq/unix-linux-bash-read-comma-separated-cvsfile/
+  * Operatorii de înlănţuire comenzi: ''&&'', ''||'' sau [[https://www.tldp.org/LDP/Bash-Beginners-Guide/html/chap_07.html|conditional statements in Bash]]
+
+
+==== Task 06 (0p) ====
+
+Creați un fișier numit ''readme.txt'' în folder-ul ''/home/student/tema2-scripts'' (același în care ați pus și script-urile). Conținutul acestuia este:
+
+Prima linie: nume,prenume,grupa
+
+Urmatoarele linii:
+Task0X - descriere succinta (maxim 3 randuri) a modului in care ai rezolvat + erorile raportate de checker si de ce considerați că e correct cum ați făcut.
+
+La final: alte probleme generale pe care le-ați avut la checker independent de un task specific. Nu scrieți prea mult, fiți clari, succinți și punctați strict problema și ce ați încercat. 
+
+<note important>Ca să nu pierdeți ce ați muncit lăsați toate scripturile în ''/home/student/tema2-scripts''</note>
+
+==== Task obligatoriu pentru toate temele la final ====
+
+Când finalizați tema si asigurați-vă că ați submis tema cu ''sudo uso submit''.  
+
+<note important>Ca să nu pierdeți ce ați muncit lăsați toate scripturile în ''/home/student/tema2-scripts''. Verificați înainte de submit că ele sunt acolo!</note>

@@ -1,0 +1,85 @@
+**Distincții**
+
+Pe parcursul anului academic 2019-2020 vor fi acordate 61 de distincții (pentru cei 625 de studenți) clasificate în 5 categorii:
+  * 9 pentru rezultate de **midterm** 
+  * 10 pentru implicarea în activitățile de **curs** 
+  * 23 pentru implicarea în activitățile de **laborator**
+  * 10 pentru rezultatele la examenul **final**
+  * 5 extra vor fi acordate pentru implicarea în **comunitate** pe cs.curs.pub.ro și Facebook
+
+<hidden>
+**Curs**
+  * 497 VÎLNOIU A.I. Radu-Andrei, 314CA
+  * 498 LUNGU E. Răzvan-Gheorghe, 314CA
+  * 499 PÎRVULEȚ D. Mihai-Dumitru, 312CA
+  * 500 STOICA C. Andrei Toma, 313AC
+  * 501 PASCU Ș.A. Mihnea-Alexandru, 313AC
+  * 502 DUŢULESCU I. Andreea-Nicoleta, 315CB
+  * 505 CHIRU M. Cătălin-Mihail, 312CB
+  * 506 NICA T.M. Andreea, 315CC
+  * 508 NECȘOIU P. Robert-Emanoil, 313CC
+  * 510 COȚOVANU D.S. Cristian-Florin, 314CD
+  * 511 VARIA D. Liviu-Ștefăniță, 313CD
+  * 515 VEIS E.Ș. Onur-Șener, 311CD
+
+
+**Final**
+  * 493 MANOLEA M. Dragoş-Gabriel, 314CA
+  * 494	VARGA M. Raimond-Tiberiu, 315CA
+  * 495 NEDELEA G. Maria-Lavinia, 311AC
+  * 496 STANCIULESCU S.C. Andrei, 313AC
+  * 503 BUZĂ C.L. Alexandru-Marian, 314CB
+  * 504 MĂNESCU E. Emilian-Claudiu, 313CB
+  * 507 GHIBAN C. Costin, 315CC
+  * 509 SOROHAN Ș. Şerban, 311CC
+  * 512 IFTIMIE Marius-Valentin, 313CD
+  * 513 GRIGORE S.V. Ioana-Maria-Alexandra, 313CD
+  * 514 BUŞESCU Gh. Cătălin-Nicolae, 312CD
+
+**Lab**
+  * 487	ROINIȚĂ C.M. Lucian-Teodor, 315CA
+  * 486	BUTE A. Dragoş-Cristian, 312CA
+  * 485 PREDA C. Andrei-Alexandru, 311CA
+  * 484	CIOBANU B. Bogdan-Călin, 315CA
+  * 483	PAVEL B.Al. Radu-Bogdan, 314CA
+  * 482	MIHALCEA Adrian-Mihai, 314CA
+  * 481	VANCEA A. Cosmin-Răzvan, 313CA
+  * 480	RAIȚ V.L. Alexandru Gabriel, 315CB
+  * 479 ȘTIUCĂ D. Roxana-Elena, 315CB
+  * 478	GHERMAN G.L. Maria Irina, 314CB
+  * 477	OPREA Gh. Andrei-Dorin, 311CB
+  * 476	DAVID C. Andrei, 313CC
+  * 475 ARGINTARU M.G. Teodora-Elena, 315CC
+  * 474	TANASĂ A. Ioan, 312CC
+  * 473	MACADON R.A. Andrei-Cristian, 313CC
+  * 472	CREȚAN P. Gheorghe-Cristian, 311CC
+  * 471	NEDELCU N. Ioana-Teodora, 315CC
+  * 470	BĂRUŢA V.D. Daniel Mihail, 311CD
+  * 469	ONOFREI V.G. Horia-Vlad, 313CD
+  * 468 GRIGORE L. Lucian-Florin, 314CD
+  * 467	AMARIEI V. Grigore Flavian, 311AC
+  * 466	SOARE D. Ioana, 312AC
+  * 465	ZORLESCU B.F. Vlad, 313AC
+
+</hidden>
+**Midterm**
+  * 516 David Calin, 312AC
+  * 517 Preoteasa Mircea-Costin, 311CA
+  * 518 Cristea Theodor-Ștefan, 312CA
+  * 519 David Dimitrie, 313CA
+  * 520 Toader George-Cătălin, 311CB
+  * 521 Mica Bogdan, 312CB
+  * 522 Mihalcea Laurențiu, 313CB
+  * 523 Floarea George-Marian, 314CB
+  * 524 Florea Andrei-Bogdan, 313CD
+
+<hidden>
+**Comunitate/Extra**
+  * 464 Rîca Radu, 315CA
+  * 488	LIPIANU Florin-Ovidiu 313CA
+  * 492	CAPOTA Andrei 312AC
+  * 491	VELEA Alin-Ionuţ 314CD
+  * 490	OLARU Gabriel-Iulian 314CC
+  * 489	PATRAŞ Anton-Fabian 314CB
+</hidden>
+

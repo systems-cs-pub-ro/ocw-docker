@@ -1,0 +1,3 @@
+===== Team CTF =====
+
+Rezolvați în echipe de **maxim 3 persoane** challenge-uri în orice ordine doriți pe [[https://uso-ctf.security.cs.pub.ro/|platforma USO CTF]]. Mențineti competiția activă între voi și observați clasamentul.

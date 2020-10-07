@@ -1,0 +1,358 @@
+<hidden>
+====== Tema 2 ======
+
+<note>
+**Ce trebuie să știu?** Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei.
+
+**Thread nou? Nu.** Pentru o ușoară parcurgere a mesajelor, folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele. În consecință, thread-urile (subiectele de discuții) nou create vor fi șterse.
+
+**Căutare.** Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+**Printscreen/poză? Nu.** În cazul în care doriți să publicați un printscreen pe forum, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către printscreen. Pozele inserate în răspunsuri, vor fi șterse. 
+
+**Actualizări.** Urmăriți atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+
+**Regulament.** Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://cs.curs.pub.ro/|cs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+**Întrebări frecvente.** În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+
+**Ajutor reciproc.** Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți.
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **9 Noiembrie 2017, ora 23:55**\\
+Timp de lucru: **7 zile**\\
+Punctaj: **0.8 puncte** din nota finală\\
+Formular pentru trimitere temă: [[ https://docs.google.com/forms/d/1comyo1UridI_FG-HqVlgJRq3q5VKHvNlzEh11iV0GvI | Formular submitere ]] 
+</note>
+
+<note>
+**Actualizări enunț:**
+  * Nu există
+**Actualizări utilitar ''uso'': <color red>versiunea v16 - "Gold Blackbird"</color>**
+  * Nu există
+**Actualizări checker: <color red>versiunea 18</color>**
+  * Nu există
+</note>
+
+===== Cunoștințe evaluate =====
+
+  * lucrul cu utilizatori și grupuri
+  * lucrul cu permisiuni și drepturi ale utilizatorilor sau ale grupurilor asupra fișierelor ori directoarelor
+  * lucrul cu link-uri și căi în sistemul de fișiere
+  * folosirea corectă a redirectării
+  * înlănțuiri de comenzi și comunicare eficientă interprocese
+  * noțiuni <del>simple</del> de scripturi Bash (în urma feedback-ului, nu sunt simple)
+  * suport agregat:
+    * [[http://books.google.ro/books?id=_JFGzyRxQGcC|cartea de USO]], capitolele: 3, 4, 5, 10.2, 10.3 (paragraful sudo), 12.1, 12.2, 12.6, 12.7
+    * cursurile și laboratoarele: 4, 5, 6
+    * cheatsheet [[uso:resurse:bashcheatsheet|bash]], [[uso:resurse:cheatsheet|laborator]] și [[uso:resurse:folosire-vim|vim]]
+    * [[instructiuni-checker|Instrucțiuni checker]] și [[uso:resurse:mv|Mașină virtuală]]
+    * [[https://www.google.ro/|Google, your best friend when things stick in the mud]]
+  * se recomandă citirea cu atenție a întregului enunț înainte de rezolvarea task-urilor
+
+===== Testarea temei. Finalizarea temei. Mașină virtuală. =====
+
+{{section>uso:teme:testare&noheader&nofooter}}
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a temei ori a unui task. Puteți să sugerați diferite abordări sau să dați idei generale (dar nu comenzi) celorlalți. Urmăriți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]]. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă. Temele anterioare sau cele viitoare nu vor fi afectate. Abaterile se păstrează pe parcursul semestrului. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+==== Task 01 (15p) ====
+
+Vă aflați în folderul ''/home/student/tema02/task01''.
+
+Creați un script numit ''task01.sh''. Scriptul primește două argumente:
+  * argumentul 1 reprezintă numele unui script ce va fi creat din interiorul scriptului ''task01.sh''
+  * argumentul 2 reprezintă calea către directorul în care va fi creat noul script.
+
+Setați două variabile locale: ''MY_FILE'' și ''MY_PATH'' care să reprezinte primul și, respectiv, al doilea parametru al scriptului ''task01.sh''.
+
+Din interiorul scriptului ''task01.sh'' trebuie scris un nou script cu numele indicat de ''MY_FILE'' și care să se afle în locația ''MY_PATH''. Se garantează faptul că MY_PATH este o cale validă existentă în sistemul de fișiere.
+
+Scriptul ''MY_FILE'' trebuie să primească ca parametru un nume de utilizator și să afișeze procesele utilizatorului respectiv după următorul format:
+''process_name pid ppid username user_id group_id''
+
+Exemplu de folosire a scriptului ''task01.sh'':
+<code bash>
+[student@uso]$ sh task01.sh file.sh .
+[student@uso]$ sh file.sh student
+CMD1               PID  PPID USER       UID   GID
+sshd            35911 35871 student 42596  9007
+bash            35912 35911 student 42596  9007
+sh              39465 35912 student 42596  9007
+ps              39466 39465 student 42596  9007
+</code>
+
+<note tip>
+Hint!\\
+  * man bash, //builtin//\\
+  * suport agregat în secțiunea [[#cunostinte_evaluate|Cunoștințe evaluate]]
+  * man ps
+</note>
+
+==== Task 02 (25p) ====
+
+<note important>
+Pentru acest task, nu există niciun utilizator sau grup deja existent în sistem. Acestea trebuie create acolo unde este cazul.
+</note>
+
+<note important>
+Următoarele subpuncte trebuie realizate în ordine pentru a primi punctajul pentru acest task.
+</note>
+
+Faceți următoarele modificări în sistem astfel încât să respectați cerințele de mai jos:
+
+
+   * **[5p]** Să se adauge în sistem următorii utilizatori:
+      * ''ash''
+      * ''misty''
+      * ''brock''
+Utilizatorul ''ash'' trebuie să aibă parola ''gotta_catch_them_all''. Utilizatorul misty trebuie să aibă parola ''staryu'', iar utilizatorul brock trebuie să aibă parola ''onix''.
+Utilizatorii ''misty'' și ''brock'' trebuie adăugați în grupul ''gym_leaders''.
+Utilizatorul ''ash'' trebuie să aibă home-ul în ''/home/ash_very_best''.
+   * **[5p]**  Să se adauge în sistem următorii utilizatori:
+      * ''jessie'' cu parola ''PrepareForTrouble''
+      * ''james'' cu parola ''MakeItDouble''
+      * ''meowth'' cu parola ''ThatsRight''
+Adăugați cei trei utilizatori (jessie, james și meowth) în grupul ''team_rocket''
+   * **[5p]** Vă aflați în folder-ul ''/home/student/tema02/task02''.
+     * Creați următoarele fișiere goale:
+       * ''bulbasaur''
+       * ''pikachu''
+       * ''snorlax''
+       * ''vulpix''
+       * ''eevee''
+     * Creți următoarele foldere goale:
+       * ''ekans''
+       * ''koffing''
+<note important>
+Atenție! Fișierele de mai sus trebuie create de către utilizatorul ''student''.
+</note>
+   * **[5p]**  Realizați următoarele modificări:
+      * fișierele ''bulbasaur'', ''pikachu'' și ''snorlax'' vor avea:
+        * ca proprietar utilizatorul ''ash'' care are toate drepturile asupra celor 3 fișiere
+        * ca grup proprietar grupul ''gym_leaders'' care poate doar citi și scrie în și din aceste fișiere
+        * restul utilizatorilor vor putea doar să citească
+      * fișierele ''vulpix'' și ''eevee'' vor avea:
+        * ca proprietar utilizatorul ''root'' care are drepturi de citire și de scriere asupra celor două fișiere
+        * ca grup proprietar grupul ''specials'' care are drepturi de citire
+        * restul utilizatorilor vor putea doar să citească cele două fișiere
+      * folderul ''ekans'' aparține utilizatorului ''jessie'' și grupului ''team_rocket''
+      * folderul ''koffing'' aparține utilizatorului ''james'' și grupului ''team_rocket''
+      * Cele două foldere: ''ekans'' și ''koffing'' pot fi modificate doar de către utilizatorii proprietari sau de către utilizatorii din grupul ''team_rocket''. Toți utilizatorii pot să le citească și să le parcurgă conținutul.
+
+<note important>
+Atenție! Grupul “specials” trebuie adăugat în sistem.
+</note>
+
+==== Task 03 (15p) ====
+<note important>
+Atenție! Pentru a putea rezolva acest exercițiu, trebuie să rezolvați în prealabil Exercițiul 2, subpunctele a și b.
+</note>
+
+Realizați următoarele modificări asupra sistemului:
+  * **[5p]** Utilizatorul ''ash'' are drepturi depline asupra sistemului, însă poate executa ca utilizator privilegiat fără să i se ceară parola doar comenzile ''rev'' și ''tac''.
+  * **[5p]** Utilizatorul ''meowth'' să poată executa ca utilizator privilegiat comanda ''cat'' fără să i se ceară parola.
+  * **[5p]** Utilizatorul ''james'' să poată să execute ca utilizator privilegiat comanda ''ls'' fără să i se ceară parola. 
+
+
+==== Task 04 (20p) ====
+Vă aflați în directorul ''/home/student/tema02/task04/''.
+<note important>
+Pentru realizarea și verificarea acestui task este nevoie de următorul fișier ISO:
+<code bash>
+[student@uso]$ wget  https://github.com/systems-cs-pub-ro/uso/raw/master/tema2/task04_uso.iso
+</code>
+</note>
+
+Să se realizeze un script numit ''task04.sh'' care primește ca argument adresa unui fișier ISO și o cale către un director și realizează următoarele verificări:
+  * a) **[2p]** Dacă scriptul nu are fix două argumente, atunci se afișează următorul mesaj și se iese cu codul de eroare 1.
+Exemplu 1:
+<code bash>
+[student@uso]$ sh task04.sh
+Usage: sh task04.sh <path_to_iso_file> <path_to_dir>
+</code>
+
+Exemplu 2:
+<code bash>
+[student@uso]$ sh task04.sh ../file.iso ../iso_folder student
+Usage: sh task04.sh <path_to_iso_file> <path_to_dir>
+</code>
+  * b) **[2p]**  Scriptul verifică dacă fișierul dat ca argument este de tipul ISO. Dacă nu, atunci se afișează următorul mesaj și se întoarce codul de eroare 2.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+file1.iso is not an ISO file
+</code>
+  * c) **[2p]** Se verifică dacă există folderul dat ca argument scriptului. Dacă folderul există și este de tip directory, se afișează următorul mesaj și întoarce codul de eroare 3.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+iso_dir already exists
+</code>
+  * d) **[2p]** Dacă folderul există și este de tip regular file, se afișează următorul mesaj și se întoarce codul de eroare 4.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+iso_dir is not a directory; it’s a regular file
+</code>
+  * e) **[1p]** Dacă folderul există și este de tip char device, se afișează următorul mesaj și se întoarce codul de eroare 5.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+iso_dir is not a directory; it’s a char device
+</code>
+  * f) **[1p]** Dacă folderul există și este de tip block device, se afișează următorul mesaj și se întoarce codul de eroare 6.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+iso_dir is not a directory; it’s a block device
+</code>
+  * g) **[1p]** Dacă folderul există și este de tip symbolic link, se afișează următorul mesaj și se întoarce codul de eroare 7.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+iso_dir is not a directory; it’s a symlink
+</code>
+  * h) **[1p]** Se crează folderul indicat de al doilea argument. Dacă operația nu se realizează cu succes, se afișează mesajul următor și se întoarce codul de eroare 8.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso /iso_dir
+Cannot create /iso_dir.
+</code>
+  * i) **[2p]** Se montează fișierul ISO primit ca prim argument în folderul dat ca al doilea argument. Dacă procesul eșuează, atunci se afișează următorul mesaj și se întoarce codul de eroare 9.
+Exemplu:
+<code bash>
+[student@uso]$ sh task04.sh file.iso iso_dir
+Cannot mount file.iso in iso_dir
+</code>
+  * j) **[2p]**  Se caută toate fișierele de configurare (.conf) din folderul în care a fost montat fișierul .iso. Căile către aceste fișiere, [căile absolute] se scriu în fișierul ''/home/student/tema02/task04/iso_conf_files.txt'', câte unul pe linie.
+<note important>
+Atenție! Nu se vor trece în fișierul 
+/home/student/tema02/task04/iso_conf_files.txt fișierele goale (cu dimensiune 0).
+</note>
+  * k) **[2p]** Se caută fișierele module kernel .ko (kernel objects) cu dimensiunea mai mare decât 16 bytes din directorul în care s-a făcut mount la ISO. Rezultatele se trec în fișierul ''/home/student/tema02/task04/iso_ko_files.txt'', câte unul pe linie.
+La începutul fișierului se adaugă o linie care conține numărul de module kernel găsite care respectă constrângerile de mai sus urmată de o linie goală.
+
+Exemplu de fişier:
+<code bash>
+[student@uso]$ cat iso_conf_files.txt
+4
+
+./resolv.ko
+./boot/kernel.ko
+</code>
+  * l) **[2p]** La sfârșit, scriptul trebuie să iasă cu codul de eroare 42.
+
+<note warning>Toate sub-punctele sunt dependente de sub-punctele anterioare. În concluzie, nu se acordă punctaj pentru subpunctul ''1.b.I'' dacă sub-punctul ''1.a'' nu este funcțional, ș.a.m.d. Această regulă este valabilă pentru orice sub-punct al acestui exercițiu.
+</note>
+
+<note>
+Codurile de retur pe care trebuie să le returneze scriptul vostru:
+  * 1 - dacă scriptul nu primește 2 argumente
+  * 2 - dacă fișierul dat ca prim argument nu este de tip ISO
+  * 3 - dacă folderul dat ca al doilea argument există și este de tip directory
+  * 4 - dacă fișierul dat ca al doilea argument există și este de tip regular file
+  * 5 - dacă fișierul dat ca al doilea argument există și este de tip char device
+  * 6 - dacă fișierul dat ca al doilea argument există și este de tip block device
+  * 7 - dacă fișierul dat ca al doilea argument există și este de tip soft link
+  * 8 - dacă operația de creare a folderului indicat de către al doilea argument al scriptului a eșuat
+  * 9 - dacă operația de mount a fișierului iso eșuează
+  * 42 - dacă scriptul se termină cu succes
+
+</note>
+
+<note warning>
+Atenție! Scriptul trebuie să funcționeze pentru orice structură de fișiere. Scripturile cu valori hardcodate **NU** vor fi punctate.
+</note>
+
+<note important>
+Atenție: Se garantează că al doilea argument nu va fi un socket unix sau named pipe
+</note>
+
+<note tip>
+Hint:
+  * man test
+  * man find (căutaţi după size)
+
+</note>
+
+==== Task 05 (15p) ====
+
+<note tip>
+Pentru început rulați comenzile în terminal și spargeți task-ul pe bucăți. Apoi încercați să puneți cap la cap comenzile utile care rezolvă task-ul.
+</note>
+
+<note important>
+Pentru realizarea și verificarea acestui task este nevoie de următoarea arhivă:
+<code bash>
+[student@uso]$ wget https://github.com/systems-cs-pub-ro/uso/raw/master/tema2/task05_files.tar
+</code>
+</note>
+
+Vă aflați în directorul ''/home/student/tema02/task05/''.
+
+Dezarhivați arhiva ''task05_files.tar.gz''.
+
+<note important>
+Atenție! Fiecare fișier aflat în folder conține câte un cuvânt pe linie.
+</note>
+
+Fiind dată ierarhia de fișiere din folderul ''/home/student/tema02/task05/task05_files'' obținut în urma dezarhivării, să se realizeze un script oneliner numit ''oneliner.sh'' care afișează cuvintele unice și sortate descrescător (invers alfabetic) din fișierele care conțin în denumirea lor grupul ''.gr'' urmat de o cifră mai mare sau egală cu 6 și de către caracterele ''b.''  între liniile 5 și %%$EOF%% (end of file) din fiecare fișier și din fișierele care conțin în denumirea lor grupul ''.gr8b.'' în primele 3 linii ale fiecărui fișier.
+Atenție! Printre cuvinte obținute nu trebuie să se afle următoarele cuvinte: ''password'', ''123456'', ''abcd'', ''passw0rd'', ''qwerty''.
+
+Cuvintele trebuie să se afle câte unul pe linie și să fie scrise în fișierul ''/home/student/tema02/task05/uniques.txt''.
+
+Atenție! Scriptul nu va fi rulat doar din ''/home/student/tema02/task05/''.
+
+<note warning>
+Atenție! Scriptul trebuie să funcționeze pentru orice număr de fișiere. Scripturile cu valori hardcodate **NU** vor fi punctate.
+</note>
+
+
+<note tip>
+Hint: 
+  * tail cu mai multe fișiere ca argument
+  * redirectare
+</note>
+
+<note warning>
+Scriptul nu trebuie să conțină instrucțiuni de decizie, interne Bash, precum ''test'' sau ''if'' și nici instrucțiuni repetitive precum ''for'' sau ''while'', ultimele trei nefiind studiate până la acest moment. De asemenea, comenzile unui oneliner nu sunt separate de caracterul '';'' (punct și virgulă). Altfel, acestea pot fi la fel de bine scrise una sub alta, lucru care degradeaza noțiunea de ''oneliner''.
+</note>
+
+<note>
+Constrângerile impuse pentru acest task:
+  - ''oneliner.sh'' să fie un script de tip oneliner
+  - ''uniques.txt'' trebuie:
+    - să conțină câte un cuvânt pe linie
+    - să conțină cuvintele unice sortate descrescător din:
+      - fișierele care conțin grupul ''.gr'' urmat de o cifră mai mare sau egal ca 6 și de grupul ''b.''. Pentru aceste fișiere se vor ignora primele 4 linii.
+      - fișierele care conțin grupul ''.gr8b.''. Pentru aceste fișiere se vor considera doar primele 3 linii ale acestora.
+    - să nu conțină cuvintele: ''password'', ''123456'', ''abcd'', ''passw0rd'', ''qwerty''.
+    - să fie generat de către script
+  - ''oneliner.sh'' să nu conțină: '';'', instrucțiuni ''for'', ''while'', ''test'' sau ''if''.
+  - ''oneliner.sh'' să funcționeze pentru orice număr de fișiere. Scripturile cu valori hardcodate **NU** vor fi punctate.
+</note>
+
+
+==== Task 06 (10p) ====
+Vă aflați în directorul ''/home/student/tema02/task06''.
+  * **[1p]** Creați un fișier numit ''filesys.bin'' cu dimensiunea de 10MB
+  * **[1p]** Modificați fișierul astfel încât acesta să conțină un sistem de fișiere de tip ''ext2''.
+  * **[8p]** Creați un director numit ''mymnt'' în care faceți mount sistemului de fișere creat la subpunctul anterior. În sistemul de fișiere adăugați următoarea structură de fișiere:
+    * în rădăcina sistemului de fișiere de tip ''ext2'' adăugați directoarele ''dir0'' și ''dir1''.
+    * în directorul ''dir0'' adăugați un fișier numit ''file0''
+    * în directorul ''dir1'' adăugați un link simbolic către fișierul ''file0'' creat anterior, iar link-ul simbolic să se numească ''file1'' (''file1'' trebuie să fie link simbolic relativ la ''file0'' - folosiți căi relative).
+    * Demontați sistemul de fișiere ''filesys.bin''.
+
+<note>
+Este util să folosim fișiere ca suport pentru un sistem de fișiere atunci când nu avem la dispoziție dispozitive fizice și dorim experimentarea de noi sisteme de fișiere, fără să fie nevoie să repartiționăm discul pe care este instalat sistemul nostru de operare.
+</note>
+
+
+===== Task obligatoriu pentru toate temele (0p) =====
+
+Asigurați-vă că ați submis tema și ați încărcat codul aferent submisiei în formularul din secțiunea de [[#informatii_generale|Informații generale]]. Acest lucru este necesar ori de câte ori modificați tema și o submiteți din nou (detalii [[uso:teme:instructiuni-checker#pasi|aici]]), până la termenul limită. În caz contrar, punctajul aferent temei va fi nul (0 puncte).
+</hidden>

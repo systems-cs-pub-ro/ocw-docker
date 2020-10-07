@@ -1,0 +1,463 @@
+~~SHOWSOLUTION~~
+====== Laborator 12 - Recapitulare ======
+
+====== Exerciții ======
+
+<note important>
+Rezolvarea exercițiilor se va desfășura în condiții de test practic. Folosiți hint-urile transmise ca spoiler cât mai rar și doar atunci când nu mai știți de unde să apucați exercițiul. Chemați asistentul atunci când ați finalizat un task să vi-l puncteze. Dacă nu sunteți siguri cum trebuie făcută verificarea, întrebați asistentul sau folosiți spoiler-ul aferent de verificare.
+
+Punctajul (cu tot cu bonusul pentru completarea feedback-ului) este mai mare de **10p**. Un total de **10p** asigura nota 10 pe laborator. Restul de puncte peste 10 se transforma in karma WoUSO. 
+</note>
+
+<note tip>
+Câteva indicații care sunt valabile și în cadrul testului practic:
+  * Subiectele se pot rezolva în orice ordine doriți. Atenție totuși că în cadrul unor exerciții subpunctele depind între ele. 
+  * Subiectele se punctează doar dacă sunt validate.
+  * Trebuie să vă încadrați în 100 de minute.
+</note>
+
+===== [0] Completare formular de feedback (0p) =====
+
+<hidden>
+Studenții primesc punctul pe acest %%"task"%% inclusiv dacă au completat formularul de feedback de acasă. De fapt, ar fi ideal să-l fi completat de acasă. Punctul îl obțin dacă formularul e completat, indiferent dacă l-au completat în laborator sau acasă. În caz de studenții primesc eroarea "permision denied" - verificați dacă sunt înrolați la curs.
+</hidden>
+
+Pentru a îmbunătăți cursul de USO, componentele sale și modul de desfășurare, ne sunt foarte utile
+opiniile voastre. Pentru aceasta, vă rugăm, să accesați și completați [[http://cs.curs.pub.ro/2017/blocks/feedbackacs/view.php?courseid=15&blockid=2391|formularul de feedback de pe
+site-ul cs.curs.pub.ro]]. Trebuie să fiți autentificați și înrolați în cadrul cursului.
+
+Formularul este anonim și este activ în perioada 8 ianuarie 2018 - 20 ianuarie 2018. Rezultatele vor fi vizibile în cadrul
+echipei cursului doar după încheierea sesiunii. Găsiți [[http://cs.curs.pub.ro/2017/blocks/feedbackacs/view.php?courseid=15&blockid=2391|formularul]] în partea dreaptă a paginii
+principale de USO de pe cs.curs.pub.ro într-un frame intitulat %%"FEEDBACK"%%.
+
+Vă invităm să evaluați activitatea echipei de USO și să precizați punctele tari și punctele slabe și
+sugestiile voastre de îmbunătățire a disciplinei. Feedback-ul vostru este foarte important pentru noi să
+creștem calitatea materiei în anii următori și să îmbunătățim disciplinele pe care le veți face în
+continuare.
+
+Ne interesează în special:
+  * Ce nu v-a plăcut și ce credeți că nu a mers bine?
+  * De ce nu v-a plăcut și de ce credeți că nu a mers bine?
+  * Ce ar trebuie să facem ca lucrurile să fie plăcute și să meargă bine?
+
+Vă mulțumim!
+===== [1] Structură de directoare (0.5p) =====
+
+<hidden>
+Dacă nu vă arată cu ''tree'' sau ''ls -R'' (recursiv), nu ii punctați. Nu îi lăsați să dea cd-uri în nebunie. 
+</hidden>
+
+Creați următoarea structură de directoare și de fișiere, denumite exact ca mai jos (în ''/home/student''):
+
+<note>
+În listing-ul de mai jos numele care se încheie cu ''/'' (//slash//) sunt nume de directoare. Numele care **nu** se încheie cu ''/'' (//slash//) sunt nume de fișiere obișnuite.
+</note>
+
+  * ''seriale/'' (director). Acesta va conține fișierele:
+      * ''suits''
+      * ''grey's anatomy''
+      * ''dr. who''
+      * ''downtown abbey''
+      * ''house md''
+  * ''carti/'' (director). Acesta va conține următoarele directoare:
+      * ''rusia/''
+         * ''dostoievski''
+         * ''tolstoi''
+      * ''marea britanie/'' 
+          * ''shakespeare''
+          * ''charles dickens''
+          * ''joanne k rowling/''
+          * ''john ronald reuel tolkien''
+      * ''franta/''
+          * ''balzac''
+          * ''jean de la fontaine''
+
+<note warning>Verificarea la acest exercițiu se face arătând asistentului **o singură comandă**, pentru directoarele ''seriale'' și ''carti''.</note>
+
+<spoiler Crearea mai eficient a unei structuri de directoare>
+Dacă vrem, de exemplu să creem următoarea structură de directoare: 
+
+    * licenta
+        * anul_1
+            * sem_1
+               * uso
+            * sem_2
+               * sd
+     * masterat
+             * admitere
+
+O putem face cu o singură comandă, folosind parametrul ''-p'' al comenzii ''mkdir'':
+
+<code bash>
+[mihai.barbulescu@fep-62-1 ~]$  mkdir -p licenta/anul_1/sem_1/uso licenta/anul_1/sem_2/sd masterat/admitere
+
+[mihai.barbulescu@fep-62-1 ~]$  tree licenta/
+licenta/
+└── anul_1
+    ├── sem_1
+    │   └── uso
+    └── sem_2
+        └── sd
+        
+5 directories, 0 files
+[mihai.barbulescu@fep-62-1 ~]$  tree masterat
+masterat
+└── admitere
+
+1 directory, 0 files
+</code>
+</spoiler>
+
+===== [2] Utilizatori și permisiuni (1.5p) =====
+
+  * **(0.5p)** Adăugați în sistem utilizatorii: ''harry'', ''meredith'', ''wilson'', ''gandalf'', ''vladimir''. Toți utilizatorii vor avea parola ''student''.
+
+<solution -hidden>
+<code bash>
+student@uso:~$ adduser harry
+student@uso:~$ adduser meredith
+student@uso:~$ adduser wilson
+student@uso:~$ adduser gandalf
+</code>
+</solution>
+
+
+  * **(0.5p)** Configurați permisiunile asupra directorului ''rusia'' astfel încât utilizatorul ''vladimir'' are drepturi depline și restul utilizatorilor (inclusiv grupul ce deține fișierul) nu au niciun drept. 
+
+<solution -hidden>
+<code bash>
+student@uso:~$ chown vladimir:vladimir -R /home/student/carti/rusia/
+student@uso:~$ chmod 700 -R /home/student/carti/rusia/
+</code>
+</solution>
+
+  * **(0.5p)** Configurați permisiunile astfel încât utilizatorul ''harry'' are drepturi depline asupra directorului ''joanne k rowling'' și ''gandalf'' are doar drepturi de citire (și de navigare în interiorul directorului, adică drept de execuție). Ceilalți nu au nici un drept asupra directorului.
+
+<solution -hidden>
+<code bash>
+student@uso:~$ groupadd wizzards
+student@uso:~$ sudo usermod -G wizzards harry
+student@uso:~$ sudo usermod -G wizzards gandalf
+student@uso:~$ chown harry:wizzards -R "/home/student/carti/anglia/joanne k rowling" 
+student@uso:~$ chmod 750 -R "/home/student/carti/anglia/joanne k rowling"
+</code>
+</solution>
+
+===== [3] Utilizatori și procese (2p) =====
+
+Scrieți un script care pentru un anumit nume de utilizator (exemplificați pe ''student'', numele de utilizator e **primit ca parametru la script**) afișează următoarele informații: 
+  * **(0.5p)** home directory-ul lui
+  * **(0.5p)** identificatorul utilizatorului (UID)
+  * **(1p)** Dacă utilizatorul există în sistem: afișează procesele deținute de acesta și următoarele informații despre acestea: PID, PPID, CPU load, MEM load și comanda care a pornit procesul respectiv. 
+      * Sortează procesele după câtă memorie au ocupat.
+      * Trimite semnalul ''SIGINT'' procesului care consumă cea mai multă memorie.
+
+<spoiler Indicații>
+Încercați să prelucrați conținutul fișierului ''/etc/passwd'' pentru primele 2 subpuncte. Apoi înlănțuiți rezultatul prelucrării, folosind un anumit operator Bash cu o comandă ''ps''. 
+Pentru primele 2 bullet-uri puteți folosi și separat comenzile ''id'', respectiv ''finger''.
+
+Deși ''htop'' este tool-ul cel mai potrivit pentru ultimele 2 bullet-uri, nu îl putem folosi decât în mod interactiv. Așa că avem nevoie de ''ps'' și să filtrăm output-ul comenzii, să folosim opțiunea ''%%--sort%%'' pentru sortare după coloanei de MEM load pentru a determina PID-ul procesului care consumă cele mai multe resurse.
+</spoiler>
+
+<solution -hidden>
+<code bash>
+student@uso:~$ export MYUSER=student
+student@uso:~$ cut -d ':' -f1,3,6 /etc/passwd | grep $MYUSER && ps -u $MYUSER -o %cpu,%mem,pid,ppid | tail -n +2 | sort -k 2 -r
+student@uso:~$ kill -2 $(ps -u $MYUSER -o %cpu,%mem,pid,ppid | tail -n +2 | sort -k 1 -r | head -n 1 | tr -s ' ' | cut -d' ' -f4)
+</code>
+</solution>
+
+===== [4] Codebase (3p) =====
+
+  * **(0.5p)** Clonați repository-ul uso de la adresa: ''https://github.com/systems-cs-pub-ro/uso'' în ''/home/student/uso-github''. Apoi intrați în directorul ''uso-github/uso/lab12''.
+
+
+<solution -hidden>
+<code bash>
+student@uso:~$ git clone https://github.com/systems-cs-pub-ro/uso uso-github/lab12
+student@uso:~$ cd uso-github/lab12
+student@uso:~$ git status # ca sa verificam ca-i repo
+</code>
+</solution>
+
+  * **(1p)** Realizați un Makefile care compilează tema și care creează câte un fișier obiect pentru fiecare modul din ''message.c'' și ''utils.c''. Fișierele obiect generate trebuie să se numească ''message.o'', ''utils.o''. Makefile-ul va genera fișier obiect și pentru ''tema.c'', denumit ''tema.o'', apoi va linka cele 3 fișiere obiect pentru a obtine binarul. Binarul trebuie să se numească ''uso-rules''. Compilarea se va face activând toate warning-urile și flag-ul de debugging. 
+<spoiler Mai multe indicații despre punctul 4.2>
+Urmăriți exemplul de [[https://github.com/systems-cs-pub-ro/uso/blob/master/lab03/tema-pc/Makefile|aici]]. Acestuia i s-a adăugat un modul extra, deci putem porni de la editarea acestui makefile. 
+</spoiler>
+  * **(0.5p)** Adăugați o regulă de clean, care șterge binarul obținut și fișierele obiect.
+  * **(0.5p)** Adăugați o regulă ''pack'', care creează o arhivă numită ''tema.zip'' care conține Makefile, și toate fișierele ''.c'' și ''.h'' din directorul curent.  
+
+<solution -hidden>
+<code make Makefile >
+all: uso-rules
+
+uso-rules: tema.o utils.o message.o
+	gcc -Wall -g tema.o utils.o -o uso-rules
+
+tema.o: tema.c
+	gcc -Wall -g -c tema.c
+
+utils.o: utils.c
+	gcc -Wall -g -c utils.c
+
+message.o: message.c
+	gcc -Wall -g -c message.c
+clean:
+	rm -f *.o uso-rules
+pack:
+        zip -r tema.zip *.c *.h Makefile
+</code>
+</solution>
+
+
+
+  * **(0.5p)** Dați commit în repository-ul local fișierului ''Makefile''.
+
+<spoiler Mai multe indicații despre punctul 4.3>
+Trebuie întâi să dăm ''add'' și apoi ''commit''. Verificarea se face cu ''git status''
+</spoiler>
+
+<solution -hidden>
+<code bash>
+student@uso:~$ git add Makefile
+student@uso:~$ git commit -m "added Makefile"
+student@uso:~$ git status
+</code>
+</solution>
+
+===== [5] Servicii de rețea (2p) =====
+
+**(1.5p)** Instalați în sistem serverul web ''apache2'', apoi porniți daemon-ul aferent serviciului web ''apache2''. După ce serviciul e pornit, determinați pe ce port ascultă conexiuni serviciul web ''apache2''. 
+
+**(0.5p)** Scanați ce porturi sunt deschise pe serverul ''rosedu.org''.
+
+<spoiler Indicații generale>
+Când nu știți cum se numește un pachet, dar știți aproximativ ce cuvinte cheie conține numele pachetului sau descrierea lui folosiți comanda ''apt-cache search <pattern>''
+
+Orice daemon/serviciu se pornește folosind fie comanda ''service'':<code>
+service <nume_serviciu> start
+service <nume_serviciu> restart
+service <nume_serviciu> stop
+</code> sau folosind scriptul său aferent din ''/etc/init.d'':<code>
+/etc/init.d/<nume_serviciu> {start|stop|restart}
+</code> Aveți nevoie de drepturi privilegiate pentru a rula comanda. 
+
+Pentru a afișa informații despre serviciile locale (inclusiv porturile pe care acestea ascultă conexiuni). Folosiți opțiunile pentru afișarea PID-ului și a numelui procesului și pentru afișarea doar serviciilor care ascultă (//listen//) conexiuni în rețea.
+
+Pentru a scana porturile deschise de un server la distanță folosiți comanda ''nmap'' cu opțiunile aferente.
+</spoiler>
+
+===== [6] Configurații de rețea (1p) =====
+
+<note important>Exercițiul se desfășoară folosind mașinile virtuale de la [[:uso:laboratoare:laborator-08|laboratorul 8]]. Pe calculatoare ar trebui să existe deja pe partiția externă ne-freezuită de 11 GB (în EG306 de exemplu). </note>
+
+Asigurați conectivitatea între cele două mașini virtuale ''verdi'' și ''vivaldi'' prin intermediul interfeței ''eth1''. Pentru ''verdi'' alocați prima adresă IP alocabilă din spațiul de adrese ''192.168.50.0/23'' și pentru ''vivaldi'' alocați ultima adresă IP alocabilă din spațiul 
+de adrese ''192.168.50.0/23''. 
+
+<solution -hidden>
+
+Pe ''verdi'':
+<code bash>
+root@verdi:~# ip link set dev eth1 down
+root@verdi:~# ip addr add 192.168.50.1/23 dev eth1
+root@verdi:~# ip link set dev eth1 up
+</code>
+
+Pe ''vivaldi'':
+
+<code bash>
+root@verdi:~# ip link set dev eth1 down
+root@verdi:~# ip addr add 192.168.51.254/23 dev eth1
+root@verdi:~# ip link set dev eth1 up
+</code>
+
+</solution>
+
+Testați conectivitatea între cele două mașini virtuale.
+
+<solution -hidden>
+''root@lab8-vm-A:~# ping 192.168.51.254 -c 5''
+</solution>
+
+Apoi, lăsând cele două mașini virtuale pornite, listați doar adresele MAC și numele vendor-ului ale tuturor stațiilor pornite în rețeaua din care face parte calculatorul vostru. 
+
+<spoiler Indicație>
+Scanarea întregii rețele se poate face tot folosind ''nmap''. Trebuie să îi specificăm spațiul de adrese. Apoi trebuie parsat output-ul comenzii. 
+</spoiler>
+
+<solution -hidden>
+<code bash>
+root@uso:~# nmap -sn 172.16.15.0/24 | grep '^MAC' | tr -s ' ' | cut -d' ' -f3,4
+</code>
+</solution>
+
+
+===== [7] Montare de sisteme de fișiere (2p) =====
+
+  * **(0.5p)** Creați un folder ''/mnt/dummy'' 
+  * **(1p)** Creați un fișier care are doar octeți de zero de 100 MB numit ''zero100M.dat''. Creați un sistem de fișiere ''ext3'' peste fișierul ''zero100M.dat'' folosind comanda ''mkfs.ext3''. 
+  * **(0.5p)** Montați un sistem de fișiere de tip ''ext3'' în ''/mnt/dummy''
+
+<note tip>
+Vedeți și secțiunea [[:uso:laboratoare:laborator-05#montarea_sistemului_propriu_de_fisiere_1p|Montarea sistemului propriu de fișiere]].
+
+Pentru montarea unui sistem de fișiere aflat pe un fișier (în cazul de față ''zero100M.dat'') folosiți opțiunea ''-o loop'' la comanda ''mount''.
+</note>
+
+
+<solution -hidden>
+<code bash>
+root@uso:~# mkdir /mnt/dummy
+root@uso:~# dd if=/dev/zero of=fis.bin bs=1M count=100
+root@uso:~# mkfs.ext3 fis.bin
+root@uso:~# mount -o loop -t ext3 fis.bin /mnt/dummy
+</code>
+</solution>
+
+===== [8] Logging (2p) =====
+
+  * Verificați dacă daemonul de ''syslog'' este instalat
+  * **(1p)** Configurați sistemul astfel încât TOATE mesajele din sistem sa fie înregistrate în ''/var/log/all_logs''. Verificați acest lucru.
+<spoiler Indicație>
+în ''/etc/rsyslog.conf'' e nevoie de o intrare. Apoi serviciul/daemonul syslog trebuie repornit. Pentru a verifica faptul că mesajele se salvează în ''/var/log/all_logs'' puteți genera mesaje folosing comanda ''logger''. 
+</spoiler>
+  * **(1p)** Configurați sistemul astfel încât fisierul ''/var/log/all_logs'' să fie rotit zilnic, folosind până la maxim 20 de fișiere, care ulterior să fie comprimate.
+<spoiler Indicație>
+Configurația se face în ''/etc/logrotate.conf'', ''man logrotate'' pentru exemple
+</spoiler> 
+
+<solution -hidden>
+<code bash>
+root@uso:~# tail -n 1 /etc/rsyslog.conf
+  **		-/var/log/all_logs
+root@uso:~# /etc/init.d/rsyslog restart
+Stopping enhanced syslogd: rsyslogd.
+Starting enhanced syslogd: rsyslogd.
+
+root@uso:~# tail /var/log/all_logs 
+Nov  9 15:34:04 heimdall kernel: imklog 5.8.5, log source = /proc/kmsg started.
+Nov  9 15:34:04 heimdall rsyslogd: [origin software="rsyslogd" swVersion="5.8.5" x-pid="2604" x-info="http://www.rsyslog.com"] start
+
+root@heimdall:~# tail -n 7 /etc/logrotate.conf
+/var/log/all_logs {
+	missingok
+	daily
+	create 0660 root utmp
+	compress
+	rotate 20
+}
+</code>
+</solution>
+
+===== [9] System info at startup (3p) ===== 
+
+ Realizați configurațiile necesare astfel încât de fiecare dată când deschide terminalul, utilizatorul student să fie întâmpinat de mesajul:''Hello, student! Here are some statistics: data, our IP is $IP_ADDR, sysuptime, disk load''. Adresa IP va fi cea a interfeței ''eth0''. 
+
+În loc de ''data'' veți afișa data și ora sub forma: ''12-01-2015,21:17:59''.
+
+În loc de ''sysuptime'' veți afișa informații despre când a avut loc ultimul boot (de cât timp este sistemul up), load average și câți useri sunt în prezent (si care) logați în sistem. Variabila ''$IP_ADDR'' va fi reținută în variabilă de mediu accesibilă oricărui proces și oricărui terminal!
+
+În loc de ''diskload'' veți afișa informații despre primele 3 partiții care sunt cele mai încărcate, plus tipul sistemului de fișiere, ca spațiu ocupat.
+
+<solution -hidden>
+Configurațiile se fac în fișierul ''/etc/bash.bashrc''
+
+<code bash>
+student@uso:~$ cat /etc/bash.bashrc
+(...)
+export IP_ADDR=$(ifconfig eth0 | grep inet | tr -s ' ' | head -n 1 | awk -F '[ :]+' ' { print $4 }')
+date +%d-%m-%Y,%H:%M:%S
+echo $(uptime)
+echo $(who)
+df -hT | tr -s ' ' | sort -t ' ' -k 3n -r | tail -n +2 | head -n 3
+(...)
+</code>
+</solution>
+
+===== [10] Autologin (1.5p) ===== 
+
+Configurați autentificarea către mașina virtuală de la laboratorul 7 (găsibilă pe partiția nefreezuită) astfel încât să ne putem autentifica cu numele de utilizator ''student'' fără a ni se mai cere parola, dupa ce sistemul a bootat.
+
+<spoiler Indicație>
+''inittab'', ''mingetty''
+Pe Ubuntu 14.04 trebuie instalat ''mingetty'' (''sudo apt-get install mingetty'') și trebuie editat fișierul ''/etc/init/tty1.conf'' 
+</spoiler>
+
+<solution -hidden>
+Pe Ubuntu 12.04 trebuia editat fișierul ''/etc/inittab'' ca în exemplul de [[http://elinux.org/RPi_Debian_Auto_Login|aici]]. 
+
+Pe Ubuntu 14.04 trebuie instalat ''mingetty'' (''sudo apt-get install mingetty'') și trebuie editat fișierul ''/etc/init/tty1.conf'' și adăugată linia (în loc de ''exec /sbin/getty'') 
+''exec /sbin/mingetty %%--%%autologin student %%--%%noclear tty1''
+</solution>
+
+===== [11] Configurații de rețea (cont.) (1.5p) =====
+
+  * **(1p)** Configurați static lookup table astfel încât să nu fie necesară interogarea DNS pentru adresele: ''swarm.cs.pub.ro'', ''elf.cs.pub.ro'', ''ocw.cs.pub.ro''
+       * Primul pas este să determinați adresa IP pentru cele trei servere
+
+<solution -hidden>
+<code bash>
+mbarbulescu@swarm:~$ host ocw.cs.pub.ro
+ocw.cs.pub.ro has address 141.85.227.65
+ocw.cs.pub.ro mail is handled by 10 ocw.cs.pub.ro.
+
+mbarbulescu@swarm:~$ host swarm.cs.pub.ro
+swarm.cs.pub.ro has address 141.85.227.118
+swarm.cs.pub.ro mail is handled by 10 swarm.cs.pub.ro.
+
+mbarbulescu@swarm:~$ host elf.cs.pub.ro
+elf.cs.pub.ro has address 141.85.227.116
+elf.cs.pub.ro mail is handled by 10 elf.cs.pub.ro.
+</code>
+</solution>
+
+       * Al doilea pas este configurarea statică: Indicație ''man 5 hosts'' 
+<solution -hidden>
+<code bash /etc/hosts>
+127.0.0.1 localhost.localdomain localhost
+141.85.227.118    swarm.cs.pub.ro
+141.85.227.116    elf.cs.pub.ro
+141.85.227.65    ocw.cs.pub.ro
+</code></solution>
+
+  * **(0.5p)** Configurați sistemul astfel încât să aibă prioritate interogarea serverului DNS, în loc de local static lookup table (hosts). 
+<spoiler Indicație pentru punctul 2.>
+ configurația trebuie realizată în fișierul ''/etc/nsswitch.conf''
+</spoiler>
+
+<solution -hidden>
+<code bash /etc/nsswitch.conf>
+# /etc/nsswitch.conf
+#
+# Example configuration of GNU Name Service Switch functionality.
+# If you have the `glibc-doc-reference' and `info' packages installed, try:
+# `info libc "Name Service Switch"' for information about this file.
+
+passwd:         ldap compat files
+group:          ldap compat files ldap
+shadow:         ldap compat files
+
+hosts:          dns files mdns4_minimal [NOTFOUND=return] mdns4
+networks:       files
+
+protocols:      db files
+services:       db files
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis
+</code>
+</solution>
+
+====== Exerciții bonus ======
+
+
+===== [1] Mass user add script (2 karma) =====
+
+Descărcați spreasheet-ul [[https://docs.google.com/spreadsheets/d/1z448_KQaH1h-Yqp0thEYKTnuCywPEhJGk0I649UWJLU/edit?usp=sharing|de aici]] în format CSV. Folosiți '','' ca separator. Pe baza CSV-ului realizați un script care: 
+
+  * afișează studenții sortați alfabetic
+  * adaugă în sistem grupurile ce poartă numele facultății din care fac parte studenții
+  * adaugă în sistem utilizatorii sub forma ''prenume.nume'' și îi adaugă în grup conform facultății la care sunt studenți
+  * adaugă (neinteractiv) parola ''student'' pentru toți utilizatorii.
+  * Nu puteți folosi ''adduser'' în script

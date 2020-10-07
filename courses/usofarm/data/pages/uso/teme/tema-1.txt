@@ -1,0 +1,229 @@
+====== Tema 1 ======
+
+<note>
+În urma feedback-ului, vă recomandăm următoarele:
+
+**Studiați secțiunea de [[#cunostinte_evaluate|Cunoștințe evaluate]] și suportul agregat necesar temei. Aceasta este valabilă la orice temă și se recomandă parcurgea sa.**
+
+Folosiți thread-urile de discuții existente în cadrul forumului, fără a crea altele, atât în forumul pentru Discuții Generale cât și în forumul temei. În consecință, thread-urile (subiectele de discuții) nou create __vor fi șterse__ deoarece informația utilă va fi greu de urmărit.
+
+Căutați pe forum informația pe care doriți să o obțineți, înainte să puneți o întrebare. De cele mai multe ori, cineva a mai întrebat același lucru. În fiecare thread al forumului aveți informații despre cum puteți căuta în forum.
+
+În cazul în care doriți să publicați un screenshot, recomandăm folosirea site-urilor pentru partajarea gratuită a imaginilor, precum [[http://imgur.com/|imgur]] sau [[http://www.makeuseof.com/tag/4-imgur-alternatives-for-uploading-sharing-images/|alternativele]] sale, publicând pe forum doar link către screenshot. Dorim să păstrăm o parcurgere ușoară a forumului, din acest motiv, orice poză inserată în răspunsuri, __va fi ștearsă__. 
+
+Urmăriți atât forumul cât și modificările aduse enunțului/checker-ului, modificări ce sunt publicate și explicate în paragrafele de mai jos.
+</note>
+
+<note important>
+Înainte și în timpul realizării temei, vă rugăm să parcurgeți [[uso:regulament#realizarea_temelor|indicațiile legate de realizarea temelor]], încluzând ce înseamnă o temă copiată și cum penalizăm temele copiate. Folosiți cu încredere forumurile de pe [[http://acs.curs.pub.ro/|acs.curs.pub.ro]] pentru întrebări și neclarități legate de teme.
+
+În timpul realizării temei, când vă loviți de probleme și aveți nevoie de suportul echipei de USO, parcurgeți și lista de [[uso:teme:intrebari-frecvente|întrebări frecvente întâlnite în cadrul temelor]]. Să țineți cont, va rugăm, și de [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+</note>
+
+===== Informații generale =====
+
+<note important>
+Deadline: **5 Noiembrie 2019 ora 23:55**\\
+Timp de lucru: **14 zile**\\
+Punctaj: **0.7 puncte** din nota finală\\
+</note>
+
+<note>
+Actualizări enunț:\\
+  * **Nu există actualizări**
+</note>
+
+<note>
+Actualizări checker:\\
+Versiunea curentă: <color red>**versiunea 1.0.0**</color>
+
+  * **Nu există actualizări**
+</note>
+
+<note tip>
+Vă încurajăm ca atunci când găsiți soluția la o problemă pe care ați postat-o anterior pe forum să postați și soluția găsită. De asemenea dacă știți răspunsul la întrebările colegilor sunteți încurajați să le răspundeți.
+
+Singurul lucru de care trebuie să aveți grijă este să nu puneți pe forum rezolvările taskurilor. Puteți să sugerați diferite abordări sau să dați idei celorlalți. Mai multe informații găsiți in [[uso:regulament#recomandari_de_comunicare_electronica|recomandările de comunicare electronică]].
+</note>
+
+===== Cunoștințe evaluate =====
+
+  * Navigarea in sistemul de fisiere
+  * Folosirea utilitarului git
+  * Compilarea programelor
+  * Crearea de Makefile
+  * Utilizatori si Grupuri
+  * Permisiuni
+
+===== Testarea și finalizarea temei =====
+
+**Testarea temei** se va face doar pe mașina virtuală autentificat ca utilizator ''student'', folosind utilitarul ''uso''. Acesta poate fi executat în orice moment pentru a verifica dacă au fost rezolvate corect task-urile. Nu lucrați autentificat ca utilizator ''root'' în sistem, la nicio temă. Din acest motiv există posibilitatea să nu vă treacă testele. Pe de altă parte, nu este o metoda de siguranță să lucrați autentificat ca utilizator root din motive de securitate și/sau permisiuni.
+
+Utilitarul ''uso'' implementează testele doar pentru task-urile temei curente. La fiecare temă nouă, pentru a folosi utilitarul ''uso'', primul pas este să porniți tema folosind comanda ''sudo uso start <numar_tema>''. În caz contrar, nu veți avea actualizat checker-ul pentru tema curentă. 
+
+Verificați versiunea checker-ului, afișată la rularea comenzii ''sudo uso version''. Asigurați-vă că aveți ultima versiune înainte de a continua lucrul pentru temă. Versiunea actuală este specificată în secțiunea Informații generale prezentă în enunțul temei. Pentru situațiile în care nu dispuneți de ultima versiune a checker-ului, rulați ''sudo uso update''. 
+
+**Finalizarea temei** se realizează prin rularea comenzii ''sudo uso submit''.
+
+===== Task-uri =====
+
+<note warning>Este interzisă publicarea pe forum a comenzilor sau pozelor care fac parte din rezolvarea parțială sau integrală a temei ori a unui task. La prima abatere studentul primește un avertisment, iar punctajul obținut pe temă îi este redus cu valoarea punctajului pe task-ul respectiv. Începând cu a doua abatere, se va anula întregul punctaj pe tema curentă, temele anterioare sau cele viitoare nefiind afectate. Abaterile rămân valabile pe tot parcursul semestrului, acestea nefiind anulate în momentul în care se publică o temă nouă. Ori de câte ori se încalcă această regulă, se va ține cont de istoricul abaterilor. Abaterile vor fi actualizate în catalog.</note>
+
+==== Task 01 (35p) ====
+
+**[5p]** Clonați în directorul ''/home/student'' repository-ul disponibil la adresa ''https://github.com/systems-cs-pub-ro/uso''. Directorul creat după clonare trebuie să aibă numele ''uso''.
+
+**[25p]** Adaugați în directorul ''uso'' următoarea structură de directoare și fișiere: 
+<code bash>
+Halloween
+├── The Nun/
+│   ├── Monastery/
+│   │   ├── Finit hic Deo
+│   │   ├── Crosses/
+│   │   ├── Cemetery
+│   ├── Castle of the Dukes
+│   └── Evil $pirits
+├── Anabelle/
+│   ├── Motifs/
+│   │   ├── Well.c
+│   │   ├── Scarecrow.c
+│   │   └── Staircase.c
+│   ├── Ghosts/
+│   │   └── The Doll
+│   └── Favourite game/
+│       └── Hide & Seek
+└── Hotel Transylvania/
+    ├── Holiday/
+    │   ├── Cruise: 'Legacy'
+    │   ├── Island/
+    │   └── City of Atlantis
+    ├── Instrument of destruction/
+    │   ├── Note_sheet.c
+    │   └── Kraken
+    └── Monsters/
+        ├── Skeleton
+        ├── Mummy
+        └── Werewolf
+
+</code>
+
+<note>
+Directoarele au după nume caracterul ''/'' (slash).
+</note>
+<note>
+Punctajul se ofera de la folderele radacina catre frunze. Asta inseamna ca s-ar putea sa faceti anumite foldere sau fisiere care sa fie in structura si checkerul sa nu le puncteze decat daca faceti intr-o anumita ordine structura. Nu este nici o problema. Atata timp cat intreaga structura va fi creata, puteti sa faceti fisierele sau folderele in orice ordine doriti si veti primi punctaj maxim.
+</note>
+
+**[5p]** Adaugati directorul Halloween si toate fisierele continute  intr-o arhiva cu numele archive.tar.gz, de tip gzip compressed care sa se afle in directorul ''uso''. 
+ (Hint: man tar)
+
+
+<note warning>
+După rezolvarea cerințelor acestui task, nu ștergeți sau modificați conținutul directorului ''~/uso/Halloween/''. Acesta trebuie să râmână în această formă pentru verificările ulterioare ale checkerului. Veți pierde punctele obținute pentru acest task dacă faceți modificări și va fi nevoie de refacerea taskului. Puteti insa modifica permisiunile si ownerii (Task 3).
+</note>
+
+
+
+==== Task 02 (12p) ====
+
+**[12p]** Aflându-vă în directorul ''uso'', folosiți **o singură comandă** pentru fiecare dintre cerințele următoare:
+  - Faceti o copie a folderului ''Halloween'' din folderul ''uso'' care sa se numeasca ''Copie'' si sa se afle tot in folderul ''uso'' (in folderul ''uso'' vor exista acum ambele foldere: ''Halloween'' si ''Copie'').
+  - In folderul ''Copie'': Mutați fisierul ''Kraken'' din ''Instrument of destruction'' în ''Monsters''.
+  - In folderul ''Copie'': Redenumiți ''Hide & Seek'' în ''Hide and Seek''.
+  - In folderul ''Copie'': Redenumiți ''Evil $pirits'' în ''Evil Spirits''.
+  - In folderul ''Copie'': Adaugați fisierul ''Hunted.c'' în directorul ''Ghosts''.
+
+<note important>
+
+Cerințele de mai sus trebuie rezolvate în ordine.
+</note>
+
+<note warning>
+După rezolvarea cerințelor acestui task, nu ștergeți sau modificați conținutul directorului ''~/uso/Copie/''. Acesta trebuie să râmână în această formă pentru verificările ulterioare ale checkerului. Veți pierde punctele obținute pentru acest task dacă faceți modificări și va fi nevoie de refacerea taskului.
+</note>
+
+
+==== Task 03 (25p) ====
+
+<note important>
+Pentru acest task, nu există niciun utilizator sau grup deja existent în sistem. Acestea trebuie create acolo unde este cazul.
+</note>
+
+<note important>
+Următoarele subpuncte trebuie realizate în ordine pentru a primi punctajul pentru acest task.
+</note>
+
+Faceți următoarele modificări în sistem astfel încât să respectați cerințele de mai jos:
+
+
+   * **[5p]** Să se adauge în sistem următorii utilizatori:
+      * ''dracula''
+      * ''mavis''
+      * ''invisible_man''
+      * ''dennis''
+      * ''johnny''
+
+**[10p]** Utilizatorul ''dracula'' trebuie să aibă parola ''blah_blah_blah''. Utilizatorul ''mavis'' trebuie să aibă parola ''hi_human'', iar utilizatorul ''invisible_man'' trebuie să aibă parola ''dont_let_me_hanging''. Utilizatorul ''dennis'' trebuie sa aiba parola ''gets_fangs'', iar ''johnny'' va avea ''scream_cheese''. Utilizatorii ''dracula'' , ''mavis'' si ''invisible_man'' trebuie adăugați în grupul ''monsters''. Utilizatorii ''dennis'' si ''johnny'' trebuie adăugați în grupul ''humans''. Grupul ''vampires'' este format din ''dracula'' si ''mavis''. Utilizatorul ''dracula'' trebuie să aibă home-ul în ''/home/countdracula''.
+
+   * **[10p]**  Realizați următoarele modificări **in folderul ''Halloween'' din ''uso''**:
+      * fișierele ''Note_sheet.c'', ''Cruise: 'Legacy''' și ''City of Atlantis'' vor avea:
+        * ca proprietar utilizatorul ''mavis'' care are toate drepturile asupra celor 3 fișiere
+        * ca grup proprietar grupul ''humans'' care poate doar citi și scrie în și din aceste fișiere
+        * restul utilizatorilor vor putea doar să citească și atat
+      * folderul ''Holiday'' va aparține utilizatorului ''mavis'' și grupului ''humans''
+      * folderul ''Instrument of destruction'' aparține utilizatorului ''dracula'' și grupului ''monsters''
+      * folderul ''Monsters'' aparține utilizatorului ''dracula'' și grupului ''vampires''
+
+
+==== Task 04 (28p) ====
+
+<note warning>
+Pentru acest task aveți nevoie de fișierul ''boo.c'' aflat la adresa:
+
+https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema1/boo.c
+
+Hint: ''man wget''
+
+</note>
+
+**[8p]** Creați  directorul ''task4'' în directorul ''uso'', și descărcați în acesta fișierul ''boo.c''.
+
+<note important>
+Veti avea nevoie de fisierele ''light.o'' ''sound.h'' si ''sound.c'', ce pot fi descarcate de la adresele \\
+''https://github.com/systems-cs-pub-ro/uso/raw/master/tema1/64/light.o'' \\
+''https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema1/sound.c''
+''https://raw.githubusercontent.com/systems-cs-pub-ro/uso/master/tema1/sound.h'' \\
+</note>
+<hidden>
+<note warning>
+Pentru cei cu masini virtuale pe **64 de biti**, fisierul ''light.o'' poate fi descarcat de la adresa \\
+(care de fapt aici e linkul pentru 32 de biti)
+''https://github.com/systems-cs-pub-ro/uso/raw/master/tema1/light.o'' \\
+</note>
+</hidden>
+
+
+**[10p]** Creați un fișier Makefile cu numele ''Makefile'' in directorul ''task4'' care generează executabilul ''exec'', folosind atât fișierul obiect ''light.o'', cât și fisierul obiect ''sound.o'' obținut în urma compilării sursei ''sound.c'' implementată anterior. La primirea oricăreia dintre comenzile ''make'' sau ''make build'' trebuie să se genereze fișierul executabil ''exec''.
+
+**[5p]** Adăugați o regulă în acelasi Makefile numită ''run'' care recompilează întreg programul, dacă este cazul, iar apoi îl rulează. De asemenea, adăugați și o regulă ''clean'' care șterge fișierele obiect create de voi și executabilele create. 
+
+**[5p]** Adăugați de asemenea in acelasi Makefile o regulă numită ''templates'' care să creeze toate fisierele intermediare (denumite ''boo.o'', ''boo.s'') in urma compilarii fisierului sursa ''boo.c''.
+
+<note>
+Programele trebuie sa fie recompilate doar dacă fisierele date sunt modificate! 
+</note>
+
+<note important>
+Pentru a primi punctaj trebuie sa urmati task-urile in ordine!
+</note>
+
+==== Task obligatoriu pentru toate temele (0p) ===
+
+Finalizați tema si asigurați-vă că ați submis tema cu ''sudo uso submit''.                                                                                                                  
+
+
+
+==== Avertisment ===
+<note warning>
+Este interzis studenților să modifice parametrii de rulare ai mașinii virtuale. Orice tentativă malițioasă de modificare a fișierelor și executabilelor care fac mașina virtuală sa ruleze in parametrii optimi (fișierele si folderele ce nu țin de enunțul temei curente), ne conferă dreptul de a oferi 0 puncte pe temele respectivului student.
+</note>

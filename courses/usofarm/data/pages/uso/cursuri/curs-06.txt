@@ -1,0 +1,7 @@
+====== Curs 06 - Automatizarea sarcinilor. Shell scripting =======
+
+  * [[https://drive.google.com/open?id=14f2i55W5OZAvGSBgVRGW1MyNWmmnIgul| Slide-uri curs]]
+  * [[https://drive.google.com/open?id=1NlzJf0mJ7rpgp3lYJsEdQa7sPF-0a8pj| Handout 3on1 and notes space]]
+  * [[https://drive.google.com/open?id=1WD_veJN7rYfo7b3eJsPsN4lTOREYjpR3 | Handout 6on1]]
+  * **Suport de curs**
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-13-auto.pdf|Capitolul 13: Automatizarea sarcinilor]]

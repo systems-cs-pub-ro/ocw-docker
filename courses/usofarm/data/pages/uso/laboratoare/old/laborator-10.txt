@@ -1,0 +1,1341 @@
+~~SHOWSOLUTION~~
+====== Laborator 10 - Shell scripting ======
+
+===== Suport laborator =====
+
+**Cuvinte cheie**: date, prelucrare, //means//, //ends//, parsare, prezentare, date tabelare, separator de câmpuri, ''cut'', ''awk'', ''IFS'', ''while read'', expresii regulate, metacaractere, ''grep'', shell scripting, ''for'', ''if'', rezultate numerice
+
+  * Suport (Introducere în sisteme de operare)
+    * Capitolul 12 -- Shell scripting
+      * Secțiunile 12.4, 12.5, 12.6, 12.9
+  * [[http://www.amazon.com/Regular-Expressions-Cookbook-Jan-Goyvaerts/dp/1449319432|Regular Expressions Cookbook]]
+    * Puteți descărca fișierul PDF aferent de [[https://github.com/shihyu/Regular_Expressions|aici]].
+    * Capitolul 1 -- Introduction to Regular Expressions
+    * Capitolul 2 -- Basic Regular Expression Skills
+  * [[http://wiki.bash-hackers.org/doku.php|Bash Hackers Wiki]]
+  * [[https://www.cyberciti.biz/open-source/learning-bash-scripting-for-beginners/|Learning Bash Scripting for Beginners]] - Here are a list of tutorials and helpful resources to help you learn bash scripting and bash shell itself.
+===== Repository laborator =====
+
+Pentru a descărca fișierele necesare acestui laborator deschidem un terminal (folosim combinația de taste ''Alt+Ctrl+t'') și clonăm repository-ului oficial de USO. Folosim comanda<code bash>
+student@midgard:~$ git clone https://github.com/systems-cs-pub-ro/uso
+</code>
+ 
+În directorul ''/home/student/usot/lab10'' găsim fișierele necesare pentru laboratorul 10. Accesăm acel director folosind comanda<code bash>
+student@midgard:~$ cd uso/lab10
+student@midgard:~/uso/lab10$ pwd
+/home/student/uso/lab10
+</code>
+
+
+===== Demo =====
+
+În continuare, împreună cu asistentul veți parcurge câteva exerciții de tip demo/tutorial.
+
+<hidden>
+Amintiți-le de utilitarele pe care le-au folosit pentru parsare în laboratorul 9, dar și cele precedente (sed, stat, find, grep, tr, etc). 
+  
+Insistați pe faptul că există în shell multe utilitare și moduri de face parsare și prelucrare și îl folosești pe cel mai potrivit la un moment dat, fiecare cu atu-urile sale: ''tr'', ''cut'', ''grep'', ''sed'', ''awk'', ''sort'', ''uniq'' (așa cum am discutat și la curs). 
+  
+Expresiile regulate sunt foarte puternice și sunt folosite în multe situații (căutare, verificare/potrivire/validare, înlocuire, parsare); dar că sunt și cazuri în care sunt folosite necorespunzător și să aibă grijă la asta (așa cum am discutat și la curs). Le puteți arată [[http://xkcd.com/1171/|comic-ul XKCD]], [[http://regex.info/blog/2006-09-15/247|citatul lui JWZ]] sau site-ul [[http://www.twoproblems.com/|two problems]].
+
+Ca un fel de "lecții" pentru studenți care să reiasă din laborator:
+  * There's more than one way to skin the cat.
+  * Use the best tool for the job. A tool for each task, a task for each tool. ("best" e relativ aici, poate însemna altceva pentru fiecare: eficient, accesibil, portabil, reliable, cunoscut)
+  * Don't use a tank where a sling would suffice.
+  * Regular expressions are one solution, not a panacea.
+  * Focus on the ends, then choose the means. Always know what you are trying to achieve and why are you trying to achieve it. "Why" and "what" come first, then comes the "how".
+
+</hidden>
+
+==== Expresii regulate ====
+
+Expresiile regulate sunt folosite pentru căutarea/selecția anumitor intrări în fișiere text și pentru parsarea informațiilor din fișiere text. În procesarea expresiilor regulate, matching-ul se face pe fiecare linie din text. Într-o expresie regulată, anumite caractere au rol special precum caracterele de mai jos.
+
+^ Caracter ^ Efect în expresie regulată ^
+| %%^%% | început de linie |
+| %%$%% | sfârșit de linie |
+| %%.%% | orice caracter |
+| %%*%% | expresia anterioară de oricâte ori, posibil niciodată |
+| %%+%% | expresia anterioară de oricâte ori, cel puțin o dată |
+| %%[ajt]%% | orice caracter din setul de caractere ''a'', ''j'', ''t'' |
+| %%[^ajt]%% | orice caracter **mai puțin** caracterele ''a'', ''j'', ''t'' |
+| %%|%% | expresia anterioară **sau** expresia de după (una dintre cele două expresii) |
+| %%?%% | expresia anterioară o dată sau niciodată |
+
+<note tip>
+Găsiți un tool online [[http://regexr.com/ | aici]] care va permite să vizualizați efectul expresiilor regulate în mod interactiv. Puteți să îl folosiți pentru a vă obișnui cu scrierea de regexp-uri. 
+</note>
+
+==== Expresii regulate vs globbing ====
+
+|  Construcție  |  RegExp  |  Glob  |
+|  .  |	 orice caracter  |  caracterul ''.''  | 
+|  .*  |  orice caracter de oricâte ori, posibil niciodată  |  orice incepe cu ''.''  |
+|  ?  |  expresia anterioară o dată sau niciodată  |  orice caracter  |
+|  a+  |  caracterul ''a'' de oricâte ori, cel puțin o dată  |  caracterul ''a'' urmat de ''+''  |
+
+===== Expresii regulate & grep =====
+
+În directorul din repository aferent laboratorului există un fișier ''students.txt'' pe care îl vom folosi ca suport pentru comenzi cu expresii regulate. Acest fișier conține o listă de studenți cu numele complet al studenților (prima coloană), grupa din care fac parte (a doua coloană) și diverse note la USO (nota finală - a treia coloană, nota la testul grilă - a patra coloană - și nota la testul practic - a cincea coloană), câmpuri separate prin caracterul tab.
+
+Pentru căutarea și selectarea de linii din fișiere text folosim comanda ''grep'' care folosește, la rândul ei, expresii regulate. Astfel, dacă dorim să selectăm studenții care au litera ''z'' în numele lor, folosim comanda
+<code bash>
+student@midgard:~/uso/lab10$ grep 'z' students.txt 
+GHECENCO F. Răzvan	312CC	8	8.75	4.67
+MARIN N. Răzvan	312CC	5	3.5	4.2
+</code>
+
+<note important>
+Este recomandat ca argumentul de tip expresie regulată transmis comenzii ''grep'' să fie plasat între apostrofuri (''%%'%%'') pentru a fi escapat. În felul acesta caracterele din expresia regulată vor fi transmise întocmai comenzii ''grep'' și nu vor fi interpretate de shell.
+</note>
+
+<spoiler Click pentru detalii legate de apostrofuri și ghilimele>
+În shell este recomandată folosirea ghilimelelor (''"'', //(double) quotes//) și a apostrofurilor (''%%'%%'', //single quotes//) pentru escapare. **Escapare** înseamnă că nu vor fi interpretate special caracterele speciale din shell; adică vor fi interpretate drept caractere obișnuite. Exemple de caractere speciale în shell sunt:
+  * ''$'': folosit pentru expandare: expandarea valorii unei variabile, expandarea unei comenzi, substituție aritmetică
+  * ''*'': folosit în globbing: înseamnă orice caracter de oricâte ori
+  * ''>'', ''<'': folosite pentru redirectare
+  * ''&'', ''|'': folosite pentru trimiterea unei comenzi în background sau pentru înlănțuirea unei comenzi; sau ca parte a operatorilor de secvențiere condiționată (''||'' și ''&&'')
+  * '';'': folosit pentru secvențierea comenzilor
+  * ''('', '')'': folosite pentru crearea de subshell-uri
+  * ''"'', ''%%'%%'', ''\'': folosite pentru escapare
+
+Diferența dintre ghilimele și apostrofuri constă în interpretarea caracterului dolar (''$'', //dollar//). Între ghilimele, caracterul dolar își păstrează rolul special, pe când între apostrofuri este considerat un caracter ca oricare altul.
+
+De exemplu, dacă dorim să afișăm valoarea variabilei ''USER'', vom folosi construcția
+<code bash>
+student@mjolnir.local:~$ echo "$USER"
+student
+</code>
+Va fi afișată valoarea variabilei ''USER'' întrucât am folosit construcția ''$USER'' între ghilimele.
+
+Dacă însă folosim construcția ''$USER'' între apostrofuri, ca în continuare
+<code bash>
+student@mjolnir.local:~$ echo '$USER'
+$USER
+</code>
+atunci va fi afișat chiar șirul ''$USER''. Asta pentru că apostrofurile, spre deosebire de ghilimele, escapează inclusiv caracterul dolar.
+</spoiler>
+
+Doar că expresia ''z'' nu se potrivește (nu face //match//) pe litera ''Z'' (majusculă). Pentru a selecta studenții al cărore nume conține atât litera ''z'' cât și ''Z'' (majusculă) folosim expresia regulată ''%%[zZ]%%'' și comanda
+<code bash>
+student@midgard:~/uso/lab10$ grep '[zZ]' students.txt 
+PAJARCU Z.P. Raul-Constantin	312CC	2	0.5	1.7
+GHECENCO F. Răzvan	312CC	8	8.75	4.67
+MARIN N. Răzvan	312CC	5	3.5	4.2
+ZINCULESCU C. Marius-Valentin	313CC	7	4.75	5.7
+</code>
+Expresia regulată ''%%[zZ]%%'' se potrivește pe setul de caractere compus din litera ''z'' cât și ''Z'' (majusculă). Cu aceasta au apărut două linii noi: o linie conține studentul cu numele de familie ''ZINCULESCU'' iar cealaltă linie conține ințialele ''Z.P.'' ambele cu litera ''Z'' (majusculă).
+
+Dacă vrem să selectăm studenții al căror nume de familie începe cu litera ''F'', atunci vom folosi expresia regulată ''%%^F%%'' denotând litera ''F'' (majusculă) la început de rând. Vom folosi, așadar, comanda de mai jos:
+<code bash>
+student@midgard:~/uso/lab10$ grep '^F' students.txt 
+FLOREA N. Monica-Andreea	313CC	9	7.5	8.5
+FULGER P. Alexandru-Gabriel	315CC	7	4.25	5
+</code>
+
+Dacă vrem în schimb să selectăm studenții al căror prenume începe cu litera ''F'' trebuie să privim lucrurile altfel. Urmărind textul putem observa că prenumele sunt precedate fie de caracterul spațiu (//blank//) fie de caracterul minus (''-''). Pentru început vom folosi expresia regulată ''%%[ -]F%%'' care face match pe caracterul spațiu sau minus urmat de caracterul ''F'' majusculă. Comanda aferentă este:
+<code bash>
+student@midgard:~/uso/lab10$ grep '[ -]F' students.txt 
+ONEA I. Flavia-Katilina	311CC	7	6.5	4.33
+PLEȘEA Fl. Alexandru	311CC	9	9.25	7.9
+GHECENCO F. Răzvan	312CC	8	8.75	4.67
+EPURE P. Andi-Florin	314CC	8	9.5	3.67
+NEACȘU C. Florin-Mărgărit	314CC	10	9	9
+COSTEA I. Florin Traian	315CC	4	3.5	3.7
+CHIȚESCU E. Bogdan-Florentin	315CC	9	7.75	6.89
+</code>
+Observăm, însă, că se face match și pe șirul ''Fl.'' și pe șirul ''F.'' reprezentând inițiale. Știm că un prenume conține doar litere mici și că **nu** se încheie cu punct (''.'', //dot//). Atunci extindem expresia regulată de mai sus la expresia ''%%[ -]F[a-z]+[^\.]%%''. Expresia regulată face match pe un șir care:
+  * începe cu unul dintre caracterele spațiu (//blank//) sau minus (''-'');
+  * continuă cu litera ''F'' (majusculă)
+  * continuă cu litere mici (folosind setul ''%%[a-z]%%'')
+  * literele mici de oricâte ori cel puțin o dată (folosind caracterul plus (''+''))
+  * continuă cu orice caracter diferit de punct (''.'', //dot//), folosind expresia ''%%[^\.]%%''. Folosim backslash (''\'') pentru a escapa caracterul punct (''.'', //dot//); altfel ar fi însemnat orice caracter, așa cum înseamnă într-o expresie regulată.
+
+<note>
+În expresiile regulate obișnuite (//basic regular expressions//), anumite caractere își pierd rolul lor special. Este cazul caracterului ''+'', dar și al caracterelor ''?'', ''%%{%%'', ''('', '')'' și ''|''. Pentru a-și păstra rolul special, acestea trebuie precedate de backslash în construcții de forma ''\+'', ''\?'', ''%%\{%%'', ''\('', ''\)'' și ''\|''.
+
+Găsiți această precizare în pagina de manual a comenzii ''grep''; căutați șirul ''Basic vs Extended''.
+</note>
+
+
+Astfel, comanda ''grep'' pentru a extrage studenții al căror prenume începe cu litera ''F'' este
+<code bash>
+student@midgard:~/uso/lab10$ grep '[ -]F[a-z]\+[^\.]' students.txt 
+ONEA I. Flavia-Katilina	311CC	7	6.5	4.33
+EPURE P. Andi-Florin	314CC	8	9.5	3.67
+NEACȘU C. Florin-Mărgărit	314CC	10	9	9
+COSTEA I. Florin Traian	315CC	4	3.5	3.7
+CHIȚESCU E. Bogdan-Florentin	315CC	9	7.75	6.89
+</code>
+
+<note tip>
+Dacă ați fi dorit să faceți match pe o literă (mică sau mare) ați fi folosit construcția ''[a-zA-Z]''. Dacă ați fi dorit să faceți match pe o literă (mică sau mare) sau pe o cifră, ați fi folosit expresia ''[a-zA-Z0-9]''.
+</note>
+
+==== tr & sed ====
+
+  
+Utilitarul **tr** permite translatarea, ștergerea și manipularea caracterelor primite la intrare.  
+După cum am văzut în [[http://ocw.cs.pub.ro/courses/uso/laboratoare/laborator-9|laboratorul precedent]], **sed** este un **stream editor** ce poate efectua transformări la nivel de string asupra unui text primit la intrare. În plus, sed poate primi expresii regulate ca argument de căutare. 
+  
+<note> 
+Diferența dintre tr și sed este că primul efectuează transformări la nivel de caracter, pe când al doilea efectuează transformări la nivel de string. Din acest motiv putem spune că sed este un tr mai avansat, tr++ :). 
+</note> 
+  
+Spre exemplu, folosind atât **tr**, cât și **sed**, să înlocuim caracterul ',' cu ''TAB'' în ''student.csv'': 
+<code Bash>
+student@ubuntu:~/uso/lab10$ cat students.csv | tr , "\t" > students.out
+student@ubuntu:~/uso/lab10$ cat students.out 
+VLĂDUȚU I. Liviu-Alexandru	311CC	6	3.5	5.22
+GEORGIU V. Alexandra-Maria	311CC	10	10	9.67
+PĂUNOIU N. Gabriel	311CC	7	6.5	3.5
+BĂCÎRCEA A. Andrei	311CC	7	5.5	4.44
+[...]
+
+student@ubuntu:~/uso/lab10$ sed 's/,/\t/g' students.csv > students.out 
+student@ubuntu:~/uso/lab10$ cat students.out 
+VLĂDUȚU I. Liviu-Alexandru	311CC	6	3.5	5.22
+GEORGIU V. Alexandra-Maria	311CC	10	10	9.67
+PĂUNOIU N. Gabriel	311CC	7	6.5	3.5
+BĂCÎRCEA A. Andrei	311CC	7	5.5	4.44
+[...]
+</code>
+
+Observăm că cele două comenzi au același efect. Pentru a înlocui șiruri de caractere, tr nu mai oferă funcționalitatea dorită întrucât el face o mapare 1-la-1 între caracterele setul ce trebuie înlocuit și setul ce înlocuiește. În exemplul de mai jos, ''1'' este translatat în ''2'' indiferent unde apare, iar ''C'' în ''A'': 
+<code Bash>
+student@ubuntu:~/uso/lab10$ cat students.csv | tr "311CC" "312CA" > students.out
+student@ubuntu:~/uso/lab10$ cat students.out 
+VLĂDUȚU I. Liviu-Alexandru,322AA,6,3.5,5.22
+GEORGIU V. Alexandra-Maria,322AA,20,20,9.67
+PĂUNOIU N. Gabriel,322AA,7,6.5,3.5
+BĂAÎRAEA A. Andrei,322AA,7,5.5,4.44
+[...]
+
+student@ubuntu:~/uso/lab10$ sed "s/311CC/312CA/g" students.csv > students.out
+student@ubuntu:~/uso/lab10$ cat students.out 
+VLĂDUȚU I. Liviu-Alexandru,312CA,6,3.5,5.22
+GEORGIU V. Alexandra-Maria,312CA,10,10,9.67
+PĂUNOIU N. Gabriel,312CA,7,6.5,3.5
+BĂCÎRCEA A. Andrei,312CA,7,5.5,4.44
+[...]
+</code>
+
+
+==== cut & awk ====
+
+Am văzut în laboratoarele precedente cum putem extrage informații structurate pe linii și coloane folosind utilitarul **cut**. 
+<code Bash>
+student@ubuntu:~/uso/lab10$ cat /etc/passwd | cut -d':' -f1,6 | head -3
+root:/root
+daemon:/usr/sbin
+bin:/bin
+</code>
+
+Utilitarul [[https://linux.die.net/man/1/awk|awk]] permite aceleași acțiuni ca și **cut**, dar funcționalitatea sa este mai extinsă. Spre exemplu, awk poate folosi o expresie regulată ca delimitator, pe când cut acceptă un singur caracter: 
+
+<code Bash>
+student@ubuntu:~/uso/lab10$ netstat -i
+Kernel Interface table
+Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+eth0       1500 0      1955      0      0 0           521      0      0      0 BMRU
+lo        65536 0       359      0      0 0           359      0      0      0 LRU
+
+student@ubuntu:~/uso/lab10$ netstat -i | cut -d' ' -f1,2
+Kernel Interface
+Iface 
+eth0 
+lo 
+
+student@ubuntu:~/uso/lab10$ netstat -i | awk -F' *' '{print $1,$2,$4}'
+Kernel Interface 
+Iface MTU RX-OK
+eth0 1500 2029
+lo 65536 359
+</code>
+
+<note>
+[[https://en.wikipedia.org/wiki/AWK | Awk]] este considerat un fel de limbaj de programare ce vizează procesarea text. Există script-uri awk complexe ce se aseamănă programelor C. Printre altele, awk permite implementarea și apelarea de funcții. 
+</note>
+
+==== sort & uniq ====
+
+Dacă dorim să sortăm studenții din fișier în ordinea numelor vom folosi comanda ''sort'':
+<code Bash>
+student@mjolnir:~/uso/lab10$ sort students.csv 
+ALECU C. Ionuț-Gabriel,312CC,7,4.5,6.4
+ASĂVOAEI P. Cătălin,315CC,8,6.75,7
+BĂCÎRCEA A. Andrei,311CC,7,5.5,4.44
+BADEA P. Bogdan,314CC,4,2.75,1.56
+[...]
+</code>
+
+Cateva optiuni des folosite cu **sort** sunt:
+  * ''-t'' specifica separatorul
+  * ''-k'' specifica index-ul, sau cheia, coloanei dupa care vrem sa sortam intrarile
+  * ''n''  sortare numerică (implicit este alfabetica)
+  * ''-r'' sortare inversa (implicit crescator)
+
+<note important>
+O sursă frecventă de greșeli este folosirea construcției ''-k 3'' în loc de ''-k 3,3'' atunci când folosim mai multe chei de sortare. Dacă folosim ''-k 3'' atunci cheia de sortare este dată de **toate** coloanele începând cu a 3-a coloană. În acest caz viitoare opțiuni de chei de sortare nu mai sunt luate în considerare.
+
+Vezi și discuția de [[http://unix.stackexchange.com/questions/52762/trying-to-sort-on-two-fields-second-then-first|aici]].
+</note>
+
+Dorim sa facem o sortare numerica descrescatoare după notă, urmata de o sortare alfabetică după grupă (adică să fie toate notele de 10 la început dar sortate în ordinea grupelor). Astfel, pentru a sorta intrările în ordinea notei, vom folosi separatorul '','' (virgulă, //comma//) și coloana a 3-a pentru cheie:
+<code Bash>
+student@mjolnir:~/uso/lab10$ sort -t ',' -k 3,3nr -k 2,2 students.csv
+GEORGIU V. Alexandra-Maria,311CC,10,10,9.67
+MUȘATESCU V. Alexandru-Petrișor,311CC,10,8.5,9
+RADU L. Alina,311CC,10,10,7.89
+GONDOȘ I. Gabriel,312CC,10,9,7.33
+[...]
+</code>
+
+În cazul în care există linii duplicate, putem folosi utilitarul **uniq** în conjuncție cu **sort** pentru a le elimina. În acest scop adăugăm o linie duplicata în ''students.csv'': 
+<file>
+VLĂDUȚU I. Liviu-Alexandru,311CC,6,3.5,5.22                                                                                                                                                       
+GEORGIU V. Alexandra-Maria,311CC,10,10,9.67
+[...]
+VLĂDUȚU I. Liviu-Alexandru,311CC,6,3.5,5.22
+BENE D. Adrian,312CC,9,10,5
+[...]
+</file>
+<code Bash>
+student@mjolnir:~/uso/lab10$ sort -t ',' -k 3,3nr -k 2,2 students.csv | wc -l
+93
+student@mjolnir:~/uso/lab10$ sort -t ',' -k 3,3nr -k 2,2 students.csv | uniq | wc -l
+92
+student@mjolnir:~/uso/lab10$ uniq students.csv | wc -l
+93
+</code>
+
+<note>
+Observăm că uniq elimină liniile duplicate adiacente. De aceea, dacă datele nu sunt sortate, comanda nu are nici un efect. 
+</note>
+
+
+
+==== Shell scripting ====
+
+Un script shell este un fișier text care conține comenzi și construcții specifice shell-ului. Un script shell începe cu construcția ''#!/bin/bash'', denumită //shebang// care indică interpretorul scriptului; în cazul de față interpretorul este chiar shell-ul Bash. Dacă nu este specificat nici un shell prin shebang atunci implicit va fi luat shell-ul implicit (setat în ''/etc/passwd'') asignat utilizatorului logat.
+
+Spre exemplu, one-liners pe care le-am tot scris până acum ar putea fi puse într-un shell script și, mai mult, dacă sunt comenzi lungi și nu încap pe o linie le putem "sparge" în mai multe linii folosind separatorul ''\'':
+
+<code bash>
+#!/bin/bash
+
+export DATE=$(date +20%y%m%d) && \
+mkdir -p /usr/share/snapshots && \
+tar -cvpzf /usr/share/snapshots/$HOSTNAME_$DATE.tar.gz \
+    --exclude=/proc --exclude=/lost+found \
+    --exclude=/sys --exclude=/mnt \
+    --exclude=/media --exclude=/dev \
+    --exclude=/share/Archive /
+</code>
+
+<note important>**ATENȚIE!** În construcția de mai sus după ''\'' trebuie să nu mai existe nici un caracter (nici măcar spațiu alb/trailing whitespaces)</note>
+
+Scriptul conține comenzi uzuale folosite în shell și alte comenzi care se regăsesc mai adesea în scripturi: ''while'', ''if'', ''for''. Acestea nu sunt instrucțiuni, ci sunt tot comenzi shell; pot fi folosite, dacă sintaxa este corectă și în linia de comandă.
+
+=== Argumente din linia de comandă ===
+
+Un script moștenește variabilele de mediu ale shell-ului părinte precum ''HOME'', ''BASH'', ''IFS'', ''USER''. În script le putem folosi astfel: 
+<code bash>
+#!/bin/bash
+
+echo $HOME
+</code>
+
+Pe lângă aceste variabile, scriptul poate primi o serie de argumente din linia de comandă. Folosind următoarele variabile, putem referi argumentele primite de script din linia de comandă: 
+
+   * ''$*'' este un string (''$1, $2 ... $n'') format din toate argumentele primite de script 
+   * ''$@'' este o listă formată din argumentele scriptului 
+   * ''$1, $2 ... $n'' reprezintă fiecare parametru din script 
+   * ''$0'' este numele scriptului 
+   * ''$#'' este numărul de argumente primite din linia de comandă 
+
+Spre exemplu, să luăm următorul script ''arguments.sh'':
+<code bash>
+#!/bin/bash
+   echo There are $# arguments to $0: $*
+   echo first argument: $1
+   echo second argument: $2
+   echo third argument: $3
+   echo the list of arguments: $@
+</code>
+
+Să apelăm scriptul cu 4 argumente: 
+<code bash>
+student@mjolnir:~$ ./arguments.sh banane cirese caise castraveti
+   There are 4 arguments to arguments.sh: banane cirese caise castraveti
+   first argument: banane
+   second argument: cirese
+   third argument: caise
+   the list of arguments: banane cirese caise castraveti
+</code>  
+ 
+=== Constructia while read ===
+
+Pentru parsare în shell folosim construcția ''%%while read ...%%''. Construcția este urmată de numele variabilelor în care vom reține câmpurile parsate din cadrul fiecărei linii. Folosim la intrare fișierul ''students.csv'' aflat în directorul părinte; este un fișier în format CSV (//Comma Separated Values//) folosind ca separator caracterul virgulă ('','', //comma//). Pentru a extrage doar numele studenților din fișierul de intrare vom rula scriptul ''extract-name'':<code>
+student@mjolnir:~/uso/lab10/parse-table-data$ ./extract-name
+VLĂDUȚU I. Liviu-Alexandru
+GEORGIU V. Alexandra-Maria
+PĂUNOIU N. Gabriel
+BĂCÎRCEA A. Andrei
+[...]
+</code>
+
+Întrucât formatul de intrare folosește virgulă ('','', //comma//) pe post de separator, am definit în script variabila internă ''IFS'' (//Internal Field Separator//) la valoarea ''%%','%%'', așa cum observăm în linia 3 din scriptul ''extract-name'':<code Bash>
+IFS=','
+</code>
+
+<spoiler Click pentru informații despre variabila ''IFS''>
+Variabila internă shell-ului ''IFS'' (//Internal Field Separator//) definește caracterul sau caracterele care vor fi folosite pentru împărțirea unei linii în câmpuri (//splitting//).
+
+Variabila internă este folosită ori de câte ori în shell este nevoie de împărțirea unei linii. Un caz uzual de folosire a variabilei ''IFS'' este în conjuncție cu construcția ''while read'' pentru citirea de linii de la intrarea standard sau dintr-un fișier și împărțirea acestora în câmpuri.
+
+Informații și pe [[http://en.wikipedia.org/wiki/Internal_field_separator|Wikipedia]].
+</spoiler>
+
+Să extindem scriptul pentru a afișa și numele și grupa. Conținutul noului script va fi:
+<file Bash>
+#!/bin/bash
+
+IFS=','
+while read name group final_grade test_grade practical_grade; do
+    echo "$name,$group"
+done < students.csv
+</file>
+
+Pașii de mai sus puteau fi realizați și cu ajutorul comenzii ''cut''. Dar, în cazul parsării folosind construcția ''while read'' avem două avantaje:
+  * putem afișa coloanele în ce ordine dorim; ''cut'' permitea afișarea de coloane doar în ordinea din fișierul de intrare;
+  * putem prelucra în continuare, în cadrul construcției ''while read'' informația parsată. Spre exemplu, afișarea poate avea forma %%"Studentul ... face parte din grupa ..."%%.
+
+=== if statement ===
+
+Putem extinde script-ul de mai sus pentru a afișa doar studenții care au media > 5. 
+<code Bash>
+#!/bin/bash
+
+IFS=','
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -gt 5; then
+        echo "$name,$group,$final_grade"
+    fi
+done < students.csv
+</code>
+
+=== for loop ===
+
+În bash există și construcții de tipul ''for''. Un exemplu comun este acela de a itera prin conținutul unui director și de a face prelucrări asupra fișierelor. Spre exemplu, dorim să facem backup tuturor fișierelor dintr-un director trimis ca parametru în script: 
+<code Bash>
+#!/bin/bash
+
+for file in $1/*
+do
+    if test -f $file; then
+        stat --print="%a %F %n\n" $file
+        cp $file $file.bkp
+    fi
+done
+</code>
+
+Se poate itera și pe output-ul unei comenzi:
+
+<code Bash>
+#!/bin/bash
+
+cd ~
+cd uso/lab10
+unzip media.zip
+cd media
+for file in $(find . -iname '*.jpg')
+do
+    echo $file
+done
+</code>
+
+
+===== Exerciții =====
+
+<note>
+Pe măsură ce parcurgeți exercițiile, pentru indicații legate de rezolvare, dați click pe barele de tip spoiler care conțin textul //Click pentru indicații//.
+</note>
+
+<note important>
+Acolo unde apar, exercițiile pentru karma points vor fi rezolvate și punctate **după** rezolvarea tuturor exercițiilor. Am plasat o parte din exercițiile pentru karma points în cadrul exercițiilor obișnuite pentru continuitate.
+</note>
+
+<note warning>
+Atunci când creați un script, nu uitați să îi dați drepturi de execuție:
+<code bash>
+student@mjolnir:~/uso/lab10$ vim myScript.sh
+student@mjolnir:~/uso/lab10$ chmod +x myScript.sh
+</code>
+</note>
+
+==== 1. Opțiuni pentru grep (2p) ====
+
+Ne propunem să aflăm care sunt fișierele de tip header (cu extensia ''.h'' sau ''.hpp'') din sistem care au cele mai multe macro-uri definite. Pentru aceasta vom folosi comanda ''grep'' cu opțiuni specifice și apoi comanda ''sort'' pentru a sorta datele în ordinea numărului de apariții de definiții de macro-uri.
+
+<note>
+Fișierele header dintr-un sistem Unix/Linux se găsesc în ierarhia ''/usr/include/''.
+</note>
+
+<note tip>
+Pașii din continuare sunt detaliați **în subsecțiunile** exercițiului (subsecțiunile 1.1, 1.2, 1.3 și 1.4). Parcurgeți subsecțiunile pentru indicații legate de acești pași și pentru rezolvarea exercițiului.
+</note>
+
+=== 1.1. Extragere linii ce conțin definiții de macro-uri (0.5p) ===
+
+Pentru început, ca să aveți un punct de plecare, veți extrage liniile ce conțin definiții de macro-uri pentru un singur fișier header dat. Recomandăm să folosiți ca intrare fișierul ''/usr/include/stdio.h''.
+
+<spoiler Click pentru indicații>
+O formă simplă de realizare a acestui lucru este folosirea comenzii:<code>
+grep '#define' /usr/include/stdio.h
+</code>
+
+Întrucât preprocesorul C este mai lax, va trebui să construiți o expresie regulată mai acoperitoare ca argument pentru ''grep''. Construiți și apoi transmiteți către ''grep'' o expresie regulată care face match pe liniile ce conțin definiții de macro-uri, ținând cont că:
+  - Liniile pot **începe** cu spații (//blank//): oricât de multe caractere spațiu posibil nici unul.
+  - Apoi urmează caracterul diez (''#'', //hash//).
+  - Apoi urmează oricâte caractere spațiu (//blank//), posibil nici unul.
+  - Apoi urmează șirul de caractere ''define''.
+
+<note tip>
+Parcurgeți secțiunea [[#expresii_regulate|Expresii regulate]] pentru ajutor legat de construirea expresiei regulate.
+</note>
+</spoiler>
+
+Comanda va avea ca output liniile ce conțin definiții de macro-uri în cadrul fișierului ''/usr/include/stdio.h''.
+
+<solution -hidden>
+Comanda de rulat este<code>
+student@mjolnir:~/uso/lab10$ grep '^ *# *define' /usr/include/stdio.h
+</code>
+
+Nu am mers și pe spațiu după ''define'' întrucât multe macro-uri au după șirul ''define'' un caracter tab. Iar pentru a putea fi folosit caracterul tab în grep trebuie folosit la modul ''%%$'\t'%%'' lucru care e tratat mai târziu în laborator și cu care nu vreau să-i încarcăm la acest exercițiu.
+</solution>
+
+=== 1.2. Extragere linii ce conțin definiții de macro-uri în ierarhia /usr/include (0.5p) ===
+
+În continuare veți extinde comanda anterioară și veți folosi ''grep'' cu opțiunea de **recursivitate** pentru a extrage liniile ce conțin definiții de macro-uri pentru toate fișierele din ierarhia ''/usr/include/''.
+
+<spoiler Click pentru indicații>
+Va trebui să modificați comanda anterioară astfel:
+  - Să folosiți opțiunea de **recursivitate** pentru ''grep''. Vedeți mai jos indicația.
+  - Să folosiți ca argument pentru ''grep'' șirul ''/usr/include/'' (reprezentând o ierarhie parcursă recursiv) în locul șirului ''/usr/include/stdio.h'' (reprezentând un singur fișier header).
+
+<note tip>
+Pentru a afla opțiunea de **recursivitate** pentru ''grep'', aveți următoarele posibilități:
+  - Căutați în pagina de manual a comenzii ''grep'' șirul //recursive// și localizați opțiunea necesară.
+  - Căutați pe Google după șirul [[https://www.google.com/search?q=grep+recursive+option|grep recursive option]]. Puteți da click pe link.
+</note>
+
+<note tip>
+Atunci când o comandă are output de dimensiune mare și vreți să-l vizualizați, puteți să treceți acel output în comanda ''less''. Adică înlănțuiți comanda care generează output-ul de dimensiune mare cu comanda ''less'', în forma<code>
+student@mjolnir:~$ grep ... | less
+</code>
+În felul acesta veți putea folosi în cadrul ''less'' parcurgere paginată (înainte și înapoi) și căutare în tot output-ul.
+</note>
+</spoiler>
+
+Comanda va avea ca output fișierele din ierarhia ''/usr/include/'' și liniile din cadrul fișierelor ce conțin definiții de macro-uri.
+
+<solution -hidden>
+Comanda de rulat este<code>
+student@mjolnir:~/uso/lab10$ grep -r '^ *# *define' /usr/include/
+</code>
+
+Comanda generează **mult** output.
+</solution>
+
+=== 1.3. Obținere număr de linii ce conțin definiții de macro-uri în ierarhia /usr/include (0.5p) ===
+
+În continuare veți extinde comanda anterioară și veți folosi ''grep'' cu opțiunea de **recursivitate** și cea de **contorizare** pentru a furniza ca output fișierele din ierarhia ''/usr/include'' împreună cu numărul de linii care conțin definiții de macro-uri.
+
+<spoiler Click pentru indicații>
+Va trebui să completați comanda anterioară cu opțiunea de **contorizare** pentru ''grep''. Cu această opțiune output-ul ''grep'' se va schimba: nu vor mai fi afișate liniile ce conțin definiții de macro-uri ci, pentru fiecare fișier, numărul de linii ce conțin definiții de macro-uri.
+
+<note tip>
+Pentru a afla opțiunea de **contorizare** pentru ''grep'', aveți următoarele posibilități:
+  - Căutați în pagina de manual a comenzii ''grep'' șirul //count// și localizați opțiunea necesară.
+  - Căutați pe Google după șirul [[https://www.google.com/search?q=grep+count+lines|grep count lines]]. Puteți da click pe link.
+</note>
+</spoiler>
+
+Comanda va avea ca output fișierele din ierarhia ''/usr/include'' împreună cu numărul de linii ce conțin definiții de macro-uri. Cele două câmpuri sunt afișate în format tabelar cu separatorul două puncte ('':'', //colon//). Fișierele care nu au linii care conțin definiții de macro-uri au ca al doilea câmp valoarea ''0'' (zero).
+
+<solution -hidden>
+Comanda de rulat este:<code>
+student@mjolnir:~/uso/lab10$ grep -rc '^ *# *define' /usr/include/
+</code>
+</solution>
+
+
+=== 1.4. Sortare după numărul de linii ce conțin definiții de macro-uri (0.5p) ===
+
+În final, veți sorta output-ul comenzii anterioare în funcție de numărul de linii care conțin definiții de macro-uri. Vrem să aflăm care sunt fișierele de tip header din ierarhia ''/usr/include'' care conțin cel mai mare număr de definiții de macro-uri.
+
+<spoiler Click pentru indicații>
+Pentru aceasta, veți folosi operatorul de înlănțuire de comenzi (''|'', //pipe//) și comanda ''sort'' cu opțiunile necesare. Adică veți construi un one liner de forma<code>
+student@mjolnir:~/uso.git/lab11$ grep ... | sort ...
+</code>
+Pentru comanda ''sort'' folosiți opțiunile specifice pentru ca:
+  - Separatorul de câmp (//field separator//) să fie cel furnizat de output-ul comenzii anterioare, adică două puncte ('':'', //colon//).
+  - Sortarea să se facă după al doilea câmp, adică numărul de linii. Adică să folosească pe post de **cheie de sortare** al doilea câmp.
+  - Sortarea să fie **numerică**, întrucât al doilea câmp este un număr.
+
+<note tip>
+Parcurgeți secțiunea [[#sortare_de_date_tabelare|Sortare de date tabelare]] pentru ajutor legat de folosirea comenzii ''sort''.
+</note>
+</spoiler>
+
+Comanda va avea ca output fișierele din ierarhia ''/usr/include'' împreună cu numărul de linii ce conțin definiții de macro-uri, ordonate în funcție de numărul de linii. Dacă ați rezolvat corect, fișierele care au cele mai multe linii ce conțin definiții de macro-uri vor ajunge la mii de astfel de apariții; de exemplu fișierul ''/usr/include/elf.h'' are mii de linii care conțin definiții de macro-uri.
+
+<note>
+Dacă doriți, puteți continua comanda pentru a extrage doar primele 10 fișiere care conțin cele mai multe definiții de macro-uri.
+</note>
+
+<solution -hidden>
+Comanda de rulat este:<code>
+student@mjolnir:~/uso/lab10$ grep -rc '^ *# *define' /usr/include/ | sort -t ':' -k 2,2n
+</code>
+
+Dacă vrem să extragem doar primele 10 fișiere care conțin cele mai multe definiții de macro-uri atunci folosim una dintre cele două comenzi de mai jos:<code>
+student@mjolnir:~/uso/lab10$ grep -rc '^ *# *define' /usr/include/ | sort -t ':' -k 2,2n | tail -n 10
+student@mjolnir:~/uso/lab10$ grep -rc '^ *# *define' /usr/include/ | sort -t ':' -k 2,2nr | head -n 10
+</code>
+
+</solution>
+
+==== 2. Expresii regulate (1p) ====
+
+Ne propunem să sedimentăm noțiunile legate de expresii regulate. Vom folosi ''grep'' și expresii regulate pentru a face două prelucrări peste fișierul ''/usr/share/vim/vim80/tutor/tutor'':
+   - Să extragem liniile care încep cu cuvinte de 5 litere.
+   - Să extragem liniile care se încheie cu cuvinte de 5 litere.
+Vor rezulta două comenzii ''grep'' pentru cele două prelucrări de mai sus.
+
+Vom considera un cuvânt de 5 litere un șir de 5 caractere de tipul literă mică (de la ''a'' până la ''z'') sau literă mare (de la ''A'' până la ''Z'').
+
+Pentru aceasta, recomandăm să parcurgeți următorii pași:
+  - creați expresia regulată care face match pe șiruri de 5 litere mici sau mari.
+  - Să creați expresia regulată care face match pe cuvinte de 5 litere la început de linie.
+  - Să creați expresia regulată care face match pe cuvinte de 5 litere la sfârșit de linie.
+
+<note tip>
+Parcurgeți secțiunea [[#expresii_regulate|Expresii regulate]] pentru ajutor legat de construirea de expresii regulate.
+</note>
+
+Creați expresia regulată care face match pe șiruri de 5 litere mici sau mari.
+
+<spoiler Click pentru indicații>
+Recomandăm să urmați pașii:
+  - Creați expresia regulată care face match pe **o singură** literă mică sau mare. Folosiți construcția pentru set de caractere.
+  - Repetați de 5 ori construcția de mai sus (adică concatenați de 5 ori acea expresie) pentru o expresie regulată care face match pe 5 litere mici sau mari.
+  - Folosiți ''grep'' cu această expresie regulată ca argument peste fișierul ''/usr/share/vim/vim80/tutor/tutor'' pentru a extrage liniile ce conțin șiruri de 5 litere mici sau mari. Vor fi majoritatea liniilor.
+</spoiler>
+
+<solution -hidden>
+Comanda de rulat este:<code>
+student@mjolnir:~/uso/lab10$ grep '[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]' /usr/share/vim/vim80/tutor/tutor
+</code>
+</solution>
+
+Observați că expresia regulată de mai sus face match pe șiruri de caractere, nu pe cuvinte. Pentru a face match pe cuvinte, vom considera (chiar dacă nu acoperă toate cazurile) că un cuvânt începe sau se termină cu spațiu (//blank//).
+
+Astfel, creați expresia regulată care face match pe cuvinte de 5 litere la început de linie.
+
+<spoiler Click pentru indicații>
+Porniți de la expresia regulată construită mai sus și faceți următoarele actualizări:
+  - Expresia regulată trebuie să facă match pe începutul de linie.
+  - Înainte de cele 5 litere mici sau mari, după începutul liniei se pot găsi caractere spațiu (//blank//) oricât de multe posibil nici unul.
+  - După cele 5 litere mici sau mari urmează un caracter spațiu, semnificând că e vorba de un cuvânt.
+</spoiler>
+
+Rulați comanda ''grep'' cu expresia regulată actualizată peste fișierul ''/usr/share/vim/vim80/tutor/tutor'' pentru a extrage liniile ce conțin cuvinte de 5 litere mici sau mari la începutul liniei. Urmăriți în output-ul comenzii dacă apar doar linii care conțin cuvinte de 5 litere mici sau mari la începutul liniei.
+
+<note>
+Puteți înlănțui comanda de mai sus cu comanda ''wc -l'' pentru a afla numărul de linii pe care s-a făcut match și compara cu ceilalți colegi dacă ați obținut același rezultat.
+</note>
+
+<solution -hidden>
+Comanda de rulat este<code>
+student@mjolnir:~/uso/lab10$ grep '^ *[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z] ' /usr/share/vim/vim80/tutor/tutor
+</code>
+
+Comanda completă care contorizează numărul de linii pe care s-a făcut match este:<code>
+student@mjolnir:~/uso/lab10$ grep '^ *[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z] ' /usr/share/vim/vim80/tutor/tutor | wc -l
+13
+</code>
+
+<note>
+Expresiile regulate POSIX permit construcții dedicate și expresive pentru anumite seturi de caractere, precum:
+  * ''%%[[:digit:]]%%'', pentru cifre, echivalent cu ''[0-9]''
+  * ''%%[[:upper:]]%%'', pentru litere mari, echivalent cu ''[A-Z]''
+  * ''%%[[:lower:]]%%'', pentru litere mici, echivalent cu ''[a-z]''
+  * ''%%[[:alpha:]]%%'', pentru litere mici și mari, echivalent cu ''[a-zA-Z]''
+  * ''%%[[:alnum:]]%%'', pentru litere mici și mari și cifre, echivalent cu ''[0-9a-zA-Z]''
+  * ''%%[[:space:]]%%'', pentru spații albe (precum //blank//, tab sau //newline//)
+  * și altele. O listă detaliată găsiți [[http://www.regular-expressions.info/posixbrackets.html|aici]].
+
+Astfel, comanda de mai sus putea fi rulată și în forma:<code>
+student@mjolnir:~/uso/lab10$ grep '^ *[[:alpha:]][[:alpha:]][[:alpha:]][[:alpha:]][[:alpha:]] ' /usr/share/vim/vim80/tutor/tutor | wc -l
+13
+</code>
+</note>
+</solution>
+
+
+În final, creați expresia regulată care face match pe cuvinte de 5 litere la sfârșit de linie.
+
+<spoiler Click pentru indicații>
+Porniți de la expresia regulată construită la început (care face match pe șiruri de 5 litere mici sau mari) și faceți următoarele actualizări:
+  - Înainte de cele 5 litere mici sau mari se află un caracter spațiu, semnificând că e vorba de un cuvânt.
+  - După cele 5 litere mici sau mari se pot găsi caractere spațiu (//blank//) oricât de multe posibil nici unul.
+  - Expresia regulată trebuie să facă match pe sfârșit de linie.
+</spoiler>
+
+Rulați comanda ''grep'' cu expresia regulată actualizată peste fișierul ''/usr/share/vim/vim80/tutor/tutor'' pentru a extrage liniile ce conțin cuvinte de 5 litere mici sau mari.
+
+<note>
+La fel ca mai sus, puteți înlănțui comanda de mai sus cu comanda ''wc -l'' pentru a afla numărul de linii pe care s-a făcut match și compara cu ceilalți colegi dacă ați obținut același rezultat.
+</note>
+
+<solution -hidden>
+Comanda de rulat este<code>
+student@mjolnir:~/uso/lab10$ grep ' [a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z] *$' /usr/share/vim/vim80/tutor/tutor
+</code>
+
+Comanda completă care contorizează numărul de linii pe care s-a făcut match este:<code>
+student@mjolnir:~/uso/lab10$ grep ' [a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z] *$' /usr/share/vim/vim80/tutor/tutor | wc -l
+15
+</code>
+</solution>
+
+<solution -hidden>
+Comenzile echivalente folosind opțiunea ''-w'' și construcțiile ''\<'' și ''\>'' sunt:<code>
+student@mjolnir:~/uso/lab10$ grep -w '^ *[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]' /usr/share/vim/vim80/tutor/tutor
+student@mjolnir:~/uso/lab10$ grep -w '[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z] *$' /usr/share/vim/vim80/tutor/tutor
+student@mjolnir:~/uso/lab10$ grep '^ *\<[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]\>' /usr/share/vim/vim80/tutor/tutor
+student@mjolnir:~/uso/lab10$ grep '\<[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]\> *$' /usr/share/vim/vim80/tutor/tutor
+</code>
+</solution>
+
+<note>
+Pentru **1 karma point**, simplificați expresiile regulate folosite pentru match de cuvinte de 5 litere la început, respectiv sfârșit de linie, folosind operatorul de repetiție pentru expresii regulate în ''grep''.
+
+Ca să identificați operatorul de repetiție pentru expresii regulate în ''grep'', aveți următoarele posibilități.
+  - Căutați în pagina de manual a comenzii ''grep'' șirul //Repetition// și localizați opțiunea necesară.
+  - Căutați pe Google după șirul [[https://www.google.com/search?q=grep+regular+expression+repetition|grep regular expression repetition]]. Puteți da click pe link
+
+**Observație**: Caracterele acoladă (''{'', ''}'', //curly brackets//) trebuie escapate în argumentul transmis către grep pentru a a avea rolul lor special într-o expresie regulată. La fel cum este cazul caracterului plus (''+'').
+</note>
+
+<solution -hidden>
+Comenzile de rulat, cu forma simplificată de operatorul de repetiție sunt:<code>
+student@mjolnir:~/uso/lab10$ grep '^ *[a-zA-Z]\{5\} ' /usr/share/vim/vim80/tutor/tutor
+student@mjolnir:~/uso/lab1$ grep ' [a-zA-Z]\{5\} *$' /usr/share/vim/vim80/tutor/tutor
+</code>
+</solution>
+
+==== 3. Parsare folosind tab ca separator (1p) ====
+
+În secțiunea [[#parsare_date_tabelare_in_shell|Parsare date tabelare în shell]] am folosit la intrare fișierul ''students.csv'', fișier format CSV (//Comma Separated Values//) care folosește virgula ('','', //comma//) pe post de separator de câmpuri. Ne propunem să folosim la intrare fișierul ''students.txt'' care folosește caracterul tab pe post de separator de câmpuri.
+
+Pentru aceasta, creați o copie a scriptului ''extract-name'' numită ''extract-name-tab''. Noul script (''extract-name-tab'') va face același lucru ca scriptul inițial (''extract-name''): va afișa **doar** numele studenților. Doar că veți opera două modificări pe acest nou script:
+  - Veți folosi fișierul ''students.txt'' în locul fișierului ''students.csv''.
+  - Veți folosi ca separator de câmpuri caracterul tab (specific fișierului ''students.txt'') în locul caracterului virgulă ('','', //comma//) (specific fișierului ''students.csv''). Vedeți indicația de mai jos.
+
+Realizați cele două modificări de mai sus și apoi rulați scriptul ''extract-name-tab''.
+
+<spoiler>
+<note tip>
+Pentru configurarea caracterului tab ca separator de câmpuri, ar trebui, în mod obișnuit, inițializată variabila internă shell-ului ''IFS'' (//Input Field Separator//) la valoarea ''%%'\t'%%'', la fel ca în linia<code bash>
+IFS='\t'
+</code>
+
+Doar că shell-ul nu poate interpreta secvențele de escape precum ''%%'\t'%%'' sau ''%%'\n'%%'' și trebuie folosit, în Bash, simbolul dolar (''$'', //dollar//) înaintea unui șir cu secvențe de escape. Așadar, modul corect de inițializare a variabilei ''IFS'' la caracterul tab este<code bash>
+IFS=$'\t'
+</code>
+
+Mai multe detalii găsiți [[http://stackoverflow.com/questions/4128235/bash-shell-scripting-what-is-the-exact-meaning-of-ifs-n|aici]].
+</note>
+</spoiler>
+
+În final, la rularea scriptului ''extract-name-tab'' veți obține **doar** numele studenților așa cum se găsesc în fișierul de intrare ''students.txt''; fișierul de intrare folosește tab pe post de separator de câmpuri.
+
+<note tip>
+Pentru verificare rulați scriptul și verificați dacă vă afișează **doar** numele studenților:
+<code>
+./extract-name-tab
+</code>
+
+Ca să verificați că vă afișează toată informația numărați liniile afișate; rezultatul trebuie să fie ''92'':
+<code>
+$ ./extract-name-tab | wc -l
+92
+</code>
+</note>
+
+<solution --hidden>
+<code bash>
+#!/bin/bash
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    echo "$name"
+done < students.txt
+</code>
+</solution>
+
+==== 4. Selectare studenți care au nota 10 (1p) ====
+
+Ne propunem să actualizăm scriptul anterior ''extract-name-tab'' pentru a afișa doar numele studenților pentru acei studenți care au nota finală ''10'' (a treia coloană are valoarea ''10'').
+
+Va trebui să adăugați în scriptul ''extract-name-tab'' condiția pentru ca nota finală să fie ''10''. Pentru aceasta folosiți construcția ''%%if test ...%%''. Afișați numele studenților doar dacă este condiția satisfăcută.
+
+<note tip>
+Pentru a afla opțiunea de comparație a unei variabile cu un număr (în cazul nostru ''10''), căutați în pagina de manual a comenzii ''test'' după șirul //equal//. Folosiți opțiunea de comparație pentru întregi.
+</note>
+
+La rularea scriptului ''extract-name-tab'' veți obține numele studenților care au nota finală ''10''. Va trebui să obțineți 13 studenți care au nota finală ''10''.
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -eq 10; then
+        echo "$name"
+    fi
+done < students.txt
+</code>
+</solution>
+
+<note>
+Pentru **1 karma point**, actualizați scriptul ''extract-name-tab'' astfel încât să primească un argument reprezentând nota finală pe care au obținut-o studenții care vor fi afișați.
+
+Scriptul va verifica faptul că primește exact un argument și că argumentul este un număr cuprins între ''1'' și ''10''. Dacă nu primește un argument sau dacă primește ca argument un număr din afara intervalului ''1'' până la ''10'', scriptul va afișa un mesaj de eroare și își va încheia execuția.
+
+Exemple de rulare sunt:<code>
+$ ./extract-name-tab 10
+$ ./extract-name-tab 7
+$ ./extract-name-tab 5
+</code>
+</note>
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+if test $# -ne 1; then
+    echo "Usage: $0 grade" 1>&2
+    exit 1
+fi
+
+if test "$1" -lt 1; then
+    echo "Please provide a grade greater than or equal to 0." 1>&2
+    exit 1
+fi
+
+if test "$1" -gt 10; then
+    echo "Please provide a grade less than or equal to 10." 1>&2
+    exit 1
+fi
+
+match_grade="$1"
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -eq "$match_grade"; then
+        echo "$name"
+    fi
+done < students.txt
+</code>
+</solution>
+
+==== 5. Selectare și sortare studenți care au nota între 6 și 9 (2p) ====
+
+Ne propunem să realizăm un script numit ''extract-sort-grades'' pentru a afișa numele studenților, grupa și nota finală pentru acei studenți care au nota finală cuprinsă între ''6'' și ''9'' inclusiv. Adică valoarea de pe a treia coloană să fie ''6'', ''7'', ''8'' sau ''9''. Apoi vom sorta intrările în ordinea notei și apoi în ordinea grupei (adică dacă au aceeași notă să fie sortați în ordinea grupei).
+
+Pentru început creați o copie a scriptului ''extract-name-tab'' numită ''extract-sort-grades'' pe care o veți actualiza pentru a răspunde cerinței de mai sus.
+
+<note tip>
+Pașii din continuare sunt detaliați **în subsecțiunile** exercițiului (subsecțiunile 5.1 și 5.2). Parcurgeți subsecțiunile pentru indicații legate de acești pași și pentru rezolvarea exercițiului.
+</note>
+
+Va trebui să actualizați scriptul ''extract-sort-grades'' în două locuri:
+  - Condiția trebuie să fie de număr cuprins între ''6'' și ''9'' (în loc de număr egal cu ''10'' cum este cazul în scriptul ''extract-name-tab''). Vedeți indicațiile.
+  - Trebuie afișate numele studenților, grupa din care fac parte și nota finală (nu doar numele cu este cazul în scriptul ''extract-name-tab'').
+  - Trebuie sortate intrările obținute în ordinea notelor și în ordinea grupei.
+
+=== 5.1. Selectare studenți care au nota între 6 și 9 (1p) ===
+
+<spoiler Click pentru indicații>
+<note tip>
+Cerința presupune două condiții care trebuie îndeplinite: nota finală să fie mai mare sau egală cu ''6'' **și** nota finală să fie mai mică sau egală cu ''9''.
+
+Pentru a afla care este opțiunea de **și logic** pentru comanda ''test'', căutați în pagina de manual a comenzii ''test'' șirul ''and'' și localizați opțiunea necesară.
+
+La fel procedați pentru a afla opțiunile pentru //greater than// sau //less than//.
+
+Exemple de folosire pentru comanda ''test'' și diversele sale opțiuni sunt mai jos:<code>
+# Is 5 equal to 4? False
+$ test 5 -eq 4
+$ echo $?
+1
+
+# Is 5 equal to 5? True
+$ test 5 -eq 5
+$ echo $?
+0
+
+# Is 6 greater than 6? False
+$ test 6 -gt 6
+$ echo $?
+1
+
+# Is 6 greater than or equal to 6? True
+$ test 6 -ge 6
+$ echo $?
+0
+
+# Is 7 less than 10? True
+$ test 7 -lt 10
+$ echo $?
+0
+
+# Is 7 less than 10 and 6 greater than 4? True
+$ test 7 -lt 10 -a 6 -gt 4
+$ echo $?
+0
+
+# Is 7 less than 10 and 6 greater than 7? False
+$ test 7 -lt 10 -a 6 -gt 7
+$ echo $?
+1
+
+# Is 7 less than 10 or 6 greater than 7? True
+$ test 7 -lt 10 -o 6 -gt 7
+$ echo $?
+0
+</code>
+</note>
+
+Afișați la ieșirea standard numele, grupa și nota finală a studenților selectați **separate prin virgulă**.
+</spoiler>
+
+La rularea scriptului ''extract-sort-grades'' veți obține numele studenților, grupa și nota finală pentru studenții a căror notă finală este cuprinsă între ''6'' și ''9''.
+
+=== 5.2. Sortare studenți care au nota între 6 și 9 (1p) ===
+
+În continuare actualizați scriptul folosind operatorul de secvențiere (''|'', //pipe//) și comanda ''sort'' cu opțiunile necesare pentru a sorta ieșirea comenzii în ordinea notei și apoi a grupei.
+
+<spoiler Click pentru indicații>
+<note tip>
+Pentru comanda ''sort'' folosiți ca separator de câmp (//field separator//) caraceterul virgulă ('','', //comma//). Și faceți sortarea după nota finală (al 3-lea câmp) **în format numeric** și după grupă (al 2-lea câmp).
+
+Urmăriți [[#sort_uniq|partea de demo pentru comanda sort din laborator]] pentru indicații legate de sortarea după mai multe câmpuri.
+</note>
+
+<note tip>
+Puteți folosi comanda ''sort'' la finalul comenzii ''while''. Adică ultima linie a scriptului să fie de forma<code>
+done < students.txt | sort ...
+</code>
+</note>
+</spoiler>
+
+În final, rularea scriptului ''extract-sort-grades'' va conduce la afișarea numelui, grupei și a notei finale pentru studenții care au nota finală cuprinsă între ''6'' și ''9'', sortate după nota finală și după grupă.
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -ge 6 -a "$final_grade" -le 9; then
+        echo "$name,$group,$final_grade"
+    fi
+done < students.txt | sort -t ',' -k 3,3n -k 2
+</code>
+</solution>
+
+<note>
+Pentru **1 karma point**, actualizați scriptul ''extract-sort-grades'' astfel încât să primească două argumente reprezentând intervalul de note finale în care trebuie să se afle nota pe care au obținut-o studenții care vor fi afișați. La fel ca mai sus, studenții vor fi afișați în ordinea notei și apoi în ordinea grupei.
+
+Scriptul va verifica faptul că:
+  * Primește exact două argumente.
+  * Ambele argumente sunt numere cuprinse între ''1'' și ''10''.
+  * Primul argument este strict mai mic decât al doilea.
+ 
+Dacă cele de mai sus nu sunt satisfăcute, scriptul va afișa un mesaj de eroare și își va încheia execuția.
+
+Exemple de rulare sunt:<code>
+$ ./extract-sort-grades 5 9
+$ ./extract-sort-grades 1 4
+$ ./extract-sort-grades 8 10
+</code>
+</note>
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+if test $# -ne 2; then
+    echo "Usage: $0 lower_grade upper_grade" 1>&2
+    exit 1
+fi
+
+if test "$1" -lt 1 -o "$1" -gt 10; then
+    echo "Please provide a lower_grade between 1 and 10." 1>&2
+    exit 1
+fi
+
+if test "$2" -lt 1 -o "$2" -gt 10; then
+    echo "Please provide an upper_grade between 1 and 10." 1>&2
+    exit 1
+fi
+
+if test "$1" -ge "$2"; then
+    echo "Please provide an upper_grade higher than lower_grade." 1>&2
+    exit 1
+fi
+
+lower_grade="$1"
+upper_grade="$2"
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -ge "$lower_grade" -a "$final_grade" -le "$upper_grade"; then
+        echo "$name,$group,$final_grade"
+    fi
+done < students.txt | sort -t ',' -k 3,3n -k 2,2
+</code>
+</solution>
+
+==== 6. Conversie de fișiere imagine (3p) ====
+
+Dorim să realizăm un script care să automatizeze rescalarea dimensiunii unor fișiere imagine.
+
+În arhiva  ''uso/lab10/media.zip'' aveți un set de fișiere imagine. Dezarhivați arhiva folosind comanda:
+<code Bash>
+unzip media.zip
+</code>
+Dorim să scalăm dimensiunea acestor fișiere. Pe un fișier oarecare folosiți comanda ''convert'' pentru a-i schimba dimensiunea. Spre exemplu, comanda urmatoare convertește fișierul ''input.jpg'' în fișierul ''output.jpg''.
+<code Bash>
+convert -resize 50% input.jpg output.jpg
+</code>
+
+Dorim să convertim fișierele din directorul ''media/''. Vrem ca numele noului fișier să se încheie cu ''.2''. Astfel, dacă în variabila f avem numele fișierul inițial, comanda de conversie va fi:
+<code Bash>
+convert -resize 50% "$f" "$f.2"
+</code>
+
+<note>
+Având o cale către un fișier, putem obține numele și extensia acestuia folosind comanda ''basename''.
+<code bash>
+filename=$(basename "$fullfile") #filename.ext
+extension="${filename##*.}"      #ext
+filename="${filename%.*}"        #filename
+</code>
+</note>
+
+Realizați un script numit ''convert-scale-images'' care să convertească toate fișierele din directorul ''media/'' în fișiere noi care să se încheie cu ''.2''.
+
+<note tip>
+Folosiți ''%%for f in * ...%%'' pentru parcurgerea fișierelor.
+</note>
+
+Actualizați scriptul pentru a primi un parametru care indică scalarea conversiei. Adică dacă parametrul este ''25%'' atunci se scalează imaginea la ''25%''. Înainte și după scalarea imaginii, afișați dimensiunea imaginii la consolă.
+
+<note tip>
+Revedeți secțiunea  [[#argumente_din_linia_de_comanda | Argumente din linia de comandă ]].
+
+Folosiți comanda ''identify'' pentru a afișa dimensiunea imaginii într-un anumit format.
+</note>
+
+Actualizați scriptul pentru a primi ca argument directorul de intrare (în care se găsesc fișierele) și directorul de ieșire (în care se vor găsi fișierele convertite). Dacă directorul de ieșire nu există va fi creat.
+
+Actualizați scriptul să afișeze mesaje de eroare dacă directorul de intrare nu există. In acest caz, veti iesi din script cu un cod de eroare avand valoarea 1.
+
+<note tip>
+Verificați existența directorului folosind o construcție de forma ''if test''. 
+
+Pentru a întoarce un cod de eroare din script, folosi comanda ''exit''. [[:uso:laboratoare:laborator-06 | | Amintiți-vă ]] cum verificăm codul de succes/eroare întors de un proces. 
+</note>
+
+<note>
+Pentru **1 karma point**, actualizați scriptul ca să valideze dacă argumentul de scalare este în forma XY% unde X și Y sunt cifre. Puteți folosi pentru validare o construcție de forma
+<code Bash>
+echo "$1" | grep <suitable-regex> > /dev/null 2>&1
+</code>
+</note>
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+SCALE=$1
+IN_DIR=$2
+OUT_DIR=$3
+
+if ! test -d $IN_DIR; then
+    echo "Oh noez! Entry dir does not exist!"
+    exit 1
+fi
+
+if ! test -d $OUT_DIR; then
+    mkdir $OUT_DIR
+fi
+
+for file in $IN_DIR/*
+do
+    if test -f $file; then
+        filename=$(basename "$file")
+        convert $file -print "Size: %wx%h\n" /dev/null
+        convert -resize $1 $file $OUT_DIR/$filename.2
+        convert $OUT_DIR/$filename.2 -print "Size: %wx%h\n" /dev/null
+    fi
+done
+</code>
+</solution>
+===== Bonus =====
+
+==== 1. Selectare studenți după notă fracționară (1 karma point) ====
+
+Ne propunem să selectăm studenții care au obținut la testul grilă notă mai mare sau egală cu ''8''. Este vorba de coloana a 4-a din fișierele de intrare (''students.txt'' sau ''students.csv'').
+
+Creați un script numit ''extract-students-test-over-8'' care afișează numele, grupa și nota la testul grilă, separate prin virgulă ('','', //comma//) pentru studenții care au obținut o notă mai mare sau egală cu ''8'' la testul grilă.
+
+Puteți folosi ca intrare fie fișierul ''students.txt'' fie fișierul ''students.csv''.
+
+<spoiler Click pentru indicații>
+<note tip>
+Notele la testul grilă sunt numere fracționare (//float//). Întrucât în shell nu se pot efectua operații pe numere fracționare (însemnând că nu putem face comparații), va trebui să folosiți utilitarul ''bc''.
+
+Utilitarul ''bc'' permite comparații pe numere fracționare afișând ''0'' în cazul în care comparația este falsă, și ''1'' în cazul în care comparația este adevărată. ''bc'' primește operațiile la intrarea standard. Mai jos sunt două exemple de folosire:<code>
+$ echo "1.4 > 2.5" | bc
+0
+$ echo "2.5 >= 1.14" | bc
+1
+</code>
+În cazul primei comenzi, ''bc'' primește la intrarea standard șirul ''1.4 > 2.5'' însemnând comparația //este 1.4 mai mare decât 2.5?//. Întrucât comparația este falsă, ''bc'' afișează ''0''.
+
+În cazul celei de-a doua comenzi, ''bc'' primește la intrarea standard șirul ''2.5 >= 1.14'' însemnând comparația //este 2.5 mai mare sau egal decât 1.14?//. Întrucât comparația este adevărată, ''bc'' afișează ''1''.
+</note>
+</spoiler>
+
+În urma rulării scriptului ''extract-students-test-over-8'' veți obține numele, grupa și nota la testul grilă, separate prin virgulă, pentru studenții care au obținut o notă mai mare sau egală cu ''8'' la testul grilă. Output-ul va conține 36 de linii.
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    cmp=$(echo "$test_grade >= 8" | bc)
+    if test "$cmp" -eq 1; then
+        echo "$name,$group,$test_grade"
+    fi
+done < students.txt
+</code>
+</solution>
+
+==== 2. Selectare studenți după note fracționare (1 karma point) ====
+
+Ne propunem să selectăm studenții care au obținut la testul grilă notă mai mare sau egală cu ''8'' (coloana a 4-a) **și** care au obținut la testul grilă notă mai mică sau egală ca cea de la testul practic (coloana a 5-a).
+
+Actualizați scriptul ''extract-students-test-over-8'' și afișați numele, grupa, nota la testul grilă și nota la testul practic, separate prin virgulă ('','', //comma//) pentru studenții care au obținut o notă mai mare sau egală cu 8 la testul grilă **și** care au obținut la testul grilă notă mai mică sau egală ca cea de la testul practic.
+
+Puteți folosi ca intrare fie fișierul ''students.txt'' fie fișierul ''students.csv''.
+
+Output-ul scriptului va conține 3 linii de forma:<code>
+MUȘATESCU V. Alexandru-Petrișor,311CC,8.5,9
+NEACȘU C. Florin-Mărgărit,314CC,9,9
+ȘTIRBĂȚ A. Steliana,315CC,10,10
+</code>
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    cmp_test_8=$(echo "$test_grade >= 8" | bc)
+    cmp_test_practical=$(echo "$test_grade <= $practical_grade" | bc)
+    if test "$cmp_test_8" -eq 1 -a "$cmp_test_practical" -eq 1; then
+        echo "$name,$group,$test_grade,$practical_grade"
+    fi
+done < students.txt
+</code>
+</solution>
+
+==== 3. Sortare studenți în grupă (1 karma point) ====
+
+Ne propunem să afișăm studenții unei grupe, sortați după nota finală (coloana a 3-a).
+
+Creați un script numit ''sort-students-by-group'' care primește ca argument un șir reprezentând grupa și afișează numele și nota finală, separate prin virgulă ('','', //comma//), a studenților din acea grupă sortați după nota finală. Realizați sortare inversă (//reverse//) astfel încât cele mai mari note să fie primele.
+
+<note tip>
+Nota finală, după care se face sortarea, este o valoare **numerică**.
+</note>
+
+Scriptul trebuie să afișeze un mesaj de eroare în cazul în care nu primește exact un argument sau în cazul în care argumentul nu reprezintă o grupă validă. Grupe valide sunt ''311CC'', ''312CC'', ''313CC'', ''314CC'', ''315CC''.
+
+<note>
+Puteți valida parametrul comparând pe rând cu fiecare dintre cele 5 grupe valide. Sau puteți folosi expresii regulate printr-o construcție de forma<code>
+echo "$1" | grep '...' > /dev/null
+if test $? -eq 0; then   # if group was matched
+    ...
+</code>
+</note>
+
+Puteți folosi ca intrare fie fișierul ''students.txt'' fie fișierul ''students.csv''.
+
+<solution -hidden>
+<code bash>
+#!/bin/bash
+
+if test $# -ne 1; then
+    echo "Usage: $0 group" 1>&2
+    exit 1
+fi
+
+if test "$1" != "311CC" -a "$1" != "312CC" -a "$1" != "313CC" \
+    -a "$1" != "314CC" -a "$1" != "315CC"; then
+    echo "Please provide a valid group." 1>&2
+    exit 1
+fi
+
+match_group="$1"
+
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$group" == "$match_group"; then
+        echo "$name,$final_grade"
+    fi
+done < students.txt | sort -t ',' -k2,2nr
+</code>
+</solution>
+==== 4. Sortare grupe după note de 10 obținute de studenți (2 karma points) ====
+
+Ne propunem să afișăm grupele sortate în funcție de câți studenți din acea grupă au obținut nota ''10''.
+
+Creați un script numit ''sort-groups-by-grade'' care afișează fiecare grupă și numărul de note de ''10'' obținute de studenții din acea grupă, separate prin virgulă ('','', //comma//), sortate după numărul de note de ''10''. Sortarea să fie inversă, adică grupele cu cele mai multe note de ''10'' să fie primele.
+
+<spoiler Click pentru indicații>
+<note tip>
+În Bash puteți folosi array-uri asociative, adică array-uri pentru care indexul poate fi un șir, nu neapărat un număr.
+
+Un mod simplu prin care putem să inițializăm și să afișăm un array asociativ este descris mai jos, împreună cu un exemplu de rulare. Puteți pleca de la acest exemplu în rezolvarea acestui exercițiu. Scriptul ''sample-bash-associative-array'' se găsește în directorul laboratorului în subdirectorul ''process-table-data/''.<code>
+student@mjolnir:~/uso.git/lab11/process-table-data$ cat sample-bash-associative-array 
+#!/bin/bash
+
+# Initialize grades array.
+declare -A grades
+for group in "311CC" "312CC" "313CC" "314CC" "315CC"; do
+    grades["$group"]=2
+done
+
+# Print groups and grades.
+for group in "311CC" "312CC" "313CC" "314CC" "315CC"; do
+    echo "$group,${grades[$group]}"
+done
+student@mjolnir:~/uso.git/lab11/process-table-data$ ./sample-bash-associative-array 
+311CC,2
+312CC,2
+313CC,2
+314CC,2
+315CC,2
+</code>
+
+Pentru informații detaliate despre array-uri în shell aveți două posibilități:
+  - Cautați în pagina de manual a ''bash'' șirul //Arrays// și localizați secțiunea corespunzătoare.
+  - Căutați pe Google după șirul [[https://www.google.com/search?q=bash+arrays|bash arrays]]. Puteți da click pe link.
+</note>
+
+<note tip>
+Acest exercițiu poate fi rezolvat și cu un one liner. Dacă folosiți corespunzător filtre de text precum ''cut'', ''tr'', ''sed'', ''awk'', ''grep'', ''sort'', ''uniq'', veți putea obține aceeași soluție, fără să folosiți array-uri asociative.
+</note>
+</spoiler>
+
+Puteți folosi ca intrare fie fișierul ''students.txt'' fie fișierul ''students.csv''.
+
+În cazul unei implementări corecte, în urma rulării scriptului veți obține output-ul<code>
+314CC,4
+311CC,3
+315CC,3
+313CC,2
+312CC,1
+</code>
+
+Grupa ''314CC'' este prima grupă afișată întrucât are cel mai mare număr de studenți care au obținut nota ''10'': ''4'' studenți. Grupa ''312CC'' este ultima grupă afișată întrucât are cel mai mic număr de studenți care au obținut nota ''10'': ''1'' student.
+
+<solution -hidden>
+O soluție, ceva mai greu de urmărit, este un one liner-ul următor<code>
+student@mjolnir:~/uso/lab10$ cut -f 2,3 students.txt  | sort | grep '10$' | uniq -c | sort -k 1,1rn | sed 's/^ *//g' | tr '\t' ' ' | cut -d ' ' -f 1,2 | tr ' ' ',' | awk -F ',' '{print $2 "," $1;}'
+314CC,4
+311CC,3
+315CC,3
+313CC,2
+312CC,1
+</code>
+
+<code bash>
+#!/bin/bash
+
+# Initialize grades array.
+declare -A grades
+for group in "311CC" "312CC" "313CC" "314CC" "315CC"; do
+    grades["$group"]=0
+done
+
+# Fill grades array. Each time a 10 grade is found, do an increment.
+IFS=$'\t'
+while read name group final_grade test_grade practical_grade; do
+    if test "$final_grade" -eq 10; then
+        ((grades["$group"]++))
+    fi
+done < students.txt
+
+# Print groups and grades and sort.
+for group in "311CC" "312CC" "313CC" "314CC" "315CC"; do
+    echo "$group,${grades[$group]}"
+done | sort -t ',' -k 2,2rn
+</code>
+</solution>
+
+
+===== Sumar =====
+
+Pe parcursul acestui laborator am acoperit câteva aspecte practice legate de expresii regulate si shell scripting.
+
+Expresiile regulate reprezintă șiruri de caractere în care unele caractere au rol special și pot ține locul altor caractere. Spunem că o expresie regulată se potrivește sau //face match// pe un șir dat (sau pe mai multe șiruri). Exemple de caractere speciale sunt:
+  * ''^'' (început de rând)
+  * ''$'' (sfârșit de rând)
+  * ''*'' (expresia anterioară de oricâte ori, posibil niciodată)
+  * ''+'' (expresia anterioară de oricâte ori, cel puțin o dată)
+  * ''.'' (orice caracter)
+Expresiile regulate sunt folosite pentru căutare, selecție și verificare în secțiuni text.
+
+Expresiile regulate sunt întâlnite în toate limbajele de programare. În shell, utilitare precum ''grep'', ''sed'', ''awk'' folosesc expresii regulate. ''grep'' primește ca argument o expresie regulată și un fișier sau set de fișiere unde face căutarea; ''grep'' va afișa liniile care conțin șiruri pe care face match expresia regulată primită ca argument.
+
+Putem manipula diverse data folosind utilitarele ''tr'', ''sed'', ''cut'', ''awk'', ''sort''.
+
+Utilitarul tr permite translatarea, ștergerea și manipularea caracterelor primite la intrare. Sed este un stream editor ce poate efectua transformări la nivel de string asupra unui text primit la intrare. În plus, sed poate primi expresii regulate ca argument de căutare.
+
+Utilitarul ''cut'' permite extragerea informațiilor structurate pe linii și coloane. Utilitarul ''awk'' permite aceleași acțiuni ca și ''cut'', dar funcționalitatea sa este mai extinsă. O diferența intre cut și awk este că awk poate folosi o expresie regulată ca delimitator, pe când cut acceptă un singur caracter.
+
+În shell, pentru sortarea datelor putem folosi comanda ''sort''. Comanda ''sort'' două opțiuni importante:
+  * ''-t'' care precizează separatorul de câmpuri (//field separator//)
+  * ''-k'' care precizează cheia/cheile după care se face sortarea. De obicei opțiunea va fi folosită, de exemplu, în forma ''-k 2,2'', însemnând că sortarea se face după a doua cheie.
+
+Un script shell este un fișier text care conține comenzi și construcții specifice shell-ului. Un script contine comenzi uzuale folosite în shell, dar si construcții specifice precum ''while'', ''if'', ''for''. 
+
+Un script moștenește variabilele de mediu ale shell-ului părinte precum ''HOME'', ''BASH'', ''IFS'', ''USER''. Pe lângă aceste variabile, scriptul poate primi o serie de argumente din linia de comandă pe care le putem folosi cu ajutorul: ''$*'', ''$@'', ''$1, $2 … $n'', ''$0'',''$#''.
+
+Pentru parsarea datelor tabelare în scriptuti, putem folosi construcția ''%%while read ...%%'' în conjuncție cu variabila internă ''IFS'' (//Input Field Separator//). Cu ajutorul construcției putem citi linie cu linie și apoi parsa câmpurile fiecărei linii și stoca în variabile individuale. Apoi putem face operații pe acele câmpuri.
+
+Pentru verificarea diverselor conditii in scripturi putem folosi constructia ''%%if test ...%%''.
+

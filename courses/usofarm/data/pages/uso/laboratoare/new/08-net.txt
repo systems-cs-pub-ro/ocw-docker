@@ -1,0 +1,7 @@
+====== Laborator 09: Rețelistică și Internet ======
+
+{{page>:uso:laboratoare:new:08-net:setup&nofooter&noeditbutton}}
+
+===== Cuprins =====
+
+{{page>uso:laboratoare:new:08-net:nav&noheader&nofooter&noeditbutton}}

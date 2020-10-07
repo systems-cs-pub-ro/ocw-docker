@@ -1,0 +1,628 @@
+====== Curs 08 - Administrate spațiului de stocare =======
+
+  * [[https://drive.google.com/file/d/10cASEhrqAT-MhE3ylqgZCgMwoOcSJjmc/view?usp=sharing| Slide-uri curs]]
+  * [[https://drive.google.com/file/d/1dRE9B9XufbiezELaI6AENgdEhmTmHpLO/view?usp=sharing| Handout 3on1 and notes space]]
+  * [[https://drive.google.com/file/d/1EfU8Myt7O3rCMHVBD19jKRXFcMqePaEZ/view?usp=sharing| Handout 6on1]]
+  * **Cuvinte cheie**: HDD, SSD, Partiționare, Formatare, MBR, GPT, RAID, Back-up, LVM, mount, umount
+  * **Suport de curs**
+    * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-10-storage.pdf | Capitolul 10 - Administrarea spațiului de stocare]]
+
+<hidden>
+
+
+===== Demo-uri =====
+
+Pentru rularea demo-urilor de mai jos folosim [[http://repository.grid.pub.ro/cs/uso/USO%20Demo.ova|mașina virtuală USO Demo]]. Mașina virtuală (în format OVA) poate fi importată în VirtualBox. Comenzile le vom rula în cadrul mașinii virtuale.
+
+Mașina virtuală deține două interfețe de rețea:
+  * ''eth0'' pentru accesul la Internet (interfață de tipul NAT)
+  * ''eth1'' pentru comunicarea cu sistemul fizic (gazdă, //host//) (interfață de tipul //Host-only Adapter//)
+
+Pentru a rula demo-ul avem două opțiuni:
+  - Folosim direct consola mașinii virtuale.
+  - Aflăm adresa IP de pe interfața ''eth1'' a mașinii virtuale și ne conectăm prin SSH, de pe sistemul fizic, folosind comanda<code>
+ssh student@<adresa-IP-vm-eth1>
+</code> unde ''<adresa-IP-vm-eth1>'' este adresa IP a interfeței ''eth1'' din cadrul mașinii virtuale.
+
+Pentru conectarea la mașina virtuală folosim numele de utilizator ''student'' cu parola ''student''. Contul ''student'' are permsiuni de ''sudo''. Folosind comanda<code>
+sudo su -
+</code>
+obținem permisiuni privilegiate (de ''root'') în shell.
+
+<note>
+Dacă dorim să ne conectăm pe SSH iar mașina virtuală nu are adresă IP configurată pe interfața ''eth1'' atunci folosim comanda<code>
+sudo dhclient eth1
+</code>
+pentru a obține o adresă IP.
+</note>
+
+<note>
+Dacă optăm pentru rularea prin SSH iar sistemul fizic rulează Windows, putem folosi [[http://www.chiark.greenend.org.uk/~sgtatham/putty/|Putty]] pe post de client SSH pe sistemul fizic.
+</note>
+
+<note>
+Comenzile folosite sunt de uz general. Actualizând adresele IP cu adrese potrivite, putem rula cu succes comenzile pe orice sistem sau mașină virtuală Linux.
+</note>
+
+<note important>
+Toate comenzile de mai jos au loc pe **mașina virtuală**, accesibilă la [[http://repository.grid.pub.ro/cs/uso/USO%20Demo.ova|acest link]].
+</note>
+
+<note>
+În mod tradițional, configurarea rețelei în sistemele Linux/Unix s-a făcut cu ajutorul comenzilor ''ifconfig'' și ''route''. Aceste comenzi sunt încă active; pe Linux, însă, se recomandă folosirea comenzii ''ip'' din suita/pachetul ''iproute2'', o comandă mai puternică și mai flexibilă.
+
+În demo vom folosi comanda ''ip''; pentru folosirea comenzilor ''ifconfig'' și ''route'' putem consulta tutoriale pe Internet; modul de folosire este apropiat comenzii ''ip''.
+</note>
+
+==== Vizualizarea interfețelor de rețea ====
+
+Interfața în linia de comandă ne ajută pentru vizualizarea rapidă a interfețelor de rețea prin rularea comenzii<code>
+student@uso-demo:~$ ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:f1:16:da brd ff:ff:ff:ff:ff:ff
+</code>
+Comanda ''ip link show'' afișează interfețele de rețea ale sistemului și tipul acestora.
+
+Comanda ''ip'', folosită în configurarea rețelei în Linux are argumente care pot fi prescurtate. Astfel, forma uzuală în care rulăm comanda de mai sus este<code>
+student@uso-demo:~$ ip l s
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:f1:16:da brd ff:ff:ff:ff:ff:ff
+</code>
+
+În urma rulării ne sunt afișate cele trei interfețe ale sistemului:
+  - interfața virtuală ''lo'' (numită și interfață de loopback -- indicat de șirul ''link/loopback'' în output)
+  - interfața fizică (din perspectiva mașinii virtuale) ''eth0'' (de tip //Ethernet// -- indicat de șirul ''link/ether'' în output)
+  - interfața fizică (din perspectiva mașinii virtuale) ''eth1'' (de tip //Ethernet// -- indicat de șirul ''link/ether'' în output)
+
+Interfața virtuală ''lo'' este o interfață virtuală specială. Ea referă sistemul curent (o auto-referință) și este utilă atunci când dorim să pornim servicii de rețea accesibile doar local sau pentru testare. Interfața este activă și atunci când nu avem conexiune la Internet.
+
+În cazul interfețelor fizice ''eth0'' și ''eth1'' observăm că avem indicatorul ''UP'' deci cele două interfețe sunt active.
+
+==== Vizualizarea adresei IP și adresei MAC pe interfețele sistemului ====
+
+Prin rularea comenzii ''ip address show'' (sau, mai uzual, ''ip a s'') putem afla informații despre interfețele sistemului precum adresa MAC și adresa IP:<code>
+student@uso-demo:~$ ip a s
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:feea:9b3f/64 scope link
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:f1:16:da brd ff:ff:ff:ff:ff:ff
+    inet 192.168.56.100/24 brd 192.168.56.255 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fef1:16da/64 scope link
+       valid_lft forever preferred_lft forever
+</code>
+
+<note>
+Observăm că aceleași informații pe care le-a afișat comanda ''ip l s'' sunt acum vizibile și aici împreună cu alte informații. Din acest motiv, este mai rar folosită comanda ''ip l s''; adesea folosim comanda ''ip a s'' pentru a afișa interfețele sistemului și informații despre acestea.
+</note>
+
+  - Interfața virtuală ''lo'' are adresa IP ''127.0.0.1'' (pe linia cu ''inet'') și adresa MAC ''00:00:00:00:00:00'' (pe linia cu ''link/loopback'').
+  - Interfața fizică (din perspectiva mașinii virtuale) ''eth0'' (de tip //Ethernet//) are adresa IP ''10.0.2.15'' și adresa MAC ''08:00:27:ea:9b:3f''. Adresa pot diferi la rularea mașinii virtuale pe un alt sistem.
+  - Interfața fizică (din perspectiva mașinii virtuale) ''eth1'' (de tip //Ethernet//) are adresa IP ''192.168.56.100'' și adresa ''08:00:27:f1:16:da''. Adresele pot diferi la rularea mașinii virtuale pe un alt sistem.
+
+<note>
+În output-ul comenzii sunt indicate și adresle IPv6, dar nu vom insista pe acestea.
+</note>
+
+==== Verificarea funcționării serviciului DNS ====
+
+Pentru a verifica funcționarea serviciului DNS putem folosi, simplist, comanda ''ping'' care verifică dacă avem conectivitate:<code>
+student@uso-demo:~$ ping google.com
+PING google.com (80.96.255.110) 56(84) bytes of data.
+64 bytes from cache.google.com (80.96.255.110): icmp_seq=1 ttl=63 time=47.9 ms
+64 bytes from cache.google.com (80.96.255.110): icmp_seq=2 ttl=63 time=57.0 ms
+^C
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1000ms
+rtt min/avg/max/mdev = 47.961/52.499/57.038/4.544 ms
+</code>
+Prima linie din output-ul comenzii ne indică faptul că aceasta a translatat numele ''google.com'' în adresa ''80.96.255.110'' interogând în spate, transparent utilizatorului, serviciul DNS.
+
+<note important>
+Când rulăm comanda ''ping'' pe Linux aceasta trimite în mod continuu pachete. Ca să oprim comanda/procesul folosim combinația de taste ''Ctrl+c''.
+</note>
+
+Totuși, modul recomandat de verificare a funcționării serviciului DNS este folosirea unei comenzi de tip client DNS. O astfel de comandă este comanda ''host'':<code>
+student@uso-demo:~$ host google.com
+google.com has address 80.96.255.109
+google.com has address 80.96.255.95
+google.com has address 80.96.255.82
+google.com has address 80.96.255.123
+google.com has address 80.96.255.116
+google.com has address 80.96.255.102
+google.com has address 80.96.255.103
+google.com has address 80.96.255.117
+google.com has address 80.96.255.89
+google.com has address 80.96.255.96
+google.com has address 80.96.255.88
+google.com has address 80.96.255.110
+google.com has IPv6 address 2a00:1450:401b:801::200e
+google.com mail is handled by 30 alt2.aspmx.l.google.com.
+google.com mail is handled by 10 aspmx.l.google.com.
+google.com mail is handled by 50 alt4.aspmx.l.google.com.
+google.com mail is handled by 20 alt1.aspmx.l.google.com.
+google.com mail is handled by 40 alt3.aspmx.l.google.com.
+
+student@uso-demo:~$ host cs.curs.pub.ro
+cs.curs.pub.ro is an alias for ha-webserver-01-pub.curs.pub.ro.
+ha-webserver-01-pub.curs.pub.ro has address 141.85.241.51
+
+student@uso-demo:~$ host ocw.cs.pub.ro
+ocw.cs.pub.ro has address 141.85.227.65
+ocw.cs.pub.ro mail is handled by 10 ocw.cs.pub.ro.
+</code>
+
+În output-ul comenzii am identificat adresele IP corespunzătoare pentru ''google.com''; sunt, în mod așteptat, mai multe adrese IP; un singur server nu ar rezista la multitudinea de cereri din Internet către engine-ul Google. Am identificat adresa IP pentru ''cs.curs.pub.ro'' și pentru ''ocw.cs.pub.ro''.
+
+Atunci când comanda ''host'' întoarce succes pentru un nume comun (precum ''google.com'') înseamnă că serviciul DNS funcționează.
+
+==== Latența DNS în Internet ====
+
+//%%You know it's love when you memorize her IP number to skip DNS overhead.%%//
+
+Atunci când folosim o aplicație de rețea, în general folosim nume, nu adrese IP. În spate aplicația va interoga serviciul DNS care va întoarce adresa IP dorită și apoi aplicația se va conecta la serviciul stației identificată cu acea adresă IP. Procesul de interogare a serviciului DNS are latență (întârziere) și acest lucru poate fi important. Din acest motiv, când folosim în special comenzi de diagnosticare și depanare a rețelei (//troubleshooting//), dorim să evităm overhead-ul dat de serviciul DNS.
+
+De exemplu, dacă dorim să afișăm conexiunile active în sistem, folosim comanda ''netstat'' ca mai jos:<code>
+student@uso-demo:~$ time netstat -t
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.56.100:ssh      192.168.56.1:34692      ESTABLISHED
+
+real	0m0.097s
+user	0m0.000s
+sys	0m0.004s
+student@uso-demo:~$ time netstat -tn
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 192.168.56.100:22       192.168.56.1:34692      ESTABLISHED
+
+real	0m0.007s
+user	0m0.000s
+sys	0m0.000s
+</code>
+
+Am folosit comanda ''time'' pentru a măsura durata comenzii transmisă ca argument. Observăm că a doua comandă ''netstat'', cu opțiunea suplimentară ''-n'' durează mai puțin (timpul real de execuție este de ''7'' milisecunde față de ''97'' de milisecunde). Opțiunea ''-n'' dezactivează interogarea serviciului DNS și de aceea este mai rapidă.
+
+<note important>
+În general, în comenzile de diagnosticare și depanare a rețelei vom folosi opțiunea ''-n'' pentru a obține comenzi mai rapide care să nu țină cont de latența serviciului DNS.
+</note>
+
+==== Afișarea serviciilor active și a conexiunilor active ====
+
+Pentru a ști ce aplicații de rețea (de tip client sau de tip server) rulează pe sistemul nostru, folosim comanda ''netstat'' (de le //network statistics//).
+
+Dacă vrem să afișăm serviciile TCP din sistem folosim comanda<code>
+student@uso-demo:~$ netstat -tln
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:44292           0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN
+tcp6       0      0 :::35042                :::*                    LISTEN
+tcp6       0      0 :::111                  :::*                    LISTEN
+tcp6       0      0 :::22                   :::*                    LISTEN
+tcp6       0      0 ::1:25                  :::*                    LISTEN
+
+student@uso-demo:~$ sudo netstat -tlpn
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:44292           0.0.0.0:*               LISTEN      482/rpc.statd
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      473/rpcbind
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      498/sshd
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      771/exim4
+tcp6       0      0 :::35042                :::*                    LISTEN      482/rpc.statd
+tcp6       0      0 :::111                  :::*                    LISTEN      473/rpcbind
+tcp6       0      0 :::22                   :::*                    LISTEN      498/sshd
+tcp6       0      0 ::1:25                  :::*                    LISTEN      771/exim4
+</code>
+
+Am folosit următoarele opțiuni ale comenzii ''netstat'':
+  * ''-t'' afișează informații despre TCP
+  * ''-l'' afișează procesele în starea //listening//, adică serviciile sistemului
+  * ''-n'' dezactivează interogarea serviciului DNS pentru o rulare mai bună a comenzii
+  * ''-p'' afișează PID-ul și numele procesului aferent
+
+<note important>
+Atunci când folosim opțiunea ''-p'' pentru afișarea PID-ului și numelui procesului aferent trebuie să rulăm cu drepturi privilegiate. De aceea am folosit ''sudo'' în fața comenzii ''netstat -tlpn''.
+</note>
+
+În output-ul de mai sus observăm serviciile TCP ale sistemului, printre care serverul de SSH (procesul ''sshd'') care ascultă conexiuni pe portul ''22'' și serverul de e-mail (procesul ''exim4'') care ascultă conexiunie pe portul ''25''.
+
+Dacă dorim să afișăm conexiunile active TCP din sistem (adică nu aplicații de tip server care ascultă, ci conexiuni realizate între o aplicație client și o aplicație server) folosim comanda<code>
+student@uso-demo:~$ sudo netstat -tpn
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 192.168.56.100:22       192.168.56.1:34692      ESTABLISHED 896/sshd: student [
+</code>
+Față de comanda anterioară, am scos opțiunea ''-l'' (pentru servicii). Observăm că, în cazul de față, avem o conexiune realizată către serviciul local SSH (adresa IP ''192.168.56.100'' este adresa interfeței locale ''eth1'', iar portul ''22'' este portul pe care asculă serviciul SSH) de la o aplicație client care s-a conectat de la adresa ''192.168.56.1'' de pe portul ''34692''. Această conexiune apare întrucât, în situația curentă, există o conexiune SSH de pe sistemul fizic pe mașina virtuală; pe această conexiune noi rulăm de fapt comenzile.
+
+==== Pornirea unui serviciu ====
+
+Dacă dorim să pornim un serviciu de test, putem folosi comanda ''netcat'' (sau forma sa prescurtată ''nc''). De exemplu, dacă dorim să pornim un serviciu pe portul ''12345'' vom folosi comanda<code>
+student@uso-demo:~$ nc -l -p 12345
+
+</code>
+În urma rulării consola nu mai afișează prompt, întrucât serviciul proaspăt pornit așteaptă cereri de conectare. Putem verifică pornirea serviciului cu ajutorul comenzii ''netstat'':<code>
+student@uso-demo:~$ sudo netstat -tlpn
+[...]
+tcp        0      0 0.0.0.0:12345           0.0.0.0:*               LISTEN      1017/nc
+[...]
+</code>
+Observăm procesul ''nc'' cu PID-ul ''1017'' care ascultă conexiuni pe portul ''12345''.
+
+Pentru a realiza o conexiune la acest serviciu, pe o altă consolă, putem folosi tot comanda ''netcat''/''nc'' dar în modul client:<code>
+student@uso-demo:~$ nc localhost 12345
+
+</code>
+Cu ajutorul comezii de mai sus am inițiat o conexiune către serviciul pornit local (''localhost'' este un alias pentru adresa ''127.0.0.1'', stația locală) pe portul ''12345''. Din nou, nu se afișează prompt, pentru că se așteaptă comunicarea de informații către server.
+
+Pentru a verifica realizarea cu succes a conexiunii rulăm, pe o altă consolă, comanda<code>
+student@uso-demo:~$ sudo netstat -tnp
+Active Internet connections (w/o servers)
+[...]
+tcp        0      0 127.0.0.1:12345         127.0.0.1:52791         ESTABLISHED 1039/nc
+tcp        0      0 127.0.0.1:52791         127.0.0.1:12345         ESTABLISHED 1040/nc
+</code>
+Observăm că avem o conexiune între cele două procese ''nc''. Apare de două ori aceeași conexiune pentru că e afișată din perspectiva ambelor procese: procesul server lucrează pe stația locală, adresa IP ''127.0.0.1'' pe portul ''12345'', iar procesul client lucrează pe stația locală, adresa ''127.0.0.1'' pe portul ''52791''.
+
+Ce scriem acum în consola clientului va ajunge la server și invers.
+
+<note>
+Pentru a închide comunicația putem folosi
+  * combinația de taste ''Ctrl+c'' pentru a închide unul dintre procese și, în felul acesta, și pe celălalt care nu mai are cu cine să comunice
+  * combinația de taste ''Ctrl+d'' în client pentru a transmite ''EOF'' (//end of file//) și a închide astfel canalul de comunicație
+</note>
+
+==== Vizualizarea adresei de broadcast pe o interfață ====
+
+Adresa de broadcast a unei interfețe este vizibilă folosind comanda ''ip a s''. Mai sus, am rulat comanda ''ip a s'' și am putut vedea adresele de broadcast de pe cele două interfețe fizice ale sistemului: ''eth0'' și ''eth1''. Aceste adrese de broadcast sunt:
+  * adresa de broadcast ''10.0.2.255'' pe interfața ''eth0''
+  * adresa de broadcast ''192.168.56.255'' pe interfața ''eth1''
+
+<note>
+Interfața ''lo'' nu are adresă de broadcast pentru că este o interfață locală și are nevoie să comunice cu toate stațiile din rețeaua sa (semnificația adresei de broadcast); pentru că nu există alte stații în rețeau sa :-)
+</note>
+
+==== Vizualizarea gateway-ului într-un sistem Linux ====
+
+Pentru a vizualiza gateway-ului într-un sistem Linux folosim comanda ''ip route show'' sau forma scurtă a acesteia ''ip r s''<code>
+student@uso-demo:~$ ip r s
+default via 10.0.2.2 dev eth0
+10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.15
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+</code>
+
+În vreme ce comanda ''ip a s'' ne afișa informații despre adresele interfețelor, comanda ''ip r s'' ne afișează informații despre rute și despre default gateway.
+
+Nu vom discuta despre ultimele două intrări; pe scurt, o interfață configurată va conduce la o rută; avem două interfețe configurate (''eth0'' și ''eth1'') deci avem două rute. Ne interesează prima linie, care conține șirul ''default'' și care, deci, indică (//default//) gateway-ul. Acesta are adresa ''10.0.2.2''.
+
+Putem testa conectivitatea la gateway cu ajutorul comenzii ''ping'':<code>
+student@uso-demo:~$ ping 10.0.2.2
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=63 time=0.370 ms
+64 bytes from 10.0.2.2: icmp_seq=2 ttl=63 time=0.258 ms
+^C
+--- 10.0.2.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.258/0.314/0.370/0.056 ms
+</code>
+Așa cum era de așteptat, avem conectivitate la gateway. Dacă nu am fi avut, nu am fi putut folosi ''ping'' pentru testa conectivitatea la ''google.com'', cum am făcut mai sus.
+
+==== Vizualizarea ruterelor către o stație din Internet ====
+
+Pentru a vedea ruterele prin care trecem ca să ajungem la o destinație în Internet folosimd comanda ''traceroute''. Comanda este utilă în special pentru depanare, când ne propunem să vedem unde (în ce ruter) se estompează pachetele.<code>
+student@uso-demo:~$ traceroute -n hotnews.ro
+traceroute to hotnews.ro (91.195.7.1), 30 hops max, 60 byte packets
+ 1  10.0.2.2  0.364 ms  0.148 ms  0.299 ms
+ 2  * * *
+ 3  10.252.247.2  58.589 ms  58.430 ms  58.263 ms
+ 4  172.19.29.92  58.000 ms  57.879 ms  57.710 ms
+ 5  172.22.23.245  57.555 ms  57.363 ms  57.185 ms
+ 6  * * *
+ 7  * * *
+ 8  93.186.132.13  58.498 ms  58.209 ms  58.006 ms
+ 9  * * *
+10  * * *
+11  91.195.7.1  49.132 ms  59.467 ms  60.004 ms
+</code>
+
+În output-ul de mai sus vedem că avem 10 rutere intermediare până la destinația finală (''hotenews.ro''), care are index-ul 11 și adresa IP ''91.195.7.1''. Dacă ar fi fost probleme într-un punct din Internet pachetele s-ar fi oprit acolo, nu ar fi trecut mai departe. Așa cum este de așteptat primul punct intermediar este chiar gateway-ul cu adresa IP ''10.0.2.2''.
+
+<note>
+Cu cât o stație destinație este mai departe în Internet cu atât numărul de rutere intermediare (numite și //hop//-uri) este mai mare.
+</note>
+
+<note>
+Output-ul de mai sus diferă de la caz la caz. În funcție de unde vă aflați în Internet (în ce rețea de ISP -- //Internet Service Provider//) ruterele intermediare vor fi altele.
+</note>
+
+==== Vizualizarea unei comunicații DHCP ====
+
+Pentru interfața ''eth0'' adresa IP a fost obținută prin DHCP. Putem vizualiza acest lucru urmărind fișierele de jurnal<code>
+student@uso-demo:~$ sudo grep DHCP /var/log/syslog
+[...]
+Nov 22 21:23:19 uso-demo networking[241]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 5
+Nov 22 21:23:19 uso-demo networking[241]: DHCPREQUEST on eth0 to 255.255.255.255 port 67
+Nov 22 21:23:19 uso-demo networking[241]: DHCPOFFER from 10.0.2.2
+Nov 22 21:23:19 uso-demo networking[241]: DHCPACK from 10.0.2.2
+[...]
+</code>
+Putem observa din mesaje că la o cerere a stației curente, serverul DHCP (adresa IP ''10.0.2.2'') i-a oferit adresa IP stației curente pe interfața ''eth0''.
+
+<note>
+Observăm că serverul DHCP este și gateway-ul rețelei locale. Este uzual ca sistemul care este gateway să ruleze și un server DHCP care să ofere adrese IP în rețeaua locală.
+</note>
+
+==== Preambul pentru configurarea accesului la Internet ====
+
+Pentru exercițiile de configurare care urmează vom folosi interfața ''eth0''. În demo-urile curente interfața ''eth0'' are adresa IP distribuită prin DHCP ''10.0.2.15''. Pentru configurările statice, vom folosi adresa IP ''10.0.2.16''.
+
+Înainte de orice configurare vom %%"curăța"%% configurația curentă pe interfață prin rularea comenzii ''ip address flush eth0'' (sau forma uzuală ''ip a f eth0''):<code>
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:feea:9b3f/64 scope link
+       valid_lft forever preferred_lft forever
+student@uso-demo:~$ sudo ip a f eth0
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+</code>
+Observăm că după rularea comenzii ''sudo ip a f eth0'' (este nevoie de permisiuni privilegiate), configurările de adresă IP pe interfața ''eth0'' au dispărut.
+
+Pentru configurarea conexiunii la Internet trebuie să configurăm trei componente:
+  - adresă IP și macă de (sub)rețea
+  - gateway
+  - server DNS
+
+Pentru configurarea serverului de DNS, indiferent de tipul de configurare, trebuie să edităm fișierul ''/etc/resolv.conf''. Dacă dorim să schimbăm conținutul său putem face acest lucru:<code>
+student@uso-demo:~$ cat /etc/resolv.conf
+nameserver 93.122.135.198
+nameserver 62.217.213.71
+student@uso-demo:~$ vi /etc/resolv.conf
+student@uso-demo:~$ sudo vi /etc/resolv.conf
+student@uso-demo:~$ cat /etc/resolv.conf
+nameserver 8.8.8.8
+</code>
+
+În comanda de mai sus am schimbat serverele DNS transmise de ISP-ul din care face parte stația locală în serverele DNS de la Google. Folosim comanda ''host'' pentru a verifica funcționarea corectă a serverelor de DNS<code>
+student@uso-demo:~$ host ocw.cs.pub.ro
+ocw.cs.pub.ro has address 141.85.227.65
+ocw.cs.pub.ro mail is handled by 10 ocw.cs.pub.ro.
+</code>
+
+==== Configurarea temporară statică a unei interfețe de rețea ====
+
+Configurarea temporară statică a unei interfețe de rețea se realizează cu ajutorul comenzii ''ip address'' (pentru configurarea adresei) și ''ip route'' (pentru configurarea gateway-ului). Folosim adresa ''10.0.2.16/24'' pentru interfața ''eth0'' și adresa ''10.0.2.2'' (ca și până acum) pentru gateway.
+
+Înainte de configurare curățăm configurația interfeței ''eth0'':<code>
+student@uso-demo:~$ sudo ip a f eth0
+</code>
+și verificăm faptul că nu avem configurație activă pe interfața ''eth0'':<code>
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+student@uso-demo:~$ ip r s
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+</code>
+
+Întrucât totul este OK (nu avem configurație activă), adăugăm adresa ''10.0.2.16/24'' pe interfața ''eth0'' și adăugăm adresa ''10.0.2.2'' ca gateway:<code>
+student@uso-demo:~$ sudo ip address add 10.0.2.16/24 dev eth0
+student@uso-demo:~$ sudo ip link set eth0 up
+student@uso-demo:~$ sudo ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.16/24 scope global eth0
+       valid_lft forever preferred_lft forever
+
+student@uso-demo:~$ sudo ip route add default via 10.0.2.2
+student@uso-demo:~$ ip r s
+default via 10.0.2.2 dev eth0
+10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.16
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+</code>
+
+Comanda ''sudo ip link set eth0 up'' este folosită pentru a garanta că interfața va fi activă.
+
+<note warning>
+O greșeală frecventă este omiterea măștii în momentul în care se adaugă o adresa IP. De avut grijă ca masca să fie mereu prezentă la configurarea adresei IP pe o interfață.
+
+O altă greșeală frecventă este omiterea activării interfeței. O interfață permite adăugarea de adrese IP fără a fi activată. Activarea unei interfețe se face cu ajutorul comenzii:<code>
+sudo ip link set <ifname> up
+</code>
+unde ''<ifname>'' este numele interfeței pe care dorim să o activăm.
+</note>
+
+<note important>
+Configurările necesită privilegii: fie rulăm ca ''root'' fie prefixăm comenzile de configurare cu ''sudo''.
+</note>
+
+După configurare folosim ''ping'' pentru a testa conectivitatea la ''google.com''<code>
+student@uso-demo:~$ ping google.com
+PING google.com (80.96.255.117) 56(84) bytes of data.
+64 bytes from cache.google.com (80.96.255.117): icmp_seq=1 ttl=63 time=48.9 ms
+64 bytes from cache.google.com (80.96.255.117): icmp_seq=2 ttl=63 time=35.8 ms
+^C
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 35.864/42.422/48.980/6.558 ms
+</code>
+
+==== Configurarea temporară dinamică a unei interfețe de rețea ====
+
+Configurarea dinamică înseamnă interogarea serverului de DHCP al rețelei locale.
+
+Presupunând că am curățat configurația interfeței ''eth0'', configurarea temporară dinamică a interfeței ''eth0'' o realizăm cu ajutorul comenzii<code>
+student@uso-demo:~$ sudo dhclient eth0
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+student@uso-demo:~$ ip r s
+default via 10.0.2.2 dev eth0
+10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.15
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+student@uso-demo:~$ ping google.com
+PING google.com (80.96.255.102) 56(84) bytes of data.
+64 bytes from cache.google.com (80.96.255.102): icmp_seq=1 ttl=63 time=37.1 ms
+^C
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 37.144/37.144/37.144/0.000 ms
+</code>
+
+După configurarea temporară de mai sus am afișat configurația curentă și am testat conectivitatea la ''google.com''.
+
+==== Configurarea persistentă statică a unei interfețe de rețea ====
+
+Pentru configuarea persistentă, avem nevoie de un fișier de configurare. Pe distribuțiile Debian-based, acest fișier de configuare este ''/etc/network/interfaces''.
+
+În acest fișier modificăm configurația pentru interfața ''eth0'' într-o configurația statică pentru a avea adresa IP ''10.0.2.16/24'' pe interfața ''eth0'' și gateway-ul ''10.0.2.2'':<code>
+student@uso-demo:~$ cat /etc/network/interfaces
+[...]
+# The primary network interface
+allow-hotplug eth0
+iface eth0 inet dhcp
+student@uso-demo:~$ sudo vi /etc/network/interfaces
+student@uso-demo:~$ cat /etc/network/interfaces
+[...]
+# The primary network interface
+auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+	address 10.0.2.16
+	netmask 255.255.255.0
+	gateway 10.0.2.2
+</code>
+În configurația de mai sus am precizat că avem o configurație statică (prin folosirea cuvântului ''static'') și am precizat adresa IP, masca de (sub)rețea și gateway-ul. Linia ''auto eth0'' garantează că interfața ''eth0'' va fi configurată la pornirea sistemului.
+
+Pentru a fi siguri că am curățat orie configurație temporară și persistentă pe interfața ''eth0'' rulăm comenzile aferente<code>
+student@uso-demo:~$ sudo ip a f eth0
+student@uso-demo:~$ sudo ifdown eth0
+RTNETLINK answers: No such process
+RTNETLINK answers: No such process
+</code>
+Comanda ''ifdown eth0'' este folosită pentru a curăța configurația persistentă pe interfața ''eth0''.
+
+Pentru a activa configurația statică fie repornim mașina virtuală, fie rulăm comanda<code>
+student@uso-demo:~$ sudo ifup eth0
+</code>
+Comanda ''ifup'' este apelată și la pornirea sistemului pentru a activa interfețele configurate persistent.
+
+După rularea comenzii, verificăm configurația și testăm conectivitatea la Internet<code>
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.16/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:feea:9b3f/64 scope link
+       valid_lft forever preferred_lft forever
+student@uso-demo:~$ ip r s
+default via 10.0.2.2 dev eth0
+10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.16
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+</code>
+
+Dacă dorim să curățăm configurația de pe interfață, rulăm comanda<code>
+student@uso-demo:~$ sudo ifdown eth0
+</code>
+În urma rulării comenzii de mai sus, configurația pe interfața ''eth0'' dispare<code>
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast state DOWN group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+student@uso-demo:~$ ip r s
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+</code>
+
+==== Configurarea persistentă dinamică a unei interfețe de rețea ====
+
+Pentru configurarea persistentă dinamică (prin DHCP) folosim, la fel, fișierul ''/etc/network/interfaces'':<code>
+student@uso-demo:~$ sudo vi /etc/network/interfaces
+student@uso-demo:~$ cat /etc/network/interfaces
+[...]
+# The primary network interface
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+</code>
+Prin precizarea liniei ''iface eth0 inet dhcp'' precizăm configurația dinamică (prin DHCP).
+
+Înainte de a activa configurația ne asigurăm că am curățat configurațiile temporare și persistente anterioare:<code>
+student@uso-demo:~$ sudo ip a f eth0
+student@uso-demo:~$ sudo ifdown eth0
+ifdown: interface eth0 not configured
+</code>
+
+Apoi activăm configurația persistentă dinamică<code>
+student@uso-demo:~$ sudo ifup eth0
+Internet Systems Consortium DHCP Client 4.3.1
+Copyright 2004-2014 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/08:00:27:ea:9b:3f
+Sending on   LPF/eth0/08:00:27:ea:9b:3f
+Sending on   Socket/fallback
+DHCPREQUEST on eth0 to 255.255.255.255 port 67
+DHCPACK from 10.0.2.2
+bound to 10.0.2.15 -- renewal in 38026 seconds.
+</code>
+și verificăm configurația obținută<code>
+student@uso-demo:~$ ip a s eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:ea:9b:3f brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+student@uso-demo:~$ ip r s
+default via 10.0.2.2 dev eth0
+10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.15
+192.168.56.0/24 dev eth1  proto kernel  scope link  src 192.168.56.100
+student@uso-demo:~$ ping google.com
+PING google.com (80.96.255.88) 56(84) bytes of data.
+64 bytes from cache.google.com (80.96.255.88): icmp_seq=1 ttl=63 time=47.4 ms
+64 bytes from cache.google.com (80.96.255.88): icmp_seq=2 ttl=63 time=35.0 ms
+^C
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 35.082/41.277/47.472/6.195 ms
+</code>
+Observăm mai sus procesul DHCP și primirea adresei ''10.0.2.15'' de la serverul DHCP (cu adresa ''10.0.2.2'', adică exact gateway-ul).
+
+La fel ca mai sus, dacă dorim să curățăm configurația persistentă curentă, folosim comanda<code>
+student@uso-demo:~$ sudo ifdown eth0
+Killed old client process
+Internet Systems Consortium DHCP Client 4.3.1
+Copyright 2004-2014 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/eth0/08:00:27:ea:9b:3f
+Sending on   LPF/eth0/08:00:27:ea:9b:3f
+Sending on   Socket/fallback
+DHCPRELEASE on eth0 to 10.0.2.2 port 67
+</code>
+Observăm că se anunță serverul DHCP de eliberarea adresei IP curente prin transmiterea unui mesaj de tip ''DHCPRELEASE''.
+
+</hidden>

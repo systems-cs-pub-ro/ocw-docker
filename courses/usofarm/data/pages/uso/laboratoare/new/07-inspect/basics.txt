@@ -1,0 +1,23 @@
+===== Basics =====
+
+Prima parte a laboratorului își propune să urmărească identificarea componentelor hardware și atributelor acestora pentru un sistem existent.
+
+Înainte de a începe exercițiile nu uitați să rulați comenzile de ''Git'' din secțiunea [[https://ocw.cs.pub.ro/courses/uso/laboratoare/new/07-inspect/setup?&#folosire_git_pentru_laborator|Folosire Git pentru laborator]].
+
+==== Informații despre procesor și arhitectură (lscpu, arch) ====
+
+** Exerciții **
+  - Să se afișeze doar frecvența procesorului curent folosind comanda ''lscpu''. (hint: ''grep'')
+  - Să se afișeze doar arhitectura procesorului curent folosind comanda ''lscpu''. (hint: ''grep'')
+  - Să se afișeze numele modelului procesorului curent folosind ''procfs'' (/proc).
+
+====  Informații despre starea curentă a memoriei (free) ====
+**Exerciții**
+  - Să se afișeze informații despre memoria liberă în format human-readable. (hint: ''man free'') 
+
+==== Listare dispozitive disponibile în sistem ====
+
+**Exerciții**
+  - Afișați conținutul fișierului ''/dev/urandom'' în terminal. 
+  - Afișați conținutul fișierului ''/dev/zero'' folosind comanda ''cat''. Ce observați? 
+  - Afișați, pe rând, conținutul fișierelor de mai sus în format hexazecimal. (hint: ''xxd'' sau ''hexdump'')

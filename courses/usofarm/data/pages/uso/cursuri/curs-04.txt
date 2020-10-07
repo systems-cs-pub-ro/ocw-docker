@@ -1,0 +1,8 @@
+====== Curs 04 - Dezvoltarea programelor =======
+
+  * [[https://drive.google.com/open?id=11D95npjhs2rKBnpx_bHDh0SPTaOdCkkH | Slide-uri curs]]
+  * [[https://drive.google.com/open?id=1vUTNqrvucJ7kVts-d5kUZLBXKVqDoQ-l | Handout 3on1 and notes space]]
+  * [[https://drive.google.com/open?id=1OPwdsGEMl1ztaSLjQepqXqfxZdUUojVp | Handout 6on1]]
+  * **Cuvinte cheie**: cod sursă, cod mașină, editor, IDE, pachet Software, fișier executabil, fișier obiect, compilare, linking, interpretoare, limbajul C, gcc, modularizare, sisteme de build, make, Makefile, git
+  * **Suport de curs**
+      * [[http://elf.cs.pub.ro/uso/res/carte/uso_cap-06-appdev.pdf | Capitolul 6 - Dezvoltarea aplicațiilor]]
