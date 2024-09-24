@@ -11,4 +11,4 @@ services:
       DOKUWIKI_ADMIN_USER: admin
       DOKUWIKI_ADMIN_PASSWORD: admin123
     volumes:
-      - ../tmp:/storage
+      - ./tmp:/storage
