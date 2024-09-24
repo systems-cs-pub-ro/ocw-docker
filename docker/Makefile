@@ -1,18 +1,30 @@
-version=0.1
+version=stable
+
+IMAGE_NAME = upb-cs-ocw/dokuwiki
+IMAGE_FULL = $(IMAGE_NAME):$(version)
+
+BUILD_ARGS = --build-arg VERSION="${version}"
+BUILD_ARGS = --label VERSION="${version}"
+BUILD_ARGS += --debug 
 
 build:
-	docker image build -t upb-cs-ocw/dokuwiki:${version} --build-arg VERSION=${version} .
+	docker image build $(BUILD_ARGS) -t $(IMAGE_NAME) -t "$(IMAGE_FULL)" .
 
 run:
-	docker run -d --name ocw-dokuwiki upb-cs-ocw/dokuwiki:${version}
+	docker run --name ocw-dokuwiki "$(IMAGE_FULL)"
 
-run-web:
-	docker network create --driver bridge --label project=dokuwiki --attachable --scope local dokuwiki-network
-	docker run -d -p 80:80 --name ocw-dokuwiki --network dokuwiki-network -v `pwd`/../courses/:/var/www/html/courses/ upb-cs-ocw/dokuwiki:${version}
+compose:
+	docker compose up
+
+composed:
+	docker compose up -d
 
 bash:
-	docker exec -it ocw-dokuwiki /bin/bash
+	docker compose exec -it dokuwiki /bin/bash
 
 clean:
-	docker rm -f ocw-dokuwiki
-	docker image rm upb-cs-ocw/dokuwiki:${version}
+	docker compose down
+	docker image rm "$(IMAGE_FULL)"
+
+.PHONY: build run compose composed bash clean
+

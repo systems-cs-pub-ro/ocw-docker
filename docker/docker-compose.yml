@@ -1,0 +1,14 @@
+# Docker compose example for Dokuwiki (used for development)
+services:
+  dokuwiki:
+    image: upb-cs-ocw/dokuwiki:latest
+    user: "1000:1000"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      PHP_TIMEZONE: Europe/Bucharest
+      DOKUWIKI_ADMIN_USER: admin
+      DOKUWIKI_ADMIN_PASSWORD: admin123
+    volumes:
+      - ../tmp:/storage
