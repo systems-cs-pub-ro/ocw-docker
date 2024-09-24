@@ -10,6 +10,8 @@ LABEL maintainer="eduard.c.staniloiu@gmail.com" \
 RUN apt-get update && \
     apt-get install -y wget vim whois git
 
+COPY --chmod=0755 ./scripts/dokuwiki-install-ext.sh /dokuwiki-install-ext.sh
+RUN /dokuwiki-install-ext.sh
 
 # Install dokuwiki files with local config and farms config
 COPY ./conf/dokuwiki/conf/local.php /var/www/html/conf.core/local.php
