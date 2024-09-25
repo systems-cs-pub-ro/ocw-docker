@@ -3,6 +3,8 @@ ARG VERSION=stable
 FROM dokuwiki/dokuwiki:${VERSION} AS origin
 FROM origin
 
+ARG UNAME=app UID=1000 GID=1000
+
 LABEL maintainer="eduard.c.staniloiu@gmail.com" \
       name="UPB OCW Dokuwiki"
 
@@ -12,6 +14,10 @@ RUN apt-get update && \
 
 COPY --chmod=0755 ./scripts/dokuwiki-install-ext.sh /dokuwiki-install-ext.sh
 RUN /dokuwiki-install-ext.sh
+
+# create the default user
+RUN groupadd -g "${GID}" "${UNAME}" && \
+    useradd -l -m -u "${UID}" -g "${GID}" -s /bin/bash "${UNAME}"
 
 # Install dokuwiki files with local config and farms config
 COPY ./conf/dokuwiki/conf/local.php /var/www/html/conf.core/local.php
