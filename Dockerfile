@@ -26,6 +26,10 @@ COPY ./conf/dokuwiki/conf/acl.auth.php /var/www/html/conf.core/acl.auth.php
 COPY ./conf/dokuwiki/conf/users.auth.php /var/www/html/conf.core/users.auth.php
 COPY ./conf/dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
 
+COPY ./conf/dokuwiki/conf/conf.farm-baseurl.php /var/www/html/conf.core/conf.farm-baseurl.php
+COPY ./conf/dokuwiki/preload.append.php /var/www/html/inc/preload.append.php
+RUN cat /var/www/html/inc/preload.append.php >> /var/www/html/inc/preload.php
+
 # Override storage setup entrypoint with our own:
 COPY --from=origin /dokuwiki-storagesetup.sh /dokuwiki-storagesetup-orig.sh
 COPY --chmod=0755 ./scripts/dokuwiki-storagesetup.sh /dokuwiki-storagesetup.sh
@@ -35,4 +39,7 @@ COPY --chmod=0755 ./scripts/doku-mkadmin.sh /usr/local/bin/doku-mkadmin
 # Install apache config
 # COPY ["./conf/apache2/sites-available/ocw-new.cs.pub.ro.conf", "/etc/apache2/sites-available/ocw-new.cs.pub.ro.conf"]
 # RUN a2dissite 000-default.conf && a2ensite ocw-new.cs.pub.ro
+
+# override the default htaccess (we use custom rewrite scheme)
+COPY ./conf/dokuwiki/htaccess /var/www/html/.htaccess
 

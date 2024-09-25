@@ -1,0 +1,25 @@
+# enable rewriting by default
+RewriteEngine on
+
+# Rewrite /courses/* to farm animals
+RewriteRule ^courses/(lib|lib/.*|_media.*|_export.*|doku.php)$ $1 [QSA,DPI]
+RewriteRule ^courses/([^/]+)/(lib|lib/.*|_media.*|_export.*|doku.php)$ $1/$2?animal=$1 [QSA,DPI]
+RewriteRule ^courses/([^/]+)/(.*)  $1/$2?animal=$1 [QSA,DPI]
+RewriteRule ^courses/([^/]+)$      $1?animal=$1 [QSA,DPI]
+
+# But also support the ! syntax for farm animals
+RewriteRule ^!([^/]+)/(.*)  $2?animal=$1 [QSA,DPI]
+RewriteRule ^!([^/]+)$      ?animal=$1 [QSA,DPI]
+
+Options +FollowSymLinks
+
+# pretty urls
+RewriteRule ^_media/(.*)              lib/exe/fetch.php?media=$1  [QSA,L]
+RewriteRule ^_detail/(.*)             lib/exe/detail.php?media=$1  [QSA,L]
+RewriteRule ^_export/([^/]+)/(.*)     doku.php?do=export_$1&id=$2  [QSA,L]
+RewriteRule ^$                        doku.php  [L]
+RewriteCond %{REQUEST_FILENAME}       !-f
+RewriteCond %{REQUEST_FILENAME}       !-d
+RewriteRule (.*)                      doku.php?id=$1  [QSA,L]
+RewriteRule ^index.php$               doku.php
+
