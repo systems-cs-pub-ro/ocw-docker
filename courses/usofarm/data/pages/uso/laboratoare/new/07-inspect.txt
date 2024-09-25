@@ -1,7 +1,0 @@
-====== Laborator 07: Inspectarea sistemului ======
-
-{{page>:uso:laboratoare:new:07-inspect:setup&nofooter&noeditbutton}}
-
-===== Cuprins =====
-
-{{page>uso:laboratoare:new:07-inspect:nav&noheader&nofooter&noeditbutton}}

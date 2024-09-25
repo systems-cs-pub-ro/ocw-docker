@@ -1,6 +1,0 @@
-====== Rețelistică și Internet ======
-
-{{page>uso:laboratoare:new:09-net:nav&noheader&nofooter&noeditbutton}}
-
-====== Navigare ======
-{{page>uso:sidebar&noheader&nofooter&noeditbutton}}

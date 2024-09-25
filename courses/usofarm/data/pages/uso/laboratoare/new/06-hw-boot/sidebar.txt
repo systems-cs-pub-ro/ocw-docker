@@ -1,5 +1,0 @@
-====== Componente Hardware. Pornirea sistemului ======
-
-{{page>uso:laboratoare:new:06-hw-boot:nav&noheader&nofooter&noeditbutton}}
-====== Navigare ======
-{{page>uso:sidebar&noheader&nofooter&noeditbutton}}

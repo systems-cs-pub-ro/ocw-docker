@@ -1,3 +1,0 @@
-====== Utilizarea sistemului de fișiere ======
-
-{{page>uso:laboratoare:new:01-fs:nav&noheader&nofooter&noeditbutton}}

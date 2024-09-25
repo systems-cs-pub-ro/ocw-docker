@@ -1,7 +1,0 @@
-===== Sumar =====
-
-  * Întreruperea compilării după o anumită fază intermediară:  ''gcc [-c|-S|-E]''
-  * Compilarea codului cu optimizări: ''-O0|-01|-O2|-O3''
-  * Automatizarea compilării (makefile): ''make''
-  * Comenzi uzuale de git: ''init, clone, add, commit, push''
-  * Folosirea unui debugger: ''gdb''

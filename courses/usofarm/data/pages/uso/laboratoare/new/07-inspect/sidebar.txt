@@ -1,5 +1,0 @@
-====== Inspectarea Sistemului ======
-
-{{page>uso:laboratoare:new:07-inspect:nav&noheader&nofooter&noeditbutton}}
-====== Navigare ======
-{{page>uso:sidebar&noheader&nofooter&noeditbutton}}
