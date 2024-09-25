@@ -1,2 +1,5 @@
+# local temp storage
 tmp/
+# local customizations
+docker-compose.local.yml
 
