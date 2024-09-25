@@ -10,7 +10,7 @@ LABEL maintainer="eduard.c.staniloiu@gmail.com" \
 
 # Install additional packages
 RUN apt-get update && \
-    apt-get install -y wget vim whois git
+    apt-get install -y wget vim whois git rsync
 
 COPY --chmod=0644 ./scripts/dokuwiki-vars.sh /dokuwiki-vars.sh
 COPY --chmod=0755 ./scripts/dokuwiki-install-ext.sh /dokuwiki-install-ext.sh
@@ -24,10 +24,12 @@ RUN groupadd -g "${GID}" "${UNAME}" && \
 COPY ./conf/dokuwiki/conf/local.php /var/www/html/conf.core/local.php
 COPY ./conf/dokuwiki/conf/acl.auth.php /var/www/html/conf.core/acl.auth.php
 COPY ./conf/dokuwiki/conf/users.auth.php /var/www/html/conf.core/users.auth.php
+COPY ./conf/dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
 
 # Override storage setup entrypoint with our own:
 COPY --from=origin /dokuwiki-storagesetup.sh /dokuwiki-storagesetup-orig.sh
 COPY --chmod=0755 ./scripts/dokuwiki-storagesetup.sh /dokuwiki-storagesetup.sh
+COPY --chmod=0755 ./scripts/doku-farm-new.sh /usr/local/bin/doku-farm-new
 COPY --chmod=0755 ./scripts/doku-mkadmin.sh /usr/local/bin/doku-mkadmin
 
 # Install apache config

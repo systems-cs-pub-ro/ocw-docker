@@ -23,3 +23,7 @@ DOKU_CONF_CORE="$DOKU_PATH/conf.core"
 	fi
 }
 
+# add initial animal defaults to storage
+[[ -e "/storage/_animal_defaults/" ]] || \
+	rsync -rl --mkpath "$DOKU_CONF_CORE/_animal_defaults/" "/storage/_animal_defaults/"
+
