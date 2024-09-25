@@ -1,8 +1,9 @@
 # Docker compose example for Dokuwiki (used for development)
 services:
   dokuwiki:
+    hostname: dokuwiki
     image: upb-cs-ocw/dokuwiki:latest
-    user: "1000:1000"
+    user: "app:app"
     restart: unless-stopped
     ports:
       - "8080:8080"
