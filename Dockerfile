@@ -12,6 +12,7 @@ LABEL maintainer="eduard.c.staniloiu@gmail.com" \
 RUN apt-get update && \
     apt-get install -y wget vim whois git
 
+COPY --chmod=0644 ./scripts/dokuwiki-vars.sh /dokuwiki-vars.sh
 COPY --chmod=0755 ./scripts/dokuwiki-install-ext.sh /dokuwiki-install-ext.sh
 RUN /dokuwiki-install-ext.sh
 
@@ -27,6 +28,7 @@ COPY ./conf/dokuwiki/conf/users.auth.php /var/www/html/conf.core/users.auth.php
 # Override storage setup entrypoint with our own:
 COPY --from=origin /dokuwiki-storagesetup.sh /dokuwiki-storagesetup-orig.sh
 COPY --chmod=0755 ./scripts/dokuwiki-storagesetup.sh /dokuwiki-storagesetup.sh
+COPY --chmod=0755 ./scripts/doku-mkadmin.sh /usr/local/bin/doku-mkadmin
 
 # Install apache config
 # COPY ["./conf/apache2/sites-available/ocw-new.cs.pub.ro.conf", "/etc/apache2/sites-available/ocw-new.cs.pub.ro.conf"]

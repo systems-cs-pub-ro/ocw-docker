@@ -1,11 +1,12 @@
 #!/bin/bash
 # Install dokuwiki extensions (plugins & templates)
 set -e
+source /dokuwiki-vars.sh
 
 git clone "https://github.com/samfisch/dokuwiki-template-arctic.git" \
-	/var/www/html/lib/tpl.core/arctic
+	"${DOKU_TPL_PATH}/arctic"
 
-# Install farmer plugin
+# add farmer plugin
 git clone "https://github.com/cosmocode/dokuwiki-plugin-farmer.git" \
-	/var/www/html/lib/plugins.core/farmer
+	"${DOKU_PLUGINS_PATH}/farmer"
 
