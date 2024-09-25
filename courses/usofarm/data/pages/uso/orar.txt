@@ -1,9 +1,0 @@
-===== Orar =====
-
-Pentru CTI, săptămâna de laborator începe **miercurea** și se termină **marțea**. Primul curs are loc **marți, 05 Octombrie 2020**, astfel:
-  * seria 1CA: intervalul 10-12, sala EC105
-  * seria 1CB: intervalul 12-14, sala EC105
-  * seria 1CC: intervalul 08-10, sala EC105
-  * seria 1CD: intervalul 16-18, sala PR001
-
-Pentru 1AC, primul curs are loc vineri, 09 Octombrie 2012, intervalul 10-12, sala AN034.

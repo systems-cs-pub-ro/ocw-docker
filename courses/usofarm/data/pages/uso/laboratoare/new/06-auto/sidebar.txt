@@ -1,7 +1,0 @@
-**[[:uso:laboratoare:new:06-auto|Automatizarea sarcinilor. Shell scripting]]**
-
-{{page>uso:laboratoare:new:06-auto:nav&noheader&nofooter&noeditbutton}}
-
-====== Laboratoare ======
-
-{{section>:uso:laboratoare:start&noheader&nofooter}}

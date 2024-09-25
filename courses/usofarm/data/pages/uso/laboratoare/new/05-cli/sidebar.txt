@@ -1,7 +1,0 @@
-====== Interfața în linia de comandă ======
-
-{{page>uso:laboratoare:new:05-cli:nav&noheader&nofooter&noeditbutton}}
-
-====== Laboratoare ======
-
-{{section>:uso:laboratoare:start&noheader&nofooter}}

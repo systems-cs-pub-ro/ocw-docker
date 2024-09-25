@@ -1,7 +1,0 @@
-===== Investigarea sistemului (CTF) (all) =====
-
-{{page>:uso:laboratoare:new:11-ctf:setup&nofooter&noeditbutton}}
-{{page>:uso:laboratoare:new:11-ctf:feedback&nofooter&noeditbutton}}
-{{page>:uso:laboratoare:new:11-ctf:starters&nofooter&noeditbutton}}
-{{page>:uso:laboratoare:new:11-ctf:team-ctf&nofooter&noeditbutton}}
-{{page>:uso:laboratoare:new:11-ctf:summary&nofooter&noeditbutton}}

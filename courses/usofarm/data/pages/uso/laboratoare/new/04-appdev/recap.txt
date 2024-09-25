@@ -1,5 +1,0 @@
-===== Recapitulare =====
-
-
-    -  Creați utilizatorii ''ana'' și ''matei''. 
-    - Creați grupul ''teachers'' și adăugați utilizatorii de la exercițiul anterior în acesta.

@@ -1,8 +1,0 @@
-===== Investigarea sistemului (CTF) (cuprins) =====
-
-  * [[:uso:laboratoare:new:11-ctf:setup]]
-  * [[:uso:laboratoare:new:11-ctf:feedback]]
-  * [[:uso:laboratoare:new:11-ctf:starters]]
-  * [[:uso:laboratoare:new:11-ctf:team-ctf]]
-  * [[:uso:laboratoare:new:11-ctf:summary]]
-  * [[:uso:laboratoare:new:11-ctf:all]]

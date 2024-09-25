@@ -1,6 +1,0 @@
-===== Starters =====
-
-Rezolvați **individual** următoarele challenge-uri de pe [[https://uso-ctf.security.cs.pub.ro/|platforma USO CTF]]:
-  * ''fep uber alles''
-  * ''Plain Text''
-  * ''Second Disk''

@@ -1,5 +1,0 @@
-====== Laborator 03 - Utilizatori ======
-
-{{page>uso:laboratoare:new:03-user:nav&noheader&nofooter&noeditbutton}}
-====== Navigare ======
-{{page>uso:sidebar&noheader&nofooter&noeditbutton}}

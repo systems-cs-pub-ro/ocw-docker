@@ -1,1 +1,0 @@
-====== Laborator 06 - Automatizarea în linia de comandă  ======

@@ -1,3 +1,0 @@
-====== Mașini virtuale ======
-
-{{page>uso:laboratoare:new:09-vm:nav&noheader&nofooter&noeditbutton}}
