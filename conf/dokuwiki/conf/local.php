@@ -12,6 +12,10 @@ $conf['disableactions'] = 'register';
 $conf['userewrite'] = 1;
 $conf['useslash'] = 1;
 
+// enable inline <html>
+$conf['plugin']['htmlok']['htmlok'] = 1;
+$conf['htmlok'] = '1';
+
 /* Arctic template customizations */
 $conf['tpl']['arctic']['sidebar'] = 'right';
 $conf['tpl']['arctic']['main_sidebar_always'] = 0;

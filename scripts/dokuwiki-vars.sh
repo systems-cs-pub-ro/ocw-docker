@@ -22,3 +22,18 @@ function doku_mk_admin() {
 	echo "$NAME:$HASH:$NAME:$EMAIL:admin,user"
 }
 
+function git_clone_plugin() {
+	local GIT_OPTIONS=()
+	while [[ $# -gt 0 ]]; do
+		if [[ "$1" == "--"* ]]; then
+			GIT_OPTIONS+=("$1")
+		else break; fi; shift
+	done
+	local URL="$1"
+	local NAME="$2"
+	[[ -n "$NAME" ]] || NAME="$(basename "$URL")"
+	NAME=${NAME%.git}
+	[[ "$URL" =~ ^(https?):// ]] || URL="https://github.com/$URL.git"
+	git clone "${GIT_OPTIONS[@]}" "$URL" "${DOKU_PLUGINS_PATH}/$NAME"
+}
+
