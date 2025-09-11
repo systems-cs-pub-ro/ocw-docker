@@ -2,7 +2,7 @@
 # Prints a new admin users.auth.php line (with hashed password)
 
 set -e
-source /dokuwiki-vars.sh
+source /dokuwiki-scripts/vars.sh
 
 [[ -n "$1" && -n "$PASSWORD" ]] || { echo "Syntax: \`PASSWORD=... doku-mkadmin NAME [EMAIL]\`" >&2; exit 1; }
 

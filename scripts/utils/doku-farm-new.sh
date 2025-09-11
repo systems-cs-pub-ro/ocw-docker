@@ -3,7 +3,7 @@
 # Must be called using the container's unprivileged user!
 
 set -e
-source /dokuwiki-vars.sh
+source /dokuwiki-scripts/vars.sh
 
 [[ -n "$1" ]] || { echo "Syntax: doku-farm-new ANIMAL_NAMES..." >&2; exit 1; }
 

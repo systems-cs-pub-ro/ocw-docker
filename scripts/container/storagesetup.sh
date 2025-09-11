@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
+
 # first, run the original storage
-/dokuwiki-storagesetup-orig.sh
-source /dokuwiki-vars.sh
+/dokuwiki-scripts/storagesetup-orig.sh
+source /dokuwiki-scripts/vars.sh
 
 # additionally...
 DOKU_CONF_CORE="$DOKU_PATH/conf.core"
