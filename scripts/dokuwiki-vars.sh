@@ -23,7 +23,9 @@ function doku_mk_admin() {
 }
 
 function git_clone_plugin() {
-	local GIT_OPTIONS=()
+	local GIT_OPTIONS=(
+		 -c "advice.detachedHead=false"
+	)
 	while [[ $# -gt 0 ]]; do
 		if [[ "$1" == "--"* ]]; then
 			GIT_OPTIONS+=("$1")
