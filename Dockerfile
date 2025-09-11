@@ -36,6 +36,10 @@ COPY --chmod=0755 ./scripts/dokuwiki-storagesetup.sh /dokuwiki-storagesetup.sh
 COPY --chmod=0755 ./scripts/doku-farm-new.sh /usr/local/bin/doku-farm-new
 COPY --chmod=0755 ./scripts/doku-mkadmin.sh /usr/local/bin/doku-mkadmin
 
+# add custom plugins
+COPY ./conf/dokuwiki/plugins.custom/labhidden /var/www/html/plugins.core/labhidden
+COPY ./conf/dokuwiki/plugins.custom/secret /var/www/html/plugins.core/secret
+
 # Install apache config
 # COPY ["./conf/apache2/sites-available/ocw-new.cs.pub.ro.conf", "/etc/apache2/sites-available/ocw-new.cs.pub.ro.conf"]
 # RUN a2dissite 000-default.conf && a2ensite ocw-new.cs.pub.ro

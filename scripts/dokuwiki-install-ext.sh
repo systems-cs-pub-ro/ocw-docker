@@ -32,4 +32,5 @@ git_clone_plugin --branch="master" "AnaelMobilia/dokuwiki-plugin-note" note
 git_clone_plugin --branch="2023-08-27" "dokufreaks/plugin-pagelist" pagelist
 git_clone_plugin --branch="v.2022-08-09" "dwp-forge/tablewidth" tablewidth
 git_clone_plugin --branch="v0.3" "https://git.mittelab.org/proj/ifauthex-dokuwiki-plugin.git" ifauthex
+git_clone_plugin --branch="main" "https://codeberg.org/gturri/hidden.git" hidden
 
