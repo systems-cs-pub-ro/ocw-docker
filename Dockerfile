@@ -3,10 +3,10 @@ ARG VERSION=stable
 FROM dokuwiki/dokuwiki:${VERSION} AS origin
 FROM origin
 
-ARG UNAME=app UID=1000 GID=1000
+LABEL org.opencontainers.image.authors="eduard.c.staniloiu@gmail.com"
+LABEL org.opencontainers.image.title="DokuWiki Image for ocw.cs.pub.ro"
 
-LABEL maintainer="eduard.c.staniloiu@gmail.com" \
-      name="UPB OCW Dokuwiki"
+ARG UNAME=app UID=1000 GID=1000
 
 # Install additional packages
 RUN apt-get update && \
