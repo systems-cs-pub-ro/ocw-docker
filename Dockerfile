@@ -6,7 +6,9 @@ FROM origin
 LABEL org.opencontainers.image.authors="eduard.c.staniloiu@gmail.com"
 LABEL org.opencontainers.image.title="DokuWiki Image for ocw.cs.pub.ro"
 
-ARG UNAME=app UID=1000 GID=1000
+ARG UNAME=app
+ARG UID=1000
+ARG GID=1000
 
 # Install additional packages
 RUN apt-get update && \

@@ -7,9 +7,6 @@ BUILD_ARGS = --build-arg VERSION="${version}"
 BUILD_ARGS = --label VERSION="${version}"
 #BUILD_ARGS += --debug 
 
-ifneq ($(wildcard docker-compose.local.yml),) 
-	COMPOSE_FILE ?= docker-compose.local.yml
-endif
 COMPOSE_FILE ?= docker-compose.yml
 
 build:
