@@ -24,6 +24,7 @@ RUN groupadd -g "${GID}" "${UNAME}" && \
 # Install dokuwiki files with local config and farms config
 COPY ./conf/dokuwiki/conf/ /var/www/html/conf.core/
 COPY ./conf/dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
+COPY ./conf/templates/ /var/www/html/lib/tpl.core/
 
 COPY ./conf/dokuwiki/conf/conf.farm-baseurl.php /var/www/html/conf.core/conf.farm-baseurl.php
 COPY ./conf/dokuwiki/preload.append.php /var/www/html/inc/preload.append.php

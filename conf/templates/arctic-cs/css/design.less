@@ -1,0 +1,476 @@
+/**
+ * This file provides the main design styles for the
+ * bits that surround the content.
+ *
+ * @author Anika Henke <anika@selfthinker.org>
+ * @author Andreas Gohr <andi@splitbrain.org>
+ * @author Clarence Lee <clarencedglee@gmail.com>
+ */
+
+.dokuwiki.export {
+    background-color: @ini_background;
+}
+
+/* site: white box with thin border */
+#dokuwiki__site.site {
+    background: @ini_background;
+    border: 1px solid @ini_border;
+    padding: 0.5em;
+}
+
+/* header
+********************************************************************/
+
+#dokuwiki__header {
+    background: @ini_header_background;
+    margin-bottom: 0;
+    padding: 0;
+    border-bottom: 1px solid @ini_border;
+
+    .headings,
+    .tools {
+        width: 100%;
+    }
+
+    .tools {
+        margin-top: 0;
+    }
+
+    .logo {
+        font-size: 1.3em;
+        font-weight: bold;
+        line-height: 1.2;
+        margin: .4em;
+        min-height: 80px;
+        color: @ini_header_text;
+
+        img {
+            float: left;
+            margin-right: .5em;
+            height: 70px;
+            width: auto;
+        }
+
+        span {
+            display: block;
+            color: #AAA !important;
+            float: right;
+            padding-top: 0;
+        }
+        // span, .subtitle {
+        //     padding-top: 0;
+        // }
+
+        a {
+            text-decoration: none;
+            color: @ini_text;
+            background-color: inherit;
+        }
+    }
+
+    p.claim {
+        margin-bottom: 0;
+        font-size: 0.875em;
+    }
+
+    /* links in the header in arctic grey/teal */
+    a {
+        color: @ini_header_text;
+        background-color: inherit;
+    }
+}
+
+[dir=rtl] #dokuwiki__header .logo img {
+    float: right;
+    margin-left: .5em;
+    margin-right: 0;
+}
+
+/* arctic action bars (top + bottom, both have left/right sections) */
+#bar__top, #bar__bottom {
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: .4em 0;
+    border-top: 1px solid @ini_border;
+    border-bottom: 1px solid @ini_border;
+    font-size: 100%;
+
+    .bar-left { float: left; }
+    .bar-right { float: right; }
+}
+#bar__top {
+    border-bottom: 1px solid @ini_border;
+}
+#bar__bottom {
+    border-bottom: 1px solid @ini_border;
+}
+
+#bar__top ul.arctic_inline_menu, #bar__bottom ul.arctic_inline_menu
+{
+    margin: 0;
+    padding: 0;
+
+    li {
+        font-size: 100%;
+        list-style: none;
+        display: inline-block;
+        margin-left: 1em;
+        white-space: nowrap;
+        &:first-child { margin-left: 0; }
+    }
+
+    a, a:visited, a:hover {
+        color: @ini_link;
+        text-decoration: none;
+        vertical-align: middle;
+        line-height: 1.5em;
+        text-underline-offset: .4em;
+
+        &:hover, &:focus {
+            color: @ini_link_hover;
+            text-decoration: underline;
+        }
+        span { vertical-align: middle; padding-top: .2em }
+        svg {
+            vertical-align: middle;
+            line-height: 1.5em;
+            margin-right: .3em;
+        }
+    }
+}
+
+/* tools
+********************************************************************/
+
+/* highlight selected tool */
+.mode_admin .action.admin a,
+.mode_login .action.login a,
+.mode_register .action.register a,
+.mode_profile .action.profile a,
+.mode_recent .action.recent a,
+.mode_index .action.index a,
+.mode_media .action.media a,
+.mode_revisions .action.revs a,
+.mode_backlink .action.backlink a,
+.mode_subscribe .action.subscribe a {
+    font-weight: bold;
+}
+
+#dokuwiki__header .tools {
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        font-size: 0.875em;
+        margin-left: 1em;
+        list-style: none;
+        display: inline;
+        vertical-align: top;
+    }
+
+    form.search div.ajax_qsearch li {
+        font-size: 1em;
+        margin-left: 0;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+[dir=rtl] #dokuwiki__header .tools li {
+    margin-right: 1em;
+    margin-left: 0;
+}
+
+#dokuwiki__header .mobileTools {
+    display: none; /* hide mobile tools dropdown to only show in mobile view */
+}
+
+/*____________ site tools ____________*/
+
+form.search {
+    display: block;
+    position: relative;
+    margin-bottom: 1.2em;
+
+    input {
+        width: 12em;
+        padding: .3em .1em;
+    }
+
+    button {
+        background: none;
+        width: auto;
+        height: auto;
+        margin-left: .3em;
+        text-indent: 0;
+        border: 1px solid @ini_border;
+        box-shadow: none;
+        padding: .15em .5em;
+        font-size: 1em;
+    }
+
+    #qsearch__out {
+        width: 10em;
+    }
+}
+
+[dir=rtl] form.search {
+    input {
+        padding: .35em .1em .35em 22px;
+    }
+
+    button {
+        background-position: 5px 0;
+        margin-left: 0;
+        margin-right: -20px;
+        position: relative;
+    }
+}
+
+/*____________ breadcrumbs ____________*/
+
+.dokuwiki div.breadcrumbs {
+    font-size: 0.875em;
+    clear: both;
+    padding: .2em .4em;
+    // border-top: 1px solid @ini_border;
+    border-top: none;
+    border-bottom: none;
+    background: none;
+
+    .bcsep {
+        font-size: 0.75em;
+    }
+}
+
+/* sidebar
+********************************************************************/
+
+.dokuwiki .aside {
+    font-size: 0.875em;
+    overflow: hidden;
+    word-wrap: break-word;
+
+    /* make sidebar more condensed */
+
+    h1 {
+        font-size: 120%;
+        font-weight: bold;
+        background: @ini_background_alt;
+        padding: .1em .2em;
+        border: none;
+        margin: 0 0 .2em;
+        clear: none;
+    }
+
+    h2, h3, h4, h5, h6 {
+        font-size: 100%;
+        font-weight: bold;
+        border: none;
+        margin: 0 0 .2em;
+    }
+
+    p, ul, ol, dl, pre, table,
+    fieldset, hr, blockquote, address {
+        margin-bottom: .7em;
+    }
+
+    ul, ol {
+        padding-left: .5em;
+        margin-top: 0;
+    }
+
+    li ul, li ol {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    a:link, a:visited {
+        color: @ini_link;
+        background-color: inherit;
+    }
+}
+
+[dir=rtl] .dokuwiki .aside ul,
+[dir=rtl] .dokuwiki .aside ol {
+    padding-right: .5em;
+}
+
+/* sidebar divider */
+.showSidebar #dokuwiki__aside {
+    border-right: 1px solid @ini_border;
+}
+
+/* right sidebar (sidebar = "right"): flip the floats */
+.sidebarRight #dokuwiki__aside {
+    float: right;
+    border-right: none;
+    border-left: 1px solid @ini_border;
+
+    > .pad {
+        margin: 0 0 0 1.5em;
+    }
+}
+.sidebarRight.showSidebar #dokuwiki__content {
+    float: none;
+    margin-left: 0;
+    margin-right: (-1 * @ini_sidebar_width);
+
+    > .pad {
+        margin-left: 0;
+        margin-right: @ini_sidebar_width;
+    }
+}
+
+
+/* content
+********************************************************************/
+
+
+.dokuwiki .pageId {
+    float: right;
+    margin-right: -1em;
+    margin-bottom: -1px;
+    margin-top: -1.5em;
+    overflow: hidden;
+    padding: 0.5em 1em 0;
+
+    span {
+        font-size: 0.875em;
+        border: solid @ini_background_alt;
+        border-width: 1px 1px 0;
+        background-color: @ini_background;
+        color: @ini_text_alt;
+        padding: .1em .35em;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        box-shadow: 0 0 .5em @ini_text_alt;
+        display: block;
+    }
+}
+
+.dokuwiki div.page {
+    background: transparent;
+    color: inherit;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: .5em 0 1em;
+    margin-bottom: .5em;
+    overflow-x: clip;
+    overflow-y: visible;
+    text-align: justify;
+    word-wrap: break-word;
+
+    h1, h2, h3, h4, h5 {
+        background-color: inherit;
+        color: #333;
+        font-size: 100%;
+        font-weight: normal;
+        padding: 0.5em 0 0 0;
+        border-bottom: 1px solid #ccc;
+        border-bottom-color: rgb(204, 204, 204);
+        clear: left;
+    }
+    h1 { font-size: 180%; font-weight: normal; }
+    h2 { font-size: 170%; }
+    h3 { font-size: 160%; font-weight: normal; }
+    h4 { font-size: 140%; font-weight: normal; }
+    h5 { font-size: 120%; font-weight: bold; }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: @ini_headline_color;
+    }
+
+    h1 a, h2 a, h3 a, h4 a, h5 a {
+        color: @ini_headline_color !important;
+    }
+
+    /* links: classic OCW blue with teal hover */
+    a:link, a:visited {
+        color: @ini_link;
+    }
+    a:hover, a:focus {
+        color: @ini_link_hover;
+    }
+}
+
+.dokuwiki .docInfo {
+    font-size: 0.75em;
+    color: @ini_text_alt;
+    text-align: right;
+    overflow-wrap: break-word;
+}
+
+/* license note under edit window */
+.dokuwiki div.license {
+    font-size: 93.75%;
+}
+
+[dir=rtl] .dokuwiki .docInfo {
+    text-align: left;
+}
+
+[dir=rtl] .dokuwiki .pageId {
+    float: left;
+    margin-left: -1em;
+    margin-right: 0;
+}
+
+/* code: arctic/ocw inline code look */
+pre, code, samp, kbd {
+    background-color: #fbfaf9;
+    color: #333;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+/* inline edit / secedit buttons stay visible in arctic colour scheme */
+.secedit a {
+    color: @ini_link_hover;
+}
+
+
+/* footer
+********************************************************************/
+
+.dokuwiki .wrapper {
+    margin-bottom: .7em;
+}
+
+#dokuwiki__footer {
+    background: @ini_footer_background;
+    color: @ini_footer_color;
+    padding: 1em;
+    text-align: center;
+
+    > .pad {
+        font-size: 0.875em;
+    }
+
+    div.license {
+        margin-bottom: 0.5em;
+        font-size: 100%;
+    }
+
+    a, a:visited, a:hover {
+        color: @ini_footer_color;
+        &:hover { color: @ini_background_alt; }
+    }
+
+    div.buttons a {
+        img { opacity: 0.5; }
+        &:hover img, &:active img, &:focus img {
+            opacity: 1;
+        }
+    }
+
+}
+
+[dir=rtl] #dokuwiki__footer .license img {
+    margin: 0 0 0 .5em;
+}

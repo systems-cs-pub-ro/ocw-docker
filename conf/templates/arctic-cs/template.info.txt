@@ -1,0 +1,7 @@
+base     arctic-cs
+author   Florin Stancu, ported for OCW
+email    me@niflo.ro
+date     2026-09-15
+name     Arctic CS
+desc     The Arctic CS OCW template style
+url      http://ocw.cs.pub.ro/
