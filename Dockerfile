@@ -3,7 +3,7 @@ ARG VERSION=stable
 FROM dokuwiki/dokuwiki:${VERSION} AS origin
 FROM origin
 
-LABEL org.opencontainers.image.authors="eduard.c.staniloiu@gmail.com"
+LABEL org.opencontainers.image.authors="eduard.c.staniloiu@gmail.com, me@niflo.ro"
 LABEL org.opencontainers.image.title="DokuWiki Image for ocw.cs.pub.ro"
 
 ARG UNAME=app

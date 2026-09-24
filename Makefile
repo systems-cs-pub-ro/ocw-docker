@@ -7,7 +7,8 @@ BUILD_ARGS = --build-arg VERSION="${version}"
 BUILD_ARGS = --label VERSION="${version}"
 #BUILD_ARGS += --debug 
 
-COMPOSE_FILE ?= docker-compose.yml
+DEV ?=
+COMPOSE_FILE ?= docker-compose$(if $(DEV),.dev).yml
 
 build:
 	docker image build $(BUILD_ARGS) -t $(IMAGE_NAME) -t "$(IMAGE_FULL)" .
