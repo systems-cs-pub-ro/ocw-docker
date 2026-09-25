@@ -21,6 +21,7 @@ $showSidebar = ($ACT == 'show');
         <div class="content"><div class="group">
             <?php tpl_flush() ?>
             <?php tpl_searchform() ?>
+            <?php tpl_toc() ?>
             <?php tpl_includeFile('sidebarheader.html') ?>
 			<?php if ($sidebarId !== false) : ?>
             <?php tpl_include_page($sidebarId, true, true) ?>

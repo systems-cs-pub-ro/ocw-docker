@@ -303,17 +303,7 @@
 /*____________ changes to _toc ____________*/
 
 #dw__toc {
-    margin: -1.556em -2em .5em 1.4em;
-    width: @ini_sidebar_width;
-    border-left: 1px solid @ini_border;
-    background: @ini_background;
     color: inherit;
-}
-
-[dir=rtl] #dw__toc {
-    margin: -1.556em 1.4em .5em -2em;
-    border-left-width: 0;
-    border-right: 1px solid @ini_border;
 }
 
 .dokuwiki.export #dw__toc {
@@ -327,13 +317,13 @@
 }
 
 .dokuwiki h3.toggle {
-    padding: .5em 1em;
+    padding: .5em .5em;
     margin-bottom: 0;
-    font-size: .875em;
     letter-spacing: .1em;
+    border-bottom: 1px solid #ccc;
 }
 
-#dokuwiki__aside h3.toggle {
+#dokuwiki__aside > div.aside > h3.toggle {
     display: none;
 }
 
@@ -354,7 +344,6 @@
 
 #dw__toc {
     > div {
-        font-size: 0.875em;
         padding: .5em 1em 1em;
     }
 
@@ -362,7 +351,7 @@
         padding: 0 0 0 1.2em;
 
         li {
-            list-style-image: url(images/toc-bullet.png);
+            list-style: square;
         }
     }
 

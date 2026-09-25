@@ -6,17 +6,12 @@
 /* toc
 ********************************************************************/
 
-/* toc container */
+/* toc container is part of sidebar */
 #dw__toc {
-    float: right;
-    margin: 0 0 1.4em 1.4em;
-    width: 12em;
-    background-color: @ini_background_alt;
+    margin: 0;
+    margin-bottom: 1em;
+    width: auto;
     color: inherit;
-}
-[dir=rtl] #dw__toc {
-    float: left;
-    margin: 0 1.4em 1.4em 0;
 }
 
 /*____________ toc header ____________*/
