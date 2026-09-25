@@ -20,6 +20,10 @@ else
   /dokuwiki-scripts/storagesetup.sh
 fi
 
-# run parent image's entrypoint
-exec docker-php-entrypoint apache2-foreground
+# run [default] command
+if [[ -n "$1" ]]; then
+  exec "$@"
+else
+  exec docker-php-entrypoint apache2-foreground
+fi
 
