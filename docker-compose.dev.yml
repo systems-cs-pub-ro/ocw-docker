@@ -13,6 +13,6 @@ services:
       DOKUWIKI_ADMIN_PASSWORD: admin123
       DOKUWIKI_DEMO_INSTALL: yes
     volumes:
-      - ${DOKUWIKI_STORAGE_DIR:-/tmp/ocw-doku-devel}:/storage
+      - ${DOKUWIKI_STORAGE_DIR:-./tmp}:/storage
       # uncomment for template development:
       #- ./dokuwiki/tpl/arctic-cs/:/storage/lib/tpl/arctic-cs/:ro
