@@ -45,6 +45,8 @@ COPY ./conf/dokuwiki/plugins.custom/ /var/www/html/plugins.core/
 # COPY ["./conf/apache2/sites-available/ocw-new.cs.pub.ro.conf", "/etc/apache2/sites-available/ocw-new.cs.pub.ro.conf"]
 # RUN a2dissite 000-default.conf && a2ensite ocw-new.cs.pub.ro
 
+# remove htaccess symlink
+RUN rm -f /var/www/html/.htaccess
 # override the default htaccess (we use custom rewrite scheme)
 COPY ./conf/dokuwiki/htaccess /var/www/html/.htaccess
 
