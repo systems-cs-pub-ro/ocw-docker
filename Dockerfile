@@ -22,11 +22,11 @@ RUN groupadd -g "${GID}" "${UNAME}" && \
     useradd -l -m -u "${UID}" -g "${GID}" -s /bin/bash "${UNAME}"
 
 # Install dokuwiki files with local config and farms config
-COPY ./conf/dokuwiki/conf/ /var/www/html/conf.core/
-COPY ./conf/dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
-COPY ./conf/templates/ /var/www/html/lib/tpl.core/
+COPY ./dokuwiki/conf/ /var/www/html/conf.core/
+COPY ./dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
+COPY ./dokuwiki/tpl/ /var/www/html/lib/tpl.core/
 
-COPY ./conf/dokuwiki/patch/ /var/www/html/inc/_patches/
+COPY ./dokuwiki/patch/ /var/www/html/inc/_patches/
 RUN ( cd /var/www/html && \
     cat ./inc/_patches/preload.append.php >> ./inc/preload.php && \
     patch -p1 < ./inc/_patches/common.patch )
@@ -40,16 +40,12 @@ COPY --chmod=0755 ./scripts/utils/ /usr/local/bin/
 RUN rm -f /dokuwiki-entrypoint.sh /dokuwiki-storagesetup.sh
 
 # add our custom plugins
-COPY ./conf/dokuwiki/plugins.custom/ /var/www/html/plugins.core/
-
-# Install apache config
-# COPY ["./conf/apache2/sites-available/ocw-new.cs.pub.ro.conf", "/etc/apache2/sites-available/ocw-new.cs.pub.ro.conf"]
-# RUN a2dissite 000-default.conf && a2ensite ocw-new.cs.pub.ro
+COPY ./dokuwiki/plugins.custom/ /var/www/html/plugins.core/
 
 # remove htaccess symlink
 RUN rm -f /var/www/html/.htaccess
 # override the default htaccess (we use custom rewrite scheme)
-COPY ./conf/dokuwiki/htaccess /var/www/html/.htaccess
+COPY ./dokuwiki/htaccess /var/www/html/.htaccess
 
 ENV DOKUWIKI_BASE_HOST="http://localhost:8080"
 
