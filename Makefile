@@ -22,6 +22,9 @@ compose:
 composed:
 	docker compose -f $(COMPOSE_FILE) up -d
 
+compose_down:
+	docker compose -f $(COMPOSE_FILE) down
+
 bash:
 	docker compose -f $(COMPOSE_FILE) exec \
 		$(if $(U),-u $(U)) -it dokuwiki /bin/bash

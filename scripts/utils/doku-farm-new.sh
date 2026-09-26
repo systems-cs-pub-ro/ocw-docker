@@ -22,9 +22,6 @@ for NAME in "$@"; do
 	[[ ! -d "/storage/_animal_defaults/" ]] || \
 		rsync -rl "/storage/_animal_defaults/" "$ANIMAL_PATH/"
 
-	# append animal name to conf
-	echo "\$conf['title'] = '$NAME';" >> "$ANIMAL_PATH/conf/local.php"
-
 	echo "Farm animal $NAME successfully created at '$ANIMAL_PATH'!"
 done
 

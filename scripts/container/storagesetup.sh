@@ -31,3 +31,7 @@ sed -i 's|farmhost\s*=.*"|farmhost = "'"$DOKUWIKI_BASE_HOST"'"|' \
 [[ -e "/storage/_animal_defaults/" ]] || \
 	rsync -rl --mkpath "$DOKU_CONF_CORE/_animal_defaults/" "/storage/_animal_defaults/"
 
+if [[ "$DOKUWIKI_DEMO_INSTALL" == "yes" ]]; then
+	( cd "$DOKU_CONF_CORE/_demo"; bash ./install.sh )
+fi
+
