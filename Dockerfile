@@ -40,8 +40,8 @@ RUN sed -i '/set -x/d' /dokuwiki-scripts/storagesetup-orig.sh
 COPY --chmod=0755 ./scripts/utils/ /usr/local/bin/
 RUN rm -f /dokuwiki-entrypoint.sh /dokuwiki-storagesetup.sh
 
-# add our custom plugins
-COPY ./dokuwiki/plugins.custom/ /var/www/html/plugins.core/
+# add our custom plugins to lib/plugins.core
+COPY ./dokuwiki/plugins.custom/ /var/www/html/lib/plugins.core/
 
 # remove htaccess symlink
 RUN rm -f /var/www/html/.htaccess
