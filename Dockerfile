@@ -47,7 +47,7 @@ RUN rm -f /var/www/html/.htaccess
 # override the default htaccess (we use custom rewrite scheme)
 COPY ./dokuwiki/htaccess /var/www/html/.htaccess
 
-ENV DOKUWIKI_BASE_HOST="http://localhost:8080"
+ENV DOKUWIKI_BASE_HOST="localhost:8080"
 
 ENTRYPOINT ["/dokuwiki-scripts/entrypoint.sh"]
 
