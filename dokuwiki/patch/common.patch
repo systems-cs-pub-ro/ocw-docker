@@ -1,12 +1,26 @@
 diff --git i/inc/common.php w/inc/common.php
-index a2f3b3102..6bacc843c 100644
+index a2f3b3102..82a992f0b 100644
 --- i/inc/common.php
 +++ w/inc/common.php
-@@ -469,6 +469,14 @@ function idfilter($id, $ue = true)
-
+@@ -457,11 +457,12 @@ function breadcrumbs()
+  *
+  * @param string $id pageid being filtered
+  * @param bool $ue apply urlencoding?
++ * @param bool $rewrite apply custom namespace rewrite for farm
+  * @return string
+  * @author Andreas Gohr <andi@splitbrain.org>
+  *
+  */
+-function idfilter($id, $ue = true)
++function idfilter($id, $ue = true, $rewrite = false)
+ {
+     global $conf;
+     /* @var Input $INPUT */
+@@ -469,6 +470,14 @@ function idfilter($id, $ue = true)
+ 
      $id = (string)$id;
-
-+    if (defined("DOKU_FARM_ANIMAL") && !empty(DOKU_FARM_ANIMAL)) {
+ 
++    if (defined("DOKU_FARM_ANIMAL") && !empty(DOKU_FARM_ANIMAL) && $rewrite) {
 +        $prefix = DOKU_FARM_ANIMAL;
 +        if (substr($id, 0, strlen($prefix)) == $prefix) {
 +            $id = substr($id, strlen($prefix));
@@ -17,4 +31,30 @@ index a2f3b3102..6bacc843c 100644
      if ($conf['useslash'] && $conf['userewrite']) {
          $id = strtr($id, ':', '/');
      } elseif (
-
+@@ -515,7 +524,7 @@ function wl($id = '', $urlParameters = '', $absolute = false, $separator = '&amp
+     if ($id === '') {
+         $id = $conf['start'];
+     }
+-    $id = idfilter($id);
++    $id = idfilter($id, true, true);
+     if ($absolute) {
+         $xlink = DOKU_URL;
+     } else {
+@@ -562,7 +571,7 @@ function exportlink($id = '', $format = 'raw', $urlParameters = '', $abs = false
+     }
+ 
+     $format = rawurlencode($format);
+-    $id = idfilter($id);
++    $id = idfilter($id, true, true);
+     if ($abs) {
+         $xlink = DOKU_URL;
+     } else {
+@@ -649,7 +658,7 @@ function ml($id = '', $more = '', $direct = true, $sep = '&amp;', $abs = false)
+         return $xlink;
+     }
+ 
+-    $id = idfilter($id);
++    $id = idfilter($id, true, false);
+ 
+     // decide on scriptname
+     if ($direct) {
