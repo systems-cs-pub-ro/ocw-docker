@@ -6,6 +6,10 @@ source /dokuwiki-scripts/vars.sh
 
 echo "Installing OCW demo..."
 
+cp -f ./courses.php /storage/conf/courses.php
+rsync -rl  ./pages/ /storage/data/pages/
+rsync -rl  ./media/ /storage/data/media/
+
 while read -r NAME; do
 	echo "Installing demo animal: ${NAME}";
 	doku-farm-new.sh "$NAME"
