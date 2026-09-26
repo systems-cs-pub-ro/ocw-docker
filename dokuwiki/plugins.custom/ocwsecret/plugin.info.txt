@@ -1,0 +1,7 @@
+base   ocwsecret
+author Florin Stancu
+email  florin.stancu@upb.ro
+date   2026-09-26
+name   OCW Secret Plugin
+desc   Hides <secret>/<solution> content from OCW users without proper rights, with click-to-reveal support.
+url    https://www.dokuwiki.org/plugin:secret

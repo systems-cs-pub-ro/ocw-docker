@@ -1,0 +1,33 @@
+/* plugin:ocwsecret */
+
+div.ocw-secret {
+    margin: 0.5em;
+    border-radius: 8px;
+    border: solid 2px #DDDDFF;
+
+    div.solution-title {
+        font-weight: bold;
+        border-radius: 5px;
+        background: #DDDDFF;
+        padding: 0.25em 0.5em;
+
+        span {
+            margin-left: 0.7em;
+        }
+    }
+
+    div.solution-hidden-title {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    div.hide-text, div.show-text,
+    div.solution-hidden-content {
+        display: none;
+    }
+
+    div.solution-content {
+        padding: 0.4em;
+    }
+}
+

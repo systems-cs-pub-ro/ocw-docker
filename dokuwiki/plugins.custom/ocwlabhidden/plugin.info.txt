@@ -1,0 +1,7 @@
+base   ocwlabhidden
+author Florin Stancu
+email  florin.stancu@upb.ro
+date   2026-09-26
+name   OCW Lab Hidden
+desc   Hides content from all but editors
+url    https://ocw.cs.pub.ro/
