@@ -33,6 +33,8 @@ git_clone_plugin --branch="master" "AnaelMobilia/dokuwiki-plugin-note" note
 git_clone_plugin --branch="master" "dokufreaks/plugin-pagelist" pagelist
 git_clone_plugin --branch="master" "dwp-forge/tablewidth" tablewidth
 git_clone_plugin --branch="master" "https://git.mittelab.org/proj/ifauthex-dokuwiki-plugin.git" ifauthex
+# redirect pages plugin
+git_clone_plugin --branch="master" "https://github.com/splitbrain/dokuwiki-plugin-redirect.git" redirect
 
 # git_clone_plugin --branch="main" "https://codeberg.org/gturri/hidden.git" hidden
 

@@ -9,7 +9,7 @@ source /dokuwiki-scripts/vars.sh
 DOKU_CONF_CORE="$DOKU_PATH/conf.core"
 
 # core configuration templates copied over to the storage
-CONF_TEMPLATES=("local.php" "farm.ini" "courses.php" "acl.auth.php")
+CONF_TEMPLATES=("local.php" "farm.ini" "courses.php" "acl.auth.php" "redirect.conf")
 for conf_file in "${CONF_TEMPLATES[@]}"; do
 	[[ -f "/storage/conf/$conf_file" ]] || \
 		cp -f "$DOKU_CONF_CORE/$conf_file" "/storage/conf/$conf_file"
