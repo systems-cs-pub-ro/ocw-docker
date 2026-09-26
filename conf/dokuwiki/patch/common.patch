@@ -1,0 +1,20 @@
+diff --git i/inc/common.php w/inc/common.php
+index a2f3b3102..6bacc843c 100644
+--- i/inc/common.php
++++ w/inc/common.php
+@@ -469,6 +469,14 @@ function idfilter($id, $ue = true)
+
+     $id = (string)$id;
+
++    if (defined("DOKU_FARM_ANIMAL") && !empty(DOKU_FARM_ANIMAL)) {
++        $prefix = DOKU_FARM_ANIMAL;
++        if (substr($id, 0, strlen($prefix)) == $prefix) {
++            $id = substr($id, strlen($prefix));
++            if (($id[0] ?? '') == ':') {$id = substr($id, 1);}
++        }
++    }
++
+     if ($conf['useslash'] && $conf['userewrite']) {
+         $id = strtr($id, ':', '/');
+     } elseif (
+

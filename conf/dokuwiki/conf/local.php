@@ -16,6 +16,10 @@ $conf['useheading'] = 1;
 
 // disable compress when developing templates
 /* $conf['compress'] = 0; */
+// allow debug? (DO NOT COMMIT WITH THIS ENABLED!)
+/* $conf['allowdebug'] = 1; */
+
+$conf['cookiedir'] = '/';
 
 // enable inline <html>
 $conf['plugin']['htmlok']['htmlok'] = 1;

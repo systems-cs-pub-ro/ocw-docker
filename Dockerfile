@@ -26,9 +26,10 @@ COPY ./conf/dokuwiki/conf/ /var/www/html/conf.core/
 COPY ./conf/dokuwiki/_animal_defaults/ /var/www/html/conf.core/_animal_defaults/
 COPY ./conf/templates/ /var/www/html/lib/tpl.core/
 
-COPY ./conf/dokuwiki/conf/conf.farm-baseurl.php /var/www/html/conf.core/conf.farm-baseurl.php
-COPY ./conf/dokuwiki/preload.append.php /var/www/html/inc/preload.append.php
-RUN cat /var/www/html/inc/preload.append.php >> /var/www/html/inc/preload.php
+COPY ./conf/dokuwiki/patch/ /var/www/html/inc/_patches/
+RUN ( cd /var/www/html && \
+    cat ./inc/_patches/preload.append.php >> ./inc/preload.php && \
+    patch -p1 < ./inc/_patches/common.patch )
 
 # override storage setup entrypoint with our own:
 COPY --from=origin /dokuwiki-storagesetup.sh /dokuwiki-scripts/storagesetup-orig.sh
