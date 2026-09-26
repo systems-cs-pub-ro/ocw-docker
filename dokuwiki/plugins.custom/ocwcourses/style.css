@@ -1,0 +1,32 @@
+/* ocwcourses: built-in course list layout */
+
+.ocw-courses {
+	margin: 0.5em 0;
+}
+.ocw-courses-list {
+	border: none;
+	border-collapse: collapse;
+	margin: 0.25em 0 1em;
+}
+.ocw-courses-list td, .ocw-courses-list th {
+	padding: 0.75em;
+	border: none;
+	vertical-align: middle;
+}
+
+.ocw-courses-logo {
+	max-width: 200px;
+	text-align: right;
+}
+.ocw-courses-logo img {
+	max-width: 200px;
+}
+
+.ocw-courses-title {
+	font-size: 1.05em;
+	font-weight: bold;
+}
+
+.ocw-courses-missing { color: #b00; }
+
+

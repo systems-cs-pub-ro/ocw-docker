@@ -1,0 +1,5 @@
+base   ocwcourses
+author Florin Stancu <florin.stancu@upb.ro>
+date   2026-07-16
+name   OCW Courses
+desc   Lists courses from a PHP file (e.g., conf/courses.php) with categories and logos.
