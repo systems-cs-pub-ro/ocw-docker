@@ -33,6 +33,7 @@
 }
 
 #dokuwiki__aside > .pad,
+.sidebarRight #dokuwiki__aside > .pad,
 [dir=rtl] #dokuwiki__aside > .pad {
     margin: 0 0 .5em;
     /* style like .page */
@@ -155,7 +156,7 @@
 }
 
 body {
-    font-size: 100%;
+    font-size: 0.7em;
 }
 
 /*____________ structure ____________*/
@@ -274,8 +275,11 @@ body {
 /*____________ content ____________*/
 
 #dokuwiki__aside > .pad,
-.dokuwiki div.page {
+.sidebarRight #dokuwiki__aside > .pad,
+[dir=rtl] #dokuwiki__aside > .pad {
+    margin: 0;
     padding: .5em;
+    margin: 0;
 }
 
 /* form elements */
@@ -306,6 +310,26 @@ body {
     text-align: right;
 }
 
+.dokuwiki .page {
+    h1 {margin-left: 0;}
+    h2 {margin-left: 0.3rem;}
+    h3 {margin-left: 0.5rem;}
+    h4 {margin-left: 0.5rem;}
+    h5 {margin-left: 0.5rem;}
+    div.level1 {margin-left: 0;}
+    div.level2 {margin-left: 0.3rem;}
+    div.level3 {margin-left: 0.5rem;}
+    div.level4 {margin-left: 0.5rem;}
+    div.level5 {margin-left: 0.5rem;}
+
+    p, ul, ol, dl, pre, table, hr, blockquote, figure, details,
+    fieldset, address {
+        margin: 0 0 0.7em 0;
+        padding: 0;
+    }
+    li, dd { margin-left: 0.9em; }
+}
+
 /* _edit */
 .dokuwiki div.section_highlight {
     margin: 0;
@@ -319,4 +343,3 @@ body {
 
 
 } /* /@media */
-
