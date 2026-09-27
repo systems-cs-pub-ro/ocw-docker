@@ -39,15 +39,19 @@
 /*____________ links to wiki pages (addition to _links) ____________*/
 
 /* existing wikipage */
-.dokuwiki a.wikilink1 {
+.dokuwiki a.wikilink1,
+.dokuwiki .aside a.wikilink1 {
     color: @ini_existing;
     background-color: inherit;
 }
 
 /* not existing wikipage */
-.dokuwiki a.wikilink2 {
+.dokuwiki a.wikilink2,
+.dokuwiki .aside a.wikilink2 {
     color: @ini_missing;
     background-color: inherit;
+    text-decoration: none !important;
+    border-bottom: dashed 1px #ed5353 !important;
 }
 
 .dokuwiki div.page .ocw-courses-title {
