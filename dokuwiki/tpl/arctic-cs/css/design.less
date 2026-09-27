@@ -194,12 +194,12 @@
 form.search {
     display: block;
     position: relative;
-    margin-top: 1.2em;
-    margin-bottom: 1.2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 
     input {
         width: 12em;
-        padding: .3em .1em;
+        padding: .4em .5em;
     }
 
     button {
@@ -210,8 +210,11 @@ form.search {
         text-indent: 0;
         border: 1px solid @ini_border;
         box-shadow: none;
-        padding: .15em .5em;
+        padding: .4em .5em;
         font-size: 1em;
+        &:hover {
+            background: aliceblue;
+        }
     }
 
     #qsearch__out {
@@ -252,17 +255,17 @@ form.search {
 ********************************************************************/
 
 .dokuwiki .aside {
-    font-size: 0.875em;
+    font-size: 1em;
     overflow: hidden;
     word-wrap: break-word;
 
     /* make sidebar more condensed */
 
     h1 {
-        font-size: 120%;
+        font-size: 100%;
         font-weight: bold;
         background: @ini_background_alt;
-        padding: .1em .2em;
+        padding: .2em .3em;
         border: none;
         margin: 0 0 .2em;
         clear: none;
@@ -281,7 +284,7 @@ form.search {
     }
 
     ul, ol {
-        padding-left: .5em;
+        padding-left: .25em;
         margin-top: 0;
     }
 
@@ -298,7 +301,7 @@ form.search {
 
 [dir=rtl] .dokuwiki .aside ul,
 [dir=rtl] .dokuwiki .aside ol {
-    padding-right: .5em;
+    padding-right: .25em;
 }
 
 /* sidebar divider */
@@ -313,7 +316,7 @@ form.search {
     border-left: 1px solid @ini_border;
 
     > .pad {
-        margin: 0 0 0 1.5em;
+        margin: 0 0 0 0.5em;
     }
 }
 .sidebarRight.showSidebar #dokuwiki__content {
