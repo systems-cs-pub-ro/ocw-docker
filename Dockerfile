@@ -30,7 +30,7 @@ COPY ./dokuwiki/tpl/ /var/www/html/lib/tpl.core/
 COPY ./dokuwiki/patch/ /var/www/html/inc/_patches/
 RUN ( cd /var/www/html && \
     cat ./inc/_patches/preload.append.php >> ./inc/preload.php && \
-    patch -p1 < ./inc/_patches/common.patch )
+    patch -p1 < ./inc/_patches/idfilter.patch )
 
 # override storage setup entrypoint with our own:
 COPY --from=origin /dokuwiki-storagesetup.sh /dokuwiki-scripts/storagesetup-orig.sh

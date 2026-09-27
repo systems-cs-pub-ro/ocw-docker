@@ -1,3 +1,16 @@
+# Patch to override dokuwiki's page link generation routines when using Farm.
+#
+# It's a workaround for backwards compatibility when migrating to DokuWiki Farm,
+# where we automatically inject a root-level namespace with the same name as the
+# animal ID (e.g., `courses/uso/` injects `uso:` to all requests so it emulates
+# the old link structure);
+#
+# Since we now derive the root namespace from the sub-wiki name, we must tell
+# DokuWiki to automatically strip it from all generated URLs (e.g., to prevent 
+# rendering duplicate namespaces, e.g.: `/courses/uso/uso/...`).
+# Fortunately, it was pretty straight-forward, only needing to modify a single
+# function generating URLs and some of its callers.
+
 diff --git i/inc/common.php w/inc/common.php
 index a2f3b3102..82a992f0b 100644
 --- i/inc/common.php
@@ -58,3 +71,16 @@ index a2f3b3102..82a992f0b 100644
  
      // decide on scriptname
      if ($direct) {
+diff --git i/inc/html.php w/inc/html.php
+index eedd2afe0..3140fa221 100644
+--- i/inc/html.php
++++ w/inc/html.php
+@@ -210,7 +210,7 @@ function html_btn($name, $id, $akey, $params, $method = 'get', $tooltip = '', $l
+         $label = $lang['btn_' . $name];
+ 
+     //filter id (without urlencoding)
+-    $id = idfilter($id, false);
++    $id = idfilter($id, false, $conf['userewrite']);
+ 
+     //make nice URLs even for buttons
+     if ($conf['userewrite'] == 2) {
