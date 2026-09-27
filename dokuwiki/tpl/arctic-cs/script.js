@@ -9,6 +9,36 @@
 var device_class = ''; // not yet known
 var device_classes = 'desktop mobile tablet phone';
 
+// persist TOC open/closed state across pages
+function tpl_toc_state(){
+    var m = document.cookie.match(/(?:^|; )dw_toc=(open|closed)/);
+    return m ? m[1] : null;
+}
+function tpl_toc_save(state){
+    var d = new Date();
+    d.setFullYear(d.getFullYear() + 1);
+    document.cookie = 'dw_toc=' + state + '; expires=' + d.toUTCString() + '; path=/';
+}
+// instant (un-animated) TOC show/hide, replaces the core's sliding makeToggle
+function tpl_toc_set(hidden){
+    var $handle = jQuery('#dw__toc h3');
+    if(!$handle.length) return;
+    var $content = jQuery('#dw__toc > div');
+    $content.add($content.children()).stop(true, true);
+    $content.toggle(!hidden).attr('aria-expanded', !hidden);
+    $handle.toggleClass('closed', hidden).toggleClass('open', !hidden);
+    $handle.children('strong').html(hidden ? '<span>+</span>' : '<span>−</span>');
+}
+function tpl_toc_apply($toc){
+    if (!$toc.length) return;
+    var s = tpl_toc_state();
+    tpl_toc_set(s ? s === 'closed' : device_class != 'desktop');
+}
+
+// pin TOC hidden before the core's ready handler slides it closed,
+// so its initial slideUp has nothing to animate (script runs in <body> end)
+jQuery('#dw__toc > div').children().css('display', 'none');
+
 function tpl_dokuwiki_mobile(){
 
     // the z-index in mobile.css is (mis-)used purely for detecting the screen mode here
@@ -35,7 +65,6 @@ function tpl_dokuwiki_mobile(){
     // handle some layout changes based on change in device
     var $handle = jQuery('#dokuwiki__aside > div.aside > h3.toggle');
     var $toc = jQuery('#dw__toc h3.toggle');
-    console.log("TOC: ", $toc);
 
     if (device_class == 'desktop') {
         // reset for desktop mode
@@ -43,9 +72,7 @@ function tpl_dokuwiki_mobile(){
             $handle[0].setState(1);
             $handle.hide();
         }
-        if ($toc.length) {
-            $toc[0].setState(1);
-        }
+        tpl_toc_apply($toc);
     }
     if (device_class.match(/mobile/)){
         // toc and sidebar hiding
@@ -53,15 +80,22 @@ function tpl_dokuwiki_mobile(){
             $handle.show();
             $handle[0].setState(-1);
         }
-        if($toc.length) {
-            $toc[0].setState(-1);
-        }
+        tpl_toc_apply($toc);
     }
 }
 
 jQuery(function(){
     var resizeTimer;
+
     dw_page.makeToggle('#dokuwiki__aside > div.aside > h3.toggle','#dokuwiki__aside div.content');
+
+    // TOC toggle is vanilla / un-animated, stored in cookie
+    var $tocHandle = jQuery('#dw__toc h3');
+    $tocHandle.off('click').on('click', function(){
+        var hidden = !$tocHandle.hasClass('closed');
+        tpl_toc_set(hidden);
+        tpl_toc_save(hidden ? 'closed' : 'open');
+    });
 
     tpl_dokuwiki_mobile();
     jQuery(window).on('resize',
