@@ -1,0 +1,8 @@
+base   ocwredirect
+author Florin Stancu
+email  florin.stancu@upb.ro
+date   2026-09-26
+version 1.0.0
+name   OCW Redirect
+desc   Redirects specific pages via a wildcard/placeholder-aware conf file.
+url    https://ocw.cs.pub.ro/
