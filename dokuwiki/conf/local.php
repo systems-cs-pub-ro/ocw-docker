@@ -9,10 +9,13 @@ $conf['license'] = 'cc-by-sa';
 $conf['template'] = 'arctic-cs';
 $conf['useacl'] = 1;
 $conf['superuser'] = '@admin';
-$conf['disableactions'] = 'register';
+$conf['disableactions'] = 'register,resendpwd,source,export_raw';
 $conf['userewrite'] = 1;
 $conf['useslash'] = 1;
 $conf['useheading'] = 1;
+
+$conf['youarehere'] = 1;
+$conf['breadcrumbs'] = 0;
 
 // disable compress when developing templates
 /* $conf['compress'] = 0; */
