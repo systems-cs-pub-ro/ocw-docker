@@ -37,34 +37,47 @@
     }
 
     .logo {
+        float: left;
+        margin: .4em;
         font-size: 1.3em;
         font-weight: bold;
         line-height: 1.2;
-        margin: .4em;
         min-height: 80px;
         color: @ini_header_text;
 
         img {
-            float: left;
-            margin-right: .5em;
             height: 70px;
             width: auto;
         }
-
-        span {
-            display: block;
-            color: #AAA !important;
-            float: right;
-            padding-top: 0;
-        }
-        // span, .subtitle {
-        //     padding-top: 0;
-        // }
 
         a {
             text-decoration: none;
             color: @ini_text;
             background-color: inherit;
+        }
+    }
+
+    .auxHeader {
+        float: right;
+        margin: .4em;
+        font-size: 1.3em;
+        font-weight: bold;
+        line-height: 1.2;
+        color: @ini_header_text;
+        text-decoration: none !important;
+        font-variant: small-caps;
+        letter-spacing: 2pt;
+
+        img {
+            max-height: 70px;
+            width: auto;
+        }
+        a {
+            text-decoration: none;
+            color: @ini_header_text;
+            background-color: inherit;
+            font-variant: small-caps;
+            letter-spacing: 2pt;
         }
     }
 

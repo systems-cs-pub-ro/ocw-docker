@@ -7,7 +7,7 @@
 if (!defined('DOKU_INC')) die();
 
 use dokuwiki\template\arctic_cs\{TopPageMenu,UserMenu};
-use function dokuwiki\template\arctic_cs\tpl_render_menu_items;
+use function dokuwiki\template\arctic_cs\{tpl_render_menu_items,tpl_arctic_getCustomUrl};
 
 ?>
 
@@ -23,20 +23,47 @@ use function dokuwiki\template\arctic_cs\tpl_render_menu_items;
         <h1 class="logo"><?php
             // get logo either out of the template images folder or data/media folder
             $logoSize = [];
-            $logo = tpl_getMediaFile([
-                ':wiki:logo.svg', ':logo.svg',
-                ':wiki:logo.png', ':logo.png',
-                'images/logo.svg', 'images/logo.png'
-            ], false, $logoSize);
+            $tplConf = [];
+            if (!empty($conf['tpl']) && !empty($conf['tpl']['arctic-cs'])) {
+                $tplConf = $conf['tpl']['arctic-cs'] ?? [];
+            }
+            if ($tplConf['logo']) {
+                $logo = tpl_arctic_getCustomUrl($tplConf['logo']);
+            } else {
+                $logo = tpl_getMediaFile([
+                    ':wiki:logo.svg', ':logo.svg',
+                    ':wiki:logo.png', ':logo.png',
+                    'images/logo.svg', 'images/logo.png'
+                ], false, $logoSize);
+            }
             tpl_link(
                 wl(),
-                '<img src="' . $logo . '" ' . ($logoSize ? $logoSize[3] : '') . ' alt="" />' .
-                '<span>' . $conf['title'] . '</span>',
-                'accesskey="h" title="' . tpl_getLang('home') . ' [h]"'
+                ($logo ? 
+                    '<img src="' . hsc($logo) . '" ' . ($logoSize ? $logoSize[3] : '') .
+                    ' alt="'.hsc($conf['title']).'" />'
+                : '<span>' . $conf['title'] . '</span>'),
+                'accesskey="h" title="' . hsc($conf['title']) . ' [h]"'
             );
-            ?></h1>
+        ?></h1>
+        <?php if ($tplConf['auxHeader']): ?>
+        <div class="auxHeader">
+            <?php
+            $auxLogo = $tplConf['auxHeader']['logo'] ?? null;
+            if ($auxLogo) $auxLogo = tpl_arctic_getCustomUrl($auxLogo);
+            tpl_link(
+                tpl_arctic_getCustomUrl($tplConf['auxHeader']['url']),
+                ($auxLogo ? 
+                    '<img src="' . hsc($auxLogo) . '" ' .
+                    ' alt="'.hsc($tplConf['auxHeader']['title']).'" />'
+                : '<span>' . $tplConf['auxHeader']['title'] . '</span>'),
+                'accesskey="h" title="' . hsc($tplConf['auxHeader']['title']) . ' [h]"'
+            );
+            ?>
+        </div>
+        <?php endif ?>
+        
         <?php if ($conf['tagline']) : ?>
-            <p class="claim"><?php echo $conf['tagline']; ?></p>
+        <p class="claim"><?php echo $conf['tagline']; ?></p>
         <?php endif ?>
     </div>
 

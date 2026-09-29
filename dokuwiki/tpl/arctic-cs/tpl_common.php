@@ -76,3 +76,22 @@ function tpl_findsidebar($page = 'sidebar', $useacl = true)
 
     return false;
 }
+
+/**
+ * Converts a configured logo URL definition to actual dokuwiki URL.
+ */
+function tpl_arctic_getCustomUrl($url, $isMedia=false)
+{
+    global $conf;
+
+    if (str_contains($url, ':')) {
+        if ($isMedia) return ml($url, '', true);
+        return wl($url);
+    } else {
+        // check if absolute
+        if ($url[0] == '/') 
+            return $url;
+        return $conf['basedir'] . '/' . $url;
+    }
+}
+
