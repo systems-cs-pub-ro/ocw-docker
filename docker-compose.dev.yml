@@ -8,10 +8,13 @@ services:
     ports:
       - "8080:8080"
     environment:
-      PHP_TIMEZONE: Europe/Bucharest
-      DOKUWIKI_ADMIN_USER: admin
-      DOKUWIKI_ADMIN_PASSWORD: admin123
-      DOKUWIKI_DEMO_INSTALL: yes
+      APP_UID: "${APP_UID:-1000}"
+      APP_GID: "${APP_GID:-1000}"
+      PHP_TIMEZONE: "${TZ:-Europe/Bucharest}"
+      DOKUWIKI_ADMIN_USER: ${DOKUWIKI_ADMIN_USER:-admin}
+      DOKUWIKI_ADMIN_PASSWORD: ${DOKUWIKI_ADMIN_PASSWORD:-admin123}
+      # set to "yes" to install the demo
+      DOKUWIKI_DEMO_INSTALL: ${DOKUWIKI_DEMO_INSTALL:-yes}
     volumes:
       - ${DOKUWIKI_STORAGE_DIR:-./tmp}:/storage
       # uncomment for template development:

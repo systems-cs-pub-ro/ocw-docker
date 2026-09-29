@@ -12,7 +12,7 @@ ARG GID=1000
 
 # Install additional packages
 RUN apt-get update && \
-    apt-get install -y wget vim whois git rsync
+    apt-get install -y wget vim whois git rsync gosu
 
 COPY --chmod=0755 ./scripts/container/ /dokuwiki-scripts/
 RUN /dokuwiki-scripts/install-plugins.sh

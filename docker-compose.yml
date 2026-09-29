@@ -8,8 +8,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      PHP_TIMEZONE: Europe/Bucharest
-      DOKUWIKI_ADMIN_USER: admin
-      DOKUWIKI_ADMIN_PASSWORD: admin123
+      APP_UID: "${APP_UID:-33}"
+      APP_GID: "${APP_GID:-33}"
+      PHP_TIMEZONE: "${TZ:-Europe/Bucharest}"
+      DOKUWIKI_ADMIN_USER: ${DOKUWIKI_ADMIN_USER:-admin}
+      DOKUWIKI_ADMIN_PASSWORD: ${DOKUWIKI_ADMIN_PASSWORD:-admin123}
     volumes:
       - ${DOKUWIKI_STORAGE_DIR:-/var/dokuwiki/storage}:/storage
